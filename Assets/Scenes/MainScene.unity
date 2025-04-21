@@ -421,7 +421,7 @@ Transform:
   m_GameObject: {fileID: 826634289}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.62, z: 0.155}
+  m_LocalPosition: {x: 0, y: 1.62, z: 0.188}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1712,10 +1712,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4261241032769156904}
-  - component: {fileID: 4261241032769156908}
+  - component: {fileID: 4261241032769156905}
   - component: {fileID: 4261241032769156907}
   - component: {fileID: 4261241032769156906}
-  - component: {fileID: 4261241032769156905}
+  - component: {fileID: 4261241032769156908}
   m_Layer: 0
   m_Name: MainPlayerModel
   m_TagString: Untagged
@@ -2534,8 +2534,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1113897305256250758, guid: 4540c109455051b4dbad2d2358735ee4, type: 3}
-  - {fileID: -1360991219368177298, guid: 4540c109455051b4dbad2d2358735ee4, type: 3}
+  - {fileID: 2100000, guid: 28d6df9a98a5480459ad96239b32f7a3, type: 2}
+  - {fileID: 2100000, guid: 28d6df9a98a5480459ad96239b32f7a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
