@@ -15,6 +15,9 @@ public class ArmMovementMegaScript : MonoBehaviour
     public Vector3 sprintOffset = new Vector3(0.25f, -0.4f, 0.4f);
     public Vector3 sprintRotation = new Vector3(20f, 0f, 0f);
 
+    public Vector3 sprintBackOffset = new Vector3(0.2f, -0.3f, 0.6f);
+    public Vector3 sprintBackRotation = new Vector3(30f, 0f, 0f);
+
     [Header("Bobbing")]
     public float bobSpeed = 6f;
     public float bobAmount = 0.05f;
@@ -32,14 +35,19 @@ public class ArmMovementMegaScript : MonoBehaviour
     void LateUpdate()
     {
         bool isAiming = Input.GetMouseButton(1);
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1); // 💥 sprint blocked while aiming
-
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isAiming;
+        bool isBackpedaling = Input.GetKey(KeyCode.S);
 
         // Target state selection
         Vector3 targetOffset;
         Vector3 targetRotation;
 
-        if (isSprinting && !isAiming)
+        if (isSprinting && isBackpedaling)
+        {
+            targetOffset = sprintBackOffset;
+            targetRotation = sprintBackRotation;
+        }
+        else if (isSprinting)
         {
             targetOffset = sprintOffset;
             targetRotation = sprintRotation;
@@ -58,11 +66,11 @@ public class ArmMovementMegaScript : MonoBehaviour
         // Base follow position
         Vector3 basePos = cameraTransform.position + cameraTransform.TransformDirection(targetOffset);
 
-        // Bobbing
+        // Bobbing — only if NOT aiming
         float bobOffset = 0f;
         float sideBobOffset = 0f;
 
-        if (controller.isGrounded)
+        if (!isAiming && controller.isGrounded)
         {
             float activeSpeed = isSprinting ? sprintBobSpeed : bobSpeed;
             bobTimer += Time.deltaTime * activeSpeed;
@@ -78,7 +86,9 @@ public class ArmMovementMegaScript : MonoBehaviour
             bobTimer = 0f;
         }
 
-        Vector3 finalPos = basePos + cameraTransform.up * bobOffset + cameraTransform.right * sideBobOffset;
+        Vector3 finalPos = basePos +
+                           cameraTransform.up * bobOffset +
+                           cameraTransform.right * sideBobOffset;
 
         // Shooting shake (disabled while sprinting)
         if (Input.GetMouseButton(0) && !isSprinting)

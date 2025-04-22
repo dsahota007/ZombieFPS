@@ -2644,8 +2644,8 @@ Transform:
   m_GameObject: {fileID: 1583344107}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.5797, y: -0, z: 6.5055}
-  m_LocalScale: {x: 2.3159, y: 1, z: 2.3011}
+  m_LocalPosition: {x: -6.6396, y: 0, z: -2.1868}
+  m_LocalScale: {x: 10.212882, y: 1, z: 10.094172}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1127819399}
@@ -8415,11 +8415,13 @@ MonoBehaviour:
   adsOffset: {x: 0.03, y: -0.12, z: 0}
   adsRotation: {x: 0, y: 16.4, z: 0}
   sprintOffset: {x: 0.25, y: -0.4, z: 0.4}
-  sprintRotation: {x: 20, y: 0, z: 0}
-  bobSpeed: 6
-  bobAmount: 0.05
-  sprintBobSpeed: 10
-  sprintSideBobAmount: 0.08
+  sprintRotation: {x: 10, y: 0.3, z: 5.25}
+  sprintBackOffset: {x: 0.05, y: -0.3, z: 0.1}
+  sprintBackRotation: {x: -5.2, y: 0, z: 0}
+  bobSpeed: 3
+  bobAmount: 0.025
+  sprintBobSpeed: 25
+  sprintSideBobAmount: 0.3
   smoothSpeed: 8
   shootShakeAmount: 0.05
   shootShakeSpeed: 55
