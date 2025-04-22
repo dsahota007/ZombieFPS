@@ -26,8 +26,11 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        // ⏩ Sprint logic
-        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;
+        // 🛑 Prevent sprint while firing
+        bool isFiring = Input.GetMouseButton(1) && Input.GetMouseButton(1);
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isFiring;
+
+        float currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
 
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
@@ -45,4 +48,5 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
 }

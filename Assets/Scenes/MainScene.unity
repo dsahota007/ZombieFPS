@@ -8414,8 +8414,12 @@ MonoBehaviour:
   hipRotation: {x: 0, y: 17.98, z: 0}
   adsOffset: {x: 0.03, y: -0.12, z: 0}
   adsRotation: {x: 0, y: 16.4, z: 0}
+  sprintOffset: {x: 0.25, y: -0.4, z: 0.4}
+  sprintRotation: {x: 20, y: 0, z: 0}
   bobSpeed: 6
   bobAmount: 0.05
+  sprintBobSpeed: 10
+  sprintSideBobAmount: 0.08
   smoothSpeed: 8
   shootShakeAmount: 0.05
   shootShakeSpeed: 55
