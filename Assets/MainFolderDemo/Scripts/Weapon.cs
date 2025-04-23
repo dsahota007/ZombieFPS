@@ -1,6 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public Transform weaponOffset; // set in prefab (child transform with correct pos/rot/scale)
+    public Transform weaponOffset;
+    public Transform magazine; // 🔥 Assign the mag mesh from the prefab
 }

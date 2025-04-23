@@ -251,3 +251,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponOffset: {fileID: 787812244939625826}
+  magazine: {fileID: 8351563822257541975}

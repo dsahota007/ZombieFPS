@@ -5947,6 +5947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponOffset: {fileID: 0}
+  magazine: {fileID: 5230128998365231554}
 --- !u!1 &8027666018750598299
 GameObject:
   m_ObjectHideFlags: 0

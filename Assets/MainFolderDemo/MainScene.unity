@@ -2475,11 +2475,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d65d87992ca7a438fe2b26d88433e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainArms: {fileID: 4656300441899845121}
   weaponHolder: {fileID: 301391218}
+  leftArm: {fileID: 7637772888687164386}
   weaponPrefabs:
   - {fileID: 7896929993975101864, guid: 13ab37c3410bcc94e80c25bf63ec2a00, type: 3}
   - {fileID: 7744400271436646905, guid: 5db8bda51ef5fda4abd4bcc680a65907, type: 3}
   - {fileID: 7319026743648896754, guid: e8e5f6e41449c8145b6c6dc88aa3fe14, type: 3}
+  reloadMoveAmount: 0.2
+  reloadDuration: 1
 --- !u!1 &1545319258
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,6 +2748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponOffset: {fileID: 0}
+  magazine: {fileID: 0}
 --- !u!1 &1613077961
 GameObject:
   m_ObjectHideFlags: 0
@@ -4520,23 +4525,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694606382bc04f24da2bf116b098ba56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 826634292}
-  controller: {fileID: 561119874}
+  cameraTransform: {fileID: 0}
+  controller: {fileID: 0}
   hipOffset: {x: 0.29, y: -0.21, z: 0.24}
   hipRotation: {x: 0, y: 17.98, z: 0}
   adsOffset: {x: 0.03, y: -0.12, z: 0}
   adsRotation: {x: 0, y: 16.4, z: 0}
   sprintOffset: {x: 0.25, y: -0.4, z: 0.4}
-  sprintRotation: {x: 10, y: 0.3, z: 5.25}
-  sprintBackOffset: {x: 0.05, y: -0.3, z: 0.1}
-  sprintBackRotation: {x: -5.2, y: 0, z: 0}
-  bobSpeed: 3
-  bobAmount: 0.025
-  sprintBobSpeed: 25
-  sprintSideBobAmount: 0.3
+  sprintRotation: {x: 20, y: 0, z: 0}
+  sprintBackOffset: {x: 0.2, y: -0.3, z: 0.6}
+  sprintBackRotation: {x: 30, y: 0, z: 0}
+  bobSpeed: 6
+  bobAmount: 0.05
+  sprintBobSpeed: 10
+  sprintSideBobAmount: 0.08
   smoothSpeed: 8
   shootShakeAmount: 0.05
-  shootShakeSpeed: 55
+  shootShakeSpeed: 15
 --- !u!4 &5640334131998495611
 Transform:
   m_ObjectHideFlags: 0
