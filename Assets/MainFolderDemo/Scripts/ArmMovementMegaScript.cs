@@ -13,21 +13,21 @@ public class ArmMovementMegaScript : MonoBehaviour
     public Vector3 adsRotation = new Vector3(0f, 16.4f, 0f);
 
     public Vector3 sprintOffset = new Vector3(0.25f, -0.4f, 0.4f);
-    public Vector3 sprintRotation = new Vector3(20f, 0f, 0f);
+    public Vector3 sprintRotation = new Vector3(20f, 0f, 8.14f);
 
-    public Vector3 sprintBackOffset = new Vector3(0.2f, -0.3f, 0.6f);
-    public Vector3 sprintBackRotation = new Vector3(30f, 0f, 0f);
+    public Vector3 sprintBackOffset = new Vector3(0.2f, -0.3f, 0.39f);
+    public Vector3 sprintBackRotation = new Vector3(-26.6f, -1.35f, 0f);
 
     [Header("Bobbing")]
-    public float bobSpeed = 6f;
-    public float bobAmount = 0.05f;
-    public float sprintBobSpeed = 10f;
-    public float sprintSideBobAmount = 0.08f;
+    public float bobSpeed = 4f;
+    public float bobAmount = 0.015f;
+    public float sprintBobSpeed = 26.26f;
+    public float sprintSideBobAmount = 0.26f;
     public float smoothSpeed = 8f;
 
     [Header("Shoot Shake")]
-    public float shootShakeAmount = 0.05f;
-    public float shootShakeSpeed = 15f;
+    public float shootShakeAmount = 0.04f;
+    public float shootShakeSpeed = 45f;
 
     private float bobTimer;
     private float shootTimer;
