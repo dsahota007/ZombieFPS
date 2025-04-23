@@ -1338,7 +1338,7 @@ Transform:
   m_GameObject: {fileID: 561119872}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.324, y: 0.579, z: -0.244}
+  m_LocalPosition: {x: 5.927, y: 0.579, z: -0.244}
   m_LocalScale: {x: 1, y: 1.0899999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2475,15 +2475,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d65d87992ca7a438fe2b26d88433e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainArms: {fileID: 4656300441899845121}
   weaponHolder: {fileID: 301391218}
-  leftArm: {fileID: 7637772888687164386}
   weaponPrefabs:
   - {fileID: 7896929993975101864, guid: 13ab37c3410bcc94e80c25bf63ec2a00, type: 3}
   - {fileID: 7744400271436646905, guid: 5db8bda51ef5fda4abd4bcc680a65907, type: 3}
   - {fileID: 7319026743648896754, guid: e8e5f6e41449c8145b6c6dc88aa3fe14, type: 3}
-  reloadMoveAmount: 0.2
-  reloadDuration: 1
+  leftArm: {fileID: 7637772888687164386}
+  controller: {fileID: 561119874}
+  reloadMoveAmount: 1.14
+  reloadDuration: 0.2
 --- !u!1 &1545319258
 GameObject:
   m_ObjectHideFlags: 0
@@ -4525,8 +4525,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694606382bc04f24da2bf116b098ba56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
-  controller: {fileID: 0}
+  cameraTransform: {fileID: 826634292}
+  controller: {fileID: 561119874}
   hipOffset: {x: 0.29, y: -0.21, z: 0.24}
   hipRotation: {x: 0, y: 17.98, z: 0}
   adsOffset: {x: 0.03, y: -0.12, z: 0}
