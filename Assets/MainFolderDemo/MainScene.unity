@@ -2747,8 +2747,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24523b50742b2f439ab417c133737e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponOffset: {fileID: 0}
-  magazine: {fileID: 0}
 --- !u!1 &1613077961
 GameObject:
   m_ObjectHideFlags: 0
