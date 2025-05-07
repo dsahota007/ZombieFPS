@@ -1314,7 +1314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 561119877}
   cam: {fileID: 826634292}
-  mouseSensitivity: 843
+  mouseSensitivity: 837.6
   verticalClamp: 90
 --- !u!114 &561119876
 MonoBehaviour:
