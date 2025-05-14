@@ -4535,7 +4535,7 @@ MonoBehaviour:
   recoilReturnSpeed: 10
   bobSpeed: 9
   bobAmount: 0.015
-  sprintBobSpeed: 25
+  sprintBobSpeed: 26
   sprintSideBobAmount: 0.26
   smoothSpeed: 8
   idleBobSpeed: 2
