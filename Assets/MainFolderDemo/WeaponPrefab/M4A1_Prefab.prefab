@@ -5954,6 +5954,10 @@ MonoBehaviour:
   fireType: 2
   fireRate: 0.1
   burstDelay: 0.08
+  reloadMoveAmount: 0.2
+  reloadDuration: 0.2
+  reloadTime: 1
+  leftArm: {fileID: 0}
 --- !u!1 &8027666018750598299
 GameObject:
   m_ObjectHideFlags: 0

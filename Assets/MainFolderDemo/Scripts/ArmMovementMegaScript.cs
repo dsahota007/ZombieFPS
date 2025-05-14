@@ -18,6 +18,10 @@ public class ArmMovementMegaScript : MonoBehaviour
     public Vector3 sprintBackOffset = new Vector3(0.2f, -0.3f, 0.39f);
     public Vector3 sprintBackRotation = new Vector3(-26.6f, -1.35f, 0f);
 
+    [Header("Recoil Settings")]
+    public float recoilAmount = 0.05f;
+    public float recoilReturnSpeed = 10f;
+
     [Header("Bobbing")]
     public float bobSpeed = 4f;
     public float bobAmount = 0.015f;
@@ -25,12 +29,14 @@ public class ArmMovementMegaScript : MonoBehaviour
     public float sprintSideBobAmount = 0.26f;
     public float smoothSpeed = 8f;
 
-    [Header("Shoot Shake")]
-    public float shootShakeAmount = 0.04f;
-    public float shootShakeSpeed = 45f;
+    [Header("Idle Bobbing")]
+    public float idleBobSpeed = 2f;
+    public float idleBobAmount = 0.005f;
+
 
     private float bobTimer;
-    private float shootTimer;
+    private Vector3 currentRecoilOffset = Vector3.zero;
+    private Vector3 targetRecoilOffset = Vector3.zero;
 
     void LateUpdate()
     {
@@ -38,7 +44,7 @@ public class ArmMovementMegaScript : MonoBehaviour
         bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isAiming;
         bool isBackpedaling = Input.GetKey(KeyCode.S);
 
-        // Target state selection
+        // Target offset & rotation
         Vector3 targetOffset;
         Vector3 targetRotation;
 
@@ -63,22 +69,29 @@ public class ArmMovementMegaScript : MonoBehaviour
             targetRotation = hipRotation;
         }
 
-        // Base follow position
+        // Base position
         Vector3 basePos = cameraTransform.position + cameraTransform.TransformDirection(targetOffset);
 
-        // Bobbing — only if NOT aiming
+        // Sprinting/idle bob
         float bobOffset = 0f;
         float sideBobOffset = 0f;
 
-        if (!isAiming && controller.isGrounded)
+        if (controller.isGrounded)
         {
-            float activeSpeed = isSprinting ? sprintBobSpeed : bobSpeed;
-            bobTimer += Time.deltaTime * activeSpeed;
-            bobOffset = Mathf.Sin(bobTimer) * bobAmount;
-
             if (isSprinting)
             {
+                bobTimer += Time.deltaTime * sprintBobSpeed;
+                bobOffset = Mathf.Sin(bobTimer) * bobAmount;
                 sideBobOffset = Mathf.Sin(bobTimer * 0.5f) * sprintSideBobAmount;
+            }
+            else if (!isAiming) // idle bob only if not aiming or sprinting
+            {
+                bobTimer += Time.deltaTime * idleBobSpeed;
+                bobOffset = Mathf.Sin(bobTimer) * idleBobAmount;
+            }
+            else
+            {
+                bobTimer = 0f;
             }
         }
         else
@@ -86,25 +99,29 @@ public class ArmMovementMegaScript : MonoBehaviour
             bobTimer = 0f;
         }
 
+
+        // Recoil
+        currentRecoilOffset = Vector3.Lerp(currentRecoilOffset, targetRecoilOffset, Time.deltaTime * recoilReturnSpeed);
+
+        // Final position
         Vector3 finalPos = basePos +
                            cameraTransform.up * bobOffset +
-                           cameraTransform.right * sideBobOffset;
+                           cameraTransform.right * sideBobOffset +
+                           cameraTransform.forward * currentRecoilOffset.z;
 
-        // Shooting shake (disabled while sprinting)
-        if (Input.GetMouseButton(0) && !isSprinting)
-        {
-            shootTimer += Time.deltaTime * shootShakeSpeed;
-            float shootShake = Mathf.Sin(shootTimer) * shootShakeAmount;
-            finalPos += cameraTransform.forward * shootShake;
-        }
-        else
-        {
-            shootTimer = 0f;
-        }
-
-        // Apply position & rotation
         transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);
         Quaternion targetRot = cameraTransform.rotation * Quaternion.Euler(targetRotation);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * smoothSpeed);
+    }
+
+    public void TriggerRecoil()
+    {
+        targetRecoilOffset = new Vector3(0f, 0f, -recoilAmount);
+        Invoke(nameof(ResetRecoil), 0.02f);
+    }
+
+    private void ResetRecoil()
+    {
+        targetRecoilOffset = Vector3.zero;
     }
 }
