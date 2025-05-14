@@ -4533,13 +4533,13 @@ MonoBehaviour:
   sprintBackRotation: {x: -26.6, y: -1.35, z: 0}
   recoilAmount: 0.5
   recoilReturnSpeed: 10
-  bobSpeed: 4
+  bobSpeed: 9
   bobAmount: 0.015
-  sprintBobSpeed: 12
+  sprintBobSpeed: 25
   sprintSideBobAmount: 0.26
   smoothSpeed: 8
   idleBobSpeed: 2
-  idleBobAmount: 0.005
+  idleBobAmount: 0.015
 --- !u!4 &5640334131998495611
 Transform:
   m_ObjectHideFlags: 0

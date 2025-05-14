@@ -174,6 +174,7 @@ public class Weapon : MonoBehaviour
     // ✅ Sprint check only by key input
     private bool IsSprinting()
     {
-        return Input.GetKey(KeyCode.LeftShift);
+        return Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1);
+
     }
 }
