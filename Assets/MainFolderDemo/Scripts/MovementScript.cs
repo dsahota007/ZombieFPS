@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        // 🛑 Prevent sprint while firing
+        // Prevent sprint while firing
         bool isFiring = Input.GetMouseButton(1) && Input.GetMouseButton(1);
         bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isFiring;
 
