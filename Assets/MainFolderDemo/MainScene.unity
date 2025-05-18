@@ -1412,7 +1412,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Cntrols:\n\nPress 1 to swap  \n \n \n \n\n\n"
+  m_Text: "Cntrols:\n\n \n \n \n\n\n"
 --- !u!222 &480215486
 CanvasRenderer:
   m_ObjectHideFlags: 0
