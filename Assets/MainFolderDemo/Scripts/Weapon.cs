@@ -45,7 +45,7 @@ public class Weapon : MonoBehaviour
         {
             if (fireRoutine != null)
             {
-                Debug.LogWarning("🛑 Sprinting — stopped firing");
+                Debug.LogWarning("Sprinting — stopped firing");
                 StopFiring();
             }
             return;
@@ -93,7 +93,7 @@ public class Weapon : MonoBehaviour
         {
             if (IsSprinting())
             {
-                Debug.Log("❌ BurstFire interrupted: sprinting");
+                Debug.Log("BurstFire interrupted: sprinting");
                 break;
             }
 
@@ -110,7 +110,7 @@ public class Weapon : MonoBehaviour
         {
             if (IsSprinting())
             {
-                Debug.Log("❌ AutoFire interrupted: sprinting");
+                Debug.Log("AutoFire interrupted: sprinting");
                 break;
             }
 
@@ -171,7 +171,6 @@ public class Weapon : MonoBehaviour
         isReloading = false;
     }
 
-    // ✅ Sprint check only by key input
     private bool IsSprinting()
     {
         return Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1);
