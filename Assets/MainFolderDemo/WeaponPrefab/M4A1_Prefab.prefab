@@ -5957,6 +5957,8 @@ MonoBehaviour:
   reloadMoveAmount: 1.5
   reloadDuration: 0.5
   reloadTime: 1
+  clipSize: 30
+  maxReserve: 180
   leftArm: {fileID: 0}
   controller: {fileID: 0}
 --- !u!1 &8027666018750598299

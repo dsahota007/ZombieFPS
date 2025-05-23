@@ -25,13 +25,29 @@ public class Weapon : MonoBehaviour
     public float reloadDuration = 0.2f;
     public float reloadTime = 1.0f;
 
+    [Header("Ammo Settings")]
+    public int clipSize;
+    public int maxReserve;
+
+    private int currentAmmo;
+    private int ammoReserve;
+
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
 
     private bool isReloading = false;
     private Coroutine fireRoutine;
 
-    public bool IsReloading => isReloading;
+    public bool IsReloading
+    {
+        get { return isReloading; }
+    }
+
+    void Start()
+    {
+        currentAmmo = clipSize;
+        ammoReserve = maxReserve;
+    }
 
     void Update()
     {
@@ -43,11 +59,7 @@ public class Weapon : MonoBehaviour
 
         if (IsSprinting())
         {
-            if (fireRoutine != null)
-            {
-                Debug.LogWarning("Sprinting — stopped firing");
-                StopFiring();
-            }
+            StopFiring();
             return;
         }
 
@@ -74,28 +86,34 @@ public class Weapon : MonoBehaviour
     {
         if (IsSprinting())
         {
-            Debug.Log("❌ BLOCKED: Cannot shoot while sprinting (Shift held)");
+            Debug.Log("BLOCKED: Cannot shoot while sprinting");
             return;
         }
 
-        if (bulletPrefab == null || firePoint == null) return;
+        if (!CanShoot())
+        {
+            Debug.Log("Click! Out of ammo");
+            return;
+        }
 
-        Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
+        currentAmmo--;
 
-        ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-        if (armMover != null)
-            armMover.TriggerRecoil();
+        if (bulletPrefab != null && firePoint != null)
+        {
+            Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
+
+            ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
+            if (armMover != null)
+                armMover.TriggerRecoil();
+        }
     }
 
     private IEnumerator BurstFire()
     {
         for (int i = 0; i < 3; i++)
         {
-            if (IsSprinting())
-            {
-                Debug.Log("BurstFire interrupted: sprinting");
-                break;
-            }
+            if (!CanShoot()) break;
+            if (IsSprinting()) break;
 
             Shoot();
             yield return new WaitForSeconds(burstDelay);
@@ -108,11 +126,8 @@ public class Weapon : MonoBehaviour
     {
         while (Input.GetMouseButton(0))
         {
-            if (IsSprinting())
-            {
-                Debug.Log("AutoFire interrupted: sprinting");
-                break;
-            }
+            if (!CanShoot()) break;
+            if (IsSprinting()) break;
 
             Shoot();
             yield return new WaitForSeconds(fireRate);
@@ -132,11 +147,11 @@ public class Weapon : MonoBehaviour
 
     public void StartReload()
     {
-        if (!isReloading && magazine != null && leftArm != null)
-        {
-            StopFiring();
-            StartCoroutine(Reload());
-        }
+        if (isReloading || currentAmmo == clipSize || ammoReserve <= 0)
+            return;
+
+        StopFiring();
+        StartCoroutine(Reload());
     }
 
     private IEnumerator Reload()
@@ -159,6 +174,12 @@ public class Weapon : MonoBehaviour
 
         yield return new WaitForSeconds(reloadTime);
 
+        int needed = clipSize - currentAmmo;
+        int toReload = Mathf.Min(needed, ammoReserve);
+
+        currentAmmo += toReload;
+        ammoReserve -= toReload;
+
         t = 0f;
         while (t < 1f)
         {
@@ -174,6 +195,21 @@ public class Weapon : MonoBehaviour
     private bool IsSprinting()
     {
         return Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1);
+    }
 
+    private bool CanShoot()
+    {
+        return currentAmmo > 0;
+    }
+
+    // Optional: UI getters
+    public int GetCurrentAmmo()
+    {
+        return currentAmmo;
+    }
+
+    public int GetAmmoReserve()
+    {
+        return ammoReserve;
     }
 }

@@ -11,6 +11,8 @@ public class WeaponManager : MonoBehaviour
     private GameObject currentWeapon;    //These store the currently equipped weapon GameObject and its script
     private Weapon currentWeaponScript;
 
+    public static Weapon ActiveWeapon; // 🔥 Global access to current weapon
+
 
     //func to d
     public bool IsReloading => currentWeaponScript != null && currentWeaponScript.IsReloading;
@@ -44,6 +46,10 @@ public class WeaponManager : MonoBehaviour
             currentWeaponScript.leftArm = leftArm;
             currentWeaponScript.controller = controller;
 
+            // Assign global reference
+            ActiveWeapon = currentWeaponScript;
+
+            // Position weapon
             if (currentWeaponScript.weaponOffset != null)
             {
                 newWeapon.transform.localPosition = currentWeaponScript.weaponOffset.localPosition;
@@ -58,5 +64,6 @@ public class WeaponManager : MonoBehaviour
             }
         }
     }
+
 
 }
