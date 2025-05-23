@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    public Transform weaponHolder;
-    public GameObject[] weaponPrefabs;
-    public Transform leftArm;
-    public CharacterController controller;
+    public Transform weaponHolder;  //empty where its gonna be 
+    public GameObject[] weaponPrefabs;   //list empty
+    public Transform leftArm;           // left arm for reloading
+    public CharacterController controller;       //Reference to the player’s CharacterController (used for sprinting logic).
 
-    private GameObject currentWeapon;
+    private GameObject currentWeapon;    //These store the currently equipped weapon GameObject and its script
     private Weapon currentWeaponScript;
 
+
+    //func to d
     public bool IsReloading => currentWeaponScript != null && currentWeaponScript.IsReloading;
 
     void Start()

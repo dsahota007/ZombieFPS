@@ -5953,7 +5953,7 @@ MonoBehaviour:
     type: 3}
   fireType: 2
   fireRate: 0.1
-  burstDelay: 0.08
+  burstDelay: 0.02
   reloadMoveAmount: 1.5
   reloadDuration: 0.5
   reloadTime: 1
