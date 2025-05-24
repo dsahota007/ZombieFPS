@@ -15,6 +15,10 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
+    [Header("Weapon Info")]
+    public string weaponName;
+
+
     [Header("Fire Settings")]
     public FireType fireType = FireType.Single;
     public float fireRate = 0.1f;
@@ -37,6 +41,8 @@ public class Weapon : MonoBehaviour
 
     private bool isReloading = false;
     private Coroutine fireRoutine;
+
+
 
     public bool IsReloading
     {
