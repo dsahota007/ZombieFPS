@@ -1412,28 +1412,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Controls:
-
-
-    Press 1 to swap weapons
-
-
-    Press R to reload
-
-
-    Hold
-    Shift to sprint
-
-
-    Left Mouse Button to shoot
-
-
-    Right Mouse Button to
-    aim
-
-
-
-'
+  m_Text: "Cntrols:\n\nPress 1 to swap weapons\n\nPress R to reload\n\nHoold Shift
+    to sprint\n\nLeft Mouse Button to shoot\n\n \n\n\n"
 --- !u!222 &480215486
 CanvasRenderer:
   m_ObjectHideFlags: 0
