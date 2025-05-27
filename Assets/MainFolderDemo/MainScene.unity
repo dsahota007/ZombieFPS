@@ -1415,7 +1415,7 @@ MonoBehaviour:
   m_Text: "Controls:\n\nPress 1 to swap weapons\n\nPress R to reload\n\nHold Shift
     to sprint\n\nLeft Mouse Button to shoot\n\nRight Mouse Button to aim\n\nNote:
     Bullet sizes are intentionally large for easier collision detection.\nThis is
-    an early pre-alpha build \u2014 everything is still a work in progress!\n\n"
+    an early pre-alpha build \u2014 everything is still a work in progress\n\n"
 --- !u!222 &480215486
 CanvasRenderer:
   m_ObjectHideFlags: 0
