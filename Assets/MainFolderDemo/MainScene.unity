@@ -3331,11 +3331,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 301391218}
+  leftArm: {fileID: 7637772888687164386}
+  rightArm: {fileID: 7138732185366571710}
   weaponPrefabs:
   - {fileID: 7896929993975101864, guid: 13ab37c3410bcc94e80c25bf63ec2a00, type: 3}
   - {fileID: 7319026743648896754, guid: e8e5f6e41449c8145b6c6dc88aa3fe14, type: 3}
   - {fileID: 7744400271436646905, guid: 5db8bda51ef5fda4abd4bcc680a65907, type: 3}
-  leftArm: {fileID: 7637772888687164386}
   controller: {fileID: 561119874}
 --- !u!1 &1545319258
 GameObject:
@@ -5573,6 +5574,8 @@ MonoBehaviour:
   sprintRotation: {x: 20, y: 0, z: 8.41}
   sprintBackOffset: {x: 0.2, y: -0.3, z: 0.39}
   sprintBackRotation: {x: -26.6, y: -1.35, z: 0}
+  reloadOffset: {x: 0, y: -0.05, z: -0.05}
+  reloadRotation: {x: 4, y: -44.53, z: 0}
   recoilAmount: 0.5
   recoilReturnSpeed: 10
   bobSpeed: 9

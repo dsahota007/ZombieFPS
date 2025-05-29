@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class WeaponManager : MonoBehaviour
 {
     public Transform weaponHolder;
-    public GameObject[] weaponPrefabs;
     public Transform leftArm;
+    public Transform rightArm;
+    public GameObject[] weaponPrefabs;
     public CharacterController controller;
 
     private GameObject[] weapons = new GameObject[2];
@@ -15,10 +17,19 @@ public class WeaponManager : MonoBehaviour
 
     public bool IsReloading => ActiveWeapon != null && ActiveWeapon.IsReloading;
 
+    private Vector3 weaponHolderOriginalPos;
+    private Vector3 leftArmOriginalPos;
+    private Vector3 rightArmOriginalPos;
+    private bool isSwitching = false;
+
     void Start()
     {
+        weaponHolderOriginalPos = weaponHolder.localPosition;
+        leftArmOriginalPos = leftArm.localPosition;
+        rightArmOriginalPos = rightArm.localPosition;
+
         SpawnWeapons();
-        EquipWeapon(0); // Start with weapon 0
+        EquipWeaponInstant(0);
     }
 
     void Update()
@@ -30,10 +41,10 @@ public class WeaponManager : MonoBehaviour
             ActiveWeapon?.StartReload();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !isSwitching)
         {
             int nextIndex = (currentWeaponIndex == 0) ? 1 : 0;
-            EquipWeapon(nextIndex);
+            StartCoroutine(SwitchWeaponWithDrop(nextIndex));
         }
     }
 
@@ -68,16 +79,65 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    void EquipWeapon(int index)
+    IEnumerator SwitchWeaponWithDrop(int index)
     {
-        if (index < 0 || index >= weapons.Length || weapons[index] == null)
-            return;
+        if (index < 0 || index >= weapons.Length || index == currentWeaponIndex)
+            yield break;
 
-        // Cancel reload on the currently active weapon BEFORE switching
+        isSwitching = true;
+
+        Vector3 downOffset = new Vector3(0f, -0.3f, 0f);
+        Vector3 holderDown = weaponHolderOriginalPos + downOffset;
+        Vector3 leftDown = leftArmOriginalPos + downOffset;
+        Vector3 rightDown = rightArmOriginalPos + downOffset;
+
+        yield return StartCoroutine(MoveAllThree(weaponHolder, leftArm, rightArm,
+            weaponHolderOriginalPos, holderDown,
+            leftArmOriginalPos, leftDown,
+            rightArmOriginalPos, rightDown,
+            0.1f));
+
         if (ActiveWeapon != null)
             ActiveWeapon.CancelReload();
 
-        // Deactivate all weapons first
+        for (int i = 0; i < weapons.Length; i++)
+            if (weapons[i] != null)
+                weapons[i].SetActive(i == index);
+
+        currentWeaponIndex = index;
+        ActiveWeapon = weaponScripts[index];
+
+        if (ActiveWeapon != null)
+            ActiveWeapon.CancelReload();
+
+        yield return StartCoroutine(MoveAllThree(weaponHolder, leftArm, rightArm,
+            holderDown, weaponHolderOriginalPos,
+            leftDown, leftArmOriginalPos,
+            rightDown, rightArmOriginalPos,
+            0.1f));
+
+        isSwitching = false;
+    }
+
+    IEnumerator MoveAllThree(Transform holder, Transform left, Transform right,
+        Vector3 fromHolder, Vector3 toHolder,
+        Vector3 fromLeft, Vector3 toLeft,
+        Vector3 fromRight, Vector3 toRight,
+        float duration)
+    {
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / duration;
+            holder.localPosition = Vector3.Lerp(fromHolder, toHolder, t);
+            left.localPosition = Vector3.Lerp(fromLeft, toLeft, t);
+            right.localPosition = Vector3.Lerp(fromRight, toRight, t);
+            yield return null;
+        }
+    }
+
+    void EquipWeaponInstant(int index)
+    {
         for (int i = 0; i < weapons.Length; i++)
         {
             if (weapons[i] != null)
@@ -86,12 +146,5 @@ public class WeaponManager : MonoBehaviour
 
         currentWeaponIndex = index;
         ActiveWeapon = weaponScripts[index];
-
-        // Just in case the new weapon was stuck in reload (e.g., switched while inactive)
-        if (ActiveWeapon != null)
-            ActiveWeapon.CancelReload();
     }
-
-
-
 }

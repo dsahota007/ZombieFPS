@@ -176,6 +176,11 @@ public class Weapon : MonoBehaviour
     {
         isReloading = true;
 
+        // Trigger reload tilt
+        ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
+        if (armMover != null)
+            armMover.ReloadOffset(true);
+
         Vector3 magStart = magazine.localPosition;
         Vector3 armStart = leftArm.localPosition;
         Vector3 magDown = magStart + new Vector3(0f, -reloadMoveAmount, 0f);
@@ -208,6 +213,10 @@ public class Weapon : MonoBehaviour
         }
 
         isReloading = false;
+
+        // Reset reload tilt
+        if (armMover != null)
+            armMover.ReloadOffset(false);
     }
 
     private bool IsSprinting()
@@ -246,8 +255,13 @@ public class Weapon : MonoBehaviour
             // Reset mag
             if (magazine != null)
                 magazine.localPosition = initialMagPos;
+
+            ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
+            if (armMover != null)
+                armMover.ReloadOffset(false);
         }
     }
+
 
 
 

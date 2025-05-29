@@ -18,6 +18,11 @@ public class ArmMovementMegaScript : MonoBehaviour
     public Vector3 sprintBackOffset = new Vector3(0.2f, -0.3f, 0.39f);
     public Vector3 sprintBackRotation = new Vector3(-26.6f, -1.35f, 0f);
 
+    [Header("Reload Offset")]
+    public Vector3 reloadOffset = new Vector3(0f, -0.05f, -0.05f);
+    public Vector3 reloadRotation = new Vector3(4f, 0f, 0f);
+    private bool isReloading = false;
+
     [Header("Recoil Settings")]
     public float recoilAmount = 0.05f;
     public float recoilReturnSpeed = 10f;
@@ -28,26 +33,21 @@ public class ArmMovementMegaScript : MonoBehaviour
     public float sprintBobSpeed = 26.26f;
     public float sprintSideBobAmount = 0.26f;
     public float smoothSpeed = 8f;
-
-    [Header("Idle Bobbing")]
     public float idleBobSpeed = 2f;
     public float idleBobAmount = 0.005f;
 
     private Vector3 defaultLocalPosition;
     private Vector3 defaultLocalRotation;
 
-
-
     private float bobTimer;
     private Vector3 currentRecoilOffset = Vector3.zero;
     private Vector3 targetRecoilOffset = Vector3.zero;
 
     void Start()
-{
-    defaultLocalPosition = transform.localPosition;
-    defaultLocalRotation = transform.localRotation.eulerAngles;
-}
-
+    {
+        defaultLocalPosition = transform.localPosition;
+        defaultLocalRotation = transform.localRotation.eulerAngles;
+    }
 
     void LateUpdate()
     {
@@ -55,11 +55,15 @@ public class ArmMovementMegaScript : MonoBehaviour
         bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isAiming;
         bool isBackpedaling = Input.GetKey(KeyCode.S);
 
-        // Target offset & rotation
         Vector3 targetOffset;
         Vector3 targetRotation;
 
-        if (isSprinting && isBackpedaling)
+        if (isReloading)
+        {
+            targetOffset = hipOffset + reloadOffset;
+            targetRotation = hipRotation + reloadRotation;
+        }
+        else if (isSprinting && isBackpedaling)
         {
             targetOffset = sprintBackOffset;
             targetRotation = sprintBackRotation;
@@ -80,10 +84,8 @@ public class ArmMovementMegaScript : MonoBehaviour
             targetRotation = hipRotation;
         }
 
-        // Base position
         Vector3 basePos = cameraTransform.position + cameraTransform.TransformDirection(targetOffset);
 
-        // Sprinting/idle bob
         float bobOffset = 0f;
         float sideBobOffset = 0f;
 
@@ -95,7 +97,7 @@ public class ArmMovementMegaScript : MonoBehaviour
                 bobOffset = Mathf.Sin(bobTimer) * bobAmount;
                 sideBobOffset = Mathf.Sin(bobTimer * 0.5f) * sprintSideBobAmount;
             }
-            else if (!isAiming) // idle bob only if not aiming or sprinting
+            else if (!isAiming)
             {
                 bobTimer += Time.deltaTime * idleBobSpeed;
                 bobOffset = Mathf.Sin(bobTimer) * idleBobAmount;
@@ -110,17 +112,15 @@ public class ArmMovementMegaScript : MonoBehaviour
             bobTimer = 0f;
         }
 
-
-        // Recoil
         currentRecoilOffset = Vector3.Lerp(currentRecoilOffset, targetRecoilOffset, Time.deltaTime * recoilReturnSpeed);
 
-        // Final position
         Vector3 finalPos = basePos +
                            cameraTransform.up * bobOffset +
                            cameraTransform.right * sideBobOffset +
                            cameraTransform.forward * currentRecoilOffset.z;
 
         transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);
+
         Quaternion targetRot = cameraTransform.rotation * Quaternion.Euler(targetRotation);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * smoothSpeed);
     }
@@ -142,4 +142,8 @@ public class ArmMovementMegaScript : MonoBehaviour
         transform.localRotation = Quaternion.Euler(defaultLocalRotation);
     }
 
+    public void ReloadOffset(bool state)
+    {
+        isReloading = state;
+    }
 }
