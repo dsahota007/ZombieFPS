@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
+    private Vector3 lastMoveDirection;  //for float movement continuation
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -35,8 +37,28 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * currentSpeed * Time.deltaTime);
+        Vector3 inputDirection = transform.right * x + transform.forward * z;
+
+        if (isGrounded)
+        {
+            // If grounded, use current input and save it
+            lastMoveDirection = inputDirection.normalized;
+        }
+        else
+        {
+            // If airborne and no input, continue last direction
+            if (inputDirection.magnitude == 0)
+            {
+                inputDirection = lastMoveDirection;
+            }
+            else
+            {
+                // If player provides new input in air, update last direction
+                lastMoveDirection = inputDirection.normalized;
+            }
+        }
+
+        controller.Move(inputDirection * currentSpeed * Time.deltaTime);
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -48,5 +70,4 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
-
 }
