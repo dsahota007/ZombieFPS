@@ -28,8 +28,8 @@ public class ArmMovementMegaScript : MonoBehaviour
     public float recoilReturnSpeed = 10f;
 
     [Header("Bobbing")]
-    public float bobSpeed = 4f;
-    public float bobAmount = 0.015f;
+    //public float bobSpeed = 4f;
+    //public float bobAmount = 0.015f;
     public float sprintBobSpeed = 26.26f;
     public float sprintSideBobAmount = 0.26f;
     public float smoothSpeed = 8f;
@@ -94,7 +94,7 @@ public class ArmMovementMegaScript : MonoBehaviour
             if (isSprinting)
             {
                 bobTimer += Time.deltaTime * sprintBobSpeed;
-                bobOffset = Mathf.Sin(bobTimer) * bobAmount;
+                //bobOffset = Mathf.Sin(bobTimer) * bobAmount;
                 sideBobOffset = Mathf.Sin(bobTimer * 0.5f) * sprintSideBobAmount;
             }
             else if (!isAiming)
