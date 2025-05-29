@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 lastMoveDirection;  //stores last movement direction
 
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
