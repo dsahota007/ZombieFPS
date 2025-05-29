@@ -218,4 +218,7 @@ public class Weapon : MonoBehaviour
     {
         return ammoReserve;
     }
+
+
+
 }
