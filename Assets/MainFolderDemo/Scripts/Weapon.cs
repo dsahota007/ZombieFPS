@@ -10,14 +10,14 @@ public enum FireType
 
 public class Weapon : MonoBehaviour
 {
+    [Header("Setup")]
     public Transform weaponOffset;
     public Transform magazine;
     public Transform firePoint;
     public GameObject bulletPrefab;
 
-    [Header("Weapon Info")]
+    [Header("Info")]
     public string weaponName;
-
 
     [Header("Fire Settings")]
     public FireType fireType = FireType.Single;
@@ -29,15 +29,15 @@ public class Weapon : MonoBehaviour
     public float reloadDuration = 0.2f;
     public float reloadTime = 1.0f;
 
-    [Header("Ammo Settings")]
-    public int clipSize;
-    public int maxReserve;
-
-    private int currentAmmo;
-    private int ammoReserve;
+    [Header("Ammo")]
+    public int clipSize = 30;
+    public int maxReserve = 90;
 
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
+
+    private int currentAmmo;
+    private int ammoReserve;
 
     private bool isReloading = false;
     private Coroutine fireRoutine;
@@ -45,37 +45,20 @@ public class Weapon : MonoBehaviour
     private Vector3 initialLeftArmPos;
     private Vector3 initialMagPos;
 
-    //private bool wasReloadingInterrupted = false;
+    public bool IsReloading => isReloading;
 
-
-
-    public bool IsReloading
-    {
-        get { return isReloading; }
-    }
     void Start()
     {
         currentAmmo = clipSize;
         ammoReserve = maxReserve;
 
-        if (leftArm != null)
-            initialLeftArmPos = leftArm.localPosition;
-
-        if (magazine != null)
-            initialMagPos = magazine.localPosition;
+        if (leftArm != null) initialLeftArmPos = leftArm.localPosition;
+        if (magazine != null) initialMagPos = magazine.localPosition;
     }
-
-
 
     void Update()
     {
-        if (isReloading)
-        {
-            StopFiring();
-            return;
-        }
-
-        if (IsSprinting())
+        if (isReloading || IsSprinting())
         {
             StopFiring();
             return;
@@ -84,8 +67,7 @@ public class Weapon : MonoBehaviour
         switch (fireType)
         {
             case FireType.Single:
-                if (Input.GetMouseButtonDown(0))
-                    Shoot();
+                if (Input.GetMouseButtonDown(0)) Shoot();
                 break;
 
             case FireType.Burst:
@@ -102,59 +84,39 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (IsSprinting())
-        {
-            Debug.Log("BLOCKED: Cannot shoot while sprinting");
-            return;
-        }
-
-        if (!CanShoot())
-        {
-            Debug.Log("Click! Out of ammo");
-            return;
-        }
+        if (!CanShoot() || IsSprinting()) return;
 
         currentAmmo--;
 
-        if (bulletPrefab != null && firePoint != null)
-        {
+        if (bulletPrefab && firePoint)
             Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
 
-            ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-            if (armMover != null)
-                armMover.TriggerRecoil();
-        }
+        ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
+        if (armMover) armMover.TriggerRecoil();
     }
 
-    private IEnumerator BurstFire()
+    IEnumerator BurstFire()
     {
         for (int i = 0; i < 3; i++)
         {
-            if (!CanShoot()) break;
-            if (IsSprinting()) break;
-
+            if (!CanShoot() || IsSprinting()) break;
             Shoot();
             yield return new WaitForSeconds(burstDelay);
         }
-
         fireRoutine = null;
     }
 
-    private IEnumerator AutoFire()
+    IEnumerator AutoFire()
     {
-        while (Input.GetMouseButton(0))
+        while (Input.GetMouseButton(0) && CanShoot() && !IsSprinting())
         {
-            if (!CanShoot()) break;
-            if (IsSprinting()) break;
-
             Shoot();
             yield return new WaitForSeconds(fireRate);
         }
-
         fireRoutine = null;
     }
 
-    private void StopFiring()
+    void StopFiring()
     {
         if (fireRoutine != null)
         {
@@ -165,26 +127,23 @@ public class Weapon : MonoBehaviour
 
     public void StartReload()
     {
-        if (isReloading || currentAmmo == clipSize || ammoReserve <= 0)
-            return;
+        if (isReloading || currentAmmo == clipSize || ammoReserve <= 0) return;
 
         StopFiring();
         StartCoroutine(Reload());
     }
 
-    private IEnumerator Reload()
+    IEnumerator Reload()
     {
         isReloading = true;
 
-        // Trigger reload tilt
         ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-        if (armMover != null)
-            armMover.ReloadOffset(true);
+        if (armMover) armMover.ReloadOffset(true);
 
         Vector3 magStart = magazine.localPosition;
         Vector3 armStart = leftArm.localPosition;
-        Vector3 magDown = magStart + new Vector3(0f, -reloadMoveAmount, 0f);
-        Vector3 armDown = armStart + new Vector3(0f, -reloadMoveAmount, 0f);
+        Vector3 magDown = magStart + Vector3.down * reloadMoveAmount;
+        Vector3 armDown = armStart + Vector3.down * reloadMoveAmount;
 
         float t = 0f;
         while (t < 1f)
@@ -199,7 +158,6 @@ public class Weapon : MonoBehaviour
 
         int needed = clipSize - currentAmmo;
         int toReload = Mathf.Min(needed, ammoReserve);
-
         currentAmmo += toReload;
         ammoReserve -= toReload;
 
@@ -214,9 +172,21 @@ public class Weapon : MonoBehaviour
 
         isReloading = false;
 
-        // Reset reload tilt
-        if (armMover != null)
-            armMover.ReloadOffset(false);
+        if (armMover) armMover.ReloadOffset(false);
+    }
+
+    public void CancelReload()
+    {
+        if (!isReloading) return;
+
+        StopAllCoroutines();
+        isReloading = false;
+
+        if (leftArm != null) leftArm.localPosition = initialLeftArmPos;
+        if (magazine != null) magazine.localPosition = initialMagPos;
+
+        ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
+        if (armMover) armMover.ReloadOffset(false);
     }
 
     private bool IsSprinting()
@@ -229,41 +199,6 @@ public class Weapon : MonoBehaviour
         return currentAmmo > 0;
     }
 
-    // Optional: UI getters
-    public int GetCurrentAmmo()
-    {
-        return currentAmmo;
-    }
-
-    public int GetAmmoReserve()
-    {
-        return ammoReserve;
-    }
-
-
-    public void CancelReload()
-    {
-        if (isReloading)
-        {
-            StopAllCoroutines();
-            isReloading = false;
-
-            // Reset arm
-            if (leftArm != null)
-                leftArm.localPosition = initialLeftArmPos;
-
-            // Reset mag
-            if (magazine != null)
-                magazine.localPosition = initialMagPos;
-
-            ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-            if (armMover != null)
-                armMover.ReloadOffset(false);
-        }
-    }
-
-
-
-
-
+    public int GetCurrentAmmo() => currentAmmo;
+    public int GetAmmoReserve() => ammoReserve;
 }

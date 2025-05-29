@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class AmmoUI : MonoBehaviour
 {
-    public Text ammoText;     // Drag your AmmoText UI object here
-    public Text nameText;     // Drag your GunNameText UI object here
+    public Text ammoText;     
+    public Text nameText;     
 
     void Update()
     {

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class WeaponManager : MonoBehaviour
 {
+    [Header("References")]
     public Transform weaponHolder;
     public Transform leftArm;
     public Transform rightArm;
@@ -12,15 +13,15 @@ public class WeaponManager : MonoBehaviour
     private GameObject[] weapons = new GameObject[2];
     private Weapon[] weaponScripts = new Weapon[2];
     private int currentWeaponIndex = 0;
-
-    public static Weapon ActiveWeapon;
-
-    public bool IsReloading => ActiveWeapon != null && ActiveWeapon.IsReloading;
+    private bool isSwitching = false;
 
     private Vector3 weaponHolderOriginalPos;
     private Vector3 leftArmOriginalPos;
     private Vector3 rightArmOriginalPos;
-    private bool isSwitching = false;
+
+    public static Weapon ActiveWeapon;
+
+    public bool IsReloading => ActiveWeapon != null && ActiveWeapon.IsReloading;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class WeaponManager : MonoBehaviour
         rightArmOriginalPos = rightArm.localPosition;
 
         SpawnWeapons();
-        EquipWeaponInstant(0);
+        EquipWeaponInstant(0); // Start with weapon 0
     }
 
     void Update()
@@ -86,52 +87,46 @@ public class WeaponManager : MonoBehaviour
 
         isSwitching = true;
 
-        Vector3 downOffset = new Vector3(0f, -0.3f, 0f);
-        Vector3 holderDown = weaponHolderOriginalPos + downOffset;
-        Vector3 leftDown = leftArmOriginalPos + downOffset;
-        Vector3 rightDown = rightArmOriginalPos + downOffset;
+        // Animate down
+        Vector3 dropOffset = new Vector3(0f, -0.3f, 0f);
+        Vector3 weaponDown = weaponHolderOriginalPos + dropOffset;
+        Vector3 leftDown = leftArmOriginalPos + dropOffset;
+        Vector3 rightDown = rightArmOriginalPos + dropOffset;
 
-        yield return StartCoroutine(MoveAllThree(weaponHolder, leftArm, rightArm,
-            weaponHolderOriginalPos, holderDown,
-            leftArmOriginalPos, leftDown,
-            rightArmOriginalPos, rightDown,
-            0.1f));
+        yield return StartCoroutine(MoveAll(weaponHolder, weaponHolderOriginalPos, weaponDown,
+                                            leftArm, leftArmOriginalPos, leftDown,
+                                            rightArm, rightArmOriginalPos, rightDown, 0.1f));
 
-        if (ActiveWeapon != null)
-            ActiveWeapon.CancelReload();
+        // Cancel reload & switch
+        ActiveWeapon?.CancelReload();
 
         for (int i = 0; i < weapons.Length; i++)
-            if (weapons[i] != null)
-                weapons[i].SetActive(i == index);
+            weapons[i].SetActive(i == index);
 
         currentWeaponIndex = index;
         ActiveWeapon = weaponScripts[index];
+        ActiveWeapon?.CancelReload();
 
-        if (ActiveWeapon != null)
-            ActiveWeapon.CancelReload();
-
-        yield return StartCoroutine(MoveAllThree(weaponHolder, leftArm, rightArm,
-            holderDown, weaponHolderOriginalPos,
-            leftDown, leftArmOriginalPos,
-            rightDown, rightArmOriginalPos,
-            0.1f));
+        // Animate back up
+        yield return StartCoroutine(MoveAll(weaponHolder, weaponDown, weaponHolderOriginalPos,
+                                            leftArm, leftDown, leftArmOriginalPos,
+                                            rightArm, rightDown, rightArmOriginalPos, 0.1f));
 
         isSwitching = false;
     }
 
-    IEnumerator MoveAllThree(Transform holder, Transform left, Transform right,
-        Vector3 fromHolder, Vector3 toHolder,
-        Vector3 fromLeft, Vector3 toLeft,
-        Vector3 fromRight, Vector3 toRight,
-        float duration)
+    IEnumerator MoveAll(Transform w, Vector3 fromW, Vector3 toW,
+                        Transform l, Vector3 fromL, Vector3 toL,
+                        Transform r, Vector3 fromR, Vector3 toR,
+                        float duration)
     {
         float t = 0f;
         while (t < 1f)
         {
             t += Time.deltaTime / duration;
-            holder.localPosition = Vector3.Lerp(fromHolder, toHolder, t);
-            left.localPosition = Vector3.Lerp(fromLeft, toLeft, t);
-            right.localPosition = Vector3.Lerp(fromRight, toRight, t);
+            w.localPosition = Vector3.Lerp(fromW, toW, t);
+            l.localPosition = Vector3.Lerp(fromL, toL, t);
+            r.localPosition = Vector3.Lerp(fromR, toR, t);
             yield return null;
         }
     }
@@ -140,8 +135,7 @@ public class WeaponManager : MonoBehaviour
     {
         for (int i = 0; i < weapons.Length; i++)
         {
-            if (weapons[i] != null)
-                weapons[i].SetActive(i == index);
+            weapons[i].SetActive(i == index);
         }
 
         currentWeaponIndex = index;

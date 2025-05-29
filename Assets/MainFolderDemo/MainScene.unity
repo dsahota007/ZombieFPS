@@ -1658,9 +1658,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9160fa62cd1367c4ba7967d7b38bc788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
+  walkSpeed: 7.75
   sprintSpeed: 9
-  gravity: -9.81
+  gravity: -12.81
   jumpHeight: 2
 --- !u!143 &561119874
 CharacterController:
@@ -5570,18 +5570,16 @@ MonoBehaviour:
   hipRotation: {x: 0, y: 17.98, z: 0}
   adsOffset: {x: 0.03, y: -0.12, z: 0}
   adsRotation: {x: 0, y: 16.4, z: 0}
-  sprintOffset: {x: 0.25, y: -0.4, z: 0.4}
-  sprintRotation: {x: 20, y: 0, z: 8.41}
-  sprintBackOffset: {x: 0.2, y: -0.3, z: 0.39}
+  sprintOffset: {x: 0.45, y: -0.4, z: 0.4}
+  sprintRotation: {x: 22, y: -25, z: 8.4}
+  sprintBackOffset: {x: 0.2, y: -0.3, z: 0.4}
   sprintBackRotation: {x: -26.6, y: -1.35, z: 0}
   reloadOffset: {x: 0, y: -0.05, z: -0.05}
   reloadRotation: {x: 4, y: -25, z: -22}
   recoilAmount: 0.5
   recoilReturnSpeed: 10
-  bobSpeed: 9
-  bobAmount: 0.015
-  sprintBobSpeed: 26
-  sprintSideBobAmount: 0.26
+  sprintBobSpeed: 32
+  sprintSideBobAmount: 0.4
   smoothSpeed: 8
   idleBobSpeed: 2
   idleBobAmount: 0.015
