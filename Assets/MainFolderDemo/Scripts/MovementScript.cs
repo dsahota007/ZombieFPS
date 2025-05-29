@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
-    private Vector3 lastMoveDirection;  //for float movement continuation
+    private Vector3 lastMoveDirection;  //stores last movement direction
 
     void Start()
     {
@@ -34,19 +34,18 @@ public class PlayerMovement : MonoBehaviour
 
         float currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
 
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        float x_input = Input.GetAxisRaw("Horizontal");
+        float z_input = Input.GetAxisRaw("Vertical");
 
-        Vector3 inputDirection = transform.right * x + transform.forward * z;
+        Vector3 inputDirection = transform.right * x_input + transform.forward * z_input;  //------------
 
         if (isGrounded)
         {
-            // If grounded, use current input and save it
-            lastMoveDirection = inputDirection.normalized;
+            lastMoveDirection = inputDirection.normalized;  //if you jump right after walking forward, it "remembers" that direction
         }
         else
         {
-            // If airborne and no input, continue last direction
+            // If you aren’t pressing any movement keys and in the air we have that stored last direction and if u move mid air we update it
             if (inputDirection.magnitude == 0)
             {
                 inputDirection = lastMoveDirection;
@@ -60,13 +59,12 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(inputDirection * currentSpeed * Time.deltaTime);
 
-        // Jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        // Gravity
+        //grav
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
