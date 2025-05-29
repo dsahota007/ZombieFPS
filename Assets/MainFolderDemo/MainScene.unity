@@ -3333,8 +3333,8 @@ MonoBehaviour:
   weaponHolder: {fileID: 301391218}
   weaponPrefabs:
   - {fileID: 7896929993975101864, guid: 13ab37c3410bcc94e80c25bf63ec2a00, type: 3}
-  - {fileID: 7744400271436646905, guid: 5db8bda51ef5fda4abd4bcc680a65907, type: 3}
   - {fileID: 7319026743648896754, guid: e8e5f6e41449c8145b6c6dc88aa3fe14, type: 3}
+  - {fileID: 7744400271436646905, guid: 5db8bda51ef5fda4abd4bcc680a65907, type: 3}
   leftArm: {fileID: 7637772888687164386}
   controller: {fileID: 561119874}
 --- !u!1 &1545319258

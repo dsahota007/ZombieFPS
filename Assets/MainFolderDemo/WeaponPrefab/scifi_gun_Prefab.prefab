@@ -3641,6 +3641,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3549770194798088125}
+  - {fileID: 938034465882472248}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6495444186593482994
@@ -3657,8 +3658,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponOffset: {fileID: 3549770194798088125}
   magazine: {fileID: 7868953799214688767}
-  firePoint: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+  firePoint: {fileID: 938034465882472248}
+  bulletPrefab: {fileID: 6410560179999154620, guid: fdcae1bd4cb08e341ad2dcfa0e7cb465,
+    type: 3}
+  weaponName: Weapon 2
+  fireType: 2
+  fireRate: 0.1
+  burstDelay: 0.1
+  reloadMoveAmount: 0.5
+  reloadDuration: 0.2
+  reloadTime: 0.5
+  clipSize: 10
+  maxReserve: 30
+  leftArm: {fileID: 0}
+  controller: {fileID: 0}
 --- !u!1 &7568744691437007823
 GameObject:
   m_ObjectHideFlags: 0
@@ -4433,6 +4446,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &9086381121011080263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938034465882472248}
+  m_Layer: 0
+  m_Name: Firepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &938034465882472248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086381121011080263}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.004631967, y: 0.66244847, z: 0.00425643, w: 0.74908113}
+  m_LocalPosition: {x: 1.677, y: 0.812, z: 0.52699995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7951342089764111273}
+  m_LocalEulerAnglesHint: {x: -0.721, y: 82.976, z: 0.014}
 --- !u!1 &9088571977542432778
 GameObject:
   m_ObjectHideFlags: 0

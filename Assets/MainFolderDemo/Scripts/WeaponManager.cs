@@ -73,6 +73,11 @@ public class WeaponManager : MonoBehaviour
         if (index < 0 || index >= weapons.Length || weapons[index] == null)
             return;
 
+        // Cancel reload on the currently active weapon BEFORE switching
+        if (ActiveWeapon != null)
+            ActiveWeapon.CancelReload();
+
+        // Deactivate all weapons first
         for (int i = 0; i < weapons.Length; i++)
         {
             if (weapons[i] != null)
@@ -81,5 +86,12 @@ public class WeaponManager : MonoBehaviour
 
         currentWeaponIndex = index;
         ActiveWeapon = weaponScripts[index];
+
+        // Just in case the new weapon was stuck in reload (e.g., switched while inactive)
+        if (ActiveWeapon != null)
+            ActiveWeapon.CancelReload();
     }
+
+
+
 }

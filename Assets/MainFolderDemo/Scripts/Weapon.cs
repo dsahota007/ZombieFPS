@@ -42,18 +42,30 @@ public class Weapon : MonoBehaviour
     private bool isReloading = false;
     private Coroutine fireRoutine;
 
+    private Vector3 initialLeftArmPos;
+    private Vector3 initialMagPos;
+
+    //private bool wasReloadingInterrupted = false;
+
 
 
     public bool IsReloading
     {
         get { return isReloading; }
     }
-
     void Start()
     {
         currentAmmo = clipSize;
         ammoReserve = maxReserve;
+
+        if (leftArm != null)
+            initialLeftArmPos = leftArm.localPosition;
+
+        if (magazine != null)
+            initialMagPos = magazine.localPosition;
     }
+
+
 
     void Update()
     {
@@ -218,6 +230,25 @@ public class Weapon : MonoBehaviour
     {
         return ammoReserve;
     }
+
+
+    public void CancelReload()
+    {
+        if (isReloading)
+        {
+            StopAllCoroutines();
+            isReloading = false;
+
+            // Reset arm
+            if (leftArm != null)
+                leftArm.localPosition = initialLeftArmPos;
+
+            // Reset mag
+            if (magazine != null)
+                magazine.localPosition = initialMagPos;
+        }
+    }
+
 
 
 

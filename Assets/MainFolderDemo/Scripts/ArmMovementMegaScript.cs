@@ -34,8 +34,7 @@ public class ArmMovementMegaScript : MonoBehaviour
     public float idleBobAmount = 0.005f;
 
     private Vector3 defaultLocalPosition;
-    private Quaternion defaultLocalRotation;
-
+    private Vector3 defaultLocalRotation;
 
 
 
@@ -44,11 +43,10 @@ public class ArmMovementMegaScript : MonoBehaviour
     private Vector3 targetRecoilOffset = Vector3.zero;
 
     void Start()
-    {
-        defaultLocalPosition = transform.localPosition;
-        defaultLocalRotation = transform.localRotation;
-    }
-
+{
+    defaultLocalPosition = transform.localPosition;
+    defaultLocalRotation = transform.localRotation.eulerAngles;
+}
 
 
     void LateUpdate()
@@ -141,8 +139,7 @@ public class ArmMovementMegaScript : MonoBehaviour
     public void ResetArmPosition()
     {
         transform.localPosition = defaultLocalPosition;
-        transform.localRotation = defaultLocalRotation;
+        transform.localRotation = Quaternion.Euler(defaultLocalRotation);
     }
-
 
 }
