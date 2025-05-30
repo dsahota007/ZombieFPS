@@ -5960,10 +5960,10 @@ MonoBehaviour:
   reloadTime: 1
   clipSize: 30
   maxReserve: 1000
-  recoilAngle: 6
+  recoilAngle: 12
   recoilSnappiness: 6
   recoilReturnSpeed: 6
-  kickbackAmount: 0.05
+  kickbackAmount: 0.15
   kickbackReturnSpeed: 12
   leftArm: {fileID: 0}
   controller: {fileID: 0}

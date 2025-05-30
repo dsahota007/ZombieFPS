@@ -57,6 +57,8 @@ public class Weapon : MonoBehaviour
     private Vector3 targetKickbackOffset = Vector3.zero;
     private ArmMovementMegaScript armMover;
 
+    private float nextFireTime = 0f; // --- NEW: controls delay for single fire ---
+
     public bool IsReloading => isReloading;
 
     void Start()
@@ -85,7 +87,11 @@ public class Weapon : MonoBehaviour
         switch (fireType)
         {
             case FireType.Single:
-                if (Input.GetMouseButtonDown(0)) Shoot();
+                if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
+                {
+                    Shoot();
+                    nextFireTime = Time.time + fireRate;
+                }
                 break;
 
             case FireType.Burst:
@@ -108,7 +114,7 @@ public class Weapon : MonoBehaviour
             cam.localRotation *= Quaternion.Euler(-currentRecoil, 0f, 0f);
         }
 
-        // ---- Kickback logic (NEW, additive only) ----
+        // ---- Kickback logic (additive only) ----
         currentKickbackOffset = Vector3.Lerp(currentKickbackOffset, targetKickbackOffset, Time.deltaTime * kickbackReturnSpeed);
         if (armMover != null)
             armMover.externalKickbackOffset = currentKickbackOffset;
@@ -124,7 +130,7 @@ public class Weapon : MonoBehaviour
             Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
 
         ApplyRecoil();
-        ApplyKickback(); // <-- Add kickback each shot
+        ApplyKickback();
     }
 
     private void ApplyRecoil()
@@ -251,3 +257,8 @@ public class Weapon : MonoBehaviour
     public int GetCurrentAmmo() => currentAmmo;
     public int GetAmmoReserve() => ammoReserve;
 }
+
+
+
+
+

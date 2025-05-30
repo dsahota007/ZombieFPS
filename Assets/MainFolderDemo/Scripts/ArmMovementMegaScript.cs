@@ -41,7 +41,7 @@ public class ArmMovementMegaScript : MonoBehaviour
     private float bobTimer;
     private Vector3 swayRotation;
 
-    [HideInInspector] public Vector3 externalKickbackOffset = Vector3.zero; // <-- Added
+    [HideInInspector] public Vector3 externalKickbackOffset = Vector3.zero;
 
     void Start()
     {
@@ -134,8 +134,10 @@ public class ArmMovementMegaScript : MonoBehaviour
         Vector3 basePos = cameraTransform.position + cameraTransform.TransformDirection(targetOffset);
         Vector3 finalPos = basePos +
                            cameraTransform.up * verticalBob +
-                           cameraTransform.right * sideBob +
-                           externalKickbackOffset; // <-- Add kickback here!
+                           cameraTransform.right * sideBob;
+
+        // *** Apply kickback as a movement perfectly along local Z/forward, after all other effects ***
+        finalPos += transform.forward * externalKickbackOffset.z;
 
         transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);
 
