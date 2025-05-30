@@ -20,10 +20,6 @@ public class ArmMovementMegaScript : MonoBehaviour
     public Vector3 reloadRotation = new Vector3(4f, 0f, 0f);
     private bool isReloading = false;
 
-    [Header("Kickback")]
-    public float kickbackAmount = 0.05f;
-    public float kickbackReturnSpeed = 10f;
-
     [Header("Bobbing")]
     public float sprintBobSpeed = 26.26f;
     public float sprintSideBobAmount = 0.26f;
@@ -43,9 +39,9 @@ public class ArmMovementMegaScript : MonoBehaviour
     private Vector3 defaultLocalRotation;
 
     private float bobTimer;
-    private Vector3 currentKickbackOffset = Vector3.zero;
-    private Vector3 targetKickbackOffset = Vector3.zero;
     private Vector3 swayRotation;
+
+    [HideInInspector] public Vector3 externalKickbackOffset = Vector3.zero; // <-- Added
 
     void Start()
     {
@@ -123,9 +119,6 @@ public class ArmMovementMegaScript : MonoBehaviour
             bobTimer = 0f;
         }
 
-        // Kickback logic
-        currentKickbackOffset = Vector3.Lerp(currentKickbackOffset, targetKickbackOffset, Time.deltaTime * kickbackReturnSpeed);
-
         // Input sway (disabled when aiming)
         if (!isAiming)
         {
@@ -142,23 +135,12 @@ public class ArmMovementMegaScript : MonoBehaviour
         Vector3 finalPos = basePos +
                            cameraTransform.up * verticalBob +
                            cameraTransform.right * sideBob +
-                           cameraTransform.forward * currentKickbackOffset.z;
+                           externalKickbackOffset; // <-- Add kickback here!
 
         transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);
 
         Quaternion baseRot = cameraTransform.rotation * Quaternion.Euler(targetRotation);
         transform.rotation = Quaternion.Slerp(transform.rotation, baseRot * Quaternion.Euler(swayRotation), Time.deltaTime * smoothSpeed);
-    }
-
-    public void TriggerKickback()
-    {
-        targetKickbackOffset = new Vector3(0f, 0f, -kickbackAmount);
-        Invoke(nameof(ResetKickback), 0.02f);
-    }
-
-    private void ResetKickback()
-    {
-        targetKickbackOffset = Vector3.zero;
     }
 
     public void ResetArmPosition()
@@ -172,4 +154,3 @@ public class ArmMovementMegaScript : MonoBehaviour
         isReloading = state;
     }
 }
-

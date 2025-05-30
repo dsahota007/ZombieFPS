@@ -5963,6 +5963,8 @@ MonoBehaviour:
   recoilAngle: 6
   recoilSnappiness: 6
   recoilReturnSpeed: 6
+  kickbackAmount: 0.05
+  kickbackReturnSpeed: 12
   leftArm: {fileID: 0}
   controller: {fileID: 0}
 --- !u!1 &8027666018750598299

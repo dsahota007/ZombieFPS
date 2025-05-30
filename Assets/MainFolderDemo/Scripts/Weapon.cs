@@ -33,6 +33,10 @@ public class Weapon : MonoBehaviour
     public float recoilSnappiness = 12f;
     public float recoilReturnSpeed = 6f;
 
+    [Header("Kickback")]
+    public float kickbackAmount = 0.05f;     // How much to move the gun/arms back per shot
+    public float kickbackReturnSpeed = 12f;  // How quickly it returns to original position
+
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
 
@@ -48,6 +52,11 @@ public class Weapon : MonoBehaviour
     private float targetRecoil = 0f;
     private Transform cam; // Camera reference for recoil
 
+    // Kickback fields
+    private Vector3 currentKickbackOffset = Vector3.zero;
+    private Vector3 targetKickbackOffset = Vector3.zero;
+    private ArmMovementMegaScript armMover;
+
     public bool IsReloading => isReloading;
 
     void Start()
@@ -60,6 +69,9 @@ public class Weapon : MonoBehaviour
 
         // Grab camera
         cam = Camera.main.transform;
+
+        // Reference for arm movement (kickback)
+        armMover = FindObjectOfType<ArmMovementMegaScript>();
     }
 
     void Update()
@@ -95,6 +107,11 @@ public class Weapon : MonoBehaviour
         {
             cam.localRotation *= Quaternion.Euler(-currentRecoil, 0f, 0f);
         }
+
+        // ---- Kickback logic (NEW, additive only) ----
+        currentKickbackOffset = Vector3.Lerp(currentKickbackOffset, targetKickbackOffset, Time.deltaTime * kickbackReturnSpeed);
+        if (armMover != null)
+            armMover.externalKickbackOffset = currentKickbackOffset;
     }
 
     public void Shoot()
@@ -107,12 +124,24 @@ public class Weapon : MonoBehaviour
             Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
 
         ApplyRecoil();
+        ApplyKickback(); // <-- Add kickback each shot
     }
 
     private void ApplyRecoil()
     {
         float recoilX = Random.Range(recoilAngle * 0.8f, recoilAngle * 1.2f);
         targetRecoil += recoilX; // Add more recoil upwards
+    }
+
+    private void ApplyKickback()
+    {
+        targetKickbackOffset = new Vector3(0f, 0f, -kickbackAmount);
+        Invoke(nameof(ResetKickback), 0.03f); // Fast reset for punchy feel
+    }
+
+    private void ResetKickback()
+    {
+        targetKickbackOffset = Vector3.zero;
     }
 
     IEnumerator BurstFire()
