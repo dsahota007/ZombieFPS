@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum FireType
-{
-    Single,
-    Burst,
-    Auto
-}
+public enum FireType { Single, Burst, Auto }
 
 public class Weapon : MonoBehaviour
 {
@@ -33,27 +28,25 @@ public class Weapon : MonoBehaviour
     public int clipSize = 30;
     public int maxReserve = 90;
 
-    [Header("Recoil / Kickback")]
-    public float kickbackAmount = 0.05f;
-    public float cameraRecoilPerShot = 2f;
-    public float recoilSmoothSpeed = 10f;
-    public float recoilReturnSpeed = 5f;
+    [Header("Recoil Settings")]
+    public float recoilAngle = 4f;
+    public float recoilSnappiness = 12f;
+    public float recoilReturnSpeed = 6f;
 
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
 
     private int currentAmmo;
     private int ammoReserve;
-
     private bool isReloading = false;
     private Coroutine fireRoutine;
 
     private Vector3 initialLeftArmPos;
     private Vector3 initialMagPos;
 
-    private Camera playerCamera;
     private float currentRecoil = 0f;
     private float targetRecoil = 0f;
+    private Transform cam; // Camera reference for recoil
 
     public bool IsReloading => isReloading;
 
@@ -65,7 +58,8 @@ public class Weapon : MonoBehaviour
         if (leftArm != null) initialLeftArmPos = leftArm.localPosition;
         if (magazine != null) initialMagPos = magazine.localPosition;
 
-        playerCamera = Camera.main;
+        // Grab camera
+        cam = Camera.main.transform;
     }
 
     void Update()
@@ -93,7 +87,14 @@ public class Weapon : MonoBehaviour
                 break;
         }
 
-        HandleRecoil();
+        // ---- Recoil logic (additive to MouseLook) ----
+        targetRecoil = Mathf.Lerp(targetRecoil, 0f, recoilReturnSpeed * Time.deltaTime);
+        currentRecoil = Mathf.Lerp(currentRecoil, targetRecoil, recoilSnappiness * Time.deltaTime);
+
+        if (cam != null)
+        {
+            cam.localRotation *= Quaternion.Euler(-currentRecoil, 0f, 0f);
+        }
     }
 
     public void Shoot()
@@ -105,22 +106,13 @@ public class Weapon : MonoBehaviour
         if (bulletPrefab && firePoint)
             Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
 
-        ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-        if (armMover) armMover.TriggerKickback();
-
-        targetRecoil += cameraRecoilPerShot;
+        ApplyRecoil();
     }
 
-    void HandleRecoil()
+    private void ApplyRecoil()
     {
-        if (playerCamera == null) return;
-
-        // Smooth recoil increase
-        currentRecoil = Mathf.Lerp(currentRecoil, targetRecoil, Time.deltaTime * recoilSmoothSpeed);
-        playerCamera.transform.localRotation *= Quaternion.Euler(-currentRecoil * Time.deltaTime, 0f, 0f);
-
-        // Gradually return
-        targetRecoil = Mathf.Lerp(targetRecoil, 0f, Time.deltaTime * recoilReturnSpeed);
+        float recoilX = Random.Range(recoilAngle * 0.8f, recoilAngle * 1.2f);
+        targetRecoil += recoilX; // Add more recoil upwards
     }
 
     IEnumerator BurstFire()
