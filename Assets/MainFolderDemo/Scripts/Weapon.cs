@@ -33,6 +33,12 @@ public class Weapon : MonoBehaviour
     public int clipSize = 30;
     public int maxReserve = 90;
 
+    [Header("Recoil / Kickback")]
+    public float kickbackAmount = 0.05f;
+    public float cameraRecoilPerShot = 2f;
+    public float recoilSmoothSpeed = 10f;
+    public float recoilReturnSpeed = 5f;
+
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
 
@@ -45,6 +51,10 @@ public class Weapon : MonoBehaviour
     private Vector3 initialLeftArmPos;
     private Vector3 initialMagPos;
 
+    private Camera playerCamera;
+    private float currentRecoil = 0f;
+    private float targetRecoil = 0f;
+
     public bool IsReloading => isReloading;
 
     void Start()
@@ -54,6 +64,8 @@ public class Weapon : MonoBehaviour
 
         if (leftArm != null) initialLeftArmPos = leftArm.localPosition;
         if (magazine != null) initialMagPos = magazine.localPosition;
+
+        playerCamera = Camera.main;
     }
 
     void Update()
@@ -80,6 +92,8 @@ public class Weapon : MonoBehaviour
                     fireRoutine = StartCoroutine(AutoFire());
                 break;
         }
+
+        HandleRecoil();
     }
 
     public void Shoot()
@@ -92,7 +106,21 @@ public class Weapon : MonoBehaviour
             Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
 
         ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-        if (armMover) armMover.TriggerRecoil();
+        if (armMover) armMover.TriggerKickback();
+
+        targetRecoil += cameraRecoilPerShot;
+    }
+
+    void HandleRecoil()
+    {
+        if (playerCamera == null) return;
+
+        // Smooth recoil increase
+        currentRecoil = Mathf.Lerp(currentRecoil, targetRecoil, Time.deltaTime * recoilSmoothSpeed);
+        playerCamera.transform.localRotation *= Quaternion.Euler(-currentRecoil * Time.deltaTime, 0f, 0f);
+
+        // Gradually return
+        targetRecoil = Mathf.Lerp(targetRecoil, 0f, Time.deltaTime * recoilReturnSpeed);
     }
 
     IEnumerator BurstFire()

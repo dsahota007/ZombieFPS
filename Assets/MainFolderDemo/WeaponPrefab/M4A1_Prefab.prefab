@@ -5960,6 +5960,10 @@ MonoBehaviour:
   reloadTime: 1
   clipSize: 30
   maxReserve: 1000
+  kickbackAmount: 7.72
+  cameraRecoilPerShot: 7.81
+  recoilSmoothSpeed: 20.64
+  recoilReturnSpeed: 14.56
   leftArm: {fileID: 0}
   controller: {fileID: 0}
 --- !u!1 &8027666018750598299

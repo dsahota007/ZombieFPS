@@ -3661,7 +3661,7 @@ MonoBehaviour:
   firePoint: {fileID: 938034465882472248}
   bulletPrefab: {fileID: 6410560179999154620, guid: fdcae1bd4cb08e341ad2dcfa0e7cb465,
     type: 3}
-  weaponName: Weapon 2
+  weaponName: Burst Weapon
   fireType: 1
   fireRate: 1.5
   burstDelay: 0.1
@@ -3670,6 +3670,10 @@ MonoBehaviour:
   reloadTime: 0.5
   clipSize: 30
   maxReserve: 30
+  kickbackAmount: 0.05
+  cameraRecoilPerShot: 2
+  recoilSmoothSpeed: 10
+  recoilReturnSpeed: 5
   leftArm: {fileID: 0}
   controller: {fileID: 0}
 --- !u!1 &7568744691437007823

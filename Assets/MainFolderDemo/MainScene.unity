@@ -1359,7 +1359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &480215484
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1376,8 +1376,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 186}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -135, y: 55}
+  m_SizeDelta: {x: 455.4779, y: 305.3063}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &480215485
 MonoBehaviour:
@@ -1401,10 +1401,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1412,7 +1412,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Health: 100'
+  m_Text: "Controls:\n\nPress 1 to swap weapons\n\nPress R to reload\n\nHold Shift
+    to sprint\n\nLeft Mouse Button to shoot\n\nRight Mouse Button to aim\n\nNote:
+    Bullet sizes are intentionally large for easier collision detection.\nThis is
+    an early pre-alpha build \u2014 everything is still a work in progress!\n\n"
 --- !u!222 &480215486
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1882,7 +1885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &678398244
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4136,7 +4139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2070378284
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5576,12 +5579,12 @@ MonoBehaviour:
   sprintBackRotation: {x: -26.6, y: -1.35, z: 0}
   reloadOffset: {x: 0, y: -0.05, z: -0.05}
   reloadRotation: {x: 4, y: -25, z: -22}
-  recoilAmount: 0.5
-  recoilReturnSpeed: 10
+  kickbackAmount: 0.5
+  kickbackReturnSpeed: 10
   sprintBobSpeed: 26.26
   sprintSideBobAmount: 0.26
-  walkBobSpeed: 6
-  walkBobAmount: 0.015
+  walkBobSpeed: 8
+  walkBobAmount: 0.055
   idleBobSpeed: 2
   idleBobAmount: 0.005
   swayAmount: 16
