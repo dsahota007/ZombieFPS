@@ -22,6 +22,7 @@ TagManager:
   - Water
   - Ledge
   - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX
