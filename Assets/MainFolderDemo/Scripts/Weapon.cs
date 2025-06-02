@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
     public string weaponName;
 
     [Header("Fire Settings")]
-    public FireType fireType = FireType.Single; //not a number or float bc it happens once
+    public FireType fireType = FireType.Single; //we start with this i think 
     public float fireRate = 0.1f;
     public float burstDelay = 0.1f;
 
@@ -63,25 +63,24 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        currentAmmo = clipSize;
+        currentAmmo = clipSize;   //we spawn inital ammo
         ammoReserve = maxReserve;
 
-        if (leftArm != null) initialLeftArmPos = leftArm.localPosition;
-        if (magazine != null) initialMagPos = magazine.localPosition;
+        if (leftArm != null) 
+            initialLeftArmPos = leftArm.localPosition;     //so initialLeftArmPos stores OG position bc of .localPositon
+        if (magazine != null) 
+            initialMagPos = magazine.localPosition;
 
-        // Grab camera
-        cam = Camera.main.transform;
-
-        // Reference for arm movement (kickback)
-        armMover = FindObjectOfType<ArmMovementMegaScript>();
+        cam = Camera.main.transform;          // Grab camera
+        armMover = FindObjectOfType<ArmMovementMegaScript>();    // we gonna use this for kickback 
     }
 
     void Update()
     {
-        if (isReloading || IsSprinting())
+        if (isReloading || IsSprinting())    //if u sprint or reload no shooting 
         {
             StopFiring();
-            return;
+            return;             //stop shooting and exit this part of code
         }
 
         switch (fireType)
@@ -90,13 +89,13 @@ public class Weapon : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
                 {
                     Shoot();
-                    nextFireTime = Time.time + fireRate;
+                    nextFireTime = Time.time + fireRate;  // current time + next time u can shoot 
                 }
                 break;
 
             case FireType.Burst:
                 if (Input.GetMouseButtonDown(0) && fireRoutine == null)
-                    fireRoutine = StartCoroutine(BurstFire());
+                    fireRoutine = StartCoroutine(BurstFire());   //we cant jus call we need startCorotine bc of IEnumerator
                 break;
 
             case FireType.Auto:
@@ -105,13 +104,13 @@ public class Weapon : MonoBehaviour
                 break;
         }
 
-        // ---- Recoil logic (additive to MouseLook) ----
+        // recoil logic -- linear interpolation math.lerp (a, b, t) --> smoothly transition from a to b and than time 
         targetRecoil = Mathf.Lerp(targetRecoil, 0f, recoilReturnSpeed * Time.deltaTime);
         currentRecoil = Mathf.Lerp(currentRecoil, targetRecoil, recoilSnappiness * Time.deltaTime);
 
-        if (cam != null)
-        {
-            cam.localRotation *= Quaternion.Euler(-currentRecoil, 0f, 0f);
+        if (cam != null)   //did we asign cam? if no skip to avoid errors
+        {           //Quaternion.Euler(x, y, z) returns a rotation --- (up down, left right, roll - tilt)
+            cam.localRotation *= Quaternion.Euler(-currentRecoil, 0f, 0f);    //we use *= not += bc rotation must be multiplied not added
         }
 
         // ---- Kickback logic (additive only) ----
@@ -122,11 +121,11 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (!CanShoot() || IsSprinting()) return;
+        if (!CanShoot() || IsSprinting()) return; //leave func if u cant
 
         currentAmmo--;
 
-        if (bulletPrefab && firePoint)
+        if (bulletPrefab && firePoint)                           //Instantiate(whatToSpawn, whereToSpawn, whichRotation);
             Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
 
         ApplyRecoil();
@@ -142,7 +141,7 @@ public class Weapon : MonoBehaviour
     private void ApplyKickback()
     {
         targetKickbackOffset = new Vector3(0f, 0f, -kickbackAmount);
-        Invoke(nameof(ResetKickback), 0.03f); // Fast reset for punchy feel
+        Invoke(nameof(ResetKickback), 0.03f);                           // Fast reset for punchy feel this is liek delay how long till u call this so every 0.03 this func is calledf
     }
 
     private void ResetKickback()
@@ -152,11 +151,12 @@ public class Weapon : MonoBehaviour
 
     IEnumerator BurstFire()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)                             //we want to loop till 3
         {
-            if (!CanShoot() || IsSprinting()) break;
-            Shoot();
-            yield return new WaitForSeconds(burstDelay);
+            if (!CanShoot() || IsSprinting()) 
+                break;
+            Shoot();    
+            yield return new WaitForSeconds(burstDelay);            //parameter to wait HOW LONG
         }
         fireRoutine = null;
     }
@@ -249,11 +249,13 @@ public class Weapon : MonoBehaviour
         return Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1);
     }
 
-    private bool CanShoot()
+    private bool CanShoot()  //check if have ammo
     {
-        return currentAmmo > 0;
+        return currentAmmo > 0;   //we return false 
     }
 
+
+    //for ui come back to this !!!!!!!!!!!!!!!!!---------------
     public int GetCurrentAmmo() => currentAmmo;
     public int GetAmmoReserve() => ammoReserve;
 }
