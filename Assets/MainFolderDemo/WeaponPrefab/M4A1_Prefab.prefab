@@ -5967,6 +5967,7 @@ MonoBehaviour:
   kickbackReturnSpeed: 12
   leftArm: {fileID: 0}
   controller: {fileID: 0}
+  IsReloading: 0
 --- !u!1 &8027666018750598299
 GameObject:
   m_ObjectHideFlags: 0

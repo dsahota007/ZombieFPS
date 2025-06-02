@@ -193,55 +193,59 @@ public class Weapon : MonoBehaviour
         isReloading = true;
 
         ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-        if (armMover) armMover.ReloadOffset(true);
+        if (armMover) armMover.ReloadOffset(true);                           //play reload arm animation
 
-        Vector3 magStart = magazine.localPosition;
+        Vector3 magStart = magazine.localPosition;                          //store position than control hwo much it goes down 
         Vector3 armStart = leftArm.localPosition;
         Vector3 magDown = magStart + Vector3.down * reloadMoveAmount;
         Vector3 armDown = armStart + Vector3.down * reloadMoveAmount;
+        
+        //move mag down ----
 
-        float t = 0f;
-        while (t < 1f)
+        float time = 0f;                        //this is like a progress bar
+        while (time < 1f)
         {
-            t += Time.deltaTime / reloadDuration;
-            magazine.localPosition = Vector3.Lerp(magStart, magDown, t);
-            leftArm.localPosition = Vector3.Lerp(armStart, armDown, t);
-            yield return null;
+            time += Time.deltaTime / reloadDuration;       // we have time than divide by how long you want to finish
+            magazine.localPosition = Vector3.Lerp(magStart, magDown, time);     //(a,b,t)
+            leftArm.localPosition = Vector3.Lerp(armStart, armDown, time);
+            yield return null;      //means “wait for the next frame” before continuing the coroutine ???
         }
 
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(reloadTime);   //Wait until the reload action is visually done (like the mag swap)
 
         int needed = clipSize - currentAmmo;
-        int toReload = Mathf.Min(needed, ammoReserve);
-        currentAmmo += toReload;
-        ammoReserve -= toReload;
+        int toReload = Mathf.Min(needed, ammoReserve);  
+        currentAmmo += toReload;            //take bullet from reserve put into clip    
+        ammoReserve -= toReload;               //take bullets out of your reserve
+        
+        //move mag back up ----
 
-        t = 0f;
-        while (t < 1f)
+        time = 0f;
+        while (time < 1f)
         {
-            t += Time.deltaTime / reloadDuration;
-            magazine.localPosition = Vector3.Lerp(magDown, magStart, t);
-            leftArm.localPosition = Vector3.Lerp(armDown, armStart, t);
+            time += Time.deltaTime / reloadDuration;
+            magazine.localPosition = Vector3.Lerp(magDown, magStart, time);
+            leftArm.localPosition = Vector3.Lerp(armDown, armStart, time);
             yield return null;
         }
 
         isReloading = false;
 
-        if (armMover) armMover.ReloadOffset(false);
+        if (armMover) armMover.ReloadOffset(false);             //stop animation
     }
 
     public void CancelReload()
     {
-        if (!isReloading) return;
+        if (!isReloading) return;           //if ur not reloading get outta this code
 
-        StopAllCoroutines();
+        StopAllCoroutines();             //immediately stops the reload coroutine that was running (the smooth mag/arm animation).
         isReloading = false;
 
-        if (leftArm != null) leftArm.localPosition = initialLeftArmPos;
+        if (leftArm != null) leftArm.localPosition = initialLeftArmPos;  //instantly snaps the arm back to where it was before the reload started
         if (magazine != null) magazine.localPosition = initialMagPos;
 
         ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-        if (armMover) armMover.ReloadOffset(false);
+        if (armMover) armMover.ReloadOffset(false);                         //move arm back 
     }
 
     private bool IsSprinting()
