@@ -47,6 +47,10 @@ public class WeaponManager : MonoBehaviour
             int nextIndex = (currentWeaponIndex == 0) ? 1 : 0;
             StartCoroutine(SwitchWeaponWithDrop(nextIndex));
         }
+
+
+
+
     }
 
     void SpawnWeapons()
@@ -141,4 +145,44 @@ public class WeaponManager : MonoBehaviour
         currentWeaponIndex = index;
         ActiveWeapon = weaponScripts[index];
     }
+
+
+    public void GiveWeapon(GameObject weaponPrefab)
+    {
+        // Find first empty slot or replace current
+        int slotToReplace = 0; // You can change this logic (e.g. always replaces current)
+        if (weaponPrefabs.Length > 1 && weapons[1] == null) slotToReplace = 1;
+
+        // Destroy old weapon in slot (if any)
+        if (weapons[slotToReplace] != null)
+            Destroy(weapons[slotToReplace]);
+
+        // Instantiate new weapon
+        GameObject newWeapon = Instantiate(weaponPrefab, weaponHolder);
+        weapons[slotToReplace] = newWeapon;
+        weaponScripts[slotToReplace] = newWeapon.GetComponent<Weapon>();
+
+        // Setup new weapon references
+        if (weaponScripts[slotToReplace] != null)
+        {
+            weaponScripts[slotToReplace].leftArm = leftArm;
+            weaponScripts[slotToReplace].controller = controller;
+            if (weaponScripts[slotToReplace].weaponOffset != null)
+            {
+                newWeapon.transform.localPosition = weaponScripts[slotToReplace].weaponOffset.localPosition;
+                newWeapon.transform.localRotation = weaponScripts[slotToReplace].weaponOffset.localRotation;
+                newWeapon.transform.localScale = weaponScripts[slotToReplace].weaponOffset.localScale;
+            }
+            else
+            {
+                newWeapon.transform.localPosition = Vector3.zero;
+                newWeapon.transform.localRotation = Quaternion.identity;
+                newWeapon.transform.localScale = Vector3.one;
+            }
+        }
+
+        // Equip immediately
+        EquipWeaponInstant(slotToReplace);
+    }
+
 }

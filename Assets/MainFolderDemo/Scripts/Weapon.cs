@@ -5,17 +5,15 @@ public enum FireType { Single, Burst, Auto }
 
 public class Weapon : MonoBehaviour
 {
-    [Header("Setup")]
+    [Header("Weapon Configuration/Setup")]
     public Transform weaponOffset;
     public Transform magazine;
     public Transform firePoint;
     public GameObject bulletPrefab;
-
-    [Header("Info")]
     public string weaponName;
 
     [Header("Fire Settings")]
-    public FireType fireType = FireType.Single;
+    public FireType fireType = FireType.Single; //not a number or float bc it happens once
     public float fireRate = 0.1f;
     public float burstDelay = 0.1f;
 
@@ -34,8 +32,8 @@ public class Weapon : MonoBehaviour
     public float recoilReturnSpeed = 6f;
 
     [Header("Kickback")]
-    public float kickbackAmount = 0.05f;     // How much to move the gun/arms back per shot
-    public float kickbackReturnSpeed = 12f;  // How quickly it returns to original position
+    public float kickbackAmount = 0.05f;     
+    public float kickbackReturnSpeed = 12f;  
 
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
@@ -48,6 +46,8 @@ public class Weapon : MonoBehaviour
     private Vector3 initialLeftArmPos;
     private Vector3 initialMagPos;
 
+
+    // for kickback 
     private float currentRecoil = 0f;
     private float targetRecoil = 0f;
     private Transform cam; // Camera reference for recoil
@@ -57,9 +57,9 @@ public class Weapon : MonoBehaviour
     private Vector3 targetKickbackOffset = Vector3.zero;
     private ArmMovementMegaScript armMover;
 
-    private float nextFireTime = 0f; // --- NEW: controls delay for single fire ---
+    private float nextFireTime = 0f; //controls delay for single fire ---
 
-    public bool IsReloading => isReloading;
+    public bool IsReloading = false;
 
     void Start()
     {

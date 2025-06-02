@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AmmoUI : MonoBehaviour
+public class UI : MonoBehaviour
 {
-    public Text ammoText;     
-    public Text nameText;     
+    public Text ammoText;
+    public Text nameText;
 
     void Update()
     {
