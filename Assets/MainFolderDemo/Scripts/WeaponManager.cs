@@ -146,14 +146,12 @@ public class WeaponManager : MonoBehaviour
     }
 
 
-    public void GiveWeapon(GameObject weaponPrefab)
+    public void GiveWeapon(GameObject weaponPrefab)         //----------------kind of confusing to me - the last part, begining easy 
     {
-        // Find first empty slot or replace current
-        int slotToReplace = 0; // You can change this logic (e.g. always replaces current)
-        if (weaponPrefabs.Length > 1 && weapons[1] == null) slotToReplace = 1;
+        int slotToReplace = 0; // You can change this logic (e.g. always replaces current)          -- currently holding
+        //if (weaponPrefabs.Length > 1 && weapons[1] == null) slotToReplace = 1;                    -- we always spawn in with 2 guns so no need.
 
-        // Destroy old weapon in slot (if any)
-        if (weapons[slotToReplace] != null)
+        //if (weapons[slotToReplace] != null)       --        // Destroy old weapon in slot (if any)
             Destroy(weapons[slotToReplace]);
 
         // Instantiate new weapon
@@ -164,7 +162,7 @@ public class WeaponManager : MonoBehaviour
         // Setup new weapon references
         if (weaponScripts[slotToReplace] != null)
         {
-            weaponScripts[slotToReplace].leftArm = leftArm;
+            weaponScripts[slotToReplace].leftArm = leftArm; 
             weaponScripts[slotToReplace].controller = controller;
             if (weaponScripts[slotToReplace].weaponOffset != null)
             {

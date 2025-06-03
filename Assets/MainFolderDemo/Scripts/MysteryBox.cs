@@ -82,7 +82,7 @@ public class MysteryBox : MonoBehaviour
         GameObject prefabToGive = null;
         foreach (var WeaponPrefab in weaponManager.weaponPrefabs)   //loop through all weapon list
         {
-            if (WeaponPrefab.name == currentPreview.name.Replace("(Clone)", "").Trim())   //gets rid of clone name, if we dont we get clone and prefabToGive stays null - kinda confusing but works and makese sense.
+            if (WeaponPrefab.name == currentPreview.name.Replace("(Clone)", "").Trim())   //gets rid of clone name, if we dont we get clone and prefabToGive stays null - kinda confusing but works 
             {
                 prefabToGive = WeaponPrefab;
                 break;
