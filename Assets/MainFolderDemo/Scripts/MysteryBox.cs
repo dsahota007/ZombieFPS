@@ -14,16 +14,34 @@ public class MysteryBox : MonoBehaviour
     private bool isBoxOpen = false;
     private float closeTimer = 0f;
 
+    public Transform player;                    
+    public float minimumDistanceToOpen = 3f;
+
+
+    private ArmMovementMegaScript armMovementMegaScript;
+
+
     void Start()
     {
         weaponManager = FindObjectOfType<WeaponManager>();
+        armMovementMegaScript = FindObjectOfType<ArmMovementMegaScript>();
+
     }
 
     void Update()
     {
         if (!isBoxOpen && Input.GetKeyDown(KeyCode.E))
         {
-            OpenBoxAndShowRandomWeapon();
+            float distanceToPlayer = Vector3.Distance(player.position, transform.position);   // write transform.position bc it is attached to the box the script so we know its the box
+            if (distanceToPlayer <= minimumDistanceToOpen)
+            {
+                OpenBoxAndShowRandomWeapon();
+            }
+            //else
+            //{
+            //    Debug.Log("You are too far from the Mystery Box!");
+            //}
+
         }
 
         // Only allow "take" and timer logic when box is open
@@ -38,9 +56,13 @@ public class MysteryBox : MonoBehaviour
                 currentPreview.transform.position = WeaponfloatPosition;
                 currentPreview.transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.World);     //.rotate(x,y,z)    and space.world helps stay at the box. 
 
-                if (Input.GetKeyDown(KeyCode.F))        //take weapon
+                if (Input.GetKeyDown(KeyCode.F) )        //take weapon
                 {
-                    GiveWeaponToPlayer();
+                    float distanceToPlayer = Vector3.Distance(player.position, transform.position);   // do this again so we cant pick up the gun from anywhere. 
+                    if (distanceToPlayer <= minimumDistanceToOpen && armMovementMegaScript != null && !armMovementMegaScript.isReloading)
+                    {
+                        GiveWeaponToPlayer();
+                    }
                 }
             }
 

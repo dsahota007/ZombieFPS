@@ -21,7 +21,7 @@ public class ArmMovementMegaScript : MonoBehaviour
     public Vector3 reloadOffset = new Vector3(0f, -0.05f, -0.05f);
     public Vector3 reloadRotation = new Vector3(4f, 0f, 0f);
     
-    private bool isReloading = false;
+    public bool isReloading = false;   //we change to public so we can access this in mysterybox logic
 
     [Header("Bobbing")]
     public float sprintBobSpeed = 26.26f;
