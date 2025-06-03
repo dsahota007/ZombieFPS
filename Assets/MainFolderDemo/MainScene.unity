@@ -4253,8 +4253,11 @@ MonoBehaviour:
   rightArm: {fileID: 7138732185366571710}
   weaponPrefabs:
   - {fileID: 7896929993975101864, guid: 13ab37c3410bcc94e80c25bf63ec2a00, type: 3}
+  - {fileID: 7896929993975101864, guid: 3cf51b44393fa4043a20003c20e3e5b4, type: 3}
   - {fileID: 7319026743648896754, guid: e8e5f6e41449c8145b6c6dc88aa3fe14, type: 3}
-  - {fileID: 7744400271436646905, guid: 5db8bda51ef5fda4abd4bcc680a65907, type: 3}
+  - {fileID: 7896929993975101864, guid: f4b5be2215442fa48aa815582e08008a, type: 3}
+  - {fileID: 7319026743648896754, guid: 40c8dbe192da9524b9754a7326e1865f, type: 3}
+  - {fileID: 7319026743648896754, guid: cf04ab19a00857340892b9aa833358e8, type: 3}
 --- !u!1 &1542469440
 GameObject:
   m_ObjectHideFlags: 0
@@ -5120,7 +5123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showcasePoint: {fileID: 1349952996}
-  floatHeight: 1
   floatSpeed: 1.5
   spinSpeed: 60
   displayTime: 10

@@ -29,24 +29,22 @@ public class MysteryBox : MonoBehaviour
         // Only allow "take" and timer logic when box is open
         if (isBoxOpen)
         {
-            closeTimer -= Time.deltaTime;
+            closeTimer -= Time.deltaTime;     //we decrement 1 second 
 
             // Float & spin the preview if there is one
             if (currentPreview != null)
             {
-                Vector3 WeaponfloatPosition = showcasePoint.position + Vector3.up * (Mathf.Sin(Time.time * floatSpeed) * 0.2f);   //
+                Vector3 WeaponfloatPosition = showcasePoint.position + Vector3.up * (Mathf.Sin(Time.time * floatSpeed) * 0.2f);   
                 currentPreview.transform.position = WeaponfloatPosition;
-                currentPreview.transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.World);
+                currentPreview.transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.World);     //.rotate(x,y,z)    and space.world helps stay at the box. 
 
-                // Take the weapon
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F))        //take weapon
                 {
                     GiveWeaponToPlayer();
                 }
             }
 
-            // If timer runs out, close the box/reset
-            if (closeTimer <= 0f)
+            if (closeTimer <= 0f)       //you dont want to take the weapon. 
             {
                 ResetBox();
             }
@@ -55,22 +53,22 @@ public class MysteryBox : MonoBehaviour
 
     void OpenBoxAndShowRandomWeapon()
     {
-        if (weaponManager == null || weaponManager.weaponPrefabs == null || weaponManager.weaponPrefabs.Length == 0)
-            return;
 
-        // Remove last preview if any (shouldn't be possible)
-        if (currentPreview != null)
-            Destroy(currentPreview);
+        //if (weaponManager == null || weaponManager.weaponPrefabs == null || weaponManager.weaponPrefabs.Length == 0)     // do nothing if there’s no weapon list set up.
+        //    return;
+
+        //if (currentPreview != null)                     // Remove last preview if any (shouldn't be possible)
+        //    Destroy(currentPreview);
 
         // Pick a random weapon prefab
-        GameObject prefab = weaponManager.weaponPrefabs[Random.Range(0, weaponManager.weaponPrefabs.Length)];
-        currentPreview = Instantiate(prefab, showcasePoint.position + Vector3.up, Quaternion.identity);
+        GameObject NewWeaponPrefab = weaponManager.weaponPrefabs[Random.Range(0, weaponManager.weaponPrefabs.Length)];   //we randomize into the enter list
+        currentPreview = Instantiate(NewWeaponPrefab, showcasePoint.position, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);
 
-        // Remove scripts/colliders to make it a display prop
-        foreach (var comp in currentPreview.GetComponentsInChildren<MonoBehaviour>())
-            Destroy(comp);
-        foreach (var col in currentPreview.GetComponentsInChildren<Collider>())
-            Destroy(col);
+        // Remove scripts/colliders to make it a display prop     turning the weapon into a harmless, floating model — like a 3D hologram — that can’t shoot, collide, or move. Just for display.
+        foreach (var componentScript in currentPreview.GetComponentsInChildren<MonoBehaviour>())
+            Destroy(componentScript);
+        //foreach (var colliders in currentPreview.GetComponentsInChildren<Collider>())                 //for now we dont really need ill keep scriptint disabeled in case.
+        //    Destroy(colliders);  
 
         isBoxOpen = true;
         closeTimer = displayTime;
@@ -78,15 +76,15 @@ public class MysteryBox : MonoBehaviour
 
     void GiveWeaponToPlayer()
     {
-        if (weaponManager == null || currentPreview == null) return;
+        if (weaponManager == null || currentPreview == null) return;  //If there's no weapon manager or no weapon preview, stop the function to avoid errors
 
         // Find which prefab this preview matches
         GameObject prefabToGive = null;
-        foreach (var prefab in weaponManager.weaponPrefabs)
+        foreach (var WeaponPrefab in weaponManager.weaponPrefabs)   //loop through all weapon list
         {
-            if (prefab.name == currentPreview.name.Replace("(Clone)", "").Trim())
+            if (WeaponPrefab.name == currentPreview.name.Replace("(Clone)", "").Trim())   //gets rid of clone name, if we dont we get clone and prefabToGive stays null - kinda confusing but works and makese sense.
             {
-                prefabToGive = prefab;
+                prefabToGive = WeaponPrefab;
                 break;
             }
         }
@@ -100,14 +98,14 @@ public class MysteryBox : MonoBehaviour
 
         weaponManager.GiveWeapon(prefabToGive);
 
-        // Remove preview and close box
+        // Remove preview and close box bc we took the wepaon so its the same logic if we dont take it.
         ResetBox();
     }
 
     void ResetBox()
     {
         if (currentPreview != null)
-            Destroy(currentPreview);
+            Destroy(currentPreview);        //destroy weapon, close the box and reset the time
         currentPreview = null;
         isBoxOpen = false;
         closeTimer = 0f;
