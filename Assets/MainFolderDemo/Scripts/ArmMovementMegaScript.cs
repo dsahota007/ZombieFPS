@@ -124,7 +124,7 @@ public class ArmMovementMegaScript : MonoBehaviour
             bobTimer = 0f;    //no bob if ur airborne
         }
 
-        // Input sway (disabled when aiming)
+        // Input sway (disabled when aiming) --- for the gun to turn slighlty 
         if (!isAiming)
         {
             float horizontal = Input.GetAxis("Horizontal");
@@ -133,19 +133,22 @@ public class ArmMovementMegaScript : MonoBehaviour
         }
         else
         {
-            swayRotation = Vector3.Lerp(swayRotation, Vector3.zero, Time.deltaTime * swaySmoothing);
+            swayRotation = Vector3.Lerp(swayRotation, Vector3.zero, Time.deltaTime * swaySmoothing);        //sway back to zero. when aiming
         }
 
+        // left right up down bobbing   -- all there is
         Vector3 basePos = cameraTransform.position + cameraTransform.TransformDirection(targetOffset);
         Vector3 finalPos = basePos +
                            cameraTransform.up * verticalBob +
                            cameraTransform.right * sideBob;
 
-        // *** Apply kickback as a movement perfectly along local Z/forward, after all other effects ***
-        finalPos += transform.forward * externalKickbackOffset.z;
+        //kickback
+        finalPos += transform.forward * externalKickbackOffset.z;    //how much we pish back this is in weapon.cs
 
-        transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);
+        transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);   //this is for gun to return
 
+
+        //IDK This is only confusing part -------------
         Quaternion baseRot = cameraTransform.rotation * Quaternion.Euler(targetRotation);
         transform.rotation = Quaternion.Slerp(transform.rotation, baseRot * Quaternion.Euler(swayRotation), Time.deltaTime * smoothSpeed);
     }
