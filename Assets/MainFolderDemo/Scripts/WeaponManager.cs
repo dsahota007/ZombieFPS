@@ -7,21 +7,23 @@ public class WeaponManager : MonoBehaviour
     public Transform weaponHolder;
     public Transform leftArm;
     public Transform rightArm;
-    public GameObject[] weaponPrefabs;
-    public CharacterController controller;
+    public GameObject[] weaponPrefabs;          //infinte list for weapons we can add
+    private CharacterController controller;
 
-    private GameObject[] weapons = new GameObject[2];
-    private Weapon[] weaponScripts = new Weapon[2];
+    private GameObject[] weapons = new GameObject[2];     //-----------------????
+    private Weapon[] weaponScripts = new Weapon[2];       //-----------------????
     private int currentWeaponIndex = 0;
-    private bool isSwitching = false;
+    private bool isSwitching = false;                   //FOR SPAM ??
 
+    //OG Positions for both arms and where gun is suppose to be
     private Vector3 weaponHolderOriginalPos;
     private Vector3 leftArmOriginalPos;
     private Vector3 rightArmOriginalPos;
 
     public static Weapon ActiveWeapon;
 
-    public bool IsReloading => ActiveWeapon != null && ActiveWeapon.IsReloading;
+    private bool IsReloading = false;   //deleted line below this is yapping i think
+    //public bool IsReloading => ActiveWeapon != null && ActiveWeapon.IsReloading;
 
     void Start()
     {
@@ -30,35 +32,31 @@ public class WeaponManager : MonoBehaviour
         rightArmOriginalPos = rightArm.localPosition;
 
         SpawnWeapons();
-        EquipWeaponInstant(0); // Start with weapon 0
+        EquipWeaponNow(0); // Start with weapon 0
     }
 
     void Update()
     {
         bool isSprinting = Input.GetKey(KeyCode.LeftShift) && controller.velocity.magnitude > 0.1f;
 
-        if (Input.GetKeyDown(KeyCode.R) && !IsReloading && !isSprinting)
+        if (Input.GetKeyDown(KeyCode.R) && !IsReloading)  //fix sprint when reloading ------------------ 
         {
-            ActiveWeapon?.StartReload();
+            ActiveWeapon.StartReload();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && !isSwitching)
         {
-            int nextIndex = (currentWeaponIndex == 0) ? 1 : 0;
-            StartCoroutine(SwitchWeaponWithDrop(nextIndex));
+            int nextIndex = (currentWeaponIndex == 0) ? 1 : 0;              //toggle between weapon 0 and 1 
+            StartCoroutine(SwitchWeaponWithDrop(nextIndex));                
         }
-
-
-
-
     }
 
     void SpawnWeapons()
     {
-        for (int i = 0; i < 2 && i < weaponPrefabs.Length; i++)
+        for (int i = 0; i < 2 && i < weaponPrefabs.Length; i++)     //wew get first 2 guns
         {
             GameObject weapon = Instantiate(weaponPrefabs[i], weaponHolder);
-            weapon.SetActive(false);
+            //weapon.SetActive(false);   did not see any overlapping so i delete this line.
 
             weapons[i] = weapon;
             weaponScripts[i] = weapon.GetComponent<Weapon>();
@@ -68,7 +66,7 @@ public class WeaponManager : MonoBehaviour
                 weaponScripts[i].leftArm = leftArm;
                 weaponScripts[i].controller = controller;
 
-                if (weaponScripts[i].weaponOffset != null)
+                if (weaponScripts[i].weaponOffset != null)                  //Apply offset
                 {
                     weapon.transform.localPosition = weaponScripts[i].weaponOffset.localPosition;
                     weapon.transform.localRotation = weaponScripts[i].weaponOffset.localRotation;
@@ -76,9 +74,10 @@ public class WeaponManager : MonoBehaviour
                 }
                 else
                 {
-                    weapon.transform.localPosition = Vector3.zero;
+                    weapon.transform.localPosition = Vector3.zero;              //or deafult
                     weapon.transform.localRotation = Quaternion.identity;
                     weapon.transform.localScale = Vector3.one;
+                    //Debug.Log("offset aint working");
                 }
             }
         }
@@ -86,7 +85,7 @@ public class WeaponManager : MonoBehaviour
 
     IEnumerator SwitchWeaponWithDrop(int index)
     {
-        if (index < 0 || index >= weapons.Length || index == currentWeaponIndex)
+        if (index < 0 || index >= weapons.Length || index == currentWeaponIndex)   //If the weapon index is invalid OR you're already holding that weapon, stop here
             yield break;
 
         isSwitching = true;
@@ -99,43 +98,43 @@ public class WeaponManager : MonoBehaviour
 
         yield return StartCoroutine(MoveAll(weaponHolder, weaponHolderOriginalPos, weaponDown,
                                             leftArm, leftArmOriginalPos, leftDown,
-                                            rightArm, rightArmOriginalPos, rightDown, 0.1f));
+                                            rightArm, rightArmOriginalPos, rightDown, 0.2f));
 
         // Cancel reload & switch
-        ActiveWeapon?.CancelReload();
+        ActiveWeapon.CancelReload();
 
         for (int i = 0; i < weapons.Length; i++)
             weapons[i].SetActive(i == index);
 
         currentWeaponIndex = index;
         ActiveWeapon = weaponScripts[index];
-        ActiveWeapon?.CancelReload();
+        ActiveWeapon.CancelReload();
 
         // Animate back up
         yield return StartCoroutine(MoveAll(weaponHolder, weaponDown, weaponHolderOriginalPos,
                                             leftArm, leftDown, leftArmOriginalPos,
-                                            rightArm, rightDown, rightArmOriginalPos, 0.1f));
+                                            rightArm, rightDown, rightArmOriginalPos, 0.2f));
 
         isSwitching = false;
     }
 
-    IEnumerator MoveAll(Transform w, Vector3 fromW, Vector3 toW,
-                        Transform l, Vector3 fromL, Vector3 toL,
-                        Transform r, Vector3 fromR, Vector3 toR,
-                        float duration)
+    IEnumerator MoveAll(Transform w, Vector3 fromW, Vector3 toW,    //weapon      
+                        Transform l, Vector3 fromL, Vector3 toL,    //left arm
+                        Transform r, Vector3 fromR, Vector3 toR,    //right arm
+                        float duration)                             //time to finish
     {
-        float t = 0f;
-        while (t < 1f)
+        float time = 0f;
+        while (time < 1f)
         {
-            t += Time.deltaTime / duration;
-            w.localPosition = Vector3.Lerp(fromW, toW, t);
-            l.localPosition = Vector3.Lerp(fromL, toL, t);
-            r.localPosition = Vector3.Lerp(fromR, toR, t);
+            time += Time.deltaTime / duration;
+            w.localPosition = Vector3.Lerp(fromW, toW, time);
+            l.localPosition = Vector3.Lerp(fromL, toL, time);
+            r.localPosition = Vector3.Lerp(fromR, toR, time);
             yield return null;
         }
     }
 
-    void EquipWeaponInstant(int index)
+    void EquipWeaponNow(int index)
     {
         for (int i = 0; i < weapons.Length; i++)
         {
@@ -182,7 +181,7 @@ public class WeaponManager : MonoBehaviour
         }
 
         // Equip immediately
-        EquipWeaponInstant(slotToReplace);
+        EquipWeaponNow(slotToReplace);
     }
 
 }

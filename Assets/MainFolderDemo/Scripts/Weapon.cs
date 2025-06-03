@@ -58,8 +58,8 @@ public class Weapon : MonoBehaviour
     private ArmMovementMegaScript armMover;
 
     private float nextFireTime = 0f; //controls delay for single fire ---
-
-    public bool IsReloading = false;
+     
+    public bool IsReloading = false;     //could delete -------------------------------------
 
     void Start()
     {
@@ -77,10 +77,10 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (isReloading || IsSprinting())    //if u sprint or reload no shooting 
+        if (isReloading)    //if u sprint or reload no shooting 
         {
             StopFiring();
-            return;             //stop shooting and exit this part of code
+            return;             //stop shooting and exit this part of code -- also causes the clip to go to 0 for some reaosn if u reload (doesnt matter) 
         }
 
         switch (fireType)
@@ -121,7 +121,7 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (!CanShoot() || IsSprinting()) return; //leave func if u cant
+        if (!CanShoot() ||isReloading || IsSprinting()) return; //leave func if u cant
 
         currentAmmo--;
 
@@ -185,10 +185,10 @@ public class Weapon : MonoBehaviour
         if (isReloading || currentAmmo == clipSize || ammoReserve <= 0) return;
 
         StopFiring();
-        StartCoroutine(Reload());
+        StartCoroutine(PlayReload());
     }
 
-    IEnumerator Reload()
+    IEnumerator PlayReload()
     {
         isReloading = true;
 
@@ -245,7 +245,7 @@ public class Weapon : MonoBehaviour
         if (magazine != null) magazine.localPosition = initialMagPos;
 
         ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
-        if (armMover) armMover.ReloadOffset(false);                         //move arm back 
+        if (armMover) armMover.ReloadOffset(false);                         
     }
 
     private bool IsSprinting()
