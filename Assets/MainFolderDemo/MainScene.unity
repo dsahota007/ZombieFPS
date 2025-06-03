@@ -712,7 +712,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 28d6df9a98a5480459ad96239b32f7a3, type: 2}
+  - {fileID: 2100000, guid: 4b51fa8c6ea21d74ab6fbb3a558acef9, type: 2}
   - {fileID: 2100000, guid: 28d6df9a98a5480459ad96239b32f7a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2196,7 +2196,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b51fa8c6ea21d74ab6fbb3a558acef9, type: 2}
+  - {fileID: 2100000, guid: dc46a44183cc34b4898348ed912c5adb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5663,7 +5663,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b51fa8c6ea21d74ab6fbb3a558acef9, type: 2}
+  - {fileID: 2100000, guid: dc46a44183cc34b4898348ed912c5adb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6963,6 +6963,7 @@ MonoBehaviour:
   sprintBackRotation: {x: -26.6, y: -1.35, z: 0}
   reloadOffset: {x: 0, y: -0.05, z: -0.05}
   reloadRotation: {x: 4, y: -25, z: -22}
+  isReloading: 0
   sprintBobSpeed: 26.26
   sprintSideBobAmount: 0.26
   walkBobSpeed: 8

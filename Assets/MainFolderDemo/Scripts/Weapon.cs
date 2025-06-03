@@ -108,15 +108,18 @@ public class Weapon : MonoBehaviour
         targetRecoil = Mathf.Lerp(targetRecoil, 0f, recoilReturnSpeed * Time.deltaTime);
         currentRecoil = Mathf.Lerp(currentRecoil, targetRecoil, recoilSnappiness * Time.deltaTime);
 
-        if (cam != null)   //did we asign cam? if no skip to avoid errors
+        if (cam != null)   //did we asign cam? if no skip to avoid errors    
         {           //Quaternion.Euler(x, y, z) returns a rotation --- (up down, left right, roll - tilt)
             cam.localRotation *= Quaternion.Euler(-currentRecoil, 0f, 0f);    //we use *= not += bc rotation must be multiplied not added
         }
 
         // ---- Kickback logic (additive only) ----
-        currentKickbackOffset = Vector3.Lerp(currentKickbackOffset, targetKickbackOffset, Time.deltaTime * kickbackReturnSpeed);
-        if (armMover != null)
-            armMover.externalKickbackOffset = currentKickbackOffset;
+ 
+         currentKickbackOffset = Vector3.Lerp(currentKickbackOffset, targetKickbackOffset, Time.deltaTime * kickbackReturnSpeed);
+         if (armMover != null)
+         armMover.externalKickbackOffset = currentKickbackOffset;
+        
+
     }
 
     public void Shoot()
@@ -185,6 +188,13 @@ public class Weapon : MonoBehaviour
         if (isReloading || currentAmmo == clipSize || ammoReserve <= 0) return;
 
         StopFiring();
+
+        //we have to add all this BS because of the recoil upwards yank when finish the reload. --- We do this to clear out any leftover recoil or kickback values before the reload animation starts  --- idk why but it works 
+        currentRecoil = 0f;
+        targetRecoil = 0f;
+        currentKickbackOffset = Vector3.zero;
+        targetKickbackOffset = Vector3.zero;
+
         StartCoroutine(PlayReload());
     }
 
