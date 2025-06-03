@@ -8,12 +8,12 @@ public class UI : MonoBehaviour
 
     void Update()
     {
-        Weapon currentWeapon = WeaponManager.ActiveWeapon;
+        Weapon currentWeapon = WeaponManager.ActiveWeapon;    //find active weapon
 
         if (currentWeapon != null)
         {
             if (ammoText != null)
-                ammoText.text = currentWeapon.GetCurrentAmmo() + " / " + currentWeapon.GetAmmoReserve();
+                ammoText.text = currentWeapon.GetCurrentAmmo() + " / " + currentWeapon.GetAmmoReserve();   
 
             if (nameText != null)
                 nameText.text = currentWeapon.weaponName;

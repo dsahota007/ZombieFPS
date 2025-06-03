@@ -259,7 +259,7 @@ public class Weapon : MonoBehaviour
     }
 
 
-    //for ui come back to this !!!!!!!!!!!!!!!!!---------------
+    //for ui -- getter methods
     public int GetCurrentAmmo() => currentAmmo;
     public int GetAmmoReserve() => ammoReserve;
 }

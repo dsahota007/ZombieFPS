@@ -148,9 +148,9 @@ public class ArmMovementMegaScript : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);   //this is for gun to return
 
 
-        //IDK This is only confusing part -------------
-        Quaternion baseRot = cameraTransform.rotation * Quaternion.Euler(targetRotation);
-        transform.rotation = Quaternion.Slerp(transform.rotation, baseRot * Quaternion.Euler(swayRotation), Time.deltaTime * smoothSpeed);
+        //IDK This is only confusing part is it kickback idk -----------------------------------------------------------------------------
+        Quaternion baseRot = cameraTransform.rotation * Quaternion.Euler(targetRotation);                                                     //--------------------------------------------????
+        transform.rotation = Quaternion.Slerp(transform.rotation, baseRot * Quaternion.Euler(swayRotation), Time.deltaTime * smoothSpeed);    //--------------------------------------------????
     }
 
     public void ResetArmPosition()
@@ -161,6 +161,6 @@ public class ArmMovementMegaScript : MonoBehaviour
 
     public void ReloadOffset(bool state)
     {
-        isReloading = state;
+        isReloading = state;               //if u look up where reloading is happening we actually start animation. ^^^
     }
 }

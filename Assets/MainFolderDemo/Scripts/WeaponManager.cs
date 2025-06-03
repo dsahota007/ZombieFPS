@@ -10,8 +10,8 @@ public class WeaponManager : MonoBehaviour
     public GameObject[] weaponPrefabs;          //infinte list for weapons we can add
     private CharacterController controller;
 
-    private GameObject[] weapons = new GameObject[2];     //-----------------????
-    private Weapon[] weaponScripts = new Weapon[2];       //-----------------????
+    private GameObject[] weapons = new GameObject[2];     //--------------------------------------------????
+    private Weapon[] weaponScripts = new Weapon[2];       //--------------------------------------------????
     private int currentWeaponIndex = 0;
     private bool isSwitching = false;                   //FOR SPAM ??
 

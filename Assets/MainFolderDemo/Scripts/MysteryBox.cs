@@ -4,10 +4,10 @@ using System.Collections;
 public class MysteryBox : MonoBehaviour
 {
     public Transform showcasePoint;
-    public float floatHeight = 1.0f;
+    //public float floatHeight = 1.0f;
     public float floatSpeed = 1.5f;
     public float spinSpeed = 60f;
-    public float displayTime = 10f; // Time before the weapon disappears if not taken
+    public float displayTime = 10f; 
 
     private GameObject currentPreview;
     private WeaponManager weaponManager;
@@ -23,7 +23,7 @@ public class MysteryBox : MonoBehaviour
     {
         if (!isBoxOpen && Input.GetKeyDown(KeyCode.E))
         {
-            ShowRandomWeapon();
+            OpenBoxAndShowRandomWeapon();
         }
 
         // Only allow "take" and timer logic when box is open
@@ -34,8 +34,8 @@ public class MysteryBox : MonoBehaviour
             // Float & spin the preview if there is one
             if (currentPreview != null)
             {
-                Vector3 floatPos = showcasePoint.position + Vector3.up * (Mathf.Sin(Time.time * floatSpeed) * 0.2f + floatHeight);
-                currentPreview.transform.position = floatPos;
+                Vector3 WeaponfloatPosition = showcasePoint.position + Vector3.up * (Mathf.Sin(Time.time * floatSpeed) * 0.2f);   //
+                currentPreview.transform.position = WeaponfloatPosition;
                 currentPreview.transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.World);
 
                 // Take the weapon
@@ -53,7 +53,7 @@ public class MysteryBox : MonoBehaviour
         }
     }
 
-    void ShowRandomWeapon()
+    void OpenBoxAndShowRandomWeapon()
     {
         if (weaponManager == null || weaponManager.weaponPrefabs == null || weaponManager.weaponPrefabs.Length == 0)
             return;
@@ -64,7 +64,7 @@ public class MysteryBox : MonoBehaviour
 
         // Pick a random weapon prefab
         GameObject prefab = weaponManager.weaponPrefabs[Random.Range(0, weaponManager.weaponPrefabs.Length)];
-        currentPreview = Instantiate(prefab, showcasePoint.position + Vector3.up * floatHeight, Quaternion.identity);
+        currentPreview = Instantiate(prefab, showcasePoint.position + Vector3.up, Quaternion.identity);
 
         // Remove scripts/colliders to make it a display prop
         foreach (var comp in currentPreview.GetComponentsInChildren<MonoBehaviour>())
