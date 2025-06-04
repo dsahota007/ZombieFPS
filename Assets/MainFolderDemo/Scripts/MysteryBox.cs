@@ -87,8 +87,8 @@ public class MysteryBox : MonoBehaviour
         currentPreview = Instantiate(NewWeaponPrefab, showcasePoint.position, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);
 
         // Remove scripts/colliders to make it a display prop     turning the weapon into a harmless, floating model — like a 3D hologram — that can’t shoot, collide, or move. Just for display.
-        foreach (var componentScript in currentPreview.GetComponentsInChildren<MonoBehaviour>())
-            Destroy(componentScript);
+        //foreach (var componentScript in currentPreview.GetComponentsInChildren<MonoBehaviour>())
+        //    Destroy(componentScript);
         //foreach (var colliders in currentPreview.GetComponentsInChildren<Collider>())                 //for now we dont really need ill keep scriptint disabeled in case.
         //    Destroy(colliders);  
 
@@ -132,4 +132,11 @@ public class MysteryBox : MonoBehaviour
         isBoxOpen = false;
         closeTimer = 0f;
     }
+
+
+    //for ui -- getter methods
+    public bool IsBoxOpen() => isBoxOpen;
+    public GameObject GetCurrentPreview() => currentPreview;
+
+
 }
