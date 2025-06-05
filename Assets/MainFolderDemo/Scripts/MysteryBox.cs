@@ -86,11 +86,19 @@ public class MysteryBox : MonoBehaviour
         GameObject NewWeaponPrefab = weaponManager.weaponPrefabs[Random.Range(0, weaponManager.weaponPrefabs.Length)];   //we randomize into the enter list
         currentPreview = Instantiate(NewWeaponPrefab, showcasePoint.position, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);
 
+        //we addede this so it doesnt shoot when beign displayed 
+        Weapon weapon = currentPreview.GetComponent<Weapon>();
+        if (weapon != null)
+        {
+            weapon.isWeaponBeingShowcased = true;
+        }
+
         // Remove scripts/colliders to make it a display prop     turning the weapon into a harmless, floating model — like a 3D hologram — that can’t shoot, collide, or move. Just for display.
         //foreach (var componentScript in currentPreview.GetComponentsInChildren<MonoBehaviour>())
         //    Destroy(componentScript);
         //foreach (var colliders in currentPreview.GetComponentsInChildren<Collider>())                 //for now we dont really need ill keep scriptint disabeled in case.
         //    Destroy(colliders);  
+
 
         isBoxOpen = true;
         closeTimer = displayTime;

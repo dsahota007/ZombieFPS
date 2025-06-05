@@ -48,7 +48,7 @@ public class UI : MonoBehaviour
         {
             Weapon weapon = mysteryBox.GetCurrentPreview().GetComponent<Weapon>();   //so we get the weapon adn than grab the Weapon.cs script 
             string weaponName = (weapon != null) ? weapon.weaponName : "Unknown";  //if we find weapon script use that name if we cant use unkown
-            MysteryBoxText.text = "Press [F] to pick up: " + weaponName;      
+            MysteryBoxText.text = "Press [F] to pick up: " + weaponName;
             MysteryBoxText.gameObject.SetActive(true);
         }
         else

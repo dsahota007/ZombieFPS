@@ -58,7 +58,9 @@ public class Weapon : MonoBehaviour
     private ArmMovementMegaScript armMover;
 
     private float nextFireTime = 0f; //controls delay for single fire ---
-     
+
+    public bool isWeaponBeingShowcased = false; // for script deleting for UI -- so the gun does not shoot when being displayed. 
+
     public bool IsReloading = false;     //could delete -------------------------------------
 
     void Start()
@@ -124,7 +126,7 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (!CanShoot() ||isReloading || IsSprinting()) return; //leave func if u cant
+        if (isWeaponBeingShowcased || !CanShoot() ||isReloading || IsSprinting()) return; //leave func if u cant
 
         currentAmmo--;
 
