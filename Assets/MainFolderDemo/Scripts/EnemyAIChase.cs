@@ -10,6 +10,8 @@ public class EnemyAIChase : MonoBehaviour
     void Start()
     {
         enemyAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+
 
         if (!enemyAgent.isOnNavMesh)
         {
@@ -37,6 +39,12 @@ public class EnemyAIChase : MonoBehaviour
         {
             float speed = enemyAgent.velocity.magnitude;
             animator.SetFloat("Speed", speed);
+            Debug.LogError("Animator component is missing!");
+             }
+
+        else
+            {
+                Debug.Log("Animator found on enemy.");
+            }
         }
-    }
 }
