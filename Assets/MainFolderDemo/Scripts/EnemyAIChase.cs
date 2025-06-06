@@ -1,22 +1,22 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyFollow : MonoBehaviour
+public class EnemyAIChase : MonoBehaviour
 {
-    private NavMeshAgent agent;
+    private NavMeshAgent enemyAgent;
     public Transform target;
+    private Animator animator;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        enemyAgent = GetComponent<NavMeshAgent>();
 
-        // Warp to NavMesh if not already placed
-        if (!agent.isOnNavMesh)
+        if (!enemyAgent.isOnNavMesh)
         {
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(transform.position, out hit, 5f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(transform.position, out hit, 5f, NavMesh.AllAreas))    // sample pos is a vec3 (startin point, result container?, max distance to search, which areas.
             {
-                agent.Warp(hit.position);
+                enemyAgent.Warp(hit.position);
                 Debug.Log("Warped enemy to NavMesh.");
             }
             else
@@ -28,9 +28,15 @@ public class EnemyFollow : MonoBehaviour
 
     void Update()
     {
-        if (target != null && agent.isOnNavMesh)
+        if (target != null && enemyAgent.isOnNavMesh)
         {
-            agent.SetDestination(target.position);
+            enemyAgent.SetDestination(target.position);   //keeps updating its destination to follow the target's current position
+        }
+
+        if (animator != null)
+        {
+            float speed = enemyAgent.velocity.magnitude;
+            animator.SetFloat("Speed", speed);
         }
     }
 }
