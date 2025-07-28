@@ -37,9 +37,12 @@ public class EnemyAIChase : MonoBehaviour
 
         if (animator != null)
         {
-            float speed = enemyAgent.velocity.magnitude;
-            animator.SetFloat("Speed", speed);
-            Debug.LogError("Animator component is missing!");
+
+            bool isMoving = enemyAgent.velocity.magnitude > 0.1f;
+            animator.enabled = isMoving;
+            //float speed = enemyAgent.velocity.magnitude;
+            //animator.SetFloat("Speed", speed);
+            //Debug.LogError("Animator component is missing!");
              }
 
         else
