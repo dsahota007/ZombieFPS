@@ -164,3 +164,4 @@ public class ArmMovementMegaScript : MonoBehaviour
         isReloading = state;               //if u look up where reloading is happening we actually start animation. ^^^
     }
 }
+

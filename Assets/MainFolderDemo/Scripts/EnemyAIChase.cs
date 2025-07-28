@@ -34,20 +34,18 @@ public class EnemyAIChase : MonoBehaviour
         {
             enemyAgent.SetDestination(target.position);   //keeps updating its destination to follow the target's current position
         }
-
         if (animator != null)
         {
+            float speed = enemyAgent.velocity.magnitude;   //gets the speed
+            animator.SetFloat("Speed", speed);   // than we getting the speed set to that 
 
-            bool isMoving = enemyAgent.velocity.magnitude > 0.1f;
-            animator.enabled = isMoving;
-            //float speed = enemyAgent.velocity.magnitude;
-            //animator.SetFloat("Speed", speed);
-            //Debug.LogError("Animator component is missing!");
-             }
-
-        else
+            // Assign RunIndex when starting to move
+            if (speed > 0.1f && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             {
-                Debug.Log("Animator found on enemy.");
+                int randomRun = Random.Range(0, 3); // 0 to 2
+                animator.SetInteger("RunIndex", randomRun);
+                //Debug.Log($"Switched to RunIndex: {randomRun}");
             }
         }
+    }
 }
