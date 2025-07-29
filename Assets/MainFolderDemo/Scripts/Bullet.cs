@@ -32,6 +32,14 @@ public class Bullet : MonoBehaviour
                 Vector3 BulletHitPoint = transform.position;  //  Get contact point (find approximate using bullet position)
 
                 Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);    --- Quaternion.identity --- This is Unity's way of saying: “No rotation at all.”
+                
+                EnemyHealthRagdoll enemy = other.GetComponent<EnemyHealthRagdoll>();
+                if (enemy != null)
+                {
+                    Vector3 bulletDirection = transform.forward;
+                    enemy.RegisterHit(bulletDirection);
+                }
+
             }
 
         Destroy(gameObject);

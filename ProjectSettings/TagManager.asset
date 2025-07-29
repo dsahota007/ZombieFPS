@@ -27,7 +27,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - DeadBody
   - Water
   - UI
   - 
