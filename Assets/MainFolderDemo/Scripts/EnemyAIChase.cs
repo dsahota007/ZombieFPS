@@ -10,7 +10,7 @@ public class EnemyAIChase : MonoBehaviour
     private Animator animator;
 
     [Header("Combat Settings")]
-    public float attackDistance = 2f;
+    public float attackDistance = 1f;
     private bool isAttackingPlayer = false;
 
     void Start()
@@ -50,10 +50,9 @@ public class EnemyAIChase : MonoBehaviour
             float distanceFromPlayer = Vector3.Distance(transform.position, target.position);  //(the zomb, to player)
             if (distanceFromPlayer <= attackDistance && !isAttackingPlayer)
             {
-                // Trigger attack
                 isAttackingPlayer = true;
                 animator.SetTrigger("Attack");
-                Debug.Log($"Enemy {gameObject.name} is attacking the player!");
+                Debug.Log($"Enemy {gameObject.name} is attacking the player!"); //this is HEALTH -25 or whatever
 
                 // Optional: Reset attack after delay
                 StartCoroutine(ResetAttackCooldown());
