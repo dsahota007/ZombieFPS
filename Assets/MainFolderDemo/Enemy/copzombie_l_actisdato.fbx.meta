@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FuzZombie_body_diffuse
-    second: {fileID: 2800000, guid: 613637c87e9585a40bc897a0c9e047d1, type: 3}
+    second: {fileID: 2800000, guid: 2cf134bfdbe9eca47b34b581ac676539, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FuzZombie_diffuse
-    second: {fileID: 2800000, guid: 20c69a0b9a46b0e4f8ff1bc850539cee, type: 3}
+    second: {fileID: 2800000, guid: 9873603693ca2b54f800e1ad5b7df97c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FuzZombie_normal
-    second: {fileID: 2800000, guid: 67f3f7fde81460a48be7110571c033a0, type: 3}
+    second: {fileID: 2800000, guid: ede02ef69708b1c439764986fe4e402c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FuzZombie_specular
-    second: {fileID: 2800000, guid: 942c06f4a4d8a2042946b8c09eafb1e0, type: 3}
+    second: {fileID: 2800000, guid: c4df468208973e544bf953f4a08ea6ed, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
