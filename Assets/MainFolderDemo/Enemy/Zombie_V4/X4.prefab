@@ -1930,7 +1930,7 @@ GameObject:
   - component: {fileID: 474340}
   - component: {fileID: 9535714}
   m_Layer: 0
-  m_Name: ZombieRig
+  m_Name: X4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
