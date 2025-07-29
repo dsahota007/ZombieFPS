@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyAIChase : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class EnemyAIChase : MonoBehaviour
 
     [Header("Combat Settings")]
     public float attackDistance = 2f;
-    private bool isAttacking = false;
+    private bool isAttackingPlayer = false;
 
     void Start()
     {
@@ -32,11 +34,31 @@ public class EnemyAIChase : MonoBehaviour
         }
     }
 
+    IEnumerator ResetAttackCooldown()
+    {
+        yield return new WaitForSeconds(1f); // delay before can attack again
+        isAttackingPlayer = false;
+    }
+
+
     void Update()
     {
         if (target != null && enemyAgent.isOnNavMesh)
         {
             enemyAgent.SetDestination(target.position);   //keeps updating its destination to follow the target's current position
+
+            float distanceFromPlayer = Vector3.Distance(transform.position, target.position);  //(the zomb, to player)
+            if (distanceFromPlayer <= attackDistance && !isAttackingPlayer)
+            {
+                // Trigger attack
+                isAttackingPlayer = true;
+                animator.SetTrigger("Attack");
+                Debug.Log($"Enemy {gameObject.name} is attacking the player!");
+
+                // Optional: Reset attack after delay
+                StartCoroutine(ResetAttackCooldown());
+            }
+
         }
         if (animator != null)
         {
