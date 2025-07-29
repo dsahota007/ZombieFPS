@@ -153,3 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   lifeTime: 2
+  bloodEffects:
+  - {fileID: 5166426413497761222, guid: 94632be0c87bdbc4eb57b614a5e5f6a8, type: 3}
+  - {fileID: 5229322557928275105, guid: 99e593e2f7c279743a262c9223b09521, type: 3}
+  - {fileID: 8616876867203870938, guid: 25c0e47112878534c9a6ff92160cbb48, type: 3}
+  - {fileID: 2430188457786999321, guid: e7401e255397253498b273739328c36a, type: 3}
