@@ -14464,7 +14464,7 @@ GameObject:
   - component: {fileID: 4119119552613990865}
   m_Layer: 0
   m_Name: Zombie_V4
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14809,7 +14809,7 @@ GameObject:
   - component: {fileID: 7042740988733828929}
   m_Layer: 0
   m_Name: Zombie_V3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15558,7 +15558,7 @@ GameObject:
   - component: {fileID: 5712357385614332498}
   m_Layer: 0
   m_Name: Zombie_V1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15930,7 +15930,7 @@ GameObject:
   - component: {fileID: 5225255263079110876}
   m_Layer: 0
   m_Name: Zombie_V2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

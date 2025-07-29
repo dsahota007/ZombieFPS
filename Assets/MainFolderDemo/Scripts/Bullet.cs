@@ -24,5 +24,10 @@ public class Bullet : MonoBehaviour
             Debug.Log("Bullet hit ground!");
             Destroy(gameObject);
         }
+        if (other.CompareTag("Enemy"))
+            {
+                Debug.Log("Bullet hit Enemy!");
+                Destroy(gameObject);
+            }
     }
 }
