@@ -42,7 +42,7 @@ public class EnemyAIChase : MonoBehaviour
             // Assign RunIndex when starting to move
             if (speed > 0.1f && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             {
-                int randomRun = Random.Range(0, 3); // 0 to 2
+                int randomRun = Random.Range(0, 8); // 0 to 2
                 animator.SetInteger("RunIndex", randomRun);
                 //Debug.Log($"Switched to RunIndex: {randomRun}");
             }
