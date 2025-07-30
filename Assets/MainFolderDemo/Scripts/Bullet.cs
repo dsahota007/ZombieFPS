@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
    
     
     public GameObject[] bloodEffects;
+    public GameObject groundHitEffect;
 
 
     void Start()
@@ -26,8 +27,14 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Ground"))
         {
-            //Debug.Log("Bullet hit ground!");
+            if (groundHitEffect != null)
+            {
+                Vector3 hitPoint = transform.position;
+                Instantiate(groundHitEffect, hitPoint, Quaternion.identity);
+            }
+
             Destroy(gameObject);
+            return;
         }
         if (other.CompareTag("Enemy"))
             if (bloodEffects != null && bloodEffects.Length > 0)  
