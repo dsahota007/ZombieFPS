@@ -151,8 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d7fd0f3bc39a449ad924ccc380db57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 45
   lifeTime: 2
+  damage: 20
   bloodEffects:
   - {fileID: 5166426413497761222, guid: 94632be0c87bdbc4eb57b614a5e5f6a8, type: 3}
   - {fileID: 5229322557928275105, guid: 99e593e2f7c279743a262c9223b09521, type: 3}

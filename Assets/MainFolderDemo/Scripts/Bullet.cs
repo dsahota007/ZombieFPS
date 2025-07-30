@@ -4,7 +4,11 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
     public float lifeTime = 2f;
+    public float damage = 1f;
+   
+    
     public GameObject[] bloodEffects;
+
 
     void Start()
     {
@@ -26,18 +30,18 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
         if (other.CompareTag("Enemy"))
-            if (bloodEffects != null && bloodEffects.Length > 0)  //we need blood effects in the list
+            if (bloodEffects != null && bloodEffects.Length > 0)  
             {
-                int index = Random.Range(0, bloodEffects.Length);   //randomly catch a blood vfx
-                Vector3 BulletHitPoint = transform.position;  //  Get contact point (find approximate using bullet position)
+                int index = Random.Range(0, bloodEffects.Length);   
+                Vector3 BulletHitPoint = transform.position;  
 
                 Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);    --- Quaternion.identity --- This is Unity's way of saying: “No rotation at all.”
                 
                 EnemyHealthRagdoll enemy = other.GetComponent<EnemyHealthRagdoll>();
                 if (enemy != null)
                 {
-                    Vector3 bulletDirection = transform.forward;
-                    enemy.RegisterHit(bulletDirection);
+                    Vector3 bulletDirection = transform.forward;   //the direction the zombie will go after shot.
+                    enemy.TakeDamage(damage, bulletDirection);    //from EnemyHealthScript
                 }
 
             }
