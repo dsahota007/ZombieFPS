@@ -18,6 +18,14 @@ public class EnemyAIChase : MonoBehaviour
         enemyAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
+        //-------- we have to add this because we cant put player in transform after we make prefab
+        if (target == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+                target = playerObj.transform;
+        }
+        //------------
 
         if (!enemyAgent.isOnNavMesh)
         {
@@ -52,10 +60,10 @@ public class EnemyAIChase : MonoBehaviour
             {
                 isAttackingPlayer = true;
                 animator.SetTrigger("Attack");
-                Debug.Log($"Enemy {gameObject.name} is attacking the player!"); //this is HEALTH -25 or whatever
+                Debug.Log("HEALTH - 10 "); //this is HEALTH -25 or whatever
 
-                // Optional: Reset attack after delay
-                StartCoroutine(ResetAttackCooldown());
+                 
+                StartCoroutine(ResetAttackCooldown()); // Optional: Reset attack after delay
             }
 
         }

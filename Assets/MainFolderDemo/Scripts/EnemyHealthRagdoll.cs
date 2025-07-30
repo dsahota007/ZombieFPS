@@ -77,7 +77,7 @@ public class EnemyHealthRagdoll : MonoBehaviour
                 }
             }
         }
-
+        FindObjectOfType<ZombieSpawner>().OnZombieKilled();
         Destroy(gameObject, 15f);    //make bodies dissapear. 
     }
 
