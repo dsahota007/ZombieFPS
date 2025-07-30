@@ -5,21 +5,27 @@ public class EnemyHealthRagdoll : MonoBehaviour
 {
     public int maxHits = 3;
     public GameObject ragdollRoot;
-    public float ragdollForce = 1f;
-    public Collider rootCollider; // assign in Inspector or auto-get
+    public float ragdollForce = 3f;
+    public Collider rootCollider;
 
     private int currentHits = 0;
-    private Animator animator;
     private bool isDead = false;
+
+    private Animator animator;
+    private NavMeshAgent agent;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
 
         if (rootCollider == null)
-            rootCollider = GetComponent<Collider>(); // auto-assign
+            rootCollider = GetComponent<Collider>();
 
         SetRagdollState(false);
+
+        // Ignore collisions between PlayerBody and DeadBody layers
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerBody"), LayerMask.NameToLayer("DeadBody"));
     }
 
     public void RegisterHit(Vector3 hitDirection)
@@ -38,55 +44,55 @@ public class EnemyHealthRagdoll : MonoBehaviour
     {
         isDead = true;
 
-        if (animator != null)
-            animator.enabled = false;
-
-        var agent = GetComponent<NavMeshAgent>();
-        if (agent != null)
-            agent.enabled = false;
-
-        if (rootCollider != null)
-            rootCollider.enabled = false;
+        if (animator) animator.enabled = false;
+        if (agent) agent.enabled = false;
+        if (rootCollider) rootCollider.enabled = false;
 
         SetRagdollState(true);
-        AddRagdollForce(hitDirection);
+        ApplyRagdollForce(hitDirection);
 
-        // Let ragdoll react for 1 second, then disable colliders and physics
-        Invoke(nameof(DisableRagdollColliders), 1.7f);
+        // Change layer to DeadBody (no collision with player)
+        SetLayerRecursively(ragdollRoot, LayerMask.NameToLayer("DeadBody"));
 
-        
+        // Dynamically ignore collisions between this ragdoll and the Player
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            foreach (var ragdollCol in ragdollRoot.GetComponentsInChildren<Collider>())
+            {
+                foreach (var playerCol in player.GetComponentsInChildren<Collider>())
+                {
+                    Physics.IgnoreCollision(ragdollCol, playerCol, true);
+                }
+            }
+        }
+
         Destroy(gameObject, 9f);
     }
 
-    void SetRagdollState(bool active)
+
+    void SetRagdollState(bool enabled)
     {
         foreach (var rb in ragdollRoot.GetComponentsInChildren<Rigidbody>())
-            rb.isKinematic = !active;
+            rb.isKinematic = !enabled;
 
         foreach (var col in ragdollRoot.GetComponentsInChildren<Collider>())
-            col.enabled = active;
+            col.enabled = enabled;
     }
 
-    void AddRagdollForce(Vector3 direction)
+    void ApplyRagdollForce(Vector3 direction)
     {
-        Rigidbody[] rbs = ragdollRoot.GetComponentsInChildren<Rigidbody>();
+        var rbs = ragdollRoot.GetComponentsInChildren<Rigidbody>();
         if (rbs.Length > 0)
-        {
-            Rigidbody targetBone = rbs[0]; // pick chest or hips
-            targetBone.AddForce(direction * ragdollForce, ForceMode.Impulse);
-        }
+            rbs[0].AddForce(direction * ragdollForce, ForceMode.Impulse);
     }
 
-    void DisableRagdollColliders()
+    void SetLayerRecursively(GameObject obj, int layer)
     {
-        foreach (var col in ragdollRoot.GetComponentsInChildren<Collider>())
-            col.enabled = false;
+        if (obj == null) return;
+        obj.layer = layer;
 
-        foreach (var rb in ragdollRoot.GetComponentsInChildren<Rigidbody>())
-        {
-            rb.isKinematic = true;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
+        foreach (Transform child in obj.transform)
+            SetLayerRecursively(child.gameObject, layer);
     }
 }
