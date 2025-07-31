@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float slideDeceleration = 5f;
     public float slideControllerHeight = 1f;   // Height during slide
 
+
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;

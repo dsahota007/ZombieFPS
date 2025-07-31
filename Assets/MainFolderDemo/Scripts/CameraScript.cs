@@ -33,6 +33,14 @@ public class CameraScript : MonoBehaviour
     public float slideCameraDropAmount = 0.5f;   
     public float slideCameraTransitionSpeed = 8f;
 
+    [Header("Slide Tilt Settings")]
+    public float slideTiltAngle = 8f;          
+    public float slideTiltSpeed = 6f;         
+
+    private float currentTilt = 0f;
+
+
+
 
     void Start()
     {
@@ -47,7 +55,7 @@ public class CameraScript : MonoBehaviour
         playerMovement = FindObjectOfType<PlayerMovement>(); //ref to script for turning off bobbing midair 
 
         sprintFOV = defaultFOV + 25f;
-        defaultCamPos = cam.localPosition;
+        defaultCamPos = cam.localPosition;   //we capture og spot of cam
     }
 
     void Update()
@@ -56,6 +64,7 @@ public class CameraScript : MonoBehaviour
         FOVTransition();
         HeadBobWhenSprint();
         HandleSlideCamera();
+ 
     }
 
     public void VertClamp()
@@ -102,21 +111,18 @@ public class CameraScript : MonoBehaviour
     }
     void HandleSlideCamera()
     {
-        if (!playerMovement.IsGrounded())
+        if (!playerMovement.IsGrounded() || !playerMovement.IsSliding())   //not on ground or sliding
+        {
+            cam.localPosition = Vector3.Lerp(cam.localPosition, defaultCamPos, Time.deltaTime * slideCameraTransitionSpeed);  // Reset camera position and tilt smoothly while in air or not sliding
+            currentTilt = Mathf.Lerp(currentTilt, 0f, Time.deltaTime * slideTiltSpeed);
+            cam.localRotation = Quaternion.Euler(xRotation, 0f, currentTilt);  //xRotation is 0 btw so its jus resetting titl pre much
             return;
-
-        if (playerMovement.IsSliding())
-        {
-            Vector3 slidePos = new Vector3(defaultCamPos.x, defaultCamPos.y - slideCameraDropAmount, defaultCamPos.z);
-            cam.localPosition = Vector3.Lerp(cam.localPosition, slidePos, Time.deltaTime * slideCameraTransitionSpeed);
-        }
-        else
-        {
-            cam.localPosition = Vector3.Lerp(cam.localPosition, defaultCamPos, Time.deltaTime * slideCameraTransitionSpeed);
-        }
+        } 
+        Vector3 slidePos = new Vector3(defaultCamPos.x, defaultCamPos.y - slideCameraDropAmount, defaultCamPos.z);  //we get default camPos in start()
+        cam.localPosition = Vector3.Lerp(cam.localPosition, slidePos, Time.deltaTime * slideCameraTransitionSpeed);   //lerp (a,b,t) so we get the cam and move it to the slide position and than by the speed of the transition
+        currentTilt = Mathf.Lerp(currentTilt, slideTiltAngle, Time.deltaTime * slideTiltSpeed);   //we use lerp again we need to get to slide tilt
+        cam.localRotation = Quaternion.Euler(xRotation, 0f, currentTilt);  //takes new current tilt in the z coord ---- Quaternion.Euler(x, y, z) --- returns a rotation --- (up down, left right, roll - tilt) 
     }
-
-
 
 }
 
