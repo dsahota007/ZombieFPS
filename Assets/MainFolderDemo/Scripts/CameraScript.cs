@@ -30,12 +30,13 @@ public class CameraScript : MonoBehaviour
 
 
     [Header("Slide Camera Effects")]                    // SLIDE MECHANIC
-    public float slideCameraDropAmount = 0.5f;   
+    public float slideCameraDropAmount = 0.5f;
     public float slideCameraTransitionSpeed = 8f;
 
+
     [Header("Slide Tilt Settings")]
-    public float slideTiltAngle = 8f;          
-    public float slideTiltSpeed = 6f;         
+    public float slideTiltAngle = 8f;
+    public float slideTiltSpeed = 6f;
 
     private float currentTilt = 0f;
 
@@ -62,9 +63,9 @@ public class CameraScript : MonoBehaviour
     {
         VertClamp();
         FOVTransition();
-        HeadBobWhenSprint();
-        HandleSlideCamera();
- 
+        //HeadBobWhenSprint();   // these two are in HandleCameraEffects();
+        //HandleSlideCamera();
+        HandleCameraEffects();
     }
 
     public void VertClamp()
@@ -80,16 +81,16 @@ public class CameraScript : MonoBehaviour
     }
 
     public void FOVTransition()
-        {
-            if (playerCamera == null) return;       //if cam dont exist leave this code dont waste your time.
+    {
+        if (playerCamera == null) return;       //if cam dont exist leave this code dont waste your time.
 
-            bool isFiring = Input.GetMouseButton(1) && Input.GetMouseButton(1);
-            bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isFiring;
+        bool isFiring = Input.GetMouseButton(1) && Input.GetMouseButton(1);
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isFiring;
 
-            float targetFOV = isSprinting ? sprintFOV : defaultFOV;
+        float targetFOV = isSprinting ? sprintFOV : defaultFOV;
 
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * fovTransitionSpeed);     //(a,b,t)
-        }
+        playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * fovTransitionSpeed);     //(a,b,t)
+    }
 
 
     void HeadBobWhenSprint()
@@ -109,20 +110,42 @@ public class CameraScript : MonoBehaviour
             cam.localPosition = Vector3.Lerp(cam.localPosition, defaultCamPos, Time.deltaTime * 5f);  //return cam pose to default in 5f speed (lerp.(a,b,t))
         }
     }
+
+    //===================================================== slide
     void HandleSlideCamera()
     {
-        if (!playerMovement.IsGrounded() || !playerMovement.IsSliding())   //not on ground or sliding
-        {
-            cam.localPosition = Vector3.Lerp(cam.localPosition, defaultCamPos, Time.deltaTime * slideCameraTransitionSpeed);  // Reset camera position and tilt smoothly while in air or not sliding
-            currentTilt = Mathf.Lerp(currentTilt, 0f, Time.deltaTime * slideTiltSpeed);
-            cam.localRotation = Quaternion.Euler(xRotation, 0f, currentTilt);  //xRotation is 0 btw so its jus resetting titl pre much
-            return;
-        } 
         Vector3 slidePos = new Vector3(defaultCamPos.x, defaultCamPos.y - slideCameraDropAmount, defaultCamPos.z);  //we get default camPos in start()
         cam.localPosition = Vector3.Lerp(cam.localPosition, slidePos, Time.deltaTime * slideCameraTransitionSpeed);   //lerp (a,b,t) so we get the cam and move it to the slide position and than by the speed of the transition
         currentTilt = Mathf.Lerp(currentTilt, slideTiltAngle, Time.deltaTime * slideTiltSpeed);   //we use lerp again we need to get to slide tilt
         cam.localRotation = Quaternion.Euler(xRotation, 0f, currentTilt);  //takes new current tilt in the z coord ---- Quaternion.Euler(x, y, z) --- returns a rotation --- (up down, left right, roll - tilt) 
-    }
-
+        Debug.Log("Cam Y Pos: " + cam.localPosition.y);
 }
 
+    void ReturnCameraToDefault()
+    {
+        bobTimer = 0f;                  //Resets the head bobbing animation timer to stop any further bob movement.
+        cam.localPosition = Vector3.Lerp(cam.localPosition, defaultCamPos, Time.deltaTime * 5f); //resetting came back smoothly
+        currentTilt = Mathf.Lerp(currentTilt, 0f, Time.deltaTime * slideTiltSpeed);   //we currently tilted lerp(a,b,t) --- so we have to reset it smoothly 
+        cam.localRotation = Quaternion.Euler(xRotation, 0f, currentTilt);          //xRotation is 0 so adn with t being currentTitt we change in the line above so were smoothly reset tilt
+    }
+
+    void HandleCameraEffects()
+    {
+        if (!playerMovement.IsGrounded()) //not on ground than reset and GTFO
+        {
+            ReturnCameraToDefault();
+            return;
+        }
+        if (playerMovement.IsSliding())  //if they are sliding than handleSlideCamera() and than GTFO
+        {
+            HandleSlideCamera();
+            return;
+        }
+        if (Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0))   // this is for bobbing -- forward back left right -- we take away HeadBobWhenSprint in update()
+        {
+            HeadBobWhenSprint();
+            return;
+        }
+        ReturnCameraToDefault();   //when you do exit this you still have to reset the camera. 
+    }
+}

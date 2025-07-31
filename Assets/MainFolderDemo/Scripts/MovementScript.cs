@@ -120,10 +120,10 @@ public class PlayerMovement : MonoBehaviour
         float z_input = Input.GetAxisRaw("Vertical");
         slideDirection = (transform.right * x_input + transform.forward * z_input).normalized;   //we get horizontal adn back fourth input and normalized makes the vector lentgth 1 for consisten speed 
 
-        if (slideDirection.magnitude == 0)
-        {
-            slideDirection = transform.forward;   //If no movement keys are pressed when slide starts Default to sliding forward
-        }
+        //if (slideDirection.magnitude == 0)   //this is sliding adn not moving which is wack
+        //{
+        //    slideDirection = transform.forward;   //If no movement keys are pressed when slide starts Default to sliding forward
+        //}
 
         controller.height = slideControllerHeight;          //!!! COME BACK
         controller.center = new Vector3(normalControllerCenter.x, slideControllerHeight / 2f, normalControllerCenter.z);  //!!! COME BACK
@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(slideDirection * currentSlideSpeed * Time.deltaTime);  // move(where to go, how fast)
 
         // End slide when timer expires or player stops holding shift  !! COME BACK SO WE CAN EDIT THIS BEHAVIOUR
-        if (slideTimer >= slideDuration || !Input.GetKey(KeyCode.LeftShift))
+        if (slideTimer >= slideDuration) // || !Input.GetKey(KeyCode.LeftShift))
         {
             EndSlide();
         }
