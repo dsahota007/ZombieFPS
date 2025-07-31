@@ -593,6 +593,8 @@ MonoBehaviour:
   WeaponNameText: {fileID: 27395957}
   MysteryBoxText: {fileID: 1987330018}
   mysteryBox: {fileID: 1967998863}
+  roundText: {fileID: 678398245}
+  zombieSpawner: {fileID: 1595701417}
 --- !u!1 &103220497
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +717,7 @@ Transform:
   m_GameObject: {fileID: 122548116}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.82, y: 2.15, z: 1.53}
+  m_LocalPosition: {x: 2.64, y: 2.15, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1935,6 +1937,10 @@ MonoBehaviour:
   sprintSpeed: 9
   gravity: -12.81
   jumpHeight: 2
+  slideSpeed: 16
+  slideDuration: 1
+  slideDeceleration: 5
+  slideControllerHeight: 1
 --- !u!143 &561119874
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1981,6 +1987,8 @@ MonoBehaviour:
   fovTransitionSpeed: 5
   bobSpeed: 15
   bobAmount: 0.15
+  slideCameraDropAmount: 5
+  slideCameraTransitionSpeed: 5
 --- !u!114 &561119876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2267,7 +2275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &678398244
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2284,8 +2292,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -201.4, y: 49.2}
-  m_SizeDelta: {x: 360.0453, y: 209.159}
+  m_AnchoredPosition: {x: -295.43, y: -149.371}
+  m_SizeDelta: {x: 145.38, y: 71.5909}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678398245
 MonoBehaviour:
@@ -2309,23 +2317,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 38
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 174
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Controls:\n\nPress 1 to swap weapons\nPress R to reload\nHold Shift to
-    sprint\nLeft Mouse Button to shoot\nRight Mouse Button to aim\n\nNote: Bullet
-    sizes are intentionally large for easier collision detection.\nThis is an early
-    pre-alpha build \u2014 everything is still a work in progress!\n\nAdditional
-    Features:\n\nEnemies have advanced AI for tracking and following the player.\n\nThe
-    Mystery Box is a fully functional station with multiple guns to choose from."
+  m_Text: Round#
 --- !u!222 &678398246
 CanvasRenderer:
   m_ObjectHideFlags: 0

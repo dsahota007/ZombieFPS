@@ -29,6 +29,11 @@ public class CameraScript : MonoBehaviour
     private Vector3 defaultCamPos;
 
 
+    [Header("Slide Camera Effects")]                    // SLIDE MECHANIC
+    public float slideCameraDropAmount = 0.5f;   
+    public float slideCameraTransitionSpeed = 8f;
+
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -43,8 +48,6 @@ public class CameraScript : MonoBehaviour
 
         sprintFOV = defaultFOV + 25f;
         defaultCamPos = cam.localPosition;
-
-
     }
 
     void Update()
@@ -52,9 +55,7 @@ public class CameraScript : MonoBehaviour
         VertClamp();
         FOVTransition();
         HeadBobWhenSprint();
-
-
-
+        HandleSlideCamera();
     }
 
     public void VertClamp()
@@ -80,6 +81,8 @@ public class CameraScript : MonoBehaviour
 
             playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * fovTransitionSpeed);     //(a,b,t)
         }
+
+
     void HeadBobWhenSprint()
     {
         if (!playerMovement.IsGrounded()) return;  //dont bob unless grounded
@@ -97,6 +100,23 @@ public class CameraScript : MonoBehaviour
             cam.localPosition = Vector3.Lerp(cam.localPosition, defaultCamPos, Time.deltaTime * 5f);  //return cam pose to default in 5f speed (lerp.(a,b,t))
         }
     }
+    void HandleSlideCamera()
+    {
+        if (!playerMovement.IsGrounded())
+            return;
+
+        if (playerMovement.IsSliding())
+        {
+            Vector3 slidePos = new Vector3(defaultCamPos.x, defaultCamPos.y - slideCameraDropAmount, defaultCamPos.z);
+            cam.localPosition = Vector3.Lerp(cam.localPosition, slidePos, Time.deltaTime * slideCameraTransitionSpeed);
+        }
+        else
+        {
+            cam.localPosition = Vector3.Lerp(cam.localPosition, defaultCamPos, Time.deltaTime * slideCameraTransitionSpeed);
+        }
+    }
+
+
 
 }
 

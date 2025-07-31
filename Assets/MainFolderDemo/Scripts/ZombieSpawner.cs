@@ -51,4 +51,10 @@ public class ZombieSpawner : MonoBehaviour
             StartCoroutine(SpawnRound());
         }
     }
+
+    public int GetCurrentRound()   //for ui just fetching the round
+    {
+        return currentRound;
+    }
+
 }

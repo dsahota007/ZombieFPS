@@ -13,7 +13,12 @@ public class UI : MonoBehaviour
 
     [Header("Mystery Box Popup UI")]
     public Text MysteryBoxText;
-    public MysteryBox mysteryBox; 
+    public MysteryBox mysteryBox;    //getting script
+
+    [Header("Round UI")]
+    public Text roundText;
+    public ZombieSpawner zombieSpawner;  //getting script
+
 
     void Update()
     {
@@ -55,7 +60,11 @@ public class UI : MonoBehaviour
         {
             MysteryBoxText.gameObject.SetActive(false);   //if either variabel is not true we keep it false at all times.
         }
-
+        //--------------------------------------------------------------- Round system UI
+        if (zombieSpawner != null)
+        {
+            roundText.text = "" + zombieSpawner.GetCurrentRound();
+        }
 
 
     }
