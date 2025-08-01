@@ -30,6 +30,13 @@ public class PlayerMovement : MonoBehaviour
     private bool isSlamming = false;
     private float lastSlamTime;
 
+    [Header("Slam Attack Settings")]
+    public float slamRadius = 5f;
+    public float slamDamage = 100f;
+    public LayerMask enemyMask;
+    public GameObject slamImpactVFX; // blood splat + impact
+
+
     //--------------------------------------------
 
     private CharacterController controller;
@@ -67,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
                 if (isSlamming)
                 {
                     isSlamming = false;
+                    ApplyKineticSlamDamage();   //we trigged kineticSlam so we apply this. 
                     // Optional: Trigger impact FX here
                 }
             }
@@ -150,6 +158,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    //----------------------------------- Kinetic Slam
     void StartKineticSlam()
     {
         isSlamming = true;
@@ -159,6 +168,37 @@ public class PlayerMovement : MonoBehaviour
         // Optional FX trigger here
         // e.g. CameraShake.ShakeOnce(), play sound, etc.
     }
+
+
+
+    void ApplyKineticSlamDamage()
+    {
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, slamRadius, enemyMask);
+
+        foreach (Collider enemy in hitEnemies)
+        {
+            EnemyHealthRagdoll health = enemy.GetComponent<EnemyHealthRagdoll>();
+            if (health != null)
+            {
+                Vector3 direction = (enemy.transform.position - transform.position).normalized;
+                health.TakeDamage(slamDamage, direction);
+
+                // Optional: Blood/impact FX
+                if (slamImpactVFX != null)
+                {
+                    Instantiate(slamImpactVFX, enemy.transform.position + Vector3.up * 1f, Quaternion.identity);
+                }
+            }
+        }
+
+        // Optional: shockwave or ground FX under player
+        if (slamImpactVFX != null)
+        {
+            Instantiate(slamImpactVFX, transform.position, Quaternion.identity);
+        }
+    }
+
+    //----------------------------------- Slideing Logic
 
 
     void HandleSlideInput()
