@@ -56,26 +56,25 @@ public class ArmMovementMegaScript : MonoBehaviour
 
     void Update()  //LateUpdate()   -- i got rid of this bc idk
     {
+        bool hasMovementInput = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
         bool isAiming = Input.GetMouseButton(1);
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isAiming;
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming; //we added hasMovementInput so i dont sprint in idle
         bool isGrounded = controller.isGrounded;    //we got ref to char controller so we know when grounded
 
-        bool hasMovementInput =
-            Input.GetKey(KeyCode.W) ||
-            Input.GetKey(KeyCode.A) ||
-            Input.GetKey(KeyCode.S) ||
-            Input.GetKey(KeyCode.D);
+
 
         bool isWalking = !isSprinting && hasMovementInput && isGrounded;    
 
         Vector3 targetOffset;
         Vector3 targetRotation;
 
+
         if (isReloading)
         {
             targetOffset = hipOffset + reloadOffset;
             targetRotation = hipRotation + reloadRotation;
         }
+
         else if (isSprinting && Input.GetKey(KeyCode.S))   //back sprint - omni movement
         {
             targetOffset = sprintBackOffset;

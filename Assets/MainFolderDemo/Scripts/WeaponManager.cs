@@ -27,6 +27,8 @@ public class WeaponManager : MonoBehaviour
 
     void Start()
     {
+        controller = FindObjectOfType<CharacterController>();    // for some reason this allows us to reload when sprinting. 
+
         weaponHolderOriginalPos = weaponHolder.localPosition;
         leftArmOriginalPos = leftArm.localPosition;
         rightArmOriginalPos = rightArm.localPosition;

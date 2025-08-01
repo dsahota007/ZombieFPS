@@ -120,10 +120,10 @@ public class PlayerMovement : MonoBehaviour
         float z_input = Input.GetAxisRaw("Vertical");
         slideDirection = (transform.right * x_input + transform.forward * z_input).normalized;   //we get horizontal adn back fourth input and normalized makes the vector lentgth 1 for consisten speed 
 
-        //if (slideDirection.magnitude == 0)   //this is sliding adn not moving which is wack
-        //{
-        //    slideDirection = transform.forward;   //If no movement keys are pressed when slide starts Default to sliding forward
-        //}
+        if (slideDirection.magnitude == 0)   //this is sliding adn not moving which is wack -- i take this back
+        {
+            slideDirection = transform.forward;   //If no movement keys are pressed when slide starts Default to sliding forward
+        }
 
         controller.height = slideControllerHeight;          //!!! COME BACK
         controller.center = new Vector3(normalControllerCenter.x, slideControllerHeight / 2f, normalControllerCenter.z);  //!!! COME BACK

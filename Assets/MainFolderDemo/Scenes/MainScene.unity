@@ -1987,7 +1987,7 @@ MonoBehaviour:
   fovTransitionSpeed: 5
   bobSpeed: 15
   bobAmount: 0.15
-  slideCameraDropAmount: 1.75
+  slideCameraDropAmount: 1
   slideCameraTransitionSpeed: 5
   slideTiltAngle: 8
   slideTiltSpeed: 6
@@ -2573,7 +2573,7 @@ Camera:
   field of view: 118
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: -0.15
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

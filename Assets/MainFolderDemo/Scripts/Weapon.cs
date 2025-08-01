@@ -82,7 +82,7 @@ public class Weapon : MonoBehaviour
         if (isReloading)    //if u sprint or reload no shooting 
         {
             StopFiring();
-            return;             //stop shooting and exit this part of code -- also causes the clip to go to 0 for some reaosn if u reload (doesnt matter) 
+            //return;             //stop shooting and exit this part of code -- also causes the clip to go to 0 for some reaosn if u reload (doesnt matter) 
         }
 
         switch (fireType)

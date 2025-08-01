@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3516174409708151389}
   - component: {fileID: 3267092288866309836}
   - component: {fileID: 1279076133112906584}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 557267986206858859}
   - component: {fileID: 940396378017240138}
   - component: {fileID: 2461457563075175796}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group10:M4_carbine:pSphere1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 1468528563734422168}
   - component: {fileID: 3740711959188420013}
   - component: {fileID: 3464275552694305722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 2939361285226516317}
   - component: {fileID: 7232356742447746262}
   - component: {fileID: 532560239302714273}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCylinder9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 5273068519337142293}
   - component: {fileID: 6668621712230918492}
   - component: {fileID: 3381413155035485841}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 8497796855626687472}
   - component: {fileID: 4457732753827813048}
   - component: {fileID: 5405548782046066569}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 3531218279500256231}
   - component: {fileID: 8275538701840027910}
   - component: {fileID: 3663022691641811885}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface6:group1:M4_carbine:group13:M4_carbine:polySurface8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 2097590290998411974}
   - component: {fileID: 6443934762299933515}
   - component: {fileID: 2474699356795589002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +699,7 @@ GameObject:
   - component: {fileID: 8964533861749916696}
   - component: {fileID: 5575146628982964734}
   - component: {fileID: 2884572125848075853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group10:M4_carbine:pCylinder6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +785,7 @@ GameObject:
   - component: {fileID: 7575590911380695654}
   - component: {fileID: 6628811747796979741}
   - component: {fileID: 7226700245595098}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube2:M4_carbine:group16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +871,7 @@ GameObject:
   - component: {fileID: 8530893035858225051}
   - component: {fileID: 8675863923947909307}
   - component: {fileID: 4760766724730491386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 7260015207019762261}
   - component: {fileID: 6601854143917385358}
   - component: {fileID: 4686577732829620624}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 8303144340546325652}
   - component: {fileID: 4350850463720736773}
   - component: {fileID: 5690676533514180303}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1127,7 +1127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1264731600694966330}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WeaponPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1235,7 +1235,7 @@ GameObject:
   - component: {fileID: 1474287671255919124}
   - component: {fileID: 3929216819480004424}
   - component: {fileID: 1986668975950293828}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1321,7 +1321,7 @@ GameObject:
   - component: {fileID: 4940713989209122470}
   - component: {fileID: 8325512445323020166}
   - component: {fileID: 2866808653245155534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1407,7 +1407,7 @@ GameObject:
   - component: {fileID: 8502136302467104788}
   - component: {fileID: 5092870641397214825}
   - component: {fileID: 7144147248955416962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1493,7 +1493,7 @@ GameObject:
   - component: {fileID: 5230128998365231554}
   - component: {fileID: 1595209885143740198}
   - component: {fileID: 3742291385874181350}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:desmont:verticalgrip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1579,7 +1579,7 @@ GameObject:
   - component: {fileID: 7722517282404930701}
   - component: {fileID: 8654166396622306521}
   - component: {fileID: 6769177289677221422}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface6:M4_carbine:polySurface7:group1:M4_carbine:group13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1665,7 +1665,7 @@ GameObject:
   - component: {fileID: 476928986563021396}
   - component: {fileID: 1160082163870585524}
   - component: {fileID: 1300703950809448677}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1751,7 +1751,7 @@ GameObject:
   - component: {fileID: 7397736463381135760}
   - component: {fileID: 8846041912937688925}
   - component: {fileID: 6202058816671116785}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1837,7 +1837,7 @@ GameObject:
   - component: {fileID: 8376622258655230851}
   - component: {fileID: 1563910421716861336}
   - component: {fileID: 1418049404155496446}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1923,7 +1923,7 @@ GameObject:
   - component: {fileID: 863970277506793492}
   - component: {fileID: 3755298991521281750}
   - component: {fileID: 3394633564033385898}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2009,7 +2009,7 @@ GameObject:
   - component: {fileID: 624251916897023313}
   - component: {fileID: 7405455323761073840}
   - component: {fileID: 5939291708261685046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2095,7 +2095,7 @@ GameObject:
   - component: {fileID: 5154439983767291900}
   - component: {fileID: 7447854178220104334}
   - component: {fileID: 2434001277383677543}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2181,7 +2181,7 @@ GameObject:
   - component: {fileID: 4084875135493146334}
   - component: {fileID: 7015965095148866339}
   - component: {fileID: 5713655917673432841}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:polySurface2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2267,7 +2267,7 @@ GameObject:
   - component: {fileID: 2100939721430434063}
   - component: {fileID: 5377831243769007802}
   - component: {fileID: 3413839822788022049}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2353,7 +2353,7 @@ GameObject:
   - component: {fileID: 2314913499855960586}
   - component: {fileID: 2093422247407223824}
   - component: {fileID: 7806665091803006176}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2439,7 +2439,7 @@ GameObject:
   - component: {fileID: 4774473136643679795}
   - component: {fileID: 6559493399488956658}
   - component: {fileID: 8011203795826563968}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2525,7 +2525,7 @@ GameObject:
   - component: {fileID: 3885425478101643327}
   - component: {fileID: 9114086003705350052}
   - component: {fileID: 7266786134711540241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCylinder4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2611,7 +2611,7 @@ GameObject:
   - component: {fileID: 7696272198913312537}
   - component: {fileID: 6187867898466643941}
   - component: {fileID: 4234137257546611880}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2697,7 +2697,7 @@ GameObject:
   - component: {fileID: 4809953181915479313}
   - component: {fileID: 2822118813330871049}
   - component: {fileID: 512924568437890986}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface6:group1:M4_carbine:group13:M4_carbine:polySurface9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2781,7 +2781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2902328080267144550}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2814,7 +2814,7 @@ GameObject:
   - component: {fileID: 2047353991085514671}
   - component: {fileID: 6045460017930977515}
   - component: {fileID: 8785978696276174247}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube29
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2900,7 +2900,7 @@ GameObject:
   - component: {fileID: 4174302356202203801}
   - component: {fileID: 7598693983520838341}
   - component: {fileID: 6143026069036418938}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2986,7 +2986,7 @@ GameObject:
   - component: {fileID: 5191457045708534909}
   - component: {fileID: 51126460579759841}
   - component: {fileID: 3454935779791206486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pPipe5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3072,7 +3072,7 @@ GameObject:
   - component: {fileID: 6576838776769239938}
   - component: {fileID: 117040331236392998}
   - component: {fileID: 5876803186484989092}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3158,7 +3158,7 @@ GameObject:
   - component: {fileID: 2948049063042801181}
   - component: {fileID: 1680056094203462401}
   - component: {fileID: 3292052874730700091}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3244,7 +3244,7 @@ GameObject:
   - component: {fileID: 2282258027202576905}
   - component: {fileID: 3840193092819923943}
   - component: {fileID: 8110489392211483379}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3330,7 +3330,7 @@ GameObject:
   - component: {fileID: 1945120264073957586}
   - component: {fileID: 4090069680998579625}
   - component: {fileID: 265789920511724130}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pPipe6:M4_carbine:group15:M4_carbine:group14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3416,7 +3416,7 @@ GameObject:
   - component: {fileID: 8746928256257246662}
   - component: {fileID: 1204543506388858298}
   - component: {fileID: 389563464549941494}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3502,7 +3502,7 @@ GameObject:
   - component: {fileID: 2207891940648243641}
   - component: {fileID: 6694444043157767326}
   - component: {fileID: 5164667342638694464}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3588,7 +3588,7 @@ GameObject:
   - component: {fileID: 8896031143612464068}
   - component: {fileID: 3949754338015316555}
   - component: {fileID: 1781607485396392281}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3674,7 +3674,7 @@ GameObject:
   - component: {fileID: 6665397361800542696}
   - component: {fileID: 8801321426159105940}
   - component: {fileID: 8439334010056119267}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3760,7 +3760,7 @@ GameObject:
   - component: {fileID: 2193850606747939024}
   - component: {fileID: 300660595849334349}
   - component: {fileID: 256175642466190386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pPipe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3846,7 +3846,7 @@ GameObject:
   - component: {fileID: 5025533926206234619}
   - component: {fileID: 9049308659207687759}
   - component: {fileID: 665051099880482600}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3932,7 +3932,7 @@ GameObject:
   - component: {fileID: 8188737927787787746}
   - component: {fileID: 2343468844430817256}
   - component: {fileID: 4531779872955895763}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4018,7 +4018,7 @@ GameObject:
   - component: {fileID: 705077668714890479}
   - component: {fileID: 3489605971142700081}
   - component: {fileID: 1337397700847936029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group10:M4_carbine:pSphere2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4104,7 +4104,7 @@ GameObject:
   - component: {fileID: 1765573215409746064}
   - component: {fileID: 4759546545581242106}
   - component: {fileID: 3011158125645170757}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group15:M4_carbine:group14:M4_carbine:pCylinder16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4190,7 +4190,7 @@ GameObject:
   - component: {fileID: 721167806426003570}
   - component: {fileID: 2677644774780779177}
   - component: {fileID: 8734622559963746316}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group15:M4_carbine:group14:M4_carbine:pCube32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4276,7 +4276,7 @@ GameObject:
   - component: {fileID: 470485393157039181}
   - component: {fileID: 6315117992683081158}
   - component: {fileID: 4740132136075821480}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4362,7 +4362,7 @@ GameObject:
   - component: {fileID: 710095497828980396}
   - component: {fileID: 6238021274493411963}
   - component: {fileID: 2929568334228475758}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pPipe4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4448,7 +4448,7 @@ GameObject:
   - component: {fileID: 5607410957061721147}
   - component: {fileID: 2254913661182353431}
   - component: {fileID: 6653840650301588148}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4534,7 +4534,7 @@ GameObject:
   - component: {fileID: 8755428126389312580}
   - component: {fileID: 2949711913046720954}
   - component: {fileID: 4263929659709307506}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCylinder10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4620,7 +4620,7 @@ GameObject:
   - component: {fileID: 6252668863840981066}
   - component: {fileID: 3998049280357996794}
   - component: {fileID: 4002447006393777059}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pPipe3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4706,7 +4706,7 @@ GameObject:
   - component: {fileID: 4391363125508434742}
   - component: {fileID: 7131887967964123007}
   - component: {fileID: 4192302827947865373}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group12:M4_carbine:pCylinder12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4792,7 +4792,7 @@ GameObject:
   - component: {fileID: 1660407094944918803}
   - component: {fileID: 6115095519997802592}
   - component: {fileID: 3268742406186288427}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group10:M4_carbine:pCube19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4878,7 +4878,7 @@ GameObject:
   - component: {fileID: 5969966750753749873}
   - component: {fileID: 544463043044678150}
   - component: {fileID: 6660665495458499957}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4964,7 +4964,7 @@ GameObject:
   - component: {fileID: 3281241814273203340}
   - component: {fileID: 3073609989909205890}
   - component: {fileID: 3300958026434326300}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group10:M4_carbine:pCube20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5050,7 +5050,7 @@ GameObject:
   - component: {fileID: 7942182235116311263}
   - component: {fileID: 7410249127428953980}
   - component: {fileID: 6195917210675393002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5136,7 +5136,7 @@ GameObject:
   - component: {fileID: 4835480899600841642}
   - component: {fileID: 1735200046015958205}
   - component: {fileID: 1019893083434905758}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5222,7 +5222,7 @@ GameObject:
   - component: {fileID: 2981728910806359288}
   - component: {fileID: 1450110877514773435}
   - component: {fileID: 6567948560612989482}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCylinder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5308,7 +5308,7 @@ GameObject:
   - component: {fileID: 401306944000976183}
   - component: {fileID: 2837180967550335968}
   - component: {fileID: 6817198913027138163}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5394,7 +5394,7 @@ GameObject:
   - component: {fileID: 2183219418769189839}
   - component: {fileID: 8915637716700019671}
   - component: {fileID: 6132085457732383939}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5480,7 +5480,7 @@ GameObject:
   - component: {fileID: 2443065177942505805}
   - component: {fileID: 2092640429351607286}
   - component: {fileID: 572875566011202344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5566,7 +5566,7 @@ GameObject:
   - component: {fileID: 6235871853024298539}
   - component: {fileID: 7454568226637871177}
   - component: {fileID: 6522433789469506588}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube21:M4_carbine:group10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5652,7 +5652,7 @@ GameObject:
   - component: {fileID: 172310901305822950}
   - component: {fileID: 6093396343755261845}
   - component: {fileID: 7109950788709341663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:polySurface10:M4_carbine:polySurface6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5738,7 +5738,7 @@ GameObject:
   - component: {fileID: 8380600269567386741}
   - component: {fileID: 8107789150687149592}
   - component: {fileID: 743676757680973793}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCylinder7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5824,7 +5824,7 @@ GameObject:
   - component: {fileID: 5134206221864755658}
   - component: {fileID: 1798428252614826969}
   - component: {fileID: 6542929691036670529}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube7:M4_carbine:group2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5909,7 +5909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8909703238510871169}
   - component: {fileID: 1796756074764282029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4A1_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5967,6 +5967,7 @@ MonoBehaviour:
   kickbackReturnSpeed: 12
   leftArm: {fileID: 0}
   controller: {fileID: 0}
+  isWeaponBeingShowcased: 0
   IsReloading: 0
 --- !u!1 &8027666018750598299
 GameObject:
@@ -5979,7 +5980,7 @@ GameObject:
   - component: {fileID: 8672925034910991366}
   - component: {fileID: 7907360322912629033}
   - component: {fileID: 982978975267364333}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group10:M4_carbine:pCylinder5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6065,7 +6066,7 @@ GameObject:
   - component: {fileID: 1185248037315452750}
   - component: {fileID: 8505270837361397528}
   - component: {fileID: 385140344179045392}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group16:M4_carbine:pCylinder21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6151,7 +6152,7 @@ GameObject:
   - component: {fileID: 7378141115575426163}
   - component: {fileID: 3483415675774592341}
   - component: {fileID: 2472779159539491830}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCube15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6237,7 +6238,7 @@ GameObject:
   - component: {fileID: 6192465662030630809}
   - component: {fileID: 8125373061578967139}
   - component: {fileID: 1126304728784120132}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:desmont:magpul20rnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6323,7 +6324,7 @@ GameObject:
   - component: {fileID: 7295462763299489396}
   - component: {fileID: 7668685370928828518}
   - component: {fileID: 8383828057487049259}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group2:M4_carbine:pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6409,7 +6410,7 @@ GameObject:
   - component: {fileID: 8267947987321252076}
   - component: {fileID: 1522545247942161038}
   - component: {fileID: 943509149662702293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCylinder13:M4_carbine:group12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6495,7 +6496,7 @@ GameObject:
   - component: {fileID: 4587751116379941294}
   - component: {fileID: 3686789496624619494}
   - component: {fileID: 7749499318762353492}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCylinder8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6581,7 +6582,7 @@ GameObject:
   - component: {fileID: 2890595865615935452}
   - component: {fileID: 3081164946934743879}
   - component: {fileID: 1124887086462979632}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:group12:M4_carbine:polySurface5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6667,7 +6668,7 @@ GameObject:
   - component: {fileID: 3892105513774342244}
   - component: {fileID: 1364216758676475968}
   - component: {fileID: 3163963555034674638}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_carbine:pCube26
   m_TagString: Untagged
   m_Icon: {fileID: 0}

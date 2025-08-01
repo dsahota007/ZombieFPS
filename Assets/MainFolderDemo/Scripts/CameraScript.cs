@@ -85,7 +85,10 @@ public class CameraScript : MonoBehaviour
         if (playerCamera == null) return;       //if cam dont exist leave this code dont waste your time.
 
         bool isFiring = Input.GetMouseButton(1) && Input.GetMouseButton(1);
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isFiring;
+
+        bool hasMovementInput = Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0;  //we do this so we dont get this when idle
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isFiring;
+
 
         float targetFOV = isSprinting ? sprintFOV : defaultFOV;
 

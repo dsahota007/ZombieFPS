@@ -30,7 +30,7 @@ TagManager:
   - DeadBody
   - Water
   - UI
-  - 
+  - WeaponViewModel
   - PlayerBody
   - Wall
   - First Person View
