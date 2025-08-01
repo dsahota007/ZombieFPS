@@ -765,7 +765,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135229282}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1933,10 +1933,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9160fa62cd1367c4ba7967d7b38bc788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7.75
+  walkSpeed: 6.5
   sprintSpeed: 9
   gravity: -12.81
   jumpHeight: 2
+  aimSpeed: 5
   slideSpeed: 16
   slideDuration: 1
   slideDeceleration: 5

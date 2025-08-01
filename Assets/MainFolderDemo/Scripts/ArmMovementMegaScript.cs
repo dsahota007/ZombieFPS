@@ -58,15 +58,16 @@ public class ArmMovementMegaScript : MonoBehaviour
     {
         bool hasMovementInput = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
         bool isAiming = Input.GetMouseButton(1);
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming; //we added hasMovementInput so i dont sprint in idle
+        
+        bool isSliding = FindObjectOfType<PlayerMovement>().IsSliding();                                     //this is for slide hipFire offset. 
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming && !isSliding;   //we added hasMovementInput so i dont sprint in idle
+        
         bool isGrounded = controller.isGrounded;    //we got ref to char controller so we know when grounded
-
-
-
         bool isWalking = !isSprinting && hasMovementInput && isGrounded;    
 
         Vector3 targetOffset;
         Vector3 targetRotation;
+         
 
 
         if (isReloading)
@@ -74,6 +75,14 @@ public class ArmMovementMegaScript : MonoBehaviour
             targetOffset = hipOffset + reloadOffset;
             targetRotation = hipRotation + reloadRotation;
         }
+        
+        //----
+        else if (isSliding)
+        {
+            targetOffset = hipOffset;
+            targetRotation = hipRotation;
+        }
+        //----
 
         else if (isSprinting && Input.GetKey(KeyCode.S))   //back sprint - omni movement
         {
@@ -100,11 +109,11 @@ public class ArmMovementMegaScript : MonoBehaviour
         float verticalBob = 0f;
         float sideBob = 0f;
 
-        if (isGrounded && !isAiming)
+        if (isGrounded && !isAiming && !isSliding)
         {
             if (isSprinting)
             {
-                bobTimer += Time.deltaTime * sprintBobSpeed;          //
+                bobTimer += Time.deltaTime * sprintBobSpeed;          
                 sideBob = Mathf.Sin(bobTimer * 0.5f) * sprintSideBobAmount;             //makes wave pattern and than how much side to side (the 0.5 slows down for smoother)
             }
             else if (isWalking)

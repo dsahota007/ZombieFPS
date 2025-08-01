@@ -82,7 +82,7 @@ public class Weapon : MonoBehaviour
         if (isReloading)    //if u sprint or reload no shooting 
         {
             StopFiring();
-            //return;             //stop shooting and exit this part of code -- also causes the clip to go to 0 for some reaosn if u reload (doesnt matter) 
+            return;             //stop shooting and exit this part of code -- also causes the clip to go to 0 for some reaosn if u reload (doesnt matter) 
         }
 
         switch (fireType)
@@ -262,7 +262,9 @@ public class Weapon : MonoBehaviour
 
     private bool IsSprinting()
     {
-        return Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1);
+        var movement = FindObjectOfType<PlayerMovement>();             //fetch script
+        bool isSliding = movement != null && movement.IsSliding();     //find sliding 
+        return Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1) && !isSliding;  //retrun true --- when ur trying to sprint and your not trying to aim and ur not sliding. 
     }
 
     private bool CanShoot()  //check if have ammo

@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed = 9f;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
+    public float aimSpeed = 3.5f;
+
 
     [Header("Slide Settings")]
     public float slideSpeed = 12f;
@@ -55,10 +57,19 @@ public class PlayerMovement : MonoBehaviour
         //ApplyGravity();
 
         // Prevent sprint while firing
+        bool isAiming = Input.GetMouseButton(1);
+
         bool isFiring = Input.GetMouseButton(1) && Input.GetMouseButton(1);
         bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isFiring;
 
-        float currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
+        float currentSpeed;
+
+        if (isAiming)
+            currentSpeed = aimSpeed;
+        else if (isSprinting)
+            currentSpeed = sprintSpeed;
+        else
+            currentSpeed = walkSpeed;
 
         float x_input = Input.GetAxisRaw("Horizontal");
         float z_input = Input.GetAxisRaw("Vertical");
