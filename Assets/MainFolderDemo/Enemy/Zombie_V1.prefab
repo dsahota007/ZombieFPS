@@ -3193,9 +3193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608ce190d6a4f7944a19a4574e4a1bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  Health: 20
   ragdollRoot: {fileID: 3378192420155651505}
-  ragdollForce: 1
+  ragdollForce: 80
   BoxRootCollider: {fileID: 8483888106436366175}
 --- !u!1 &6297278405393693907
 GameObject:

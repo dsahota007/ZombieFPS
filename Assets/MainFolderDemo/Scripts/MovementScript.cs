@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed = 9f;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
- 
+
     public float aimSpeed = 3.5f;
 
 
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Kinetic Jump & Slam Settings")]
-    public float KineticJumpForce = 12f;      
+    public float KineticJumpForce = 12f;
     public float slamDownForce = -50f; // How fast you fall
     public float slamCooldown = 10f;
 
@@ -34,7 +34,8 @@ public class PlayerMovement : MonoBehaviour
     public float slamRadius = 5f;
     public float slamDamage = 100f;
     public LayerMask enemyMask;
-    public GameObject slamImpactVFX; // blood splat + impact
+    public GameObject slamImpactVFX; // blood splat + impact on enemies
+    public GameObject KineticUnderneathSlamImpactVFX;
 
 
     //--------------------------------------------
@@ -75,7 +76,12 @@ public class PlayerMovement : MonoBehaviour
                 {
                     isSlamming = false;
                     ApplyKineticSlamDamage();   //we trigged kineticSlam so we apply this. 
-                    // Optional: Trigger impact FX here
+
+                    if (KineticUnderneathSlamImpactVFX != null)         //this is the shit underneath the player
+                    {
+                        Instantiate(KineticUnderneathSlamImpactVFX, transform.position, Quaternion.identity);
+                    }
+
                 }
             }
         }
@@ -183,20 +189,27 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 direction = (enemy.transform.position - transform.position).normalized;
                 health.TakeDamage(slamDamage, direction);
 
-                // Optional: Blood/impact FX
+                // Apply explosion force to all rigidbodies in the enemy
+                Rigidbody[] rbs = enemy.GetComponentsInChildren<Rigidbody>();
+                foreach (Rigidbody rb in rbs)
+                {
+                    if (rb != null)
+                    {
+                        float dist = Vector3.Distance(transform.position, rb.transform.position);
+                        float force = Mathf.Lerp(45f, 5f, dist / slamRadius); 
+                        rb.AddExplosionForce(force, transform.position, slamRadius, 0.3f, ForceMode.Impulse); // Lower upward lift
+
+                    }
+                }
+
                 if (slamImpactVFX != null)
                 {
                     Instantiate(slamImpactVFX, enemy.transform.position + Vector3.up * 1f, Quaternion.identity);
                 }
             }
         }
-
-        // Optional: shockwave or ground FX under player
-        if (slamImpactVFX != null)
-        {
-            Instantiate(slamImpactVFX, transform.position, Quaternion.identity);
-        }
     }
+
 
     //----------------------------------- Slideing Logic
 

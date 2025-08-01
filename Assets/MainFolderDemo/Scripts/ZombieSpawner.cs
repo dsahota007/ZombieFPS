@@ -37,7 +37,14 @@ public class ZombieSpawner : MonoBehaviour
     {
         GameObject zombiePrefab = zombiePrefabs[Random.Range(0, zombiePrefabs.Length)];  //random zomb
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];       //random spawn
-        Instantiate(zombiePrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject newZombie = Instantiate(zombiePrefab, spawnPoint.position, spawnPoint.rotation);
+
+        EnemyHealthRagdoll healthScript = newZombie.GetComponent<EnemyHealthRagdoll>();
+        if (healthScript != null)
+        {
+            int healthBoost = 20 * (currentRound - 1);
+            healthScript.SetHealth(healthScript.Health + healthBoost);
+        }
     }
 
     public void OnZombieKilled()    //we gon put this in the die function so we can decrement zombie counter

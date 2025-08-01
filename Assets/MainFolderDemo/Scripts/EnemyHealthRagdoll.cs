@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyHealthRagdoll : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int Health = 100;
     public GameObject ragdollRoot;
     public float ragdollForce = 3f;
     public Collider BoxRootCollider;
@@ -23,7 +23,7 @@ public class EnemyHealthRagdoll : MonoBehaviour
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerBody"), LayerMask.NameToLayer("DeadBody"));   // Ignore collisions between PlayerBody and DeadBody layers
         
-        currentHealth = maxHealth;
+        currentHealth = Health;
 
     }
 
@@ -33,7 +33,7 @@ public class EnemyHealthRagdoll : MonoBehaviour
 
         currentHealth++;
 
-        if (currentHealth >= maxHealth)
+        if (currentHealth >= Health)
         {
             Die(hitDirection);
         }
@@ -98,13 +98,19 @@ public class EnemyHealthRagdoll : MonoBehaviour
             rbs[0].AddForce(direction * ragdollForce, ForceMode.Impulse);   //we use this to push them in direction and its the FIRST bone 
           
     }
+    public void SetHealth(int newHealth)  //this is for incrementing health every round
+    {
+        Health = newHealth;
+        currentHealth = newHealth;
+    }
 
-//    void SetLayerRecursively(GameObject obj, int layer)
-//    {
-//        if (obj == null) return;
-//        obj.layer = layer;
 
-//        foreach (Transform child in obj.transform)
-//            SetLayerRecursively(child.gameObject, layer);
-//    }
+    //    void SetLayerRecursively(GameObject obj, int layer)
+    //    {
+    //        if (obj == null) return;
+    //        obj.layer = layer;
+
+    //        foreach (Transform child in obj.transform)
+    //            SetLayerRecursively(child.gameObject, layer);
+    //    }
 }
