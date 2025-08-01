@@ -59,7 +59,7 @@ public class ArmMovementMegaScript : MonoBehaviour
         bool hasMovementInput = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
         bool isAiming = Input.GetMouseButton(1);
         
-        bool isSliding = FindObjectOfType<PlayerMovement>().IsSliding();                                     //this is for slide hipFire offset. 
+        bool isSliding = FindFirstObjectByType<PlayerMovement>().IsSliding();                                     //this is for slide hipFire offset. 
         bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming && !isSliding;   //we added hasMovementInput so i dont sprint in idle
         
         bool isGrounded = controller.isGrounded;    //we got ref to char controller so we know when grounded

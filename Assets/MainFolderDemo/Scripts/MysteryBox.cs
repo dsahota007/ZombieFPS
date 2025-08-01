@@ -24,7 +24,7 @@ public class MysteryBox : MonoBehaviour
     void Start()
     {
         weaponManager = FindObjectOfType<WeaponManager>();
-        armMovementMegaScript = FindObjectOfType<ArmMovementMegaScript>();
+        armMovementMegaScript = FindFirstObjectByType<ArmMovementMegaScript>();
 
     }
 

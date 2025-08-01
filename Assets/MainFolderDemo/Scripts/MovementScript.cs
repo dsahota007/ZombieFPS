@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed = 9f;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
+ 
     public float aimSpeed = 3.5f;
 
 
@@ -19,6 +20,17 @@ public class PlayerMovement : MonoBehaviour
     public float slideDeceleration = 5f;
     public float slideControllerHeight = 1f;   // Height during slide
 
+
+    [Header("Kinetic Jump & Slam Settings")]
+    public float KineticJumpForce = 12f;      
+    public float slamDownForce = -50f; // How fast you fall
+    public float slamCooldown = 10f;
+
+    private bool isKineticJump = false;
+    private bool isSlamming = false;
+    private float lastSlamTime;
+
+    //--------------------------------------------
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -48,8 +60,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = -2f;  //stay grounded so dont do 0
+            if (isKineticJump)
+            {
+                isKineticJump = false;
+                if (isSlamming)
+                {
+                    isSlamming = false;
+                    // Optional: Trigger impact FX here
+                }
+            }
         }
+
 
         HandleSlideInput();
         //HandleMovement();   ------   we could divide it up well
@@ -94,19 +116,50 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        //----- Slam logic
+        bool canSlam = Time.time >= lastSlamTime + slamCooldown;   //for cooldown so u dont spam.
+        if (isKineticJump && !isGrounded && !isSlamming && Time.time > lastSlamTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canSlam) // make sure ur not on ground and are ALOUD TO SLAM based off the bool above
+            {
+                StartKineticSlam();
+            }
+        }
+
+
         controller.Move(inputDirection * currentSpeed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
+            if (isSliding)
+            {
 
+                velocity.y = KineticJumpForce;               // Boosted jump while sliding
+                EndSlide();
+                isKineticJump = true;
+            }
+            else
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+        }
         //grav
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
 
     }
+
+    void StartKineticSlam()
+    {
+        isSlamming = true;
+        lastSlamTime = Time.time;
+        velocity.y = slamDownForce;
+
+        // Optional FX trigger here
+        // e.g. CameraShake.ShakeOnce(), play sound, etc.
+    }
+
 
     void HandleSlideInput()
     {

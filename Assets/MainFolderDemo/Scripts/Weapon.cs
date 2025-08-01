@@ -74,7 +74,7 @@ public class Weapon : MonoBehaviour
             initialMagPos = magazine.localPosition;
 
         cam = Camera.main.transform;          // Grab camera
-        armMover = FindObjectOfType<ArmMovementMegaScript>();    // we gonna use this for kickback 
+        armMover = FindFirstObjectByType<ArmMovementMegaScript>();    // we gonna use this for kickback 
     }
 
     void Update()
@@ -204,7 +204,7 @@ public class Weapon : MonoBehaviour
     {
         isReloading = true;
 
-        ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
+        ArmMovementMegaScript armMover = FindFirstObjectByType<ArmMovementMegaScript>();
         if (armMover) armMover.ReloadOffset(true);                           //play reload arm animation
 
         Vector3 magStart = magazine.localPosition;                          //store position than control hwo much it goes down 
@@ -256,13 +256,13 @@ public class Weapon : MonoBehaviour
         if (leftArm != null) leftArm.localPosition = initialLeftArmPos;  //instantly snaps the arm back to where it was before the reload started
         if (magazine != null) magazine.localPosition = initialMagPos;
 
-        ArmMovementMegaScript armMover = FindObjectOfType<ArmMovementMegaScript>();
+        ArmMovementMegaScript armMover = FindFirstObjectByType<ArmMovementMegaScript>();
         if (armMover) armMover.ReloadOffset(false);                         
     }
 
     private bool IsSprinting()
     {
-        var movement = FindObjectOfType<PlayerMovement>();             //fetch script
+        var movement = FindFirstObjectByType<PlayerMovement>();             //fetch script
         bool isSliding = movement != null && movement.IsSliding();     //find sliding 
         return Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1) && !isSliding;  //retrun true --- when ur trying to sprint and your not trying to aim and ur not sliding. 
     }
