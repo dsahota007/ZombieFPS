@@ -1,5 +1,7 @@
-﻿using Unity.VisualScripting;
+﻿using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEditorInternal.ReorderableList;
 
 [RequireComponent(typeof(CharacterController))]
@@ -34,9 +36,12 @@ public class PlayerMovement : MonoBehaviour
     public float slamRadius = 5f;
     public float slamDamage = 100f;
     public LayerMask enemyMask;
-    public GameObject slamImpactVFX; // blood splat + impact on enemies
+    public GameObject slamImpactVFX; // blood splat + impact on enemies their VFX
     public GameObject KineticUnderneathSlamImpactVFX;
-
+    public GameObject KineticUnderneathSlamImpactVFX2; //not in use
+    public GameObject KineticUnderneathSlamImpactVFX3;
+    public GameObject KineticUnderneathSlamImpactVFX4; //not in use
+    public GameObject KineticUnderneathSlamImpactVFX5;
 
     //--------------------------------------------
 
@@ -79,7 +84,14 @@ public class PlayerMovement : MonoBehaviour
 
                     if (KineticUnderneathSlamImpactVFX != null)         //this is the shit underneath the player
                     {
-                        Instantiate(KineticUnderneathSlamImpactVFX, transform.position, Quaternion.identity);
+                        GameObject vfx1 = Instantiate(KineticUnderneathSlamImpactVFX, transform.position, Quaternion.identity);
+                        Destroy(vfx1, 10f);
+                        //Instantiate(KineticUnderneathSlamImpactVFX2, transform.position, Quaternion.identity);
+                        GameObject vfx2 = Instantiate(KineticUnderneathSlamImpactVFX3, transform.position, Quaternion.identity);
+                        Destroy(vfx2, 10f);
+                        //Instantiate(KineticUnderneathSlamImpactVFX4, transform.position, Quaternion.identity);
+                        GameObject vfx3 = Instantiate(KineticUnderneathSlamImpactVFX5, transform.position, Quaternion.identity);
+                        Destroy(vfx3, 10f);
                     }
 
                 }
@@ -179,32 +191,37 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyKineticSlamDamage()
     {
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, slamRadius, enemyMask);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, slamRadius, enemyMask);   //parameter(center of sphere, radiusOFSphere, a layermask defines which layers of colliders to include in the query)
+        // ^^ It checks for all colliders that are on the enemyMask layer These are the enemies within range of the slam.
 
-        foreach (Collider enemy in hitEnemies)
+
+        foreach (Collider enemy in hitEnemies)  //For each enemy in range, this block will:
         {
-            EnemyHealthRagdoll health = enemy.GetComponent<EnemyHealthRagdoll>();
+            EnemyHealthRagdoll health = enemy.GetComponent<EnemyHealthRagdoll>();  //fetch script
             if (health != null)
             {
-                Vector3 direction = (enemy.transform.position - transform.position).normalized;
-                health.TakeDamage(slamDamage, direction);
+                Vector3 direction = (enemy.transform.position - transform.position).normalized; //we find direction from us teh player to enemy 
+                health.TakeDamage(slamDamage, direction);   //in enemyHealthRagdoll script 
 
                 // Apply explosion force to all rigidbodies in the enemy
-                Rigidbody[] rbs = enemy.GetComponentsInChildren<Rigidbody>();
-                foreach (Rigidbody rb in rbs)
+                Rigidbody[] rbs = enemy.GetComponentsInChildren<Rigidbody>();   //so now we get rigidBodies of every enemy in 
+                foreach (Rigidbody rb in rbs) //For each rigidBody in range, this block will:
                 {
                     if (rb != null)
                     {
-                        float dist = Vector3.Distance(transform.position, rb.transform.position);
-                        float force = Mathf.Lerp(45f, 5f, dist / slamRadius); 
-                        rb.AddExplosionForce(force, transform.position, slamRadius, 0.3f, ForceMode.Impulse); // Lower upward lift
+                        float dist = Vector3.Distance(transform.position, rb.transform.position);    //check how far the rigidbody itself and the player is. 
+                        float force = Mathf.Lerp(45f, 5f, dist / slamRadius);   // we use linear interpolation so the closer you are the more the damage and force 
+                                                                                // If the bone is very close, dist / slamRadius ≈ 0 → force ≈ 45
+                                                                                // If the bone is at the edge, dist / slamRadius ≈ 1 → force ≈ 5
+                        rb.AddExplosionForce(force, transform.position, slamRadius, 2.3f, ForceMode.Impulse); // Lower upward lift (how strong, expolision origin, hjow far explosion affects, upward modifer gives the bone vertical lift, ForceMode.Impulse is an instant kick like a punch.)
 
                     }
                 }
 
                 if (slamImpactVFX != null)
                 {
-                    Instantiate(slamImpactVFX, enemy.transform.position + Vector3.up * 1f, Quaternion.identity);
+                    GameObject deathVFXEnemy = Instantiate(slamImpactVFX, enemy.transform.position + Vector3.up * 1f, Quaternion.identity);
+                    Destroy(deathVFXEnemy,5f);
                 }
             }
         }
