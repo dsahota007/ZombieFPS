@@ -939,11 +939,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 447f04e8-c773-4e02-b0be-ef76a8656ce9
+  cloudProjectId: aca490a6-e632-4bf6-94c1-748a68ae6225
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: ZombieFPS 2025-04-19_18-26-33
-  organizationId: ds00o7
+  projectName: ZombieFPS
+  organizationId: ds0o7
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
