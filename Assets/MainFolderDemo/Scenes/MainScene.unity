@@ -1950,13 +1950,13 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  slamImpactVFX: {fileID: 8500920156052182585, guid: 830e92a3f95c4b04caf8edd648aed9bd,
+  slamImpactVFX: {fileID: 2944396702758532163, guid: e190bf97c041e58448af6b043116cba0,
     type: 3}
   KineticUnderneathSlamImpactVFX: {fileID: 3377181292992421420, guid: 48c5715f9603c3842a353516a8baefbb,
     type: 3}
   KineticUnderneathSlamImpactVFX2: {fileID: 3744133877081091469, guid: 623b13af3b46dbe4d92dd5075a9838fb,
     type: 3}
-  KineticUnderneathSlamImpactVFX3: {fileID: 584207449403360073, guid: b1ae5055f08b8284d9e996465d1d37e3,
+  KineticUnderneathSlamImpactVFX3: {fileID: 4994997792314849709, guid: 3dd50886582244645be87adb42aa8528,
     type: 3}
   KineticUnderneathSlamImpactVFX4: {fileID: 7478731271839673279, guid: 4d3c8045dd8857a4b8d34c2361c61045,
     type: 3}
@@ -4612,7 +4612,7 @@ MonoBehaviour:
   - {fileID: 1632199129}
   - {fileID: 2098151089}
   - {fileID: 515911958}
-  startZombies: 6
+  startZombies: 106
   zombiesPerRound: 3
 --- !u!4 &1595701418
 Transform:
