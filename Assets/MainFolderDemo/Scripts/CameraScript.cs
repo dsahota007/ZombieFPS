@@ -121,7 +121,7 @@ public class CameraScript : MonoBehaviour
         cam.localPosition = Vector3.Lerp(cam.localPosition, slidePos, Time.deltaTime * slideCameraTransitionSpeed);   //lerp (a,b,t) so we get the cam and move it to the slide position and than by the speed of the transition
         currentTilt = Mathf.Lerp(currentTilt, slideTiltAngle, Time.deltaTime * slideTiltSpeed);   //we use lerp again we need to get to slide tilt
         cam.localRotation = Quaternion.Euler(xRotation, 0f, currentTilt);  //takes new current tilt in the z coord ---- Quaternion.Euler(x, y, z) --- returns a rotation --- (up down, left right, roll - tilt) 
-        Debug.Log("Cam Y Pos: " + cam.localPosition.y);
+        //Debug.Log("Cam Y Pos: " + cam.localPosition.y);
 }
 
     void ReturnCameraToDefault()

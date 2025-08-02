@@ -23,6 +23,9 @@ public class UI : MonoBehaviour
     public Slider slamCooldownSlider;   
     public PlayerMovement playerMovement;
 
+    [Header("Player Health UI")]
+    public Slider playerHealthSlider;
+
 
     void Update()
     {
@@ -42,7 +45,7 @@ public class UI : MonoBehaviour
         }
 
         //--------------------------------------------------------------- Mystery Box UI
- 
+
         float distanceToBox = Vector3.Distance(player.position, mysteryBox.transform.position);   //we check distance from player and box
 
         bool PlayerIsCloseCanOpenBox = !mysteryBox.IsBoxOpen() && distanceToBox <= mysteryBox.minimumDistanceToOpen;      //box close
@@ -65,24 +68,27 @@ public class UI : MonoBehaviour
             MysteryBoxText.gameObject.SetActive(false);   //if either variabel is not true we keep it false at all times.
         }
         //--------------------------------------------------------------- Round system UI
-        
+
         if (zombieSpawner != null)
         {
             roundText.text = "" + zombieSpawner.GetCurrentRound();
         }
 
         //--------------------------------------------------------------- KineticSlamCooldown UI
-        
+
         if (playerMovement != null)
         {
             float slamTimePassed = Time.time - playerMovement.LastSlamTime;   //Time.time is the current time in seconds since the game started. we sub lastslameTime top calc how much time has passed
             float slamProgress = Mathf.Clamp01(slamTimePassed / playerMovement.slamCooldown);  //calmp01 makes it between 0 and 1 so when we get more than 1 cooldwon is done. 
-                                                                                                //      slamTimePassed = 5, slamCooldown = 10
-                                                                                                //       → 5 / 10 = 0.5
-                                                                                                //       → So you're halfway through the cooldown.
+                                                                                               //      slamTimePassed = 5, slamCooldown = 10
+                                                                                               //       → 5 / 10 = 0.5
+                                                                                               //       → So you're halfway through the cooldown.
             slamCooldownSlider.value = slamProgress;  //we have range from 0 to 1.
         }
-
-
     }
+        //--------------------------------------------------------------- KineticSlamCooldown UI
+        public void UpdateHealthBar(float value)
+        {
+            playerHealthSlider.value = value;
+        }
 }

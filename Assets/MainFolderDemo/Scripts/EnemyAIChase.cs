@@ -60,9 +60,16 @@ public class EnemyAIChase : MonoBehaviour
             {
                 isAttackingPlayer = true;
                 animator.SetTrigger("Attack");
-                Debug.Log("HEALTH - 10 "); //this is HEALTH -25 or whatever
 
-                 
+                Debug.Log("-10 health points");
+                PlayerAttributes playerHealth = target.GetComponent<PlayerAttributes>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamagefromEnemy(10f);
+                }
+
+
+
                 StartCoroutine(ResetAttackCooldown()); // Optional: Reset attack after delay
             }
 
