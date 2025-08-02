@@ -1933,6 +1933,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9160fa62cd1367c4ba7967d7b38bc788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SprintKeyInput: 304
+  AimKeyInput: 324
+  ShootKeyInput: 325
+  JumpKeyInput: 32
+  SlideKeyInput: 99
+  ReloadWeaponKeyInput: 114
+  SwitchWeaponKeyInput: 49
+  InteractKeyInput: 101
+  InteractSecondKeyInput: 102
   walkSpeed: 6.5
   sprintSpeed: 9
   gravity: -12.81

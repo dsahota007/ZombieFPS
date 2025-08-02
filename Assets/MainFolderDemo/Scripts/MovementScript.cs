@@ -7,18 +7,6 @@ using static UnityEditorInternal.ReorderableList;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-
-    [Header("Key Settings")]
-    public KeyCode SprintKeyInput = KeyCode.LeftShift;
-    public KeyCode AimKeyInput = KeyCode.Mouse1;
-    public KeyCode ShootKeyInput = KeyCode.Mouse2;
-    public KeyCode JumpKeyInput = KeyCode.Space;
-    public KeyCode SlideKeyInput = KeyCode.C;
-
-
-
-
-
     [Header("Run/Jump Settings")]
     public float walkSpeed = 5f;
     public float sprintSpeed = 9f;
@@ -68,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 slideDirection;
     private float normalControllerHeight;
     private Vector3 normalControllerCenter;
- 
+
 
     void Start()
     {
@@ -117,10 +105,10 @@ public class PlayerMovement : MonoBehaviour
         //ApplyGravity();
 
         // Prevent sprint while firing
-        bool isAiming = Input.GetKeyDown(AimKeyInput);
+        bool isAiming = Input.GetMouseButton(1);
 
-        bool isFiring = Input.GetKeyDown(ShootKeyInput);  //  && Input.GetMouseButton(1);
-        bool isSprinting = Input.GetKeyDown(SprintKeyInput) && !isFiring;
+        bool isFiring = Input.GetMouseButton(1) && Input.GetMouseButton(1);
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && !isFiring;
 
         float currentSpeed;
 
@@ -158,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
         bool canSlam = Time.time >= lastSlamTime + slamCooldown;   //for cooldown so u dont spam.
         if (isKineticJump && !isGrounded && !isSlamming && Time.time > lastSlamTime)
         {
-            if (Input.GetKeyDown(JumpKeyInput) && !isGrounded && canSlam) // make sure ur not on ground and are ALOUD TO SLAM based off the bool above
+            if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canSlam) // make sure ur not on ground and are ALOUD TO SLAM based off the bool above
             {
                 StartKineticSlam();
             }
@@ -167,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(inputDirection * currentSpeed * Time.deltaTime);
 
-        if (Input.GetKeyDown(JumpKeyInput) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             if (isSliding)
             {
@@ -245,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleSlideInput()
     {
-        bool canSlide = Input.GetKeyDown(SlideKeyInput) && Input.GetKeyDown(SlideKeyInput) && isGrounded && !isSliding;
+        bool canSlide = Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.C) && isGrounded && !isSliding;
 
         if (canSlide)
         {
