@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed = 9f;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
-
     public float aimSpeed = 3.5f;
 
 
@@ -294,6 +293,9 @@ public class PlayerMovement : MonoBehaviour
     {
         return isSliding;
     }
+
+    public float LastSlamTime => lastSlamTime;  // for UI cooldown
+
 
 
 }

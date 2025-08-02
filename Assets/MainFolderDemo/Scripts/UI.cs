@@ -1,4 +1,4 @@
-// Step-by-step UI display for Mystery Box interaction
+﻿// Step-by-step UI display for Mystery Box interaction
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +18,10 @@ public class UI : MonoBehaviour
     [Header("Round UI")]
     public Text roundText;
     public ZombieSpawner zombieSpawner;  //getting script
+
+    [Header("Kinetic Slam UI")]
+    public Slider slamCooldownSlider;   
+    public PlayerMovement playerMovement;
 
 
     void Update()
@@ -61,9 +65,22 @@ public class UI : MonoBehaviour
             MysteryBoxText.gameObject.SetActive(false);   //if either variabel is not true we keep it false at all times.
         }
         //--------------------------------------------------------------- Round system UI
+        
         if (zombieSpawner != null)
         {
             roundText.text = "" + zombieSpawner.GetCurrentRound();
+        }
+
+        //--------------------------------------------------------------- KineticSlamCooldown UI
+        
+        if (playerMovement != null)
+        {
+            float slamTimePassed = Time.time - playerMovement.LastSlamTime;   //Time.time is the current time in seconds since the game started. we sub lastslameTime top calc how much time has passed
+            float slamProgress = Mathf.Clamp01(slamTimePassed / playerMovement.slamCooldown);  //calmp01 makes it between 0 and 1 so when we get more than 1 cooldwon is done. 
+                                                                                                //      slamTimePassed = 5, slamCooldown = 10
+                                                                                                //       → 5 / 10 = 0.5
+                                                                                                //       → So you're halfway through the cooldown.
+            slamCooldownSlider.value = slamProgress;  //we have range from 0 to 1.
         }
 
 
