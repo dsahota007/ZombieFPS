@@ -40,6 +40,17 @@ public class ArmMovementMegaScript : MonoBehaviour
     [Header("General")]
     public float smoothSpeed = 8f;
 
+    [Header("Equip Animation")]
+    public Vector3 equipOffset = new Vector3(0f, -0.8f, 0f); // tweak this if needed
+    public float equipAnimationSpeed = 3f;
+
+    private bool isEquipping = false;
+    private float equipTimer = 0f;
+
+
+    //----------------------------
+
+
     private Vector3 defaultLocalPosition;
     private Vector3 defaultLocalRotation;
 
@@ -105,6 +116,23 @@ public class ArmMovementMegaScript : MonoBehaviour
             targetRotation = hipRotation;
         }
 
+        // Equip Drop Animation
+        if (isEquipping)
+        {
+            equipTimer += Time.deltaTime * equipAnimationSpeed;
+
+            float dropProgress = Mathf.PingPong(equipTimer, 1f);  // Goes down, then back up
+            Vector3 dropOffset = Vector3.Lerp(Vector3.zero, equipOffset, dropProgress);
+
+            targetOffset += dropOffset;
+
+            if (equipTimer >= 2f) // total duration = 2 seconds
+            {
+                isEquipping = false;
+            }
+        }
+
+
         // Bobbing logic
         float verticalBob = 0f;
         float sideBob = 0f;
@@ -159,6 +187,8 @@ public class ArmMovementMegaScript : MonoBehaviour
         //IDK This is only confusing part is it kickback idk -----------------------------------------------------------------------------
         Quaternion baseRot = cameraTransform.rotation * Quaternion.Euler(targetRotation);                                                     //--------------------------------------------????
         transform.rotation = Quaternion.Slerp(transform.rotation, baseRot * Quaternion.Euler(swayRotation), Time.deltaTime * smoothSpeed);    //--------------------------------------------????
+
+
     }
 
     public void ResetArmPosition()
@@ -166,6 +196,13 @@ public class ArmMovementMegaScript : MonoBehaviour
         transform.localPosition = defaultLocalPosition;
         transform.localRotation = Quaternion.Euler(defaultLocalRotation);
     }
+
+    public void PlayEquipAnimation()
+    {
+        isEquipping = true;
+        equipTimer = 0f;
+    }
+
 
     public void ReloadOffset(bool state)
     {

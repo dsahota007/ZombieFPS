@@ -145,6 +145,9 @@ public class WeaponManager : MonoBehaviour
 
         currentWeaponIndex = index;
         ActiveWeapon = weaponScripts[index];
+
+        FindObjectOfType<ArmMovementMegaScript>().PlayEquipAnimation();
+
     }
 
 
