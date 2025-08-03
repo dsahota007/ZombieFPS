@@ -2172,7 +2172,7 @@ MonoBehaviour:
   slideControllerHeight: 0.0001
   KineticJumpForce: 12
   slamDownForce: -50
-  slamCooldown: 10
+  slamCooldown: 2
   slamRadius: 25
   slamDamage: 999999
   enemyMask:
@@ -5010,12 +5010,12 @@ MonoBehaviour:
   - {fileID: 7224478408790448130, guid: cd1b764f06bfee844a726211ef5fee4c, type: 3}
   - {fileID: 7560827146355968688, guid: 89d43b2956839244988f109367c4f229, type: 3}
   - {fileID: 7217697383087328957, guid: 1bb4d1d757d2f9840b251f80547560bf, type: 3}
-  - {fileID: 4936705993105880936, guid: 677b46b6ca584094f863185b9986230d, type: 3}
   spawnPoints:
   - {fileID: 1408653337}
   - {fileID: 1920125453}
   - {fileID: 1632199129}
   - {fileID: 2098151089}
+  - {fileID: 515911958}
   startZombies: 6
   zombiesPerRound: 3
 --- !u!4 &1595701418

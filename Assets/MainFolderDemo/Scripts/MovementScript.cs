@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         float x_input = Input.GetAxisRaw("Horizontal");
         float z_input = Input.GetAxisRaw("Vertical");
 
-        Vector3 inputDirection = transform.right * x_input + transform.forward * z_input;  //------------
+        Vector3 inputDirection = transform.right * x_input + transform.forward * z_input;  
 
         if (isGrounded)
         {
@@ -209,10 +209,10 @@ public class PlayerMovement : MonoBehaviour
                     if (rb != null)
                     {
                         float dist = Vector3.Distance(transform.position, rb.transform.position);    //check how far the rigidbody itself and the player is. 
-                        float force = Mathf.Lerp(45f, 5f, dist / slamRadius);   // we use linear interpolation so the closer you are the more the damage and force 
+                        float force = Mathf.Lerp(105f, 105f, dist / slamRadius);   // we use linear interpolation so the closer you are the more the damage and force 
                                                                                 // If the bone is very close, dist / slamRadius ≈ 0 → force ≈ 45
                                                                                 // If the bone is at the edge, dist / slamRadius ≈ 1 → force ≈ 5
-                        rb.AddExplosionForce(force, transform.position, slamRadius, 2.3f, ForceMode.Impulse); // Lower upward lift (how strong, expolision origin, hjow far explosion affects, upward modifer gives the bone vertical lift, ForceMode.Impulse is an instant kick like a punch.)
+                        rb.AddExplosionForce(force, transform.position, slamRadius, 1552.3f, ForceMode.Impulse); // Lower upward lift (how strong, expolision origin, hjow far explosion affects, upward modifer gives the bone vertical lift, ForceMode.Impulse is an instant kick like a punch.)
 
                     }
                 }
