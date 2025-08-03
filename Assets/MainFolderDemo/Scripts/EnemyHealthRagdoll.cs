@@ -54,6 +54,7 @@ public class EnemyHealthRagdoll : MonoBehaviour
     void Die(Vector3 hitDirection)
     {
         isDead = true;
+        PointManager.Instance.AddPoints(50);
 
         if (animator) animator.enabled = false;         //turn all that shit off animations, navmesh and the boxCollider so we dont run into it 
         if (agent) agent.enabled = false;

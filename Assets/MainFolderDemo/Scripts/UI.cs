@@ -26,6 +26,8 @@ public class UI : MonoBehaviour
     [Header("Player Health UI")]
     public Slider playerHealthSlider;
 
+    [Header("Points UI")]
+    public Text pointsText;
 
     void Update()
     {
@@ -85,10 +87,16 @@ public class UI : MonoBehaviour
                                                                                                //       → So you're halfway through the cooldown.
             slamCooldownSlider.value = slamProgress;  //we have range from 0 to 1.
         }
-    }
-        //--------------------------------------------------------------- KineticSlamCooldown UI
-        public void UpdateHealthBar(float value)
+
+        //--------------------------------------------------------------- health uI
+        if (PointManager.Instance != null && pointsText != null)
         {
-            playerHealthSlider.value = value;
+            pointsText.text = "" + PointManager.Instance.points;
         }
-}
+    }
+
+        public void UpdateHealthBar(float value)
+                {
+                    playerHealthSlider.value = value;
+                }
+        }

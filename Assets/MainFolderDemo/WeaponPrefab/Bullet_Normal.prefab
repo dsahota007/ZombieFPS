@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 8.270861, y: 1.2239921, z: 4.1100535}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -112,10 +112,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &7844299034088412405
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.02
+  m_Radius: 0.47
   m_Height: 0.01389559
   m_Direction: 1
   m_Center: {x: 0, y: 0.000000044004988, z: 0.009499601}
@@ -151,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d7fd0f3bc39a449ad924ccc380db57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 45
+  speed: 50
   lifeTime: 2
-  damage: 20
+  damage: 1
   bloodEffects:
   - {fileID: 5166426413497761222, guid: 94632be0c87bdbc4eb57b614a5e5f6a8, type: 3}
   - {fileID: 5229322557928275105, guid: 99e593e2f7c279743a262c9223b09521, type: 3}

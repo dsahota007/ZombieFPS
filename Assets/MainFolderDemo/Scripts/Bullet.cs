@@ -13,13 +13,15 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
+        GetComponent<Rigidbody>().linearVelocity = transform.forward * speed;
+
         Destroy(gameObject, lifeTime);
     }
 
-    void Update()
-    {
-        transform.position += transform.forward * speed * Time.deltaTime;
-    }
+    //void Update()
+    //{
+    //    transform.position += transform.forward * speed * Time.deltaTime;
+    //}
 
     void OnTriggerEnter(Collider other)
     {
@@ -37,12 +39,14 @@ public class Bullet : MonoBehaviour
             return;
         }
         if (other.CompareTag("Enemy"))
+            PointManager.Instance.AddPoints(5);
+
             if (bloodEffects != null && bloodEffects.Length > 0)  
             {
                 int index = Random.Range(0, bloodEffects.Length);   
                 Vector3 BulletHitPoint = transform.position;  
 
-                Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);    --- Quaternion.identity --- This is Unity's way of saying: “No rotation at all.”
+                Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);    --- Quaternion.identity --- This is Unity's way of saying: ï¿½No rotation at all.ï¿½
                 
                 EnemyHealthRagdoll enemy = other.GetComponent<EnemyHealthRagdoll>();
                 if (enemy != null)
