@@ -286,7 +286,7 @@ public class PlayerMovement : MonoBehaviour
         controller.center = normalControllerCenter;
     }
 
-
+    //----------------------- Getters
 
     public bool IsGrounded() => isGrounded;
     public bool IsSliding()  // for Cam script so i can reset it 
@@ -296,6 +296,9 @@ public class PlayerMovement : MonoBehaviour
 
     public float LastSlamTime => lastSlamTime;  // for UI cooldown
 
-
+    public bool IsSprinting()
+    {
+        return Input.GetKey(KeyCode.LeftShift) && controller.velocity.magnitude > 0.1f;
+    }
 
 }

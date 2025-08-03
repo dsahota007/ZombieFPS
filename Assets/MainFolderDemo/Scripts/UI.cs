@@ -29,6 +29,10 @@ public class UI : MonoBehaviour
     [Header("Points UI")]
     public Text pointsText;
 
+    [Header("Ammo Box UI")]
+    public Text ammoBoxText;
+    public AmmoBox ammoBox; // reference to your ammo box object/script
+
     void Update()
     {
         Weapon currentWeapon = WeaponManager.ActiveWeapon;
@@ -69,6 +73,46 @@ public class UI : MonoBehaviour
         {
             MysteryBoxText.gameObject.SetActive(false);   //if either variabel is not true we keep it false at all times.
         }
+         
+
+        // ------------------------------------------------------------------ Ammo Box UI
+
+        if (ammoBox != null && ammoBoxText != null)
+        {
+            float distanceToAmmo = Vector3.Distance(player.position, ammoBox.transform.position);
+
+            if (distanceToAmmo <= ammoBox.interactDistance)
+            {
+                currentWeapon = WeaponManager.ActiveWeapon;
+
+                if (currentWeapon != null)
+                {
+                    bool clipFull = currentWeapon.GetCurrentAmmo() == currentWeapon.clipSize;
+                    bool reserveFull = currentWeapon.GetAmmoReserve() == currentWeapon.maxReserve;
+
+                    if (clipFull && reserveFull)
+                    {
+                        ammoBoxText.text = "Ammo is Full";
+                    }
+                    else
+                    {
+                        ammoBoxText.text = "Press [E] to Refill Ammo";
+                    }
+
+                    ammoBoxText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    ammoBoxText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                ammoBoxText.gameObject.SetActive(false);
+            }
+
+        }
+
         //--------------------------------------------------------------- Round system UI
 
         if (zombieSpawner != null)
