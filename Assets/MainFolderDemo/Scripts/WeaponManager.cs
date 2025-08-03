@@ -150,7 +150,7 @@ public class WeaponManager : MonoBehaviour
 
     public void GiveWeapon(GameObject weaponPrefab)         //----------------kind of confusing to me - the last part, begining easy 
     {
-        int slotToReplace = 0; // You can change this logic (e.g. always replaces current)          -- currently holding
+        int slotToReplace = currentWeaponIndex; // You can change this logic (e.g. always replaces current)          -- currently holding   --We took out 1 this was casuing the 
         //if (weaponPrefabs.Length > 1 && weapons[1] == null) slotToReplace = 1;                    -- we always spawn in with 2 guns so no need.
 
         //if (weapons[slotToReplace] != null)       --        // Destroy old weapon in slot (if any)

@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //----- Slam logic
+        //------------------------------------------------------- Slam logic
         bool canSlam = Time.time >= lastSlamTime + slamCooldown;   //for cooldown so u dont spam.
         if (isKineticJump && !isGrounded && !isSlamming && Time.time > lastSlamTime)
         {
@@ -175,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    //----------------------------------- Kinetic Slam
+    //------------------------------------------------------------ Kinetic Slam
     void StartKineticSlam()
     {
         isSlamming = true;
@@ -227,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    //----------------------------------- Slideing Logic
+    //------------------------------------------------------- Slideing Logic
 
 
     void HandleSlideInput()
