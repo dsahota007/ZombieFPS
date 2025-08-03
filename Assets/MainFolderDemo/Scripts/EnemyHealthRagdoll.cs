@@ -59,6 +59,15 @@ public class EnemyHealthRagdoll : MonoBehaviour
         if (agent) agent.enabled = false;
         if (BoxRootCollider) BoxRootCollider.enabled = false;
 
+        // Disable other attack/AI scripts if any----------------------------- idk waht this block does 
+        //MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
+        //foreach (var script in scripts)
+        //{
+        //    if (script != this) // Don't disable the health/ragdoll script itself
+        //        script.enabled = false;
+        //}
+        //--------------------------------------------------------------------- idk waht this block does 
+
         SetRagdollState(true);
         ApplyRagdollForce(hitDirection);
 

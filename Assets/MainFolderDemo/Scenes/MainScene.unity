@@ -5016,7 +5016,6 @@ MonoBehaviour:
   - {fileID: 1920125453}
   - {fileID: 1632199129}
   - {fileID: 2098151089}
-  - {fileID: 515911958}
   startZombies: 6
   zombiesPerRound: 3
 --- !u!4 &1595701418
