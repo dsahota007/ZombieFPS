@@ -22,7 +22,7 @@ public class ArmMagicSpell : MonoBehaviour
     [Header("Spell VFX")]
     public Transform vfxAttachPoint;
 
-    [Header("Fireball Attack")]
+    [Header("Magic Attack - Set by MagicManager")]
     public GameObject fireballPrefab;
     public Transform firePoint;
     public GameObject armFireVFX;
@@ -34,17 +34,12 @@ public class ArmMagicSpell : MonoBehaviour
 
         playerMovement = FindFirstObjectByType<PlayerMovement>();
         armMover = FindFirstObjectByType<ArmMovementMegaScript>();
-
     }
 
     void Update()
     {
         currentWeapon = WeaponManager.ActiveWeapon;
-
-        if (Input.GetKeyDown(KeyCode.Q) && CanCastSpell())
-        {
-            StartCoroutine(CastMagicAnimation());
-        }
+        // Note: Magic casting is now handled by MagicManager
     }
 
     bool CanCastSpell()
@@ -54,9 +49,17 @@ public class ArmMagicSpell : MonoBehaviour
         if (currentWeapon != null && currentWeapon.IsReloading) return false;
         return true;
     }
-
-    IEnumerator CastMagicAnimation()
+    public IEnumerator CastMagicAnimation()
     {
+        // Extra safety - don't cast if no fireball prefab
+        if (fireballPrefab == null)
+        {
+            Debug.Log("No magic equipped! Visit a magic station first.");
+            yield break;
+        }
+
+        if (!CanCastSpell()) yield break;
+
         isCasting = true;
 
         if (armMover != null)
@@ -65,20 +68,16 @@ public class ArmMagicSpell : MonoBehaviour
         Vector3 targetPos = originalPos + raiseOffset;
         Quaternion targetRot = Quaternion.Euler(originalRot + raiseRotation);
 
-        // 🔥 Spawn fire effect on hand
         GameObject spawnedVFX = null;
         if (armFireVFX != null && vfxAttachPoint != null)
         {
             spawnedVFX = Instantiate(armFireVFX, vfxAttachPoint.position, vfxAttachPoint.rotation, vfxAttachPoint);
         }
 
-        // Raise arm
         yield return LerpTransform(transform, originalPos, targetPos, Quaternion.Euler(originalRot), targetRot, raiseDuration);
 
-        // Hold
         yield return new WaitForSeconds(holdDuration * 0.5f);
 
-        // Fireball spawn
         if (fireballPrefab != null && firePoint != null)
         {
             Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);
@@ -86,10 +85,8 @@ public class ArmMagicSpell : MonoBehaviour
 
         yield return new WaitForSeconds(holdDuration * 0.5f);
 
-        // Return arm
         yield return LerpTransform(transform, targetPos, originalPos, targetRot, Quaternion.Euler(originalRot), returnDuration);
 
-        // Clean up VFX
         if (spawnedVFX != null)
             Destroy(spawnedVFX);
 
@@ -98,6 +95,7 @@ public class ArmMagicSpell : MonoBehaviour
         if (armMover != null)
             armMover.SetCastingState(false);
     }
+
 
     IEnumerator LerpTransform(Transform t, Vector3 fromPos, Vector3 toPos, Quaternion fromRot, Quaternion toRot, float duration)
     {
