@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Fireball : MonoBehaviour
+public class SulfuricFireball : MonoBehaviour
 {
-    [Header("Fireball Movement")]
+    [Header("Sulfuric Fireball Movement")]
     public float speed = 15f;
     public float lifeTime = 5f;
 
@@ -21,20 +21,18 @@ public class Fireball : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //rb.isKinematic = false;
-        //rb.useGravity = false;
-        // Set velocity using the correct Unity 6 API
+
         rb.linearVelocity = transform.forward * speed;
-        
+
         Destroy(gameObject, lifeTime);
     }
 
     void OnTriggerEnter(Collider other)
-    { 
+    {
 
         if (other.CompareTag("Ground") || other.CompareTag("Wall"))
         {
-            ApplyFireballSlamDamage();
+            ApplySulfuricFireballSlamDamage();
             SpawnGroundEffects();
             Destroy(gameObject);
             return;
@@ -42,16 +40,16 @@ public class Fireball : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            ApplyFireballSlamDamage();
+            ApplySulfuricFireballSlamDamage();
             Destroy(gameObject);
         }
     }
 
     void OnCollisionEnter(Collision collision)
-    { 
+    {
 
         // Backup collision detection in case trigger doesn't work
-        ApplyFireballSlamDamage();   
+        ApplySulfuricFireballSlamDamage();
         SpawnGroundEffects();
         Destroy(gameObject);
     }
@@ -66,7 +64,7 @@ public class Fireball : MonoBehaviour
 
     }
 
-    void ApplyFireballSlamDamage()
+    void ApplySulfuricFireballSlamDamage()
     {
 
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, slamRadius, enemyMask);     //parameter(center of sphere, radiusOFSphere, a layermask defines which layers of colliders to include in the query)
@@ -95,7 +93,7 @@ public class Fireball : MonoBehaviour
                 if (EnemyImpactVFX != null)
                 {
                     GameObject deathVFXEnemy = Instantiate(EnemyImpactVFX, enemy.transform.position + Vector3.up * 1f, Quaternion.identity);   //spawn the vfx in 
-                    Destroy(deathVFXEnemy, 5f); 
+                    Destroy(deathVFXEnemy, 5f);
                 }
             }
         }
