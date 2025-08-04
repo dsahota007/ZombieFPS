@@ -34,9 +34,6 @@ public class ArmMagicSpell : MonoBehaviour
 
         playerMovement = FindFirstObjectByType<PlayerMovement>();
         armMover = FindFirstObjectByType<ArmMovementMegaScript>();
-
-        if (fireballPrefab == null) Debug.LogWarning("ArmMagicSpell: fireballPrefab is not assigned!");
-        if (firePoint == null) Debug.LogWarning("ArmMagicSpell: firePoint is not assigned!");
     }
 
     void Update()

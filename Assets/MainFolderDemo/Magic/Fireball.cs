@@ -14,8 +14,7 @@ public class Fireball : MonoBehaviour
     [Header("VFX Effects")]
     public GameObject slamImpactVFX;
     public GameObject KineticUnderneathSlamImpactVFX;
-    public GameObject KineticUnderneathSlamImpactVFX3;
-    public GameObject KineticUnderneathSlamImpactVFX5;
+
 
     private Rigidbody rb;
 
@@ -24,8 +23,7 @@ public class Fireball : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         if (rb == null)
-        {
-            Debug.LogError("Fireball: No Rigidbody found! Adding one...");
+        { 
             rb = gameObject.AddComponent<Rigidbody>();
         }
 
@@ -35,15 +33,13 @@ public class Fireball : MonoBehaviour
 
         // Set velocity using the correct Unity 6 API
         rb.linearVelocity = transform.forward * speed;
-
-        Debug.Log($"Fireball spawned! Direction: {transform.forward}, Speed: {speed}, Velocity: {rb.linearVelocity}");
+         
 
         Destroy(gameObject, lifeTime);
     }
 
     void OnTriggerEnter(Collider other)
-    {
-        Debug.Log($"Fireball hit: {other.name} with tag: {other.tag}");
+    { 
 
         if (other.CompareTag("Ground") || other.CompareTag("Wall"))
         {
@@ -61,8 +57,7 @@ public class Fireball : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log($"Fireball collided with: {collision.gameObject.name}");
+    { 
 
         // Backup collision detection in case trigger doesn't work
         ApplyFireballSlamDamage();
@@ -78,26 +73,13 @@ public class Fireball : MonoBehaviour
             Destroy(vfx1, 10f);
         }
 
-        if (KineticUnderneathSlamImpactVFX3 != null)
-        {
-            GameObject vfx2 = Instantiate(KineticUnderneathSlamImpactVFX3, transform.position, Quaternion.identity);
-            Destroy(vfx2, 10f);
-        }
-
-        if (KineticUnderneathSlamImpactVFX5 != null)
-        {
-            GameObject vfx3 = Instantiate(KineticUnderneathSlamImpactVFX5, transform.position, Quaternion.identity);
-            Destroy(vfx3, 10f);
-        }
     }
 
     void ApplyFireballSlamDamage()
     {
-        Debug.Log($"Fireball exploding at: {transform.position}");
 
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, slamRadius, enemyMask);
-        Debug.Log($"Fireball hit {hitEnemies.Length} enemies");
-
+ 
         foreach (Collider enemy in hitEnemies)
         {
             EnemyHealthRagdoll health = enemy.GetComponent<EnemyHealthRagdoll>();
@@ -112,8 +94,8 @@ public class Fireball : MonoBehaviour
                     if (rb != null)
                     {
                         float dist = Vector3.Distance(transform.position, rb.transform.position);
-                        float force = Mathf.Lerp(105f, 105f, dist / slamRadius);
-                        rb.AddExplosionForce(force, transform.position, slamRadius, 1552.3f, ForceMode.Impulse);
+                        float force = Mathf.Lerp(35f, 45f, dist / slamRadius);
+                        rb.AddExplosionForce(force, transform.position, slamRadius, 52.3f, ForceMode.Impulse);
                     }
                 }
 
