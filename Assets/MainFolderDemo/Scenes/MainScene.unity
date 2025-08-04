@@ -8993,7 +8993,7 @@ MonoBehaviour:
   raiseDuration: 0.18
   holdDuration: 0.8
   returnDuration: 0.18
-  raiseOffset: {x: 0, y: 0.2, z: 0}
+  raiseOffset: {x: -0.03, y: 0.2, z: 0}
   raiseRotation: {x: 2.72, y: -78.7, z: 43.69}
   vfxAttachPoint: {fileID: 12900281}
   fireballPrefab: {fileID: 3292252372715375916, guid: d1846f42759c3f5409af9b5f43bb7d76,

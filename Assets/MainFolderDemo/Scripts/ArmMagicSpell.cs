@@ -34,6 +34,7 @@ public class ArmMagicSpell : MonoBehaviour
 
         playerMovement = FindFirstObjectByType<PlayerMovement>();
         armMover = FindFirstObjectByType<ArmMovementMegaScript>();
+
     }
 
     void Update()

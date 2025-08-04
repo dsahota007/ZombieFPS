@@ -21,15 +21,11 @@ public class Fireball : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        // Make sure rigidbody isn't kinematic
         rb.isKinematic = false;
-        rb.useGravity = true; // Add some gravity for realistic arc
-
+        rb.useGravity = false;
         // Set velocity using the correct Unity 6 API
         rb.linearVelocity = transform.forward * speed;
-         
-
+        
         Destroy(gameObject, lifeTime);
     }
 
