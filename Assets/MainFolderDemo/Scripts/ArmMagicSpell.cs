@@ -17,6 +17,7 @@ public class ArmMagicSpell : MonoBehaviour
 
     private PlayerMovement playerMovement;
     private Weapon currentWeapon;
+    private ArmMovementMegaScript armMover;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class ArmMagicSpell : MonoBehaviour
         originalRot = transform.localRotation.eulerAngles;
 
         playerMovement = FindFirstObjectByType<PlayerMovement>();
+        armMover = FindFirstObjectByType<ArmMovementMegaScript>();
     }
 
     void Update()
@@ -32,7 +34,7 @@ public class ArmMagicSpell : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && CanCastSpell())
         {
-            StartCoroutine(CastMagic());
+            StartCoroutine(CastMagicAnimation());
         }
     }
 
@@ -41,14 +43,8 @@ public class ArmMagicSpell : MonoBehaviour
         // Check if already casting
         if (isCasting) return false;
 
-        // Check if SHIFT is pressed (sprinting)
-        if (Input.GetKey(KeyCode.LeftShift)) return false;
-
         // Check if R is pressed (reload input)
         if (Input.GetKey(KeyCode.R)) return false;
-
-        // Check if player is sprinting
-        if (playerMovement != null && playerMovement.IsSprinting()) return false;
 
         // Check if current weapon is reloading
         if (currentWeapon != null && currentWeapon.IsReloading) return false;
@@ -56,9 +52,13 @@ public class ArmMagicSpell : MonoBehaviour
         return true;
     }
 
-    IEnumerator CastMagic()
+    IEnumerator CastMagicAnimation()
     {
         isCasting = true;
+
+        // Tell arm movement to ignore sprint offset while casting
+        if (armMover != null)
+            armMover.SetCastingState(true);
 
         Vector3 targetPos = originalPos + raiseOffset;
         Quaternion targetRot = Quaternion.Euler(originalRot + raiseRotation);
@@ -73,6 +73,10 @@ public class ArmMagicSpell : MonoBehaviour
         yield return LerpTransform(transform, targetPos, originalPos, targetRot, Quaternion.Euler(originalRot), returnDuration);
 
         isCasting = false;
+
+        // Allow sprint offset to resume
+        if (armMover != null)
+            armMover.SetCastingState(false);
     }
 
     IEnumerator LerpTransform(Transform t, Vector3 fromPos, Vector3 toPos, Quaternion fromRot, Quaternion toRot, float duration)
@@ -80,16 +84,6 @@ public class ArmMagicSpell : MonoBehaviour
         float time = 0f;
         while (time < 1f)
         {
-            // Stop spell if sprinting or reloading starts during cast
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.R) || (currentWeapon != null && currentWeapon.IsReloading))
-            {
-                // Reset arm immediately
-                t.localPosition = originalPos;
-                t.localRotation = Quaternion.Euler(originalRot);
-                isCasting = false;
-                yield break;
-            }
-
             time += Time.deltaTime / duration;
             t.localPosition = Vector3.Lerp(fromPos, toPos, time);
             t.localRotation = Quaternion.Slerp(fromRot, toRot, time);

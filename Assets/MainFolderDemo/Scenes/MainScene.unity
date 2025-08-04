@@ -8533,7 +8533,6 @@ MonoBehaviour:
   smoothSpeed: 8
   equipOffset: {x: 0, y: -3, z: -0.2}
   equipAnimationSpeed: 6
-  leftArmTransform: {fileID: 0}
   externalKickbackOffset: {x: 0, y: 0, z: 0}
 --- !u!4 &5640334131998495611
 Transform:
@@ -8927,9 +8926,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa18c9fb03c1f84795eba0697ddd9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raiseDuration: 0.3
+  raiseDuration: 0.18
   holdDuration: 0.5
-  returnDuration: 0.3
+  returnDuration: 0.18
   raiseOffset: {x: 0, y: 0.2, z: 0}
   raiseRotation: {x: 2.72, y: -78.7, z: 43.69}
 --- !u!4 &8385406693772635168

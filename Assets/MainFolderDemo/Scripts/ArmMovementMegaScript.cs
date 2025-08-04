@@ -50,6 +50,7 @@ public class ArmMovementMegaScript : MonoBehaviour
 
     //----------------------------
 
+    private bool isCastingSpell = false;
 
     private Vector3 defaultLocalPosition;
     private Vector3 defaultLocalRotation;
@@ -71,8 +72,8 @@ public class ArmMovementMegaScript : MonoBehaviour
         bool isAiming = Input.GetMouseButton(1);
         
         bool isSliding = FindFirstObjectByType<PlayerMovement>().IsSliding();                                     //this is for slide hipFire offset. 
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming && !isSliding;   //we added hasMovementInput so i dont sprint in idle
-        
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming && !isSliding && !isCastingSpell;        //we added hasMovementInput so i dont sprint in idle
+
         bool isGrounded = controller.isGrounded;    //we got ref to char controller so we know when grounded
         bool isWalking = !isSprinting && hasMovementInput && isGrounded;    
 
@@ -201,6 +202,11 @@ public class ArmMovementMegaScript : MonoBehaviour
     {
         isEquipping = true;
         equipTimer = 0f;
+    }
+
+    public void SetCastingState(bool casting)   //this is for magic casting
+    {
+        isCastingSpell = casting;
     }
 
 

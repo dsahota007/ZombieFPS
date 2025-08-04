@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour
 
     public bool isWeaponBeingShowcased = false; // for script deleting for UI -- so the gun does not shoot when being displayed. 
 
-    public bool IsReloading = false;     //could delete -------------------------------------
+    public bool IsReloading => isReloading;          //could delete -------------------------------------
 
     void Start()
     {
@@ -188,6 +188,14 @@ public class Weapon : MonoBehaviour
     public void StartReload()
     {
         if (isReloading || currentAmmo == clipSize || ammoReserve <= 0) return;
+
+
+        ArmMagicSpell magicSpell = FindFirstObjectByType<ArmMagicSpell>();
+        if (magicSpell != null && magicSpell.IsCasting())
+        {
+            return; // Can't reload while casting spell
+        }
+
 
         StopFiring();
 
