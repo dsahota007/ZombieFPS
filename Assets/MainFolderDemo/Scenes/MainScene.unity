@@ -5595,7 +5595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1595701417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5941,6 +5941,37 @@ Transform:
   - {fileID: 1349304248}
   m_Father: {fileID: 1206393683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1797531456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1797531457}
+  m_Layer: 0
+  m_Name: FirePointMagic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1797531457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797531456}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.3678863, y: -0.79594934, z: -0.35416678, w: 0.32510033}
+  m_LocalPosition: {x: -0.278, y: 0.24700013, z: -0.35499975}
+  m_LocalScale: {x: 1, y: 1.09, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7637772888687164386}
+  m_LocalEulerAnglesHint: {x: -18.941, y: -124.648, z: -59.613}
 --- !u!1 &1920125452
 GameObject:
   m_ObjectHideFlags: 0
@@ -8863,6 +8894,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 527049851851816947}
+  - {fileID: 1797531457}
   m_Father: {fileID: 4656300441899845121}
   m_LocalEulerAnglesHint: {x: -24.522, y: 199.835, z: -50.626}
 --- !u!4 &7721711888684539477
@@ -8931,6 +8963,12 @@ MonoBehaviour:
   returnDuration: 0.18
   raiseOffset: {x: 0, y: 0.2, z: 0}
   raiseRotation: {x: 2.72, y: -78.7, z: 43.69}
+  vfxAttachPoint: {fileID: 7637772888687164386}
+  fireballPrefab: {fileID: 3292252372715375916, guid: d1846f42759c3f5409af9b5f43bb7d76,
+    type: 3}
+  firePoint: {fileID: 1797531457}
+  armFireVFX: {fileID: 4318940320840401929, guid: 842eb98046e1ca348b3c0807fcfe362d,
+    type: 3}
 --- !u!4 &8385406693772635168
 Transform:
   m_ObjectHideFlags: 0

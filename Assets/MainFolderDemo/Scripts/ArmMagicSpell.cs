@@ -1,8 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class ArmMagicSpell : MonoBehaviour
 {
+    [Header("Arm Position Setting")]
     public float raiseDuration = 0.3f;
     public float holdDuration = 0.5f;
     public float returnDuration = 0.3f;
@@ -12,12 +13,19 @@ public class ArmMagicSpell : MonoBehaviour
 
     private Vector3 originalPos;
     private Vector3 originalRot;
-
     private bool isCasting = false;
 
     private PlayerMovement playerMovement;
     private Weapon currentWeapon;
     private ArmMovementMegaScript armMover;
+
+    [Header("Spell VFX")]
+    public Transform vfxAttachPoint;
+
+    [Header("Fireball Attack")]
+    public GameObject fireballPrefab;
+    public Transform firePoint;
+    public GameObject armFireVFX;
 
     void Start()
     {
@@ -26,6 +34,9 @@ public class ArmMagicSpell : MonoBehaviour
 
         playerMovement = FindFirstObjectByType<PlayerMovement>();
         armMover = FindFirstObjectByType<ArmMovementMegaScript>();
+
+        if (fireballPrefab == null) Debug.LogWarning("ArmMagicSpell: fireballPrefab is not assigned!");
+        if (firePoint == null) Debug.LogWarning("ArmMagicSpell: firePoint is not assigned!");
     }
 
     void Update()
@@ -40,15 +51,9 @@ public class ArmMagicSpell : MonoBehaviour
 
     bool CanCastSpell()
     {
-        // Check if already casting
         if (isCasting) return false;
-
-        // Check if R is pressed (reload input)
         if (Input.GetKey(KeyCode.R)) return false;
-
-        // Check if current weapon is reloading
         if (currentWeapon != null && currentWeapon.IsReloading) return false;
-
         return true;
     }
 
@@ -56,25 +61,42 @@ public class ArmMagicSpell : MonoBehaviour
     {
         isCasting = true;
 
-        // Tell arm movement to ignore sprint offset while casting
         if (armMover != null)
             armMover.SetCastingState(true);
 
         Vector3 targetPos = originalPos + raiseOffset;
         Quaternion targetRot = Quaternion.Euler(originalRot + raiseRotation);
 
+        // 🔥 Spawn fire effect on hand
+        GameObject spawnedVFX = null;
+        if (armFireVFX != null && vfxAttachPoint != null)
+        {
+            spawnedVFX = Instantiate(armFireVFX, vfxAttachPoint.position, vfxAttachPoint.rotation, vfxAttachPoint);
+        }
+
         // Raise arm
         yield return LerpTransform(transform, originalPos, targetPos, Quaternion.Euler(originalRot), targetRot, raiseDuration);
 
-        // Hold position
-        yield return new WaitForSeconds(holdDuration);
+        // Hold
+        yield return new WaitForSeconds(holdDuration * 0.5f);
+
+        // Fireball spawn
+        if (fireballPrefab != null && firePoint != null)
+        {
+            Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);
+        }
+
+        yield return new WaitForSeconds(holdDuration * 0.5f);
 
         // Return arm
         yield return LerpTransform(transform, targetPos, originalPos, targetRot, Quaternion.Euler(originalRot), returnDuration);
 
+        // Clean up VFX
+        if (spawnedVFX != null)
+            Destroy(spawnedVFX);
+
         isCasting = false;
 
-        // Allow sprint offset to resume
         if (armMover != null)
             armMover.SetCastingState(false);
     }
