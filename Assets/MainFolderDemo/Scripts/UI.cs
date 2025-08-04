@@ -33,6 +33,12 @@ public class UI : MonoBehaviour
     public Text ammoBoxText;
     public AmmoBox ammoBox; // reference to your ammo box object/script
 
+    [Header("Magic Station UI")]
+    public Text fireMagicText;           // For normal fireball station
+    public Text sulfuricFireMagicText;   // For sulfuric fire station
+    public MagicStation fireStation;     // Reference to normal fire station
+    public MagicStation sulfuricStation; // Reference to sulfuric fire station
+
     void Update()
     {
         Weapon currentWeapon = WeaponManager.ActiveWeapon;
@@ -136,6 +142,76 @@ public class UI : MonoBehaviour
         if (PointManager.Instance != null && pointsText != null)
         {
             pointsText.text = "" + PointManager.Instance.points;
+        }
+
+
+
+        // ------------------------------------------------------------------ Magic Station UI
+
+        // Handle Normal Fire Station
+        if (fireStation != null && fireMagicText != null)
+        {
+            float distanceToFireStation = Vector3.Distance(player.position, fireStation.transform.position);
+
+            if (distanceToFireStation <= fireStation.interactionRange)
+            {
+                if (MagicManager.Instance != null)
+                {
+                    MagicType currentMagic = MagicManager.Instance.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Normal)
+                    {
+                        fireMagicText.text = "Normal Fireball Equipped";
+                    }
+                    else
+                    {
+                        fireMagicText.text = "Press [E] to Equip Normal Fireball";
+                    }
+
+                    fireMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    fireMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                fireMagicText.gameObject.SetActive(false);
+            }
+        }
+
+        // Handle Sulfuric Fire Station
+        if (sulfuricStation != null && sulfuricFireMagicText != null)
+        {
+            float distanceToSulfuricStation = Vector3.Distance(player.position, sulfuricStation.transform.position);
+
+            if (distanceToSulfuricStation <= sulfuricStation.interactionRange)
+            {
+                if (MagicManager.Instance != null)
+                {
+                    MagicType currentMagic = MagicManager.Instance.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Sulfuric)
+                    {
+                        sulfuricFireMagicText.text = "Sulfuric Fireball Equipped";
+                    }
+                    else
+                    {
+                        sulfuricFireMagicText.text = "Press [E] to Equip Sulfuric Fireball";
+                    }
+
+                    sulfuricFireMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    sulfuricFireMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                sulfuricFireMagicText.gameObject.SetActive(false);
+            }
         }
     }
 

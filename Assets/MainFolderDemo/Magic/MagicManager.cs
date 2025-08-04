@@ -8,7 +8,7 @@ public enum MagicType
     Sulfuric
 }
 
-[System.Serializable]
+[System.Serializable] //show up in inspector
 public class MagicData
 {
     public GameObject fireballPrefab;
@@ -22,7 +22,7 @@ public class MagicManager : MonoBehaviour
     public MagicData sulfuricMagic;
 
     private MagicType currentMagicType = MagicType.None;  // Start with no magic!
-    private ArmMagicSpell armMagicSpell;
+    private ArmMagicSpell armMagicSpell;                  // Reference to your casting script
 
     public static MagicManager Instance { get; private set; }
 
@@ -40,7 +40,7 @@ public class MagicManager : MonoBehaviour
 
     void Start()
     {
-        armMagicSpell = FindFirstObjectByType<ArmMagicSpell>();
+        armMagicSpell = FindFirstObjectByType<ArmMagicSpell>();    // Find your casting script
         UpdateMagicType();
     }
 
@@ -55,38 +55,38 @@ public class MagicManager : MonoBehaviour
     bool CanUseMagic()
     {
         // Can't use magic if none is equipped!
-        if (currentMagicType == MagicType.None) return false;
+        if (currentMagicType == MagicType.None) return false;     //no magic so return false
 
-        if (armMagicSpell != null && armMagicSpell.IsCasting()) return false;
-        if (Input.GetKey(KeyCode.R)) return false;
+        if (armMagicSpell != null && armMagicSpell.IsCasting()) return false;    //if ur already casting thast bad  --  Prevents spam clicking Q (magic)
+        if (Input.GetKey(KeyCode.R)) return false;              //if your reloading thats also bad 
 
         Weapon currentWeapon = WeaponManager.ActiveWeapon;
-        if (currentWeapon != null && currentWeapon.IsReloading) return false;
-
-        return true;
+        if (currentWeapon != null && currentWeapon.IsReloading) return false;   //if your reloading ur gun
+        
+        return true;  // All checks passed - can cast magic
     }
 
     void CastCurrentMagic()
     {
         if (armMagicSpell != null)
         {
-            StartCoroutine(armMagicSpell.CastMagicAnimation());
+            StartCoroutine(armMagicSpell.CastMagicAnimation());     //this controls and disables that animation from teh armMagic script so we dont get him raising his hand all stupid
         }
     }
 
     public void SetMagicType(MagicType newType)
     {
-        currentMagicType = newType;
-        UpdateMagicType();
+        currentMagicType = newType;  // Change current magic
+        UpdateMagicType();           // Apply the change
 
-        if (newType == MagicType.None)
-        {
-            Debug.Log("No magic equipped - Q key disabled");
-        }
-        else
-        {
-            Debug.Log($"Magic equipped: {currentMagicType} - Q key enabled!");
-        }
+        //if (newType == MagicType.None)
+        //{
+        //    Debug.Log("No magic equipped - Q key disabled");
+        //}
+        //else
+        //{
+        //    Debug.Log($"Magic equipped: {currentMagicType} - Q key enabled!");
+        //}
     }
 
     void UpdateMagicType()
@@ -96,7 +96,7 @@ public class MagicManager : MonoBehaviour
         if (currentMagicType == MagicType.None)
         {
             // Clear magic when none equipped
-            armMagicSpell.fireballPrefab = null;
+            armMagicSpell.fireballPrefab = null;   //makes q uselsss
             armMagicSpell.armFireVFX = null;
         }
         else
@@ -121,7 +121,7 @@ public class MagicManager : MonoBehaviour
 
     public bool HasMagicEquipped()
     {
-        return currentMagicType != MagicType.None;
+        return currentMagicType != MagicType.None;  //if its not none than i have some sort of magic.
     }
 
     public string GetCurrentMagicStatus()

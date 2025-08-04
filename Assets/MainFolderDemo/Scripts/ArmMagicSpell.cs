@@ -4,7 +4,7 @@ using System.Collections;
 public class ArmMagicSpell : MonoBehaviour
 {
     [Header("Arm Position Setting")]
-    public float raiseDuration = 0.3f;
+    public float raiseDuration = 0.3f;  
     public float holdDuration = 0.5f;
     public float returnDuration = 0.3f;
 
@@ -15,80 +15,80 @@ public class ArmMagicSpell : MonoBehaviour
     private Vector3 originalRot;
     private bool isCasting = false;
 
-    private PlayerMovement playerMovement;
+    private PlayerMovement playerMovement;          //fetching scripts
     private Weapon currentWeapon;
     private ArmMovementMegaScript armMover;
 
-    [Header("Spell VFX")]
-    public Transform vfxAttachPoint;
+    [Header("Spell Firepoint VFX")]
+    public Transform vfxAttachPoint;        
 
-    [Header("Magic Attack - Set by MagicManager")]
+    [Header("Magic Attack - Set by MagicManager")]      //we spawn in with nothgin ---------------------------------------------------!!!
     public GameObject fireballPrefab;
     public Transform firePoint;
     public GameObject armFireVFX;
 
     void Start()
     {
-        originalPos = transform.localPosition;
+        originalPos = transform.localPosition;      //current pos of the arms 
         originalRot = transform.localRotation.eulerAngles;
 
-        playerMovement = FindFirstObjectByType<PlayerMovement>();
+        playerMovement = FindFirstObjectByType<PlayerMovement>();           //fetch scripts
         armMover = FindFirstObjectByType<ArmMovementMegaScript>();
     }
 
-    void Update()
-    {
-        currentWeapon = WeaponManager.ActiveWeapon;
-        // Note: Magic casting is now handled by MagicManager
-    }
+    //void Update()
+    //{
+    //    currentWeapon = WeaponManager.ActiveWeapon;    //Gets the currently equipped weapon so the system knows what weapon the player is holding
+    //    // Note: Magic casting is now handled by MagicManager
+    //}
 
     bool CanCastSpell()
     {
-        if (isCasting) return false;
-        if (Input.GetKey(KeyCode.R)) return false;
+        if (isCasting) return false;                //if your already casting magic than get outt this code
+        if (Input.GetKey(KeyCode.R)) return false;              //if your already reloading than get out of this code
         if (currentWeapon != null && currentWeapon.IsReloading) return false;
         return true;
     }
     public IEnumerator CastMagicAnimation()
     {
-        // Extra safety - don't cast if no fireball prefab
-        if (fireballPrefab == null)
-        {
-            Debug.Log("No magic equipped! Visit a magic station first.");
-            yield break;
-        }
+        //// Extra safety - don't cast if no fireball prefab
+        //if (fireballPrefab == null)
+        //{
+        //    Debug.Log("No magic equipped! Visit a magic station first.");
+        //    yield break;
+        //}
 
-        if (!CanCastSpell()) yield break;
+        //if (!CanCastSpell()) yield break;
 
         isCasting = true;
 
         if (armMover != null)
-            armMover.SetCastingState(true);
+            armMover.SetCastingState(true);    //Tells the arm movement system to enter casting mode
 
-        Vector3 targetPos = originalPos + raiseOffset;
-        Quaternion targetRot = Quaternion.Euler(originalRot + raiseRotation);
+        Vector3 targetPos = originalPos + raiseOffset;                              //move arm
+        Quaternion targetRot = Quaternion.Euler(originalRot + raiseRotation);       //move arm rotation
 
         GameObject spawnedVFX = null;
-        if (armFireVFX != null && vfxAttachPoint != null)
+        if (armFireVFX != null && vfxAttachPoint != null)    //hand magic animation
         {
             spawnedVFX = Instantiate(armFireVFX, vfxAttachPoint.position, vfxAttachPoint.rotation, vfxAttachPoint);
         }
 
-        yield return LerpTransform(transform, originalPos, targetPos, Quaternion.Euler(originalRot), targetRot, raiseDuration);
+        yield return LerpTransform(transform, originalPos, targetPos, Quaternion.Euler(originalRot), targetRot, raiseDuration); //lerp (gameObject, ogPos, targetPos, OGRotation, TargetRotation, time to hold it)
 
-        yield return new WaitForSeconds(holdDuration * 0.5f);
+        yield return new WaitForSeconds(holdDuration * 0.5f);   //hold duration before firing 
 
         if (fireballPrefab != null && firePoint != null)
         {
-            Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);
+            Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);   //spawn what, where and the roation of it so the magic bullet entitiy
         }
 
-        yield return new WaitForSeconds(holdDuration * 0.5f);
+        yield return new WaitForSeconds(holdDuration * 0.5f);  // holds again when casting fire  
 
-        yield return LerpTransform(transform, targetPos, originalPos, targetRot, Quaternion.Euler(originalRot), returnDuration);
+        yield return LerpTransform(transform, targetPos, originalPos, targetRot, Quaternion.Euler(originalRot), returnDuration);   //returnign the hand back to og position
 
         if (spawnedVFX != null)
-            Destroy(spawnedVFX);
+            Destroy(spawnedVFX);   //destroy the hand on magic animation
 
         isCasting = false;
 
@@ -99,15 +99,15 @@ public class ArmMagicSpell : MonoBehaviour
 
     IEnumerator LerpTransform(Transform t, Vector3 fromPos, Vector3 toPos, Quaternion fromRot, Quaternion toRot, float duration)
     {
-        float time = 0f;
-        while (time < 1f)
+        float time = 0f;   //Start a timer that will go from 0 to 1 (normalized time).
+        while (time < 1f)   //Repeat the loop until time reaches or exceeds 1f, which means the animation is done.   -- when time is greater than 1 
         {
-            time += Time.deltaTime / duration;
+            time += Time.deltaTime / duration;   //Calculates animation progress (0 to 1)
             t.localPosition = Vector3.Lerp(fromPos, toPos, time);
             t.localRotation = Quaternion.Slerp(fromRot, toRot, time);
-            yield return null;
+            yield return null;    //Waits one frame before continuing (creates smooth animation)
         }
     }
 
-    public bool IsCasting() => isCasting;
+    public bool IsCasting() => isCasting;   // getter to see if im casting magic for manger adn other scripts
 }
