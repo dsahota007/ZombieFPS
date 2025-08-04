@@ -22,11 +22,6 @@ public class Fireball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        if (rb == null)
-        { 
-            rb = gameObject.AddComponent<Rigidbody>();
-        }
-
         // Make sure rigidbody isn't kinematic
         rb.isKinematic = false;
         rb.useGravity = true; // Add some gravity for realistic arc
