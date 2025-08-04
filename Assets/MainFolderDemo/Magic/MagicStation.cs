@@ -9,10 +9,12 @@ public class MagicStation : MonoBehaviour
     private Transform player;
     private bool playerInRange = false;
     private bool isCurrentlySelected = false;
- 
+    private MagicManager magicManager;  // Direct reference instead of Instance
+
     void Start()
     {
         player = FindFirstObjectByType<PlayerMovement>().transform;   //finds player transform for distance checking 
+        magicManager = FindFirstObjectByType<MagicManager>();         // assign and fetch script becasue we aint doing that instance BS
     }
 
     void Update()
@@ -39,18 +41,19 @@ public class MagicStation : MonoBehaviour
     void CheckIfSelected()
     {
         bool wasSelected = isCurrentlySelected;
-        if (MagicManager.Instance != null)
+        if (magicManager != null)
         {
-            isCurrentlySelected = MagicManager.Instance.GetCurrentMagicType() == magicType;
+            isCurrentlySelected = magicManager.GetCurrentMagicType() == magicType;
         }
+
     }
 
     void SelectMagic()
     {
-        if (MagicManager.Instance != null)
+        if (magicManager != null)
         {
-            bool wasEquipped = MagicManager.Instance.HasMagicEquipped();
-            MagicManager.Instance.SetMagicType(magicType);
+            bool wasEquipped = magicManager.HasMagicEquipped();
+            magicManager.SetMagicType(magicType);  // Direct call instead of Instance
         }
     }
 }

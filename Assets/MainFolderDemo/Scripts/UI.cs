@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    public Transform player;
+    public Transform player;            //we fetch player like this and not script in start like the magic manager.
 
     [Header("Weapon Info UI")]
     public Text WeaponAmmoText;
@@ -20,7 +20,7 @@ public class UI : MonoBehaviour
     public ZombieSpawner zombieSpawner;  //getting script
 
     [Header("Kinetic Slam UI")]
-    public Slider slamCooldownSlider;   
+    public Slider slamCooldownSlider;
     public PlayerMovement playerMovement;
 
     [Header("Player Health UI")]
@@ -38,6 +38,13 @@ public class UI : MonoBehaviour
     public Text sulfuricFireMagicText;   // For sulfuric fire station
     public MagicStation fireStation;     // Reference to normal fire station
     public MagicStation sulfuricStation; // Reference to sulfuric fire station
+
+    private MagicManager magicManager;   // Direct reference instead of Instance
+
+    void Start()
+    {
+        magicManager = FindFirstObjectByType<MagicManager>();  // Find it once at start
+    }
 
     void Update()
     {
@@ -79,7 +86,7 @@ public class UI : MonoBehaviour
         {
             MysteryBoxText.gameObject.SetActive(false);   //if either variabel is not true we keep it false at all times.
         }
-         
+
 
         // ------------------------------------------------------------------ Ammo Box UI
 
@@ -119,45 +126,18 @@ public class UI : MonoBehaviour
 
         }
 
-        //--------------------------------------------------------------- Round system UI
-
-        if (zombieSpawner != null)
-        {
-            roundText.text = "" + zombieSpawner.GetCurrentRound();
-        }
-
-        //--------------------------------------------------------------- KineticSlamCooldown UI
-
-        if (playerMovement != null)
-        {
-            float slamTimePassed = Time.time - playerMovement.LastSlamTime;   //Time.time is the current time in seconds since the game started. we sub lastslameTime top calc how much time has passed
-            float slamProgress = Mathf.Clamp01(slamTimePassed / playerMovement.slamCooldown);  //calmp01 makes it between 0 and 1 so when we get more than 1 cooldwon is done. 
-                                                                                               //      slamTimePassed = 5, slamCooldown = 10
-                                                                                               //       → 5 / 10 = 0.5
-                                                                                               //       → So you're halfway through the cooldown.
-            slamCooldownSlider.value = slamProgress;  //we have range from 0 to 1.
-        }
-
-        //--------------------------------------------------------------- health uI
-        if (PointManager.Instance != null && pointsText != null)
-        {
-            pointsText.text = "" + PointManager.Instance.points;
-        }
-
-
-
         // ------------------------------------------------------------------ Magic Station UI
 
         // Handle Normal Fire Station
         if (fireStation != null && fireMagicText != null)
         {
-            float distanceToFireStation = Vector3.Distance(player.position, fireStation.transform.position);
+            float distanceToFireStation = Vector3.Distance(player.position, fireStation.transform.position);   //calc how close the player adn station
 
-            if (distanceToFireStation <= fireStation.interactionRange)
+            if (distanceToFireStation <= fireStation.interactionRange)    //is it less than or equal the distanec ( we in range ?) 
             {
-                if (MagicManager.Instance != null)
+                if (magicManager != null)  // Using direct reference instead of Instance
                 {
-                    MagicType currentMagic = MagicManager.Instance.GetCurrentMagicType();
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
 
                     if (currentMagic == MagicType.Normal)
                     {
@@ -188,9 +168,9 @@ public class UI : MonoBehaviour
 
             if (distanceToSulfuricStation <= sulfuricStation.interactionRange)
             {
-                if (MagicManager.Instance != null)
+                if (magicManager != null)  // Using direct reference instead of Instance
                 {
-                    MagicType currentMagic = MagicManager.Instance.GetCurrentMagicType();
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
 
                     if (currentMagic == MagicType.Sulfuric)
                     {
@@ -213,10 +193,35 @@ public class UI : MonoBehaviour
                 sulfuricFireMagicText.gameObject.SetActive(false);
             }
         }
+
+        //--------------------------------------------------------------- Round system UI
+
+        if (zombieSpawner != null)
+        {
+            roundText.text = "" + zombieSpawner.GetCurrentRound();
+        }
+
+        //--------------------------------------------------------------- KineticSlamCooldown UI
+
+        if (playerMovement != null)
+        {
+            float slamTimePassed = Time.time - playerMovement.LastSlamTime;   //Time.time is the current time in seconds since the game started. we sub lastslameTime top calc how much time has passed
+            float slamProgress = Mathf.Clamp01(slamTimePassed / playerMovement.slamCooldown);  //calmp01 makes it between 0 and 1 so when we get more than 1 cooldwon is done. 
+                                                                                               //      slamTimePassed = 5, slamCooldown = 10
+                                                                                               //       → 5 / 10 = 0.5
+                                                                                               //       → So you're halfway through the cooldown.
+            slamCooldownSlider.value = slamProgress;  //we have range from 0 to 1.
+        }
+
+        //--------------------------------------------------------------- health uI
+        if (PointManager.Instance != null && pointsText != null)
+        {
+            pointsText.text = "" + PointManager.Instance.points;
+        }
     }
 
-        public void UpdateHealthBar(float value)
-                {
-                    playerHealthSlider.value = value;
-                }
-        }
+    public void UpdateHealthBar(float value)
+    {
+        playerHealthSlider.value = value;
+    }
+}

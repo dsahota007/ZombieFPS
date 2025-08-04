@@ -24,19 +24,19 @@ public class MagicManager : MonoBehaviour
     private MagicType currentMagicType = MagicType.None;  // Start with no magic!
     private ArmMagicSpell armMagicSpell;                  // Reference to your casting script
 
-    public static MagicManager Instance { get; private set; }
+    //public static MagicManager Instance { get; private set; }
 
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    //void Awake()
+    //{
+    //    if (Instance == null)
+    //    {
+    //        Instance = this;
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 
     void Start()
     {
