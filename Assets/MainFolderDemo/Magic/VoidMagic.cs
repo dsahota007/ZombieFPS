@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
-using static UnityEngine.InputManagerEntry;
-using Unity.Android.Gradle.Manifest;
+//using UnityEditor.Experimental.GraphView;
+//using static UnityEngine.InputManagerEntry;
+//using Unity.Android.Gradle.Manifest;
 
 public class VoidMagic : MonoBehaviour
 {
@@ -35,7 +35,14 @@ public class VoidMagic : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.linearVelocity = transform.forward * speed;  //on start we launch forward 
-        Destroy(gameObject, lifeTime);    
+        Destroy(gameObject, lifeTime);
+
+        Collider[] playerColliders = GameObject.FindGameObjectWithTag("Player").GetComponentsInChildren<Collider>();  // we use this to make sure it does not hit us 
+
+        foreach (Collider col in playerColliders)
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), col);
+        }
     }
  
 
@@ -113,7 +120,7 @@ public class VoidMagic : MonoBehaviour
                 {
                     killedEnemies.Add(enemy);   //mark enemey as killed
                     Vector3 direction = (enemy.transform.position - impactPoint).normalized;
-                    enemy.TakeDamage(999999f, direction);
+                    enemy.TakeDamage(999999f, direction);    //the die function exist in this so they die here
                     CollectBodyParts(enemy);
                 }
             }
@@ -136,7 +143,7 @@ public class VoidMagic : MonoBehaviour
                     {
                         killedEnemies.Add(enemy);
                         Vector3 direction = (enemy.transform.position - impactPoint).normalized;  // we go calc again orb to enemy and go noramlzid  unit direction (length = 1), so we only get direction, not distance
-                        enemy.TakeDamage(999999f, direction);
+                        enemy.TakeDamage(999999f, direction);                   //the die function exist in this so they die here
                         CollectBodyParts(enemy);
                     }
                 }
@@ -155,7 +162,7 @@ public class VoidMagic : MonoBehaviour
             {
                 if (rb != null && !deadBodies.Contains(rb))
                 {
-                    deadBodies.Add(rb);
+                    deadBodies.Add(rb);    //adding dead bodies to a list 
                 }
             }
         }

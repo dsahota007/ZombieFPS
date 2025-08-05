@@ -24,7 +24,7 @@ public class UI : MonoBehaviour
     public PlayerMovement playerMovement;
 
     [Header("Player Health UI")]
-    public Slider playerHealthSlider;
+    public Slider playerHealthSlider;  
 
     [Header("Points UI")]
     public Text pointsText;
@@ -34,10 +34,12 @@ public class UI : MonoBehaviour
     public AmmoBox ammoBox; // reference to your ammo box object/script
 
     [Header("Magic Station UI")]
-    public Text fireMagicText;           // For normal fireball station
-    public Text sulfuricFireMagicText;   // For sulfuric fire station
-    public MagicStation fireStation;     // Reference to normal fire station
-    public MagicStation sulfuricStation; // Reference to sulfuric fire station
+    public Text fireMagicText;                   
+    public Text sulfuricFireMagicText;
+    public Text VoidMagicText;
+    public MagicStation fireStation;      
+    public MagicStation sulfuricStation;  
+    public MagicStation VoidMagicStation;  
 
     private MagicManager magicManager;   // Direct reference instead of Instance
 
@@ -193,6 +195,42 @@ public class UI : MonoBehaviour
                 sulfuricFireMagicText.gameObject.SetActive(false);
             }
         }
+
+        // Handle void magic
+        if (VoidMagicStation != null && VoidMagicText != null)
+        {
+            float distanceToVoidMagicStation = Vector3.Distance(player.position, VoidMagicStation.transform.position);
+
+            if (distanceToVoidMagicStation <= VoidMagicStation.interactionRange)
+            {
+                if (magicManager != null)
+                {
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Void)
+                    {
+                        VoidMagicText.text = "Void Magic Equipped";
+                    }
+                    else
+                    {
+                        VoidMagicText.text = "Press [E] to Equip Void Magic";
+                    }
+
+                    VoidMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    VoidMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                VoidMagicText.gameObject.SetActive(false);
+            }
+        }
+
+
+
 
         //--------------------------------------------------------------- Round system UI
 
