@@ -124,13 +124,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
-  lifeTime: 5
+  lifeTime: 20
   deathRadius: 50
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  dragDuration: 5
-  dragForce: 50
+  dragDuration: 15
+  dragForce: 150
   GroundEntitySlamVFX: {fileID: 8974203713140315807, guid: 4a7ac3fa2b9d3fd4abe4ff2c43ae61cf,
     type: 3}
   VoidExplosionVFX: {fileID: 5610010966355794069, guid: 1ef8d941b7cce9f4c95b2d6d51dfdc79,
