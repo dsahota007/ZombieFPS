@@ -5,7 +5,8 @@ public enum MagicType
 {
     None,
     Normal,
-    Sulfuric
+    Sulfuric,
+    Void
 }
 
 [System.Serializable] //show up in inspector
@@ -20,6 +21,7 @@ public class MagicManager : MonoBehaviour
     [Header("Magic Types")]
     public MagicData normalMagic;
     public MagicData sulfuricMagic;
+    public MagicData VoidMagic;
 
     private MagicType currentMagicType = MagicType.None;  // Start with no magic!
     private ArmMagicSpell armMagicSpell;                  // Reference to your casting script
@@ -96,14 +98,14 @@ public class MagicManager : MonoBehaviour
         if (currentMagicType == MagicType.None)
         {
             // Clear magic when none equipped
-            armMagicSpell.fireballPrefab = null;   //makes q uselsss
-            armMagicSpell.armFireVFX = null;
+            armMagicSpell.MagicBallEntityPrefab = null;   //makes q uselsss
+            armMagicSpell.MagicArmFireVFX = null;
         }
         else
         {
             MagicData currentData = GetCurrentMagicData();
-            armMagicSpell.fireballPrefab = currentData.fireballPrefab;
-            armMagicSpell.armFireVFX = currentData.handFireVFX;
+            armMagicSpell.MagicBallEntityPrefab = currentData.fireballPrefab;
+            armMagicSpell.MagicArmFireVFX = currentData.handFireVFX;
         }
     }
 
@@ -111,6 +113,7 @@ public class MagicManager : MonoBehaviour
     {
         if (currentMagicType == MagicType.Normal) return normalMagic;
         if (currentMagicType == MagicType.Sulfuric) return sulfuricMagic;
+        if (currentMagicType == MagicType.Void) return VoidMagic;
         return null; // No magic equipped
     }
 

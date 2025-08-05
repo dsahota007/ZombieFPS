@@ -23,9 +23,9 @@ public class ArmMagicSpell : MonoBehaviour
     public Transform vfxAttachPoint;        
 
     [Header("Magic Attack - Set by MagicManager")]      //we spawn in with nothgin ---------------------------------------------------!!!
-    public GameObject fireballPrefab;
-    public Transform firePoint;
-    public GameObject armFireVFX;
+    public GameObject MagicBallEntityPrefab;
+    public Transform MagicfirePoint;
+    public GameObject MagicArmFireVFX;
 
     void Start()
     {
@@ -69,18 +69,18 @@ public class ArmMagicSpell : MonoBehaviour
         Quaternion targetRot = Quaternion.Euler(originalRot + raiseRotation);       //move arm rotation
 
         GameObject spawnedVFX = null;
-        if (armFireVFX != null && vfxAttachPoint != null)    //hand magic animation
+        if (MagicArmFireVFX != null && vfxAttachPoint != null)    //hand magic animation
         {
-            spawnedVFX = Instantiate(armFireVFX, vfxAttachPoint.position, vfxAttachPoint.rotation, vfxAttachPoint);
+            spawnedVFX = Instantiate(MagicArmFireVFX, vfxAttachPoint.position, vfxAttachPoint.rotation, vfxAttachPoint);
         }
 
         yield return LerpTransform(transform, originalPos, targetPos, Quaternion.Euler(originalRot), targetRot, raiseDuration); //lerp (gameObject, ogPos, targetPos, OGRotation, TargetRotation, time to hold it)
 
         yield return new WaitForSeconds(holdDuration * 0.5f);   //hold duration before firing 
 
-        if (fireballPrefab != null && firePoint != null)
+        if (MagicBallEntityPrefab != null && MagicfirePoint != null)
         {
-            Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);   //spawn what, where and the roation of it so the magic bullet entitiy
+            Instantiate(MagicBallEntityPrefab, MagicfirePoint.position, MagicfirePoint.rotation);   //spawn what, where and the roation of it so the magic bullet entitiy
         }
 
         yield return new WaitForSeconds(holdDuration * 0.5f);  // holds again when casting fire  
