@@ -37,9 +37,12 @@ public class UI : MonoBehaviour
     public Text fireMagicText;                   
     public Text sulfuricFireMagicText;
     public Text VoidMagicText;
+    public Text IceMagicText;
     public MagicStation fireStation;      
     public MagicStation sulfuricStation;  
-    public MagicStation VoidMagicStation;  
+    public MagicStation VoidMagicStation;
+    public MagicStation IceMagicStation;
+
 
     private MagicManager magicManager;   // Direct reference instead of Instance
 
@@ -226,6 +229,39 @@ public class UI : MonoBehaviour
             else
             {
                 VoidMagicText.gameObject.SetActive(false);
+            }
+        }
+
+        // Handle ice magic
+        if (IceMagicStation != null && IceMagicText != null)
+        {
+            float distanceToIceMagicStation = Vector3.Distance(player.position, IceMagicStation.transform.position);
+
+            if (distanceToIceMagicStation <= IceMagicStation.interactionRange)
+            {
+                if (magicManager != null)
+                {
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Ice)
+                    {
+                        IceMagicText.text = "Ice Magic Equipped";
+                    }
+                    else
+                    {
+                        IceMagicText.text = "Press [E] to Equip Ice Magic";
+                    }
+
+                    IceMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    IceMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                IceMagicText.gameObject.SetActive(false);
             }
         }
 

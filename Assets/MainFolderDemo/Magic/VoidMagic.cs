@@ -48,7 +48,7 @@ public class VoidMagic : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (hasImpacted) return;  //if already hit the grodun egt outta this code
+        if (hasImpacted) return;        //if already hit the ground get outta this code
 
         if (other.CompareTag("Ground") || other.CompareTag("Wall") || other.CompareTag("Enemy"))
         {
@@ -131,8 +131,7 @@ public class VoidMagic : MonoBehaviour
     {
         while (deathZoneActive)
         {
-            Collider[] hits = Physics.OverlapSphere(impactPoint, deathRadius, enemyMask);  //parameter(center of sphere, radiusOFSphere, a layermask defines which layers of colliders to include in the query)
-
+            Collider[] hits = Physics.OverlapSphere(impactPoint, deathRadius, enemyMask);  //parameter(center of sphere, radiusOFSphere, a layermask defines which layers of colliders to include in the query)  -- FIND ALL ENEMIES WITHIN RADISU
             foreach (Collider col in hits)  //Go through every collider found in the sphere
             {
                 EnemyHealthRagdoll enemy = col.GetComponentInParent<EnemyHealthRagdoll>();  //Checks for colliders inside it

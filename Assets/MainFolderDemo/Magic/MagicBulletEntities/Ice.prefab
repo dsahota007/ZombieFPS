@@ -126,7 +126,7 @@ MonoBehaviour:
   speed: 30
   lifeTime: 10
   freezeRadius: 15
-  freezeDuration: 10
+  freezeDuration: 8
   explosionForce: 50
   explosionUpward: 2
   enemyMask:
