@@ -113,6 +113,10 @@ public class EnemyHealthRagdoll : MonoBehaviour
         Health = newHealth;
         currentHealth = newHealth;
     }
+    public bool IsDead()
+    {
+        return isDead;
+    }
 
 
     //    void SetLayerRecursively(GameObject obj, int layer)
