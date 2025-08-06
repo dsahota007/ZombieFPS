@@ -2566,7 +2566,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 673d7941a4b00864b871ab5caf7d46ff, type: 2}
+  - {fileID: 2100000, guid: e5adac8997282594ea80c765fd4881b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9801,7 +9801,7 @@ MonoBehaviour:
   LightningMagic:
     fireballPrefab: {fileID: 3292252372715375916, guid: ca1e4a77286bbd646882ffdb1f136b5b,
       type: 3}
-    handFireVFX: {fileID: 2972392977303283589, guid: 43f0c7bcad38fbf44b46ed4e811eff93,
+    handFireVFX: {fileID: 2972392977303283589, guid: 1eb99ce1773984a4e943a5695db7db92,
       type: 3}
 --- !u!1 &2022181195
 GameObject:

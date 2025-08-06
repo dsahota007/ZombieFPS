@@ -39203,7 +39203,7 @@ GameObject:
   - component: {fileID: 8977316153704399556}
   - component: {fileID: 2879862325604266200}
   m_Layer: 0
-  m_Name: IceCircleVFX
+  m_Name: LightningHandVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
