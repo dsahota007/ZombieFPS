@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
-using Unity.VisualScripting;
+//using Unity.VisualScripting;
 
 public class IceMagic : MonoBehaviour
 {
@@ -128,7 +128,7 @@ public class IceMagic : MonoBehaviour
                 }
             }
 
-            yield return null;  //wait 1 frame, then repeat  
+            yield return null;  //wait 1 frame, then repeat  -- from time.delta
         }
     }
 

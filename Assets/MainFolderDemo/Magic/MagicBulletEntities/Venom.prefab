@@ -124,15 +124,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  lifeTime: 5
-  poisonRadius: 5
-  poisonDuration: 8
+  lifeTime: 8.2
+  poisonRadius: 10
+  poisonDuration: 9.5
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  GroundImpactVFX: {fileID: 5610010966355794069, guid: 29352ecfeae1b654686236ddde70aad1,
+  GroundImpactVFX: {fileID: 5610010966355794069, guid: 5066724db5a71cf4186cb10cde38442f,
     type: 3}
-  PoisonCloudVFX: {fileID: 5610010966355794069, guid: 29352ecfeae1b654686236ddde70aad1,
+  PoisonCloudVFX: {fileID: 6526302276393259002, guid: 04112b30f93310d4fb2cabb78f9cebc9,
     type: 3}
 --- !u!54 &3140035660169670401
 Rigidbody:
@@ -5127,8 +5127,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0, g: 1, b: 0.9928522, a: 1}
-  m_Intensity: 25
-  m_Range: 50
+  m_Intensity: 5
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
