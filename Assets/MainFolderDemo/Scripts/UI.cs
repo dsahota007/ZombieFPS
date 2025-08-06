@@ -39,11 +39,13 @@ public class UI : MonoBehaviour
     public Text VoidMagicText;
     public Text IceMagicText;
     public Text VenomMagicText;
+    public Text LightningMagicText;
     public MagicStation fireStation;      
     public MagicStation sulfuricStation;  
     public MagicStation VoidMagicStation;
     public MagicStation IceMagicStation;
     public MagicStation VenomMagicStation;
+    public MagicStation LightningMagicStation;
 
     private MagicManager magicManager;   // Direct reference instead of Instance
 
@@ -296,6 +298,39 @@ public class UI : MonoBehaviour
             else
             {
                 VenomMagicText.gameObject.SetActive(false);
+            }
+        }
+
+        // Handle Lightining magic
+        if (LightningMagicStation != null && LightningMagicText != null)
+        {
+            float distanceToLightningMagicStation = Vector3.Distance(player.position, LightningMagicStation.transform.position);
+
+            if (distanceToLightningMagicStation <= LightningMagicStation.interactionRange)
+            {
+                if (magicManager != null)
+                {
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Lightning)
+                    {
+                        LightningMagicText.text = "Lightning Magic Equipped";
+                    }
+                    else
+                    {
+                        LightningMagicText.text = "Press [E] to Equip Lightning Magic";
+                    }
+
+                    LightningMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    LightningMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                LightningMagicText.gameObject.SetActive(false);
             }
         }
 
