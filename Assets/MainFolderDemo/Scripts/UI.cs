@@ -38,11 +38,12 @@ public class UI : MonoBehaviour
     public Text sulfuricFireMagicText;
     public Text VoidMagicText;
     public Text IceMagicText;
+    public Text VenomMagicText;
     public MagicStation fireStation;      
     public MagicStation sulfuricStation;  
     public MagicStation VoidMagicStation;
     public MagicStation IceMagicStation;
-
+    public MagicStation VenomMagicStation;
 
     private MagicManager magicManager;   // Direct reference instead of Instance
 
@@ -262,6 +263,39 @@ public class UI : MonoBehaviour
             else
             {
                 IceMagicText.gameObject.SetActive(false);
+            }
+        }
+
+        // Handle Venom magic
+        if (VenomMagicStation != null && VenomMagicText != null)
+        {
+            float distanceToVenomMagicStation = Vector3.Distance(player.position, VenomMagicStation.transform.position);
+
+            if (distanceToVenomMagicStation <= VenomMagicStation.interactionRange)
+            {
+                if (magicManager != null)
+                {
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Venom)
+                    {
+                        VenomMagicText.text = "Venom Magic Equipped";
+                    }
+                    else
+                    {
+                        VenomMagicText.text = "Press [E] to Equip Venom Magic";
+                    }
+
+                    VenomMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    VenomMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                VenomMagicText.gameObject.SetActive(false);
             }
         }
 

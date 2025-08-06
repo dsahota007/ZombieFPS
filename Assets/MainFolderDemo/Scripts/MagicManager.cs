@@ -7,7 +7,8 @@ public enum MagicType
     Normal,
     Sulfuric,
     Void,
-    Ice
+    Ice,
+    Venom
 }
 
 [System.Serializable] //show up in inspector
@@ -24,6 +25,7 @@ public class MagicManager : MonoBehaviour
     public MagicData sulfuricMagic;
     public MagicData VoidMagic;
     public MagicData IceMagic;
+    public MagicData VenomMagic;
 
     private MagicType currentMagicType = MagicType.None;  // Start with no magic!
     private ArmMagicSpell armMagicSpell;                  // Reference to your casting script
@@ -117,6 +119,7 @@ public class MagicManager : MonoBehaviour
         if (currentMagicType == MagicType.Sulfuric) return sulfuricMagic;
         if (currentMagicType == MagicType.Void) return VoidMagic;
         if (currentMagicType == MagicType.Ice) return IceMagic;
+        if (currentMagicType == MagicType.Venom) return VenomMagic;
         return null; // No magic equipped
     }
 
