@@ -4845,7 +4845,7 @@ GameObject:
   - component: {fileID: 2972392977303283611}
   - component: {fileID: 2972392977303283610}
   m_Layer: 0
-  m_Name: IceLaserHandVFX 1
+  m_Name: IceHandVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4193,7 +4193,7 @@ GameObject:
   - component: {fileID: 952542655}
   - component: {fileID: 952542654}
   m_Layer: 0
-  m_Name: IceLaserMagicStation
+  m_Name: IceMagicStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6954,9 +6954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ice Laser
-
-    Magic'
+  m_text: "Ice \nMagic"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8938,9 +8936,11 @@ MonoBehaviour:
       type: 3}
     handFireVFX: {fileID: 2972392977303283589, guid: cf5ad67b09450e146b9008a5a2599505,
       type: 3}
-  iceLaserMagic:
-    fireballPrefab: {fileID: 0}
-    handFireVFX: {fileID: 0}
+  IceMagic:
+    fireballPrefab: {fileID: 3292252372715375916, guid: 57e04e4e9ab34544cab33965cba7c281,
+      type: 3}
+    handFireVFX: {fileID: 2972392977303283589, guid: d417d01c42242f84aa9b53b9b105c609,
+      type: 3}
 --- !u!1 &2022181195
 GameObject:
   m_ObjectHideFlags: 0
