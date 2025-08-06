@@ -13,9 +13,9 @@ public class Fireball : MonoBehaviour
 
     [Header("VFX Effects")]
     public GameObject EnemyImpactVFX;
+    public GameObject EnemyImpactVFX2;
     public GameObject GroundEntitySlamVFX;
-
-
+  
     private Rigidbody rb;
 
     void Start()
@@ -103,6 +103,12 @@ public class Fireball : MonoBehaviour
                 {
                     GameObject deathVFXEnemy = Instantiate(EnemyImpactVFX, enemy.transform.position + Vector3.up * 1f, Quaternion.identity);   //spawn the vfx in 
                     Destroy(deathVFXEnemy, 5f); 
+                }
+
+                if (EnemyImpactVFX2 != null)
+                {
+                    GameObject deathVFXEnemy = Instantiate(EnemyImpactVFX2, enemy.transform.position, Quaternion.Euler(-90f, 0f, -90f));   //spawn the vfx Again for the fire
+                    Destroy(deathVFXEnemy, 25f);
                 }
             }
         }

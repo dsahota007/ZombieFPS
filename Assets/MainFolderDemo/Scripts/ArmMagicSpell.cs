@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ArmMagicSpell : MonoBehaviour
 {
@@ -88,7 +89,8 @@ public class ArmMagicSpell : MonoBehaviour
         yield return LerpTransform(transform, targetPos, originalPos, targetRot, Quaternion.Euler(originalRot), returnDuration);   //returnign the hand back to og position
 
         if (spawnedVFX != null)
-            Destroy(spawnedVFX);   //destroy the hand on magic animation
+            StartCoroutine(FadeOutParticlesProperly(spawnedVFX, 1f)); // fade over 0.4 seconds  -- we took out destory 
+                                                                             //destroy the hand on magic animation
 
         isCasting = false;
 
@@ -107,6 +109,35 @@ public class ArmMagicSpell : MonoBehaviour
             t.localRotation = Quaternion.Slerp(fromRot, toRot, time);
             yield return null;    //Waits one frame before continuing (creates smooth animation)
         }
+    }
+    IEnumerator FadeOutParticlesProperly(GameObject fx, float duration)
+    {
+        ParticleSystem[] particleSystems = fx.GetComponentsInChildren<ParticleSystem>();    //Finds all particle systems inside fx, including children, so we can apply the fade effect to all particles
+
+        foreach (var ps in particleSystems)   //Loop through each particle system individually
+        {
+            var colorOverLifetime = ps.colorOverLifetime;   //Grab the colorOverLifetime module from the particle system
+            colorOverLifetime.enabled = true;               //Enable it so it starts affecting particles
+
+            Gradient gradient = new Gradient();    //Create a new Gradient, which lets you define how color and alpha change over time
+            gradient.SetKeys(
+                new GradientColorKey[] {
+                new GradientColorKey(Color.white, 0f),
+                new GradientColorKey(Color.white, 1f)
+                },
+                new GradientAlphaKey[] {
+                new GradientAlphaKey(1f, 0f), // full alpha at start
+                new GradientAlphaKey(0f, 1f)  // fade to zero alpha over life
+                }
+            );
+
+            colorOverLifetime.color = new ParticleSystem.MinMaxGradient(gradient);    //Apply the fade effect (gradient) to the particle system
+
+            ps.Stop(); // stop emitting new particles
+        }
+
+        yield return new WaitForSeconds(duration);   //Waits for a bit so the fade can finish (typically 1–2 seconds is enough for most VFX).
+        Destroy(fx);
     }
 
     public bool IsCasting() => isCasting;   // getter to see if im casting magic for manger adn other scripts
