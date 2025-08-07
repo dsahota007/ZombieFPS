@@ -41,6 +41,7 @@ public class UI : MonoBehaviour
     public Text VenomMagicText;
     public Text LightningMagicText;
     public Text WindMagicText;
+    public Text MeteorMagicText;
     public MagicStation fireStation;      
     public MagicStation sulfuricStation;  
     public MagicStation VoidMagicStation;
@@ -48,6 +49,7 @@ public class UI : MonoBehaviour
     public MagicStation VenomMagicStation;
     public MagicStation LightningMagicStation;
     public MagicStation WindMagicStation;
+    public MagicStation MeteorMagicStation;
 
     private MagicManager magicManager;   // Direct reference instead of Instance
 
@@ -368,6 +370,40 @@ public class UI : MonoBehaviour
                 WindMagicText.gameObject.SetActive(false);
             }
         }
+
+        // Handle Meteor magic
+        if (MeteorMagicStation != null && MeteorMagicText != null)
+        {
+            float distanceToMeteorMagicStation = Vector3.Distance(player.position, MeteorMagicStation.transform.position);
+
+            if (distanceToMeteorMagicStation <= MeteorMagicStation.interactionRange)
+            {
+                if (magicManager != null)
+                {
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Meteor)
+                    {
+                        MeteorMagicText.text = "Meteor Magic Equipped";
+                    }
+                    else
+                    {
+                        MeteorMagicText.text = "Press [E] to Equip Meteor Magic";
+                    }
+
+                    MeteorMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    MeteorMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                MeteorMagicText.gameObject.SetActive(false);
+            }
+        }
+
 
 
 
