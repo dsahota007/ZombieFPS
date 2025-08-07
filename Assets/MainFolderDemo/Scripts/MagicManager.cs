@@ -9,7 +9,8 @@ public enum MagicType
     Void,
     Ice,
     Venom,
-    Lightning
+    Lightning,
+    Wind
 }
 
 [System.Serializable] //show up in inspector
@@ -28,6 +29,7 @@ public class MagicManager : MonoBehaviour
     public MagicData IceMagic;
     public MagicData VenomMagic;
     public MagicData LightningMagic;
+    public MagicData WindMagic;
 
     private MagicType currentMagicType = MagicType.None;  // Start with no magic!
     private ArmMagicSpell armMagicSpell;                  // Reference to your casting script
@@ -123,6 +125,7 @@ public class MagicManager : MonoBehaviour
         if (currentMagicType == MagicType.Ice) return IceMagic;
         if (currentMagicType == MagicType.Venom) return VenomMagic;
         if (currentMagicType == MagicType.Lightning) return LightningMagic;
+        if (currentMagicType == MagicType.Wind) return WindMagic;
         return null; // No magic equipped
     }
 

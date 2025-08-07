@@ -60,7 +60,8 @@ public class VenomMagic : MonoBehaviour
 
         if (GroundImpactVFX != null)
         {
-            Instantiate(GroundImpactVFX, impactPoint, Quaternion.identity);  
+            GameObject vfx = Instantiate(GroundImpactVFX, impactPoint, Quaternion.identity); 
+            Destroy(vfx, 5f);
         }
 
  

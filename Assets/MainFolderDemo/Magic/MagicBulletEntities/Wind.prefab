@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3833900223263149591}
   - component: {fileID: 5783292596231346641}
   - component: {fileID: 1035826600056507812}
-  - component: {fileID: 1349905688709716139}
+  - component: {fileID: -215426790659451712}
   - component: {fileID: 3140035660169670401}
   m_Layer: 0
-  m_Name: Venom
+  m_Name: Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 10000
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1349905688709716139
+--- !u!114 &-215426790659451712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,19 +120,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3292252372715375916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b25df80a3f4beb74389911ddd8dadfb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 500d8cca75f95c14cba424fcc775e362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  lifeTime: 8.2
-  poisonRadius: 10
-  poisonDuration: 9.5
+  lifeTime: 5
+  pushRadius: 24
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  GroundImpactVFX: {fileID: 5610010966355794069, guid: 5066724db5a71cf4186cb10cde38442f,
+  GroundImpactVFX: {fileID: 358637981425055526, guid: 5cf04dacc9bb6a748a1063e7d72ad9fc,
     type: 3}
-  PoisonCloudVFX: {fileID: 6526302276393259002, guid: 04112b30f93310d4fb2cabb78f9cebc9,
+  EnemyImpactFX: {fileID: 358637981425055526, guid: bb311b1c7141ee34497e617e9d890b53,
     type: 3}
 --- !u!54 &3140035660169670401
 Rigidbody:
@@ -179,7 +178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7681038136766582403
 Transform:
   m_ObjectHideFlags: 0
@@ -189,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 3586245862693137717}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.63, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -203,7 +202,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3586245862693137717}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 6.73
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -385,7 +384,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.0073832828, g: 0.26415092, b: 0, a: 1}
+      maxColor: {r: 1, g: 0, b: 0.036017418, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5123,12 +5122,12 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3586245862693137717}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 0, g: 1, b: 0.9928522, a: 1}
-  m_Intensity: 5
-  m_Range: 10
+  m_Color: {r: 1, g: 0.020209502, b: 0, a: 1}
+  m_Intensity: 55
+  m_Range: 50
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -5172,7 +5171,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 3.97e-43, y: 0, z: 0, w: NaN}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 1}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -5198,7 +5197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850543780722904
 Transform:
   m_ObjectHideFlags: 0
@@ -5228,7 +5227,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421850543780722885}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -5410,7 +5409,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0, b: 0, a: 0}
+      maxColor: {r: 1, g: 0, b: 0.036017418, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10070,7 +10069,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421850544380041410}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -10252,7 +10251,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.0073832828, g: 0.26415092, b: 0, a: 1}
+      maxColor: {r: 1, g: 0, b: 0.036017418, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14903,7 +14902,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421850544666689206}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -15085,7 +15084,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.0073832828, g: 0.26415092, b: 0, a: 1}
+      maxColor: {r: 1, g: 0, b: 0.036017418, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19745,7 +19744,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421850545297252928}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -19927,7 +19926,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.0073832828, g: 0.26415092, b: 0, a: 1}
+      maxColor: {r: 1, g: 0, b: 0.036017418, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24554,7 +24553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850545363136484
 Transform:
   m_ObjectHideFlags: 0
@@ -24565,7 +24564,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6421850543780722904}
@@ -24578,7 +24577,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421850545363136487}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -24707,7 +24706,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1
-      minScalar: -1.5
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -24760,7 +24759,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.0073832828, g: 0.26415092, b: 0, a: 1}
+      maxColor: {r: 1, g: 0, b: 0.036017418, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24824,8 +24823,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0
-      minScalar: 6.01
+      scalar: 4
+      minScalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -25089,7 +25088,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6.304827
+      scalar: 6.283185
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -29411,7 +29410,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8097173758614158047}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -29593,7 +29592,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.0073832828, g: 0.26415092, b: 0, a: 1}
+      maxColor: {r: 1, g: 0, b: 0.036017418, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

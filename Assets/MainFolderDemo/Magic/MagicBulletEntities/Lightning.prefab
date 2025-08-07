@@ -110,7 +110,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.14
+  m_Radius: 1000
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-2766832137460034531
 MonoBehaviour:
@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7681038136766582403
 Transform:
   m_ObjectHideFlags: 0
@@ -10146,7 +10146,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.23
-      minScalar: 0.42
+      minScalar: 8.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14880,7 +14880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850543780722904
 Transform:
   m_ObjectHideFlags: 0
@@ -19728,7 +19728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850544380041411
 Transform:
   m_ObjectHideFlags: 0
@@ -24561,7 +24561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850544666689207
 Transform:
   m_ObjectHideFlags: 0
@@ -29403,7 +29403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850545297252929
 Transform:
   m_ObjectHideFlags: 0
@@ -34236,7 +34236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850545363136484
 Transform:
   m_ObjectHideFlags: 0
@@ -39069,7 +39069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8097173758614158048
 Transform:
   m_ObjectHideFlags: 0

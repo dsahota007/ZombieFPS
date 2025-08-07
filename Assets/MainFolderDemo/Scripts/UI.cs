@@ -40,12 +40,14 @@ public class UI : MonoBehaviour
     public Text IceMagicText;
     public Text VenomMagicText;
     public Text LightningMagicText;
+    public Text WindMagicText;
     public MagicStation fireStation;      
     public MagicStation sulfuricStation;  
     public MagicStation VoidMagicStation;
     public MagicStation IceMagicStation;
     public MagicStation VenomMagicStation;
     public MagicStation LightningMagicStation;
+    public MagicStation WindMagicStation;
 
     private MagicManager magicManager;   // Direct reference instead of Instance
 
@@ -331,6 +333,39 @@ public class UI : MonoBehaviour
             else
             {
                 LightningMagicText.gameObject.SetActive(false);
+            }
+        }
+
+        // Handle Wind magic
+        if (WindMagicStation != null && WindMagicText != null)
+        {
+            float distanceToWindMagicStation = Vector3.Distance(player.position, WindMagicStation.transform.position);
+
+            if (distanceToWindMagicStation <= WindMagicStation.interactionRange)
+            {
+                if (magicManager != null)
+                {
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Wind)
+                    {
+                        WindMagicText.text = "Wind Magic Equipped";
+                    }
+                    else
+                    {
+                        WindMagicText.text = "Press [E] to Equip Wind Magic";
+                    }
+
+                    WindMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    WindMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                WindMagicText.gameObject.SetActive(false);
             }
         }
 

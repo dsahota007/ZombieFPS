@@ -63,7 +63,8 @@ public class LightningMagic : MonoBehaviour
 
         if (GroundImpactVFX != null)
         {
-            Instantiate(GroundImpactVFX, impactPoint, Quaternion.identity);     //spawn slam vfx
+            GameObject vfx = Instantiate(GroundImpactVFX, impactPoint, Quaternion.identity);     //spawn slam vfx
+            Destroy(vfx, 15f);
         }
 
         StartCoroutine(FreezeEnemiesAndChain());        //freeze adn chain enemies adn call this every second
