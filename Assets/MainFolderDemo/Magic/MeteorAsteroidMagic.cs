@@ -24,7 +24,12 @@ public class MeteorAsteroidMagic : MonoBehaviour   // THIS IS FIREBALL COPIED
         //rb.isKinematic = false;
         //rb.useGravity = false;
         // Set velocity using the correct Unity 6 API
-        rb.linearVelocity = transform.forward * speed;
+
+        //rb.linearVelocity = Vector3.down * speed;     //we going down not forward this is a meteor
+
+        Vector3 dir = (Vector3.down + Random.insideUnitSphere * 0.4f).normalized;   //random speed
+        rb.linearVelocity = dir * speed;
+
         Destroy(gameObject, lifeTime);
 
         Collider[] playerColliders = GameObject.FindGameObjectWithTag("Player").GetComponentsInChildren<Collider>();  // we use this to make sure it does not hit us 

@@ -14814,6 +14814,7 @@ MonoBehaviour:
   lifeTime: 5
   downwardPrefab: {fileID: 3292252372715375916, guid: 8168fbc445c1e694aa2b8762293be94a,
     type: 3}
+  spawnHeightAboveImpact: 80
   deadLayerMask:
     serializedVersion: 2
     m_Bits: 8

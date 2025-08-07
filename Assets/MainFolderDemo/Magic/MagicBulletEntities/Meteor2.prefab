@@ -14699,6 +14699,7 @@ GameObject:
   - component: {fileID: 3833900223263149591}
   - component: {fileID: 5783292596231346641}
   - component: {fileID: 1035826600056507812}
+  - component: {fileID: 90995555510458769}
   - component: {fileID: 3140035660169670401}
   m_Layer: 0
   m_Name: Meteor2
@@ -14797,6 +14798,31 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &90995555510458769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292252372715375916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9d547e3842972429683ace20d281a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 25
+  lifeTime: 10
+  slamRadius: 25
+  slamDamage: 99999
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 8
+  EnemyImpactVFX: {fileID: 1427962332153456, guid: 301583a5af63a494298d60cd9f296909,
+    type: 3}
+  EnemyImpactVFX2: {fileID: 8793510976239746625, guid: aeb9f4f7f33e60942ae68b9ead1bdbbe,
+    type: 3}
+  GroundEntitySlamVFX: {fileID: 1427962332153456, guid: 301583a5af63a494298d60cd9f296909,
+    type: 3}
 --- !u!54 &3140035660169670401
 Rigidbody:
   m_ObjectHideFlags: 0
