@@ -23,6 +23,7 @@ TagManager:
   - Ledge
   - Ground
   - Enemy
+  - Asteroid
   layers:
   - Default
   - TransparentFX
@@ -40,7 +41,7 @@ TagManager:
   - Post Processing Scope
   - Invisible Wall
   - Projectile
-  - 
+  - Meteor
   - 
   - 
   - 

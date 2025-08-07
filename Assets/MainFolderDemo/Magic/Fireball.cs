@@ -63,13 +63,13 @@ public class Fireball : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void SpawnGroundEffects()
+    void SpawnGroundEffects()                         //WE HAVE the same crap for fire so if we change it than we will but for now this fine leave -- for meteor we keep
     {
         if (GroundEntitySlamVFX != null)
         {
-            GameObject vfx1 = Instantiate(GroundEntitySlamVFX, transform.position, Quaternion.identity);
-            Destroy(vfx1, 10f);
-        }
+        GameObject vfx1 = Instantiate(GroundEntitySlamVFX, transform.position, Quaternion.identity);
+        Destroy(vfx1, 10f);
+    }
 
     }
 

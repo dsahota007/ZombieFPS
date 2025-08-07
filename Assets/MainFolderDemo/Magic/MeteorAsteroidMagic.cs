@@ -15,7 +15,7 @@ public class MeteorAsteroidMagic : MonoBehaviour   // THIS IS FIREBALL COPIED
     public GameObject EnemyImpactVFX;
     public GameObject EnemyImpactVFX2;
     public GameObject GroundEntitySlamVFX;
-
+    public GameObject GroundEntitySlamVFX2;
     private Rigidbody rb;
 
     void Start()
@@ -25,19 +25,15 @@ public class MeteorAsteroidMagic : MonoBehaviour   // THIS IS FIREBALL COPIED
         //rb.useGravity = false;
         // Set velocity using the correct Unity 6 API
 
-        //rb.linearVelocity = Vector3.down * speed;     //we going down not forward this is a meteor
-
-        Vector3 dir = (Vector3.down + Random.insideUnitSphere * 0.4f).normalized;   //random speed
-        rb.linearVelocity = dir * speed;
-
+        rb.linearVelocity = Vector3.down * speed;     //we going down not forward this is a meteor
         Destroy(gameObject, lifeTime);
 
-        Collider[] playerColliders = GameObject.FindGameObjectWithTag("Player").GetComponentsInChildren<Collider>();  // we use this to make sure it does not hit us 
+        //Collider[] playerColliders = GameObject.FindGameObjectWithTag("Player").GetComponentsInChildren<Collider>();  // we use this to make sure it does not hit us 
 
-        foreach (Collider col in playerColliders)
-        {
-            Physics.IgnoreCollision(GetComponent<Collider>(), col);
-        }
+        //foreach (Collider col in playerColliders)
+        //{
+        //    Physics.IgnoreCollision(GetComponent<Collider>(), col);
+        //}
 
     }
 
@@ -73,6 +69,12 @@ public class MeteorAsteroidMagic : MonoBehaviour   // THIS IS FIREBALL COPIED
         if (GroundEntitySlamVFX != null)
         {
             GameObject vfx1 = Instantiate(GroundEntitySlamVFX, transform.position, Quaternion.identity);
+            Destroy(vfx1, 30f);
+        }
+
+        if (GroundEntitySlamVFX2 != null)
+        {
+            GameObject vfx1 = Instantiate(GroundEntitySlamVFX2, transform.position, Quaternion.identity);
             Destroy(vfx1, 10f);
         }
 
