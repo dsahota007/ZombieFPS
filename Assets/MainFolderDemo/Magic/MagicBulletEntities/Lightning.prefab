@@ -133,7 +133,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  GroundImpactVFX: {fileID: 4809171458859421548, guid: 077e8e77450820a42bd2b02d0918861b,
+  GroundImpactVFX: {fileID: 8974203713140315807, guid: 9d2f2641a810603449caaa76509607bb,
     type: 3}
   FrozenEnemyVFX: {fileID: 7131401307255788800, guid: 9624192c936d46d4f8168e7f69f0d418,
     type: 3}

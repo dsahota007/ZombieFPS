@@ -109,8 +109,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.14
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 2.05
+  m_Center: {x: 3.89, y: 0, z: -5.22}
 --- !u!114 &2432462665831098567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,11 +132,11 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  GroundImpactVFX: {fileID: 4932088507883938021, guid: d9ce2cc2a4300ca4ea79a3dc46f0a64c,
+  GroundImpactVFX: {fileID: 4932088507883938021, guid: ad3a8cde141a7de4b929e37ac42eed4f,
     type: 3}
   FrozenEnemyVFX: {fileID: 4924508274929071776, guid: 995bf506e12692140910b7a9ffdb417b,
     type: 3}
-  FreezeExplosionVFX: {fileID: 4809171458859421548, guid: 9d954ee9f75052e4e834efc0b1b36d9d,
+  FreezeExplosionVFX: {fileID: 8974203713140315807, guid: 1b7c9d4cc0da1e044a3a476b197559a0,
     type: 3}
 --- !u!54 &3140035660169670401
 Rigidbody:

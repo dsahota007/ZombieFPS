@@ -3238,7 +3238,7 @@ MonoBehaviour:
     type: 3}
   KineticUnderneathSlamImpactVFX4: {fileID: 7478731271839673279, guid: 4d3c8045dd8857a4b8d34c2361c61045,
     type: 3}
-  KineticUnderneathSlamImpactVFX5: {fileID: 5610010966355794069, guid: fba5a4d8628921d4dbb5d39df5ebc7c3,
+  KineticUnderneathSlamImpactVFX5: {fileID: 8974203713140315807, guid: 0b5454bed045dda4a82682995df04371,
     type: 3}
 --- !u!143 &561119874
 CharacterController:
@@ -10657,7 +10657,7 @@ MonoBehaviour:
   VenomMagic:
     fireballPrefab: {fileID: 3292252372715375916, guid: ad4bb08dc8c599847a8453cb5b110665,
       type: 3}
-    handFireVFX: {fileID: 2972392977303283589, guid: 9a329d51ae5f24546a62674047429548,
+    handFireVFX: {fileID: 8915312667134092580, guid: 7074cca928fd90644aff297cc7aff832,
       type: 3}
   LightningMagic:
     fireballPrefab: {fileID: 3292252372715375916, guid: ca1e4a77286bbd646882ffdb1f136b5b,
@@ -10672,7 +10672,7 @@ MonoBehaviour:
   MeteorMagic:
     fireballPrefab: {fileID: 3292252372715375916, guid: 722053cd111e56a499efb19ca0f2a66e,
       type: 3}
-    handFireVFX: {fileID: 2972392977303283589, guid: 8d34cdd3b5b01c2479621894ba5a3651,
+    handFireVFX: {fileID: 339158821923109191, guid: 3624e637f961d4f42bf5fd7b0980d450,
       type: 3}
 --- !u!1 &2022181195
 GameObject:

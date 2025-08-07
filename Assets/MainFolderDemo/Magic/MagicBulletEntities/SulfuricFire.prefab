@@ -132,7 +132,7 @@ MonoBehaviour:
     m_Bits: 8
   EnemyImpactVFX: {fileID: 7478731271839673279, guid: 06c3a85cf705817458f72635df5371de,
     type: 3}
-  GroundEntitySlamVFX: {fileID: 5610010966355794069, guid: 5fcbfd7632216e74d9f6f06ab79ac149,
+  GroundEntitySlamVFX: {fileID: 8974203713140315807, guid: 4ddb8f19fd36fa34287971fbfd54ed1d,
     type: 3}
 --- !u!54 &3140035660169670401
 Rigidbody:

@@ -68,7 +68,7 @@ public class IceMagic : MonoBehaviour
 
         if (GroundImpactVFX != null)
         {
-            spawnedGroundVFX = Instantiate(GroundImpactVFX, impactPoint, Quaternion.identity);
+            spawnedGroundVFX = Instantiate(GroundImpactVFX, impactPoint + Vector3.up, Quaternion.identity);
         }
 
         // Start logic
