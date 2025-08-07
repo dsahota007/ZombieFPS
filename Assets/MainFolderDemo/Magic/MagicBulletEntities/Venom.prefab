@@ -132,7 +132,7 @@ MonoBehaviour:
     m_Bits: 8
   GroundImpactVFX: {fileID: 5610010966355794069, guid: 5066724db5a71cf4186cb10cde38442f,
     type: 3}
-  PoisonCloudVFX: {fileID: 6526302276393259002, guid: 04112b30f93310d4fb2cabb78f9cebc9,
+  PoisonCloudVFX: {fileID: 8974203713140315807, guid: 7d02a1b8e0845554bbfe6671c57c35a4,
     type: 3}
 --- !u!54 &3140035660169670401
 Rigidbody:
@@ -5198,7 +5198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850543780722904
 Transform:
   m_ObjectHideFlags: 0
@@ -24554,7 +24554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6421850545363136484
 Transform:
   m_ObjectHideFlags: 0

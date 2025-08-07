@@ -129,6 +129,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
+  xx: {x: 180, y: 180, z: 180}
   GroundImpactVFX: {fileID: 358637981425055526, guid: 5cf04dacc9bb6a748a1063e7d72ad9fc,
     type: 3}
   EnemyImpactFX: {fileID: 358637981425055526, guid: bb311b1c7141ee34497e617e9d890b53,

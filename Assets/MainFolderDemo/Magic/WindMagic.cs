@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-
 public class WindMagic : MonoBehaviour
 {
     [Header("Wind Settings")]
@@ -10,6 +9,7 @@ public class WindMagic : MonoBehaviour
     public float pushRadius = 5f;
     //public float pushForce = 40f;
     public LayerMask enemyMask;
+
 
     [Header("VFX")]
     public GameObject GroundImpactVFX;

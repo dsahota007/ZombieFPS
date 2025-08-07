@@ -14732,14 +14732,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7827560633128401882}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 6
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -14807,7 +14807,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7
+      scalar: 3.54
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -14861,7 +14861,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 7
-      minScalar: 2
+      minScalar: 23.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14914,7 +14914,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.74787515, g: 0.754717, b: 0.4805981, a: 0.6}
+      maxColor: {r: 0, g: 0.6792453, b: 0.0011843016, a: 0.6}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14979,7 +14979,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 2
-      minScalar: 1
+      minScalar: 7.77
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -15561,7 +15561,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 32.6
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -29525,7 +29525,7 @@ GameObject:
   - component: {fileID: 720325515038598322}
   - component: {fileID: 668786554398026484}
   m_Layer: 0
-  m_Name: Plexus AoE 1
+  m_Name: VenomGas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29688,7 +29688,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 12
+      scalar: 19
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -29742,7 +29742,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.093871, g: 1, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -29806,7 +29806,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.15
       minScalar: 1
       maxCurve:
         serializedVersion: 2
