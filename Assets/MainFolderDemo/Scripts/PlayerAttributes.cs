@@ -23,13 +23,10 @@ public class PlayerAttributes : MonoBehaviour
                                             //        Time.time >= lastDamageTime + regenDelay
                                             //→ 0 >= -5 + 5
                                             //→ 0 >= 0 ✅ true
-
-
     }
 
     void Update()
     {
-
         //-------------------- Health Regen 
         if (currentHealth < maxStartingHealth && currentHealth > 0)   //only do regen if: currentHealth < maxStartingHealth → you're missing some health -- currentHealth > 0 → you're not dead
         {
@@ -70,6 +67,16 @@ public class PlayerAttributes : MonoBehaviour
             ui.UpdateHealthBar(currentHealth / maxStartingHealth);      // -->  gives a value between 0 and 1  (100 / 100 = 1 → full bar)  (50 / 100 = 0.5 → half bar) (0 / 100 = 0 → empty bar)
     }
 
+    // PlayerAttributes.cs
+    public void Heal(float amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxStartingHealth);
+
+        UI ui = FindObjectOfType<UI>();
+        if (ui != null)
+            ui.UpdateHealthBar(currentHealth / maxStartingHealth);
+        // Note: we DON'T touch lastDamageTime/isRegenerating here.
+    }
 
 }
 

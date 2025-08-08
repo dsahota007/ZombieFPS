@@ -42,6 +42,7 @@ public class UI : MonoBehaviour
     public Text LightningMagicText;
     public Text WindMagicText;
     public Text MeteorMagicText;
+    public Text CrimsonMagicText;
     public MagicStation fireStation;      
     public MagicStation sulfuricStation;  
     public MagicStation VoidMagicStation;
@@ -50,6 +51,7 @@ public class UI : MonoBehaviour
     public MagicStation LightningMagicStation;
     public MagicStation WindMagicStation;
     public MagicStation MeteorMagicStation;
+    public MagicStation CrimsonMagicStation;
 
     private MagicManager magicManager;   // Direct reference instead of Instance
 
@@ -403,6 +405,40 @@ public class UI : MonoBehaviour
                 MeteorMagicText.gameObject.SetActive(false);
             }
         }
+
+        // Handle Crimson magic
+        if (CrimsonMagicStation != null && CrimsonMagicText != null)
+        {
+            float distanceToCrimsonMagicStation = Vector3.Distance(player.position, CrimsonMagicStation.transform.position);
+
+            if (distanceToCrimsonMagicStation <= CrimsonMagicStation.interactionRange)
+            {
+                if (magicManager != null)
+                {
+                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+
+                    if (currentMagic == MagicType.Crimson)
+                    {
+                        CrimsonMagicText.text = "Crimson Magic Equipped";
+                    }
+                    else
+                    {
+                        CrimsonMagicText.text = "Press [E] to Equip Crimson Magic";
+                    }
+
+                    CrimsonMagicText.gameObject.SetActive(true);
+                }
+                else
+                {
+                    CrimsonMagicText.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                CrimsonMagicText.gameObject.SetActive(false);
+            }
+        }
+
 
 
 
