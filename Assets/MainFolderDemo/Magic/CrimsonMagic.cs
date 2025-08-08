@@ -29,14 +29,14 @@ public class CrimsonMagic : MonoBehaviour
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null) player = p.GetComponentInChildren<PlayerAttributes>();
 
-        // Ignore player collisions
-        if (p != null)
-        {
-            Collider[] playerColliders = p.GetComponentsInChildren<Collider>();
-            Collider myCol = GetComponent<Collider>();
-            foreach (Collider col in playerColliders)
-                Physics.IgnoreCollision(myCol, col);
-        }
+        //// Ignore player collisions
+        //if (p != null)
+        //{
+        //    Collider[] playerColliders = p.GetComponentsInChildren<Collider>();
+        //    Collider myCol = GetComponent<Collider>();
+        //    foreach (Collider col in playerColliders)
+        //        Physics.IgnoreCollision(myCol, col);
+        //}
     }
 
     void OnTriggerEnter(Collider other)
@@ -56,7 +56,7 @@ public class CrimsonMagic : MonoBehaviour
     void TriggerCrimson()
     {
         hasImpacted = true;
-        Vector3 impactPoint = transform.position;
+        Vector3 impactPoint = transform.position;               //find point center of radius
 
         // Siphon from enemies
         Collider[] hits = Physics.OverlapSphere(impactPoint, siphonRadius, enemyMask);

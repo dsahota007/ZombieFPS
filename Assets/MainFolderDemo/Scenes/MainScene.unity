@@ -11062,7 +11062,7 @@ MonoBehaviour:
   CrimsonMagic:
     fireballPrefab: {fileID: 3292252372715375916, guid: 4e22fe5bb6348c84cb78acd583ca7aca,
       type: 3}
-    handFireVFX: {fileID: 689667626583958020, guid: 5525250fcf6ebbc4a84d4b649c646bbc,
+    handFireVFX: {fileID: 2972392977303283589, guid: 2431a186f56e1694a971ddce4b52006b,
       type: 3}
 --- !u!1 &2022181195
 GameObject:
