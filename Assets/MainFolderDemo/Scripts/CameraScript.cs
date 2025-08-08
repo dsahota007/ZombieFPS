@@ -22,6 +22,7 @@ public class CameraScript : MonoBehaviour
     public float defaultFOV = 90f;
     private float sprintFOV;
     public float fovTransitionSpeed = 5f;
+    public float adsFOV = 70f;
 
     [Header("Head Bobbing")]
     public float bobSpeed = 10f;       // How fast the bobbing cycles
@@ -59,6 +60,9 @@ public class CameraScript : MonoBehaviour
     private float hitCurrentTiltZ = 0f;
     private float bloodTargetAlpha = 0f;
     private float bloodCurrentAlpha = 0f;
+
+    [Header("Hitmarker and Crosshair")]
+    public Image crosshairImage;
 
     // We’ll add this so our hit effects stack after your normal camera effects
     private Vector3 externalPosOffset = Vector3.zero;
@@ -153,15 +157,28 @@ public class CameraScript : MonoBehaviour
     {
         if (playerCamera == null) return;       //if cam dont exist leave this code dont waste your time.
 
-        bool isFiring = Input.GetMouseButton(1) && Input.GetMouseButton(1);
-
+        bool isAiming = Input.GetMouseButton(1);
         bool hasMovementInput = Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0;  //we do this so we dont get this when idle
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isFiring;
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming;
+        bool isSliding = playerMovement != null && playerMovement.IsSliding();   //this is so u dont get ads FOv zoom when sliding
 
 
-        float targetFOV = isSprinting ? sprintFOV : defaultFOV;
+        float targetFOV;
+
+        if (isAiming && !isSliding)
+            targetFOV = adsFOV; // zoom in
+        else if (isSprinting)
+            targetFOV = sprintFOV; // zoom out a bit when sprinting
+        else
+            targetFOV = defaultFOV; // normal
+
 
         playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, Time.deltaTime * fovTransitionSpeed);     //(a,b,t)
+
+        // Simple crosshair toggle
+        if (crosshairImage != null)
+            crosshairImage.enabled = !isAiming;
+
     }
 
 
