@@ -22,7 +22,7 @@ public class PlayerAttributes : MonoBehaviour
         lastDamageTime = -regenDelay;  // Allows regen to start immediately if untouched  --  so if we we have not taken damage in 5 seconds this we are able to than regen i think.?
                                             //        Time.time >= lastDamageTime + regenDelay
                                             //→ 0 >= -5 + 5
-                                            //→ 0 >= 0 ✅ true
+                                            //→ 0 >= 0 true
     }
 
     void Update()
@@ -45,6 +45,8 @@ public class PlayerAttributes : MonoBehaviour
                     ui.UpdateHealthBar(currentHealth / maxStartingHealth);    // -->  gives a value between 0 and 1  (100 / 100 = 1 → full bar)  (50 / 100 = 0.5 → half bar) (0 / 100 = 0 → empty bar)
             }
         }
+
+
     }
 
 
@@ -56,6 +58,11 @@ public class PlayerAttributes : MonoBehaviour
 
         lastDamageTime = Time.time;         // Reset timer
         isRegenerating = false;             // Cancel regen if it was happening bc we just got hit
+
+        // NEW: tell camera about the hit
+        var cam = FindObjectOfType<CameraScript>(); // simple; you can cache if you want
+        if (cam != null)
+            cam.OnPlayerHit(amount, currentHealth / maxStartingHealth);
 
         if (currentHealth <= 0)
         {
@@ -77,6 +84,12 @@ public class PlayerAttributes : MonoBehaviour
             ui.UpdateHealthBar(currentHealth / maxStartingHealth);
         // Note: we DON'T touch lastDamageTime/isRegenerating here.
     }
+
+    public float GetCurrentHealth01()       
+    {
+        return currentHealth / maxStartingHealth;
+    }
+
 
 }
 

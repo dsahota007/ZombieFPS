@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+
 
 public class CameraScript : MonoBehaviour
 {
@@ -42,6 +44,33 @@ public class CameraScript : MonoBehaviour
 
 
 
+    [Header("Hit Feedback")]
+    public Image bloodOverlay;            
+    public float maxBloodAlpha = 0.65f;   // alpha when near 0 HP
+    public float hitFlashExtra = 0.2f;    // short spike on damage
+    public float bloodLerpSpeed = 5f;
+
+    [Header("Hit Shake")]
+    public float shakeDuration = 0.20f;
+    public float shakeIntensity = 0.08f;  // small for FPS
+    public float shakeFalloff = 12f;      // higher = fades faster
+
+    [Header("Hit Tilt")]
+    public float hitTiltZ = 6f;           // degrees of quick roll on hit
+    public float tiltRecoverSpeed = 8f;
+
+    // Internals
+    private float shakeTimeLeft = 0f;
+    private float shakeSeedX, shakeSeedY;
+    private float hitTargetTiltZ = 0f;
+    private float hitCurrentTiltZ = 0f;
+    private float bloodTargetAlpha = 0f;
+    private float bloodCurrentAlpha = 0f;
+
+    // We’ll add this so our hit effects stack after your normal camera effects
+    private Vector3 externalPosOffset = Vector3.zero;
+
+
 
     void Start()
     {
@@ -66,6 +95,68 @@ public class CameraScript : MonoBehaviour
         //HeadBobWhenSprint();   // these two are in HandleCameraEffects();
         //HandleSlideCamera();
         HandleCameraEffects();
+
+        // ===== HIT FEEDBACK RUNTIME =====
+
+        // --- SHAKE ---
+        externalPosOffset = Vector3.zero;
+        if (shakeTimeLeft > 0f)
+        {
+            float falloff = Mathf.Clamp01(shakeTimeLeft / shakeDuration);
+            float amp = shakeIntensity * falloff;
+
+            // simple Perlin-based 2D shake
+            float nx = (Mathf.PerlinNoise(shakeSeedX, Time.time * 25f) - 0.5f) * 2f;
+            float ny = (Mathf.PerlinNoise(shakeSeedY, Time.time * 25f) - 0.5f) * 2f;
+            externalPosOffset = new Vector3(nx, ny, 0f) * amp;
+
+            shakeTimeLeft -= Time.deltaTime * shakeFalloff;
+            if (shakeTimeLeft < 0f) shakeTimeLeft = 0f;
+        }
+
+        // --- TILT (roll) ---
+        hitCurrentTiltZ = Mathf.Lerp(hitCurrentTiltZ, hitTargetTiltZ, Time.deltaTime * tiltRecoverSpeed);
+        hitTargetTiltZ = Mathf.Lerp(hitTargetTiltZ, 0f, Time.deltaTime * tiltRecoverSpeed);
+
+        // --- BLOOD OVERLAY ---
+        if (bloodOverlay != null)
+        {
+            bloodCurrentAlpha = Mathf.Lerp(bloodCurrentAlpha, bloodTargetAlpha, Time.deltaTime * bloodLerpSpeed);
+            var c = bloodOverlay.color;
+            c.a = Mathf.Clamp01(bloodCurrentAlpha);
+            bloodOverlay.color = c;
+        }
+
+        // Recalculate base alpha every frame so regen makes overlay fade
+        if (bloodOverlay != null)
+        {
+            PlayerAttributes playerAttr = FindObjectOfType<PlayerAttributes>(); // cache for performance later
+            if (playerAttr != null)
+            {
+                float health01 = playerAttr.GetCurrentHealth01();
+                float visibleThreshold = 0.8f;
+
+                float baseAlpha = 0f;
+                if (health01 <= visibleThreshold)
+                {
+                    float t = Mathf.InverseLerp(visibleThreshold, 0f, health01);
+                    baseAlpha = Mathf.Lerp(0f, maxBloodAlpha, t);
+                }
+
+                // Blend toward whichever is higher: regen base or hit flash
+                float target = Mathf.Max(baseAlpha, bloodTargetAlpha);
+                bloodCurrentAlpha = Mathf.Lerp(bloodCurrentAlpha, target, Time.deltaTime * bloodLerpSpeed);
+
+                var c = bloodOverlay.color;
+                c.a = Mathf.Clamp01(bloodCurrentAlpha);
+                bloodOverlay.color = c;
+
+                // Decay hit flash toward base
+                bloodTargetAlpha = Mathf.Lerp(bloodTargetAlpha, baseAlpha, Time.deltaTime * 2f);
+            }
+        }
+
+
     }
 
     public void VertClamp()
@@ -154,5 +245,48 @@ public class CameraScript : MonoBehaviour
             return;
         }
         ReturnCameraToDefault();   //when you do exit this you still have to reset the camera. 
+                                   // ... your existing logic decides cam.localPosition and cam.localRotation
+
+        // Apply position shake
+        cam.localPosition += externalPosOffset;
+
+        // Combine your existing tilt (currentTilt) with hit tilt
+        var e = cam.localRotation.eulerAngles;
+        cam.localRotation = Quaternion.Euler(e.x, e.y, currentTilt + hitCurrentTiltZ);
+
     }
+
+    // Call this from PlayerAttributes when the player takes damage.
+    // health01 should be currentHealth / maxHealth in [0..1]
+    public void OnPlayerHit(float damage, float health01)
+    {
+        // SHAKE
+        shakeSeedX = Random.value * 1000f;
+        shakeSeedY = Random.value * 1000f;
+        shakeTimeLeft = shakeDuration;
+
+        // TILT
+        float dir = (Random.value < 0.5f) ? -1f : 1f;
+        hitTargetTiltZ += hitTiltZ * dir;
+
+        // BLOOD FLASH
+        float visibleThreshold = 0.8f; // above 80% health = invisible
+
+        float baseAlpha = 0f;
+        if (health01 <= visibleThreshold)
+        {
+            float t = Mathf.InverseLerp(visibleThreshold, 0f, health01);
+            baseAlpha = Mathf.Lerp(0f, maxBloodAlpha, t);
+        }
+
+        // Add flash
+        bloodTargetAlpha = Mathf.Clamp01(baseAlpha + hitFlashExtra);
+
+        // If new target alpha is higher than current, snap it up
+        if (bloodTargetAlpha > bloodCurrentAlpha)
+            bloodCurrentAlpha = bloodTargetAlpha;
+    }
+
+
+
 }

@@ -1,7 +1,6 @@
-﻿// Step-by-step UI display for Mystery Box interaction
-
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI; // for Image
+ 
 
 public class UI : MonoBehaviour
 {

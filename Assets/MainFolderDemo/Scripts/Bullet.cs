@@ -51,10 +51,13 @@ public class Bullet : MonoBehaviour
             if (bloodEffects != null && bloodEffects.Length > 0)  
             {
                 int index = Random.Range(0, bloodEffects.Length);   
-                Vector3 BulletHitPoint = transform.position;  
+                Vector3 BulletHitPoint = transform.position;
 
-                Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);    --- Quaternion.identity --- This is Unity's way of saying: �No rotation at all.�
-                
+                GameObject bloodInstance = Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);
+                bloodInstance.transform.SetParent(other.transform, true);   //true kesp the world position at the moment of instantiation so it follows the zombie now
+
+                //Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);    --- Quaternion.identity --- This is Unity's way of saying: �No rotation at all.�
+
                 EnemyHealthRagdoll enemy = other.GetComponent<EnemyHealthRagdoll>();
                 if (enemy != null)
                 {
