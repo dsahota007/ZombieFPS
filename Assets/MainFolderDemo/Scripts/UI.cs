@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI; // for Image
- 
+using System.Collections;
+
 
 public class UI : MonoBehaviour
 {
@@ -53,6 +54,10 @@ public class UI : MonoBehaviour
     public MagicStation CrimsonMagicStation;
 
     private MagicManager magicManager;   // Direct reference instead of Instance
+
+    [Header("Magic Cooldown UI")]
+    public Slider magicCooldownSlider;
+    public Text magicStatusText;
 
     void Start()
     {
@@ -438,9 +443,13 @@ public class UI : MonoBehaviour
             }
         }
 
+        //--------------------------------------------------Magic Cooldown
 
-
-
+        // --- Magic Cooldown UI ---
+        if (magicManager != null && magicCooldownSlider != null)
+        {
+            magicCooldownSlider.value = magicManager.GetCooldownProgress01(); // 0..1
+        }
 
 
         //--------------------------------------------------------------- Round system UI
@@ -467,6 +476,22 @@ public class UI : MonoBehaviour
         {
             pointsText.text = "" + PointManager.Instance.points;
         }
+    }
+
+    public void ShowTemporaryMagicMessage(string message)
+    {
+        StopAllCoroutines(); // cancel any old message timers
+        StartCoroutine(ShowMagicMessageRoutine(message));
+    }
+
+    private IEnumerator ShowMagicMessageRoutine(string message)
+    {
+        magicStatusText.text = message;
+        magicStatusText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(1.5f); // how long to show
+
+        magicStatusText.gameObject.SetActive(false);
     }
 
     public void UpdateHealthBar(float value)

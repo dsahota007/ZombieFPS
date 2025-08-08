@@ -38,6 +38,18 @@ public class MagicManager : MonoBehaviour
     private MagicType currentMagicType = MagicType.None;  // Start with no magic!
     private ArmMagicSpell armMagicSpell;                  // Reference to your casting script
 
+    [Header("Cooldown")]
+    public float cooldown = 8f;     // seconds until next cast
+    private float lastCastTime;     // when we last started a cast
+
+    public bool IsReady() => Time.time >= lastCastTime + cooldown;  //calc till ur cooldown ready
+    public float GetCooldownProgress01()
+    {
+        float since = Time.time - lastCastTime;
+        return Mathf.Clamp01(since / Mathf.Max(0.0001f, cooldown));
+    }
+
+
     //public static MagicManager Instance { get; private set; }
 
     //void Awake()
@@ -56,15 +68,42 @@ public class MagicManager : MonoBehaviour
     {
         armMagicSpell = FindFirstObjectByType<ArmMagicSpell>();    // Find your casting script
         UpdateMagicType();
+
+        lastCastTime = -cooldown; // start off as "ready"
+
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && CanUseMagic())
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            CastCurrentMagic();
+            if (currentMagicType == MagicType.None)
+            {
+                // Tell UI to show "No Magic Equipped"
+                UI ui = FindFirstObjectByType<UI>();
+                if (ui != null)
+                    ui.ShowTemporaryMagicMessage("No Magic Equipped");
+
+                return; // don't try to cast
+            }
+
+            if (CanUseMagic())
+            {
+                CastCurrentMagic();
+            }
         }
     }
+
+    public bool TryCast()
+    {
+        if (!CanUseMagic()) return false;
+        if (!IsReady()) return false;
+
+        CastCurrentMagic();          // do your animation + spawn via ArmMagicSpell
+        lastCastTime = Time.time;    // start cooldown now
+        return true;
+    }
+
 
     bool CanUseMagic()
     {
@@ -118,6 +157,19 @@ public class MagicManager : MonoBehaviour
             MagicData currentData = GetCurrentMagicData();
             armMagicSpell.MagicBallEntityPrefab = currentData.fireballPrefab;
             armMagicSpell.MagicArmFireVFX = currentData.handFireVFX;
+
+            switch (currentMagicType)
+            {
+                case MagicType.Normal: cooldown = 6f; break;
+                case MagicType.Sulfuric: cooldown = 8f; break;
+                case MagicType.Ice: cooldown = 10f; break;
+                case MagicType.Void: cooldown = 30f; break;
+                case MagicType.Venom: cooldown = 9f; break;
+                case MagicType.Lightning: cooldown = 5f; break;
+                case MagicType.Wind: cooldown = 6f; break;
+                case MagicType.Meteor: cooldown = 32f; break;
+                case MagicType.Crimson: cooldown = 8f; break;
+            }
         }
     }
 
