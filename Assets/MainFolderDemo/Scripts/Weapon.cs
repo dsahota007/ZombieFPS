@@ -33,7 +33,11 @@ public class Weapon : MonoBehaviour
 
     [Header("Kickback")]
     public float kickbackAmount = 0.05f;     
-    public float kickbackReturnSpeed = 12f;  
+    public float kickbackReturnSpeed = 12f;
+
+    [Header("VFX")]
+    public GameObject muzzleFlashPrefab;   
+    public float muzzleFlashLifetime = 0.05f;  
 
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
@@ -132,6 +136,15 @@ public class Weapon : MonoBehaviour
 
         if (bulletPrefab && firePoint)                           //Instantiate(whatToSpawn, whereToSpawn, whichRotation);
             Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
+
+        //// --- Spawn muzzle flash ---
+        if (muzzleFlashPrefab != null && firePoint != null)
+        {
+            GameObject flash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+            flash.transform.SetParent(firePoint); // so it moves with the gun for that frame
+            Destroy(flash, muzzleFlashLifetime);  // clean up automatically
+        }
+
 
         ApplyRecoil();
         ApplyKickback();

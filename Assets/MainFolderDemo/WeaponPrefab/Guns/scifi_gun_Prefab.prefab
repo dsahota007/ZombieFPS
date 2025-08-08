@@ -3675,10 +3675,12 @@ MonoBehaviour:
   recoilReturnSpeed: 5
   kickbackAmount: 0.05
   kickbackReturnSpeed: 12
+  muzzleFlashPrefab: {fileID: 8078720523478869859, guid: de53c840e7326cb47ad69f3d8937f107,
+    type: 3}
+  muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}
   controller: {fileID: 0}
   isWeaponBeingShowcased: 0
-  IsReloading: 0
 --- !u!1 &7568744691437007823
 GameObject:
   m_ObjectHideFlags: 0

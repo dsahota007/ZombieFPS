@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-
-
+ 
 public class CameraScript : MonoBehaviour
 {
 
@@ -165,6 +164,7 @@ public class CameraScript : MonoBehaviour
             c.a = Mathf.Lerp(c.a, targetA, Time.deltaTime * hitmarkerFadeSpeed);    //we change the alpha -- smoothly increasing or decreasing -- power of the lerp 
             hitmarkerImage.color = c;    //Apply the updated color back to the Image — this is what actually updates what you see.
 
+
             // scale back to normal
             hitmarkerImage.rectTransform.localScale = Vector3.Lerp(
                 hitmarkerImage.rectTransform.localScale,
@@ -174,8 +174,6 @@ public class CameraScript : MonoBehaviour
 
             if (c.a <= 0.02f) hitmarkerImage.enabled = false;   //Once it’s basically invisible (alpha ~0), disable the Image to stop drawing it until the next hit.
         }
-
-
 
     }
 
@@ -294,8 +292,8 @@ public class CameraScript : MonoBehaviour
     public void OnPlayerHit(float damage, float health01)
     {
 
-        // TILT
-        float dir = (Random.value < 0.5f) ? -1f : 1f;  //we randomly get 1 or -1 -- This line picks either -1 or +1 randomly → decides tilt direction (left or right).
+        // TILT      //we have to write UnityEngine.Random for some reason having issues namespace BS
+        float dir = (UnityEngine.Random.value < 0.5f) ? -1f : 1f;  //we randomly get 1 or -1 -- This line picks either -1 or +1 randomly → decides tilt direction (left or right).
         hitTargetTiltZ += hitTiltZ * dir;  
 
         // BLOOD FLASH
