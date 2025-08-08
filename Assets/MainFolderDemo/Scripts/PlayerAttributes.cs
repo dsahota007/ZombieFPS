@@ -60,7 +60,7 @@ public class PlayerAttributes : MonoBehaviour
         isRegenerating = false;             // Cancel regen if it was happening bc we just got hit
 
         // NEW: tell camera about the hit
-        var cam = FindObjectOfType<CameraScript>(); // simple; you can cache if you want
+        var cam = FindObjectOfType<CameraScript>(); 
         if (cam != null)
             cam.OnPlayerHit(amount, currentHealth / maxStartingHealth);
 
@@ -85,7 +85,7 @@ public class PlayerAttributes : MonoBehaviour
         // Note: we DON'T touch lastDamageTime/isRegenerating here.
     }
 
-    public float GetCurrentHealth01()       
+    public float GetCurrentHealth01()           //getter for blood splatter
     {
         return currentHealth / maxStartingHealth;
     }

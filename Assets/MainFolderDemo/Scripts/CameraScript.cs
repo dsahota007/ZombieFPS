@@ -50,18 +50,11 @@ public class CameraScript : MonoBehaviour
     public float hitFlashExtra = 0.2f;    // short spike on damage
     public float bloodLerpSpeed = 5f;
 
-    [Header("Hit Shake")]
-    public float shakeDuration = 0.20f;
-    public float shakeIntensity = 0.08f;  // small for FPS
-    public float shakeFalloff = 12f;      // higher = fades faster
 
     [Header("Hit Tilt")]
     public float hitTiltZ = 6f;           // degrees of quick roll on hit
     public float tiltRecoverSpeed = 8f;
 
-    // Internals
-    private float shakeTimeLeft = 0f;
-    private float shakeSeedX, shakeSeedY;
     private float hitTargetTiltZ = 0f;
     private float hitCurrentTiltZ = 0f;
     private float bloodTargetAlpha = 0f;
@@ -96,50 +89,35 @@ public class CameraScript : MonoBehaviour
         //HandleSlideCamera();
         HandleCameraEffects();
 
-        // ===== HIT FEEDBACK RUNTIME =====
 
-        // --- SHAKE ---
-        externalPosOffset = Vector3.zero;
-        if (shakeTimeLeft > 0f)
-        {
-            float falloff = Mathf.Clamp01(shakeTimeLeft / shakeDuration);
-            float amp = shakeIntensity * falloff;
 
-            // simple Perlin-based 2D shake
-            float nx = (Mathf.PerlinNoise(shakeSeedX, Time.time * 25f) - 0.5f) * 2f;
-            float ny = (Mathf.PerlinNoise(shakeSeedY, Time.time * 25f) - 0.5f) * 2f;
-            externalPosOffset = new Vector3(nx, ny, 0f) * amp;
-
-            shakeTimeLeft -= Time.deltaTime * shakeFalloff;
-            if (shakeTimeLeft < 0f) shakeTimeLeft = 0f;
-        }
-
-        // --- TILT (roll) ---
-        hitCurrentTiltZ = Mathf.Lerp(hitCurrentTiltZ, hitTargetTiltZ, Time.deltaTime * tiltRecoverSpeed);
+        // --------------------------------------- camera hit tilt
+        hitCurrentTiltZ = Mathf.Lerp(hitCurrentTiltZ, hitTargetTiltZ, Time.deltaTime * tiltRecoverSpeed);  //current --> target adn than the speed 
         hitTargetTiltZ = Mathf.Lerp(hitTargetTiltZ, 0f, Time.deltaTime * tiltRecoverSpeed);
 
-        // --- BLOOD OVERLAY ---
+        // --------------------------------------- BLOOD OVERLAY when hit
         if (bloodOverlay != null)
         {
-            bloodCurrentAlpha = Mathf.Lerp(bloodCurrentAlpha, bloodTargetAlpha, Time.deltaTime * bloodLerpSpeed);
-            var c = bloodOverlay.color;
-            c.a = Mathf.Clamp01(bloodCurrentAlpha);
-            bloodOverlay.color = c;
+            bloodCurrentAlpha = Mathf.Lerp(bloodCurrentAlpha, bloodTargetAlpha, Time.deltaTime * bloodLerpSpeed);   //current --> target adn than the speed 
+            var c = bloodOverlay.color;     // Copy the current color of the overlay
+            c.a = Mathf.Clamp01(bloodCurrentAlpha);   // blood overlay toward the bloodTargetAlpha value. Clamp01 ensures alpha stays between 0 and 1.  
+                                                      // Set the alpha channel to our updated value (0 = invisible, 1 = fully visible)
+            bloodOverlay.color = c;      //is the moment it actually changes what you see on screen.
         }
 
         // Recalculate base alpha every frame so regen makes overlay fade
         if (bloodOverlay != null)
         {
-            PlayerAttributes playerAttr = FindObjectOfType<PlayerAttributes>(); // cache for performance later
-            if (playerAttr != null)
+            PlayerAttributes playerAttr = FindObjectOfType<PlayerAttributes>(); // fetch script
+            if (playerAttr != null)     
             {
-                float health01 = playerAttr.GetCurrentHealth01();
-                float visibleThreshold = 0.8f;
+                float health01 = playerAttr.GetCurrentHealth01();    //get current hellath from the getter method we madee
+                float visibleThreshold = 0.8f;    //80% HP we should not be seeing blood after this
 
                 float baseAlpha = 0f;
-                if (health01 <= visibleThreshold)
+                if (health01 <= visibleThreshold)     //if helath is 80 or below
                 {
-                    float t = Mathf.InverseLerp(visibleThreshold, 0f, health01);
+                    float t = Mathf.InverseLerp(visibleThreshold, 0f, health01);    
                     baseAlpha = Mathf.Lerp(0f, maxBloodAlpha, t);
                 }
 
@@ -260,14 +238,10 @@ public class CameraScript : MonoBehaviour
     // health01 should be currentHealth / maxHealth in [0..1]
     public void OnPlayerHit(float damage, float health01)
     {
-        // SHAKE
-        shakeSeedX = Random.value * 1000f;
-        shakeSeedY = Random.value * 1000f;
-        shakeTimeLeft = shakeDuration;
 
         // TILT
-        float dir = (Random.value < 0.5f) ? -1f : 1f;
-        hitTargetTiltZ += hitTiltZ * dir;
+        float dir = (Random.value < 0.5f) ? -1f : 1f;  //we randomly get 1 or -1 -- This line picks either -1 or +1 randomly → decides tilt direction (left or right).
+        hitTargetTiltZ += hitTiltZ * dir;  
 
         // BLOOD FLASH
         float visibleThreshold = 0.8f; // above 80% health = invisible
@@ -280,7 +254,7 @@ public class CameraScript : MonoBehaviour
         }
 
         // Add flash
-        bloodTargetAlpha = Mathf.Clamp01(baseAlpha + hitFlashExtra);
+        bloodTargetAlpha = Mathf.Clamp01(baseAlpha + hitFlashExtra);  //Takes the base alpha from health, adds hitFlashExtra (a small bump in opacity for dramatic hit feedback)
 
         // If new target alpha is higher than current, snap it up
         if (bloodTargetAlpha > bloodCurrentAlpha)

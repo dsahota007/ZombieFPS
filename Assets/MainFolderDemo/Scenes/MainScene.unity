@@ -3676,12 +3676,9 @@ MonoBehaviour:
   slideTiltSpeed: 6
   bloodOverlay: {fileID: 1114319825}
   maxBloodAlpha: 0.65
-  hitFlashExtra: 0.2
+  hitFlashExtra: 0.5
   bloodLerpSpeed: 5
-  shakeDuration: 0.2
-  shakeIntensity: 0.08
-  shakeFalloff: 12
-  hitTiltZ: 6
+  hitTiltZ: 20
   tiltRecoverSpeed: 8
 --- !u!114 &561119876
 MonoBehaviour:
