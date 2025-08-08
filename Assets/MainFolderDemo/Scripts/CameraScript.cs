@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -63,6 +64,18 @@ public class CameraScript : MonoBehaviour
 
     [Header("Hitmarker and Crosshair")]
     public Image crosshairImage;
+    public Image hitmarkerImage;           // drag a small X/dot sprite here (UI Image in Canvas)
+    public float hitmarkerDuration = 0.08f;
+    public float hitmarkerFadeSpeed = 14f;
+    public Color hitColor = Color.white;   // normal hit color
+    public Color killColor = Color.red;    // kill color
+    public float hitmarkerTimer = 0f;
+    public float hitmarkerPopScale = 1.3f; // how big it gets on hit
+    public float hitmarkerScaleLerp = 12f; // how fast it returns to normal
+    public Vector3 hitmarkerDefaultScale;
+    public Vector3 hitmarkerTargetScale;
+
+
 
     // We’ll add this so our hit effects stack after your normal camera effects
     private Vector3 externalPosOffset = Vector3.zero;
@@ -83,6 +96,9 @@ public class CameraScript : MonoBehaviour
 
         sprintFOV = defaultFOV + 25f;
         defaultCamPos = cam.localPosition;   //we capture og spot of cam
+
+        if (hitmarkerImage != null)
+            hitmarkerDefaultScale = hitmarkerImage.rectTransform.localScale;  //get OG size
     }
 
     void Update()
@@ -137,6 +153,28 @@ public class CameraScript : MonoBehaviour
                 bloodTargetAlpha = Mathf.Lerp(bloodTargetAlpha, baseAlpha, Time.deltaTime * 2f);
             }
         }
+
+        // --- Hitmarker fade ---
+        if (hitmarkerImage != null && hitmarkerImage.enabled)
+        {
+            if (hitmarkerTimer > 0f) hitmarkerTimer -= Time.deltaTime;   // when timer runs out, fade to 0
+
+            float targetA = hitmarkerTimer > 0f ? 1f : 0f;  //when time runs our make it ffully viabkle (1) and after it ends make it transparetn(0)
+
+            var c = hitmarkerImage.color;
+            c.a = Mathf.Lerp(c.a, targetA, Time.deltaTime * hitmarkerFadeSpeed);    //we change the alpha -- smoothly increasing or decreasing -- power of the lerp 
+            hitmarkerImage.color = c;    //Apply the updated color back to the Image — this is what actually updates what you see.
+
+            // scale back to normal
+            hitmarkerImage.rectTransform.localScale = Vector3.Lerp(
+                hitmarkerImage.rectTransform.localScale,
+                hitmarkerDefaultScale,
+                Time.deltaTime * hitmarkerScaleLerp
+            );
+
+            if (c.a <= 0.02f) hitmarkerImage.enabled = false;   //Once it’s basically invisible (alpha ~0), disable the Image to stop drawing it until the next hit.
+        }
+
 
 
     }
@@ -276,6 +314,23 @@ public class CameraScript : MonoBehaviour
         // If new target alpha is higher than current, snap it up
         if (bloodTargetAlpha > bloodCurrentAlpha)
             bloodCurrentAlpha = bloodTargetAlpha;
+    }
+
+    public void ShowHitmarker(bool isKill)
+    {
+        if (hitmarkerImage == null) return;   //dip this code
+
+        hitmarkerTimer = hitmarkerDuration;   //how long it stays
+
+        // set color & make fully visible
+        var c = isKill ? killColor : hitColor;   //if is kill is true make hitmarker red if not than jus showcase normal color
+        c.a = 1f;           
+        hitmarkerImage.color = c;         //make it 1 
+        hitmarkerImage.enabled = true;   //make it enabled
+
+        hitmarkerTargetScale = hitmarkerDefaultScale * hitmarkerPopScale;  
+        hitmarkerImage.rectTransform.localScale = hitmarkerTargetScale;
+
     }
 
 

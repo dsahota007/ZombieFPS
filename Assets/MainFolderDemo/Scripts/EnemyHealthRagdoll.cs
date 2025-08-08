@@ -33,21 +33,35 @@ public class EnemyHealthRagdoll : MonoBehaviour
 
         currentHealth++;
 
+        var cam = FindObjectOfType<CameraScript>(); //get cam script
         if (currentHealth >= Health)
         {
+            if (cam) cam.ShowHitmarker(true);
             Die(hitDirection);
         }
-    }
+        else
+        {
+            if (cam) cam.ShowHitmarker(false);
 
+        }
+    }
     public void TakeDamage(float damage, Vector3 hitDirection)
     {
         if (isDead) return;   //exit func if dead
 
         currentHealth -= damage;    //decrement the damage from health
+        var cam = FindObjectOfType<CameraScript>();  //get the cam script
+
 
         if (currentHealth <= 0f)
         {
-            Die(hitDirection);  
+            if (cam) cam.ShowHitmarker(true); //showhitmarkker
+            Die(hitDirection);
+            return;     //get outt the this part 
+        }
+        else
+        {
+            if (cam) cam.ShowHitmarker(false);  // regular hitmarker
         }
     }
 
