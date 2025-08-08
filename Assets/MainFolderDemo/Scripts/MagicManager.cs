@@ -77,19 +77,22 @@ public class MagicManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            // If no magic is equipped, show UI message and exit
             if (currentMagicType == MagicType.None)
             {
-                // Tell UI to show "No Magic Equipped"
                 UI ui = FindFirstObjectByType<UI>();
                 if (ui != null)
                     ui.ShowTemporaryMagicMessage("No Magic Equipped");
-
-                return; // don't try to cast
+                return;
             }
 
-            if (CanUseMagic())
+            // Try casting — handles cooldown + requirements
+            if (!TryCast())
             {
-                CastCurrentMagic();
+                // Optional: show cooldown message
+                UI ui = FindFirstObjectByType<UI>();
+                if (ui != null)
+                    ui.ShowTemporaryMagicMessage("Magic on Cooldown");
             }
         }
     }
@@ -163,13 +166,15 @@ public class MagicManager : MonoBehaviour
                 case MagicType.Normal: cooldown = 6f; break;
                 case MagicType.Sulfuric: cooldown = 8f; break;
                 case MagicType.Ice: cooldown = 10f; break;
-                case MagicType.Void: cooldown = 30f; break;
+                case MagicType.Void: cooldown = 55f; break;
                 case MagicType.Venom: cooldown = 9f; break;
                 case MagicType.Lightning: cooldown = 5f; break;
                 case MagicType.Wind: cooldown = 6f; break;
                 case MagicType.Meteor: cooldown = 32f; break;
                 case MagicType.Crimson: cooldown = 8f; break;
             }
+
+
         }
     }
 
