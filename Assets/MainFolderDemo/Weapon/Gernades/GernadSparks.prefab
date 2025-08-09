@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8254561054775754492}
   - component: {fileID: 7931254532648589112}
   m_Layer: 0
-  m_Name: Sparks blue
+  m_Name: GernadSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

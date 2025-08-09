@@ -318,15 +318,18 @@ public class ArmMovementMegaScript : MonoBehaviour
     }
     void ThrowGrenadeNow()
     {
-        if (grenadePrefab == null || grenadeSpawn == null) return;
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm == null || grenadeSpawn == null) return;
 
-        GameObject gernade = Instantiate(grenadePrefab, grenadeSpawn.position, grenadeSpawn.rotation);  //we made firepoitn for gernade
+        GameObject prefab = gm.GetCurrentPrefab();
+        if (prefab == null) return;
 
-        Rigidbody rb = gernade.GetComponent<Rigidbody>();
-        if (rb != null)
+        GameObject g = Instantiate(prefab, grenadeSpawn.position, grenadeSpawn.rotation);
+
+        if (g.TryGetComponent<Rigidbody>(out var rb))
         {
-            Vector3 throwDirection = grenadeSpawn.forward + (grenadeSpawn.up * 1.5f); // small upward arch
-            rb.linearVelocity = throwDirection.normalized * throwForce;
+            Vector3 dir = grenadeSpawn.forward + grenadeSpawn.up * 1.5f; // small arc
+            rb.linearVelocity = dir.normalized * throwForce;
         }
     }
 

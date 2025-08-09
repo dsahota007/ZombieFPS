@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI; // for Image
 using System.Collections;
+using UnityEngine.EventSystems;
 
 
 public class UI : MonoBehaviour
@@ -58,11 +59,34 @@ public class UI : MonoBehaviour
     [Header("Magic Cooldown UI")]
     public Slider magicCooldownSlider;
     public Text magicStatusText;
+ 
+    [Header("Grenade Chest UI")]
+ 
+    public GrenadeChest grenadeChest;   // the chest marker in scene
+    public UnityEngine.UI.Text grenadePrompt; // "Press [E] to open"
+    public GameObject grenadePanel;           // panel with 3 buttons
+
+    // Buttons call the public methods below
+
+
+
+    private bool grenadePanelOpen = false;
+    private ArmMovementMegaScript arm;       // we’ll assign grenade prefab on this
 
     void Start()
     {
         magicManager = FindFirstObjectByType<MagicManager>();  // Find it once at start
+
+        arm = FindFirstObjectByType<ArmMovementMegaScript>();
+
+        if (grenadePanel) grenadePanel.SetActive(false);
+        if (grenadePrompt) grenadePrompt.gameObject.SetActive(false);
+
+
+
     }
+
+    bool chestPanelOpen = false;
 
     void Update()
     {
@@ -476,7 +500,71 @@ public class UI : MonoBehaviour
         {
             pointsText.text = "" + PointManager.Instance.points;
         }
+        HandleGrenadeChestUI();
+}
+
+    void HandleGrenadeChestUI()
+    {
+        if (grenadePanel == null || grenadePrompt == null || player == null || grenadeChest == null)
+            return;
+
+        if (chestPanelOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E))
+                CloseGrenadePanel();
+            return;
+        }
+
+        bool inRange = Vector3.Distance(player.position, grenadeChest.transform.position) <= grenadeChest.interactDistance;
+
+        grenadePrompt.gameObject.SetActive(inRange);
+
+        if (inRange && Input.GetKeyDown(KeyCode.E))
+            OpenGrenadePanel();
     }
+
+    void OpenGrenadePanel()
+    {
+        chestPanelOpen = true;
+        grenadePanel.SetActive(true);
+        grenadePrompt.gameObject.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        // NOTE: Do NOT change Time.timeScale
+    }
+
+    void CloseGrenadePanel()
+    {
+        chestPanelOpen = false;
+        grenadePanel.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void OnPickFrag()
+    {
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm) gm.SetType(GrenadeType.Frag);
+        CloseGrenadePanel();
+    }
+
+    public void OnPickSmoke()
+    {
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm) gm.SetType(GrenadeType.Smoke);
+        CloseGrenadePanel();
+    }
+
+    public void OnPickFlash()
+    {
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm) gm.SetType(GrenadeType.Flash);
+        CloseGrenadePanel();
+    }
+
+
 
     public void ShowTemporaryMagicMessage(string message)
     {

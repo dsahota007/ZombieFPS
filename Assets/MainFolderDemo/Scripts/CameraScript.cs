@@ -79,7 +79,7 @@ public class CameraScript : MonoBehaviour
     // We’ll add this so our hit effects stack after your normal camera effects
     private Vector3 externalPosOffset = Vector3.zero;
 
-
+    public bool cameraLocked = false;   //this is for when you open Grenade Menu
 
     void Start()
     {
@@ -102,6 +102,9 @@ public class CameraScript : MonoBehaviour
 
     void Update()
     {
+        if (!cameraLocked)   // for grenade menu prompt
+            VertClamp();
+
         VertClamp();
         FOVTransition();
         //HeadBobWhenSprint();   // these two are in HandleCameraEffects();
