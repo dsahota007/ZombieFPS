@@ -102,8 +102,8 @@ public class CameraScript : MonoBehaviour
 
     void Update()
     {
-        if (!cameraLocked)   // for grenade menu prompt
-            VertClamp();
+        if (cameraLocked)   // for grenade menu prompt
+            return;
 
         VertClamp();
         FOVTransition();
@@ -182,6 +182,7 @@ public class CameraScript : MonoBehaviour
 
     public void VertClamp()
     {
+        if (cameraLocked) return;  //for menu system when u open grenade menu or PAP
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -194,6 +195,7 @@ public class CameraScript : MonoBehaviour
 
     public void FOVTransition()
     {
+        if (cameraLocked) return;  //for menu system when u open grenade menu or PAP
         if (playerCamera == null) return;       //if cam dont exist leave this code dont waste your time.
 
         bool isAiming = Input.GetMouseButton(1);
@@ -263,6 +265,7 @@ public class CameraScript : MonoBehaviour
 
     void HandleCameraEffects()
     {
+        if (cameraLocked) return;  //for menu system when u open grenade menu or PAP
         if (!playerMovement.IsGrounded()) //not on ground than reset and GTFO
         {
             ReturnCameraToDefault();

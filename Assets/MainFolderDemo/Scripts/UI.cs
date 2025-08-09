@@ -525,22 +525,28 @@ public class UI : MonoBehaviour
 
     void OpenGrenadePanel()
     {
-        chestPanelOpen = true;
-        grenadePanel.SetActive(true);
-        grenadePrompt.gameObject.SetActive(false);
+        grenadePanelOpen = true;
+        if (grenadePanel) grenadePanel.SetActive(true);
+        if (grenadePrompt) grenadePrompt.gameObject.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        // NOTE: Do NOT change Time.timeScale
+
+        var cam = FindFirstObjectByType<CameraScript>();
+        if (cam) cam.cameraLocked = true;
     }
 
     void CloseGrenadePanel()
     {
-        chestPanelOpen = false;
-        grenadePanel.SetActive(false);
+        grenadePanelOpen = false;
+        if (grenadePanel) grenadePanel.SetActive(false);
+        if (grenadePrompt) grenadePrompt.gameObject.SetActive(false); // <- fix typo here
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        var cam = FindFirstObjectByType<CameraScript>();
+        if (cam) cam.cameraLocked = false;
     }
 
     public void OnPickFrag()
