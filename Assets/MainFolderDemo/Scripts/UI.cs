@@ -2,6 +2,7 @@
 using UnityEngine.UI; // for Image
 using System.Collections;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 
 public class UI : MonoBehaviour
@@ -64,9 +65,9 @@ public class UI : MonoBehaviour
  
     [Header("Grenade Chest UI")]
  
-    public GrenadeChest grenadeChest;   // the chest marker in scene
-    public UnityEngine.UI.Text grenadePrompt; // "Press [E] to open"
-    public GameObject grenadePanel;           // panel with 3 buttons
+    public GrenadeChest grenadeChest;   
+    public Text grenadePrompt;     // "Press [E] to open"
+    public GameObject grenadePanel;           
 
     private bool grenadePanelOpen = false;
  
@@ -77,14 +78,11 @@ public class UI : MonoBehaviour
 
         arm = FindFirstObjectByType<ArmMovementMegaScript>();
 
-        if (grenadePanel) grenadePanel.SetActive(false);
-        if (grenadePrompt) grenadePrompt.gameObject.SetActive(false);
-
-
-
+        if (grenadePanel) grenadePanel.SetActive(false); //set panel to false off rip
+        if (grenadePrompt) grenadePrompt.gameObject.SetActive(false);  //set text to false off rip
     }
 
-    bool chestPanelOpen = false;
+    //bool chestPanelOpen = false;
 
     void Update()
     {
@@ -498,60 +496,70 @@ public class UI : MonoBehaviour
         {
             pointsText.text = "" + PointManager.Instance.points;
         }
-        HandleGrenadeChestUI();
-}
 
+        //------grenade logic
+
+        HandleGrenadeChestUI();
+    }
+
+
+    //------------------------------------ grenade logic
     void HandleGrenadeChestUI()
     {
-        if (grenadePanel == null || grenadePrompt == null || player == null || grenadeChest == null)
-            return;
+        //if (grenadePanel == null || grenadePrompt == null || player == null || grenadeChest == null)
+        //    return;  
 
-        if (chestPanelOpen)
+        // if panel is open, force-hide the prompt and listen for close keys
+        if (grenadePanelOpen)
         {
+            //if (grenadePrompt.gameObject.activeSelf)  
+            //    grenadePrompt.gameObject.SetActive(false);
+
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E))
                 CloseGrenadePanel();
             return;
         }
 
-        bool inRange = Vector3.Distance(player.position, grenadeChest.transform.position) <= grenadeChest.interactDistance;
+        bool inRange = Vector3.Distance(player.position, grenadeChest.transform.position) <= grenadeChest.interactDistance;        //return true if we are in distance
 
-        grenadePrompt.gameObject.SetActive(inRange);
+        grenadePrompt.gameObject.SetActive(inRange);  //set active based on teh range so it wil be true if were in range bc its a bool
 
         if (inRange && Input.GetKeyDown(KeyCode.E))
-            OpenGrenadePanel();
+            OpenGrenadePanel();  
     }
 
     void OpenGrenadePanel()
     {
-        grenadePanelOpen = true;
-        if (grenadePanel) grenadePanel.SetActive(true);
-        if (grenadePrompt) grenadePrompt.gameObject.SetActive(false);
+        grenadePanelOpen = true;        
+        grenadePanel.SetActive(true);
+        grenadePrompt.gameObject.SetActive(false);  // hide prompt
 
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None;         //turn the mouse on so we cam actauly select the grenade panel 
         Cursor.visible = true;
 
-        var cam = FindFirstObjectByType<CameraScript>();
-        if (cam) cam.cameraLocked = true;
+        var cam = FindFirstObjectByType<CameraScript>();  //fethc cam script
+        if (cam) cam.cameraLocked = true;    //were disablign movment by setting this varibale as true so we can move around in teh menu -- look at cam script we put this eveyrwhere
     }
 
     void CloseGrenadePanel()
     {
-        grenadePanelOpen = false;
-        if (grenadePanel) grenadePanel.SetActive(false);
-        if (grenadePrompt) grenadePrompt.gameObject.SetActive(false); // <- fix typo here
+        grenadePanelOpen = false;           //we turn eveyrhting off
+        grenadePanel.SetActive(false);
+        grenadePrompt.gameObject.SetActive(false);  // still hide after close
 
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;    //return back to normal ingame mouse
         Cursor.visible = false;
 
-        var cam = FindFirstObjectByType<CameraScript>();
-        if (cam) cam.cameraLocked = false;
+        var cam = FindFirstObjectByType<CameraScript>();        //fethc cam script
+        if (cam) cam.cameraLocked = false;   //were enable cam movment by setting this varibale as false so we can move around in game with camera -- look at cam script we put this eveyrwhere
     }
 
+    //--- Grenade type Dictionary setting
     public void OnPickFrag()
     {
-        var gm = FindFirstObjectByType<GrenadeManager>();
-        if (gm) gm.SetType(GrenadeType.Frag);
-        CloseGrenadePanel();
+        var gm = FindFirstObjectByType<GrenadeManager>();  //fetch grenadeManager Script
+        if (gm) gm.SetType(GrenadeType.Frag);                //set the key 
+        CloseGrenadePanel();                                //close panel
     }
 
     public void OnPickSmoke()
@@ -568,7 +576,7 @@ public class UI : MonoBehaviour
         CloseGrenadePanel();
     }
 
-
+    //-------------------------MAGIC functions
 
     public void ShowTemporaryMagicMessage(string message)
     {
@@ -585,7 +593,7 @@ public class UI : MonoBehaviour
 
         magicStatusText.gameObject.SetActive(false);
     }
-
+    //-------------------------health functions
     public void UpdateHealthBar(float value)
     {
         playerHealthSlider.value = value;
