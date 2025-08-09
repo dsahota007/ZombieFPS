@@ -224,7 +224,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.17274189, b: 1, a: 1}
+      maxColor: {r: 0.7075472, g: 0.0722333, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4965,7 +4965,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 1, g: 0.48037386, b: 0, a: 1}
+  m_Color: {r: 0.8018868, g: 0, b: 0.0313975, a: 1}
   m_Intensity: 15
   m_Range: 5
   m_SpotAngle: 30
@@ -5011,7 +5011,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.0061e-41, y: 2.524355e-29, z: 0, w: 2}
+  m_BoundingSphereOverride: {x: 5.68e-43, y: 1.39e-43, z: 2.7105054e-20, w: 6.153083e-39}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -9938,7 +9938,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: be3e49b619df2f14daf08d5971317ce4,
         type: 3}
       propertyPath: m_Name
-      value: g2
+      value: ImpactGrenade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9963,7 +9963,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: be3e49b619df2f14daf08d5971317ce4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5764421323282381637}
+      addedObject: {fileID: -7342756578637460854}
   m_SourcePrefab: {fileID: 100100000, guid: be3e49b619df2f14daf08d5971317ce4, type: 3}
 --- !u!4 &5125565010346109578 stripped
 Transform:
@@ -10025,7 +10025,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5764421323282381637
+--- !u!114 &-7342756578637460854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10034,18 +10034,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8177116219481987225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b07797ea9eb49148bf80c1e643d2be8, type: 3}
+  m_Script: {fileID: 11500000, guid: 30d7cd315386a4744b917980c354f8de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuseTime: 5
-  explosionRadius: 10
-  explosionDamage: 9999999
+  explosionRadius: 5
+  explosionDamage: 999999
   explosionForce: 25
   upwardModifier: 0.5
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  explosionVFX: {fileID: 1427962332153456, guid: 301583a5af63a494298d60cd9f296909,
+  explosionVFX: {fileID: 1427962332153456, guid: 10bb6e7478057c646903baad43d784e7,
     type: 3}
   vfxLifetime: 5
   spinTorque: 10

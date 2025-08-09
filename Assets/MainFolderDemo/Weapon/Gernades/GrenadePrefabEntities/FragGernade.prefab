@@ -224,7 +224,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.6372304, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5011,7 +5011,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.102107e-39, z: 4.778e-42, w: 1}
+  m_BoundingSphereOverride: {x: 9.939898e+11, y: 4.472574e+21, z: 6.839804e+25, w: 0.0009322672}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -10045,7 +10045,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  explosionVFX: {fileID: 1427962332153456, guid: 301583a5af63a494298d60cd9f296909,
+  explosionVFX: {fileID: 1427962332153456, guid: 10bb6e7478057c646903baad43d784e7,
     type: 3}
   vfxLifetime: 5
   spinTorque: 10

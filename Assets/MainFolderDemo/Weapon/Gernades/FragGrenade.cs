@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class FragGrenade : MonoBehaviour
+public class Grenade : MonoBehaviour
 {
     [Header("Fuse & Explosion")]
     public float fuseTime = 5f;
@@ -21,7 +21,7 @@ public class FragGrenade : MonoBehaviour
     private Rigidbody rb;
     private bool exploded = false;
 
-    void Awake()
+    void Awake()       //Awake(): A Unity lifecycle method that runs before Start(),
     {
         rb = GetComponent<Rigidbody>();
         if (rb != null)

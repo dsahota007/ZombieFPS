@@ -1,14 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum GrenadeType { None, Frag, Smoke, Flash }  //enumeration fo all the gernades we can have
+public enum GrenadeType { None, Frag, Impact, Semtex }  //enumeration fo all the gernades we can have
 
 public class GrenadeManager : MonoBehaviour
 {
     [Header("Prefabs")]
     public GameObject fragPrefab;       //we attach here so ui can fetch
-    public GameObject smokePrefab;
-    public GameObject flashPrefab;
+    public GameObject impactPrefab;
+    public GameObject semtexPrefab;
 
     [Header("State")]
     public GrenadeType currentType = GrenadeType.Frag;     //Default is Frag when the script starts
@@ -20,8 +20,8 @@ public class GrenadeManager : MonoBehaviour
         map = new Dictionary<GrenadeType, GameObject>
         {
             { GrenadeType.Frag,  fragPrefab  },         //we assing prefabs to the type 
-            { GrenadeType.Smoke, smokePrefab },         //key:value ---python dictioary pretty much
-            { GrenadeType.Flash, flashPrefab }
+            { GrenadeType.Impact, impactPrefab },         //key:value ---python dictioary pretty much
+            { GrenadeType.Semtex, semtexPrefab }
         };
     }
 

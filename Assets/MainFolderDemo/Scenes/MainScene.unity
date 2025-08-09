@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 47796511}
   - component: {fileID: 47796513}
   m_Layer: 5
-  m_Name: FragBtn2
+  m_Name: ImpactBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,7 +832,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 89101274}
         m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: OnPickSmoke
+        m_MethodName: OnPickImpact
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2572,7 +2572,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Frag Gernade 3
+  m_Text: Semtex Grenade
 --- !u!222 &217153080
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5688,7 +5688,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Frag Gernade 2
+  m_Text: Impact Grenade
 --- !u!222 &816654912
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11635,7 +11635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1595701417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12638,9 +12638,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fragPrefab: {fileID: 8177116219481987225, guid: f15e9dc98e87d784ea1a5d57017b3c3d,
     type: 3}
-  smokePrefab: {fileID: 8177116219481987225, guid: 61d1f46c554dd7843a5097edc193da05,
+  impactPrefab: {fileID: 8177116219481987225, guid: 61d1f46c554dd7843a5097edc193da05,
     type: 3}
-  flashPrefab: {fileID: 8177116219481987225, guid: 70b99d9635b9bdb4bb726d05a0fbcf9b,
+  semtexPrefab: {fileID: 8177116219481987225, guid: 70b99d9635b9bdb4bb726d05a0fbcf9b,
     type: 3}
   currentType: 1
 --- !u!1 &1738937479
@@ -12876,7 +12876,7 @@ GameObject:
   - component: {fileID: 1864492933}
   - component: {fileID: 1864492932}
   m_Layer: 5
-  m_Name: FragBtn3
+  m_Name: SemtexGrenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12928,7 +12928,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 89101274}
         m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: OnPickFlash
+        m_MethodName: OnPickSemtex
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

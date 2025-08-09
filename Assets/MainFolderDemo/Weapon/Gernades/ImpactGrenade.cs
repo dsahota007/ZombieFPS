@@ -1,14 +1,13 @@
 using UnityEngine;
 using System.Collections;
-
-public class FragGrenade : MonoBehaviour
+public class ImpactGrenade : MonoBehaviour
 {
     [Header("Fuse & Explosion")]
-    public float fuseTime = 5f;
-    public float explosionRadius = 4f;
-    public float explosionDamage = 120f;
-    public float explosionForce = 10f;
-    public float upwardModifier = 2f;
+   // public float fuseTime = 5f;
+    public float explosionRadius = 5f;
+    public float explosionDamage = 999999f;
+    public float explosionForce = 25f;
+    public float upwardModifier = 0.5f;
     public LayerMask enemyMask;
 
     [Header("VFX")]
@@ -16,12 +15,12 @@ public class FragGrenade : MonoBehaviour
     public float vfxLifetime = 5f;
 
     [Header("Physics")]
-    public float spinTorque = 5f;  // small spin for style
+    public float spinTorque = 10f;  // small spin for style
 
     private Rigidbody rb;
     private bool exploded = false;
 
-    void Awake()
+    void Awake()      //Awake(): A Unity lifecycle method that runs before Start(),
     {
         rb = GetComponent<Rigidbody>();
         if (rb != null)
@@ -37,14 +36,23 @@ public class FragGrenade : MonoBehaviour
         if (spinTorque > 0f)
             rb.AddTorque(Random.onUnitSphere * spinTorque, ForceMode.Impulse);    //spin logic
 
-        StartCoroutine(FuseRoutine());
+        //StartCoroutine(FuseRoutine()); -- no this is impact
     }
 
-    IEnumerator FuseRoutine()
+    void OnCollisionEnter(Collision collision)
     {
-        yield return new WaitForSeconds(fuseTime);   // wait for to explode
-        Explode();
+        // You can filter out self-collisions or very small bounces here if needed
+        if (!exploded)
+        {
+            Explode();
+        }
     }
+
+    //IEnumerator FuseRoutine()
+    //{
+    //    yield return new WaitForSeconds(fuseTime);   // wait for to explode
+    //    Explode();
+    //}
 
     void Explode()
     {
@@ -68,8 +76,8 @@ public class FragGrenade : MonoBehaviour
                 // Push ragdoll bodies if available
                 if (health.ragdollRoot != null)
                 {
-                    foreach (var part in health.ragdollRoot.GetComponentsInChildren<Rigidbody>())           
-                        part.AddExplosionForce(explosionForce, pos, explosionRadius, upwardModifier, ForceMode.Impulse);    
+                    foreach (var part in health.ragdollRoot.GetComponentsInChildren<Rigidbody>())
+                        part.AddExplosionForce(explosionForce, pos, explosionRadius, upwardModifier, ForceMode.Impulse);
                 }
             }
         }
@@ -81,3 +89,4 @@ public class FragGrenade : MonoBehaviour
         if (rb != null) rb.linearVelocity = velocity;
     }
 }
+

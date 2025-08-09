@@ -562,17 +562,17 @@ public class UI : MonoBehaviour
         CloseGrenadePanel();                                //close panel
     }
 
-    public void OnPickSmoke()
+    public void OnPickImpact()
     {
         var gm = FindFirstObjectByType<GrenadeManager>();
-        if (gm) gm.SetType(GrenadeType.Smoke);
+        if (gm) gm.SetType(GrenadeType.Impact);
         CloseGrenadePanel();
     }
 
-    public void OnPickFlash()
+    public void OnPickSemtex()
     {
         var gm = FindFirstObjectByType<GrenadeManager>();
-        if (gm) gm.SetType(GrenadeType.Flash);
+        if (gm) gm.SetType(GrenadeType.Semtex);
         CloseGrenadePanel();
     }
 
