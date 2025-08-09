@@ -270,7 +270,7 @@ public class ArmMovementMegaScript : MonoBehaviour
 
         if (sprintingNow) return false;
 
-        return true; // good to go
+        return true;            // good to go
     }
 
     public IEnumerator ThrowGernadeAnimation()

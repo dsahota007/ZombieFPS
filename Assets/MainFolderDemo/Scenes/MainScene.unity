@@ -5258,7 +5258,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 820293008}
   m_LocalRotation: {x: -0, y: 0.6890593, z: -0, w: 0.72470504}
-  m_LocalPosition: {x: 0, y: 0, z: -22.18}
+  m_LocalPosition: {x: 0, y: 0, z: -21.08}
   m_LocalScale: {x: 0.32507995, y: 0.2949, z: 0.97334}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5266,7 +5266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 87.111, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.46, y: 13.32}
+  m_AnchoredPosition: {x: 1.4, y: 12}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &820293010
@@ -6726,7 +6726,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 333.6, y: -33}
+  m_AnchoredPosition: {x: 319.9, y: -33}
   m_SizeDelta: {x: 167.7691, y: 232.2645}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &956035784
@@ -6762,7 +6762,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Kinetic Jump Cooldown \n(Jump when sliding + Space)"
+  m_Text: "Kinetic Jump Cooldown \nMagic Cooldown"
 --- !u!222 &956035785
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10550,7 +10550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1595701417
 MonoBehaviour:
   m_ObjectHideFlags: 0
