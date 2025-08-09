@@ -60,6 +60,10 @@ public class ArmMovementMegaScript : MonoBehaviour
     private Quaternion leftDefaultRot;
     private bool isGrenadeGrabPlaying = false;
 
+    [Header("Grenade Spawn")]
+    public GameObject grenadePrefab;   // Assign in Inspector
+    public Transform grenadeSpawn;     // Child transform on hand/camera
+    public float throwForce = 14f;     // Speed forward
 
 
     //----------------------------
@@ -297,6 +301,9 @@ public class ArmMovementMegaScript : MonoBehaviour
             yield return null;   //runs every frame
         }
 
+        ThrowGrenadeNow();  //throwing gernade here
+
+
         // 3. Return to default
         t = 0f;
         while (t < 1f)
@@ -308,6 +315,19 @@ public class ArmMovementMegaScript : MonoBehaviour
         }
 
         isGrenadeGrabPlaying = false;       //and trigger this off.
+    }
+    void ThrowGrenadeNow()
+    {
+        if (grenadePrefab == null || grenadeSpawn == null) return;
+
+        GameObject gernade = Instantiate(grenadePrefab, grenadeSpawn.position, grenadeSpawn.rotation);  //we made firepoitn for gernade
+
+        Rigidbody rb = gernade.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 throwDirection = grenadeSpawn.forward + (grenadeSpawn.up * 1.5f); // small upward arch
+            rb.linearVelocity = throwDirection.normalized * throwForce;
+        }
     }
 
 }
