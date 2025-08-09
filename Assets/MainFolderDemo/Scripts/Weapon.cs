@@ -202,6 +202,9 @@ public class Weapon : MonoBehaviour
     {
         if (isReloading || currentAmmo == clipSize || ammoReserve <= 0) return;
 
+        // NEW: block reload while grenade throw anim is playing
+        var arms = FindFirstObjectByType<ArmMovementMegaScript>();
+        if (arms != null && arms.IsGrenadeAnimating) return;
 
         ArmMagicSpell magicSpell = FindFirstObjectByType<ArmMagicSpell>();
         if (magicSpell != null && magicSpell.IsCasting())
@@ -297,6 +300,7 @@ public class Weapon : MonoBehaviour
     //for ui -- getter methods
     public int GetCurrentAmmo() => currentAmmo;
     public int GetAmmoReserve() => ammoReserve;
+
 }
 
 

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections;
 public class ArmMovementMegaScript : MonoBehaviour
 {
     public Transform cameraTransform;
@@ -47,6 +47,20 @@ public class ArmMovementMegaScript : MonoBehaviour
     private bool isEquipping = false;
     private float equipTimer = 0f;
 
+    [Header("Quick Grenade Grab")]
+    public Transform leftArm; // Assign your left arm transform
+    public Vector3 grabLocalPos = new Vector3(-0.05f, -0.15f, 0f); // final grab pos
+    public Vector3 grabLocalEuler = new Vector3(15f, -15f, -5f);
+    public Vector3 dropArmPos = new Vector3(-1f, 0f, 0f);
+    public float dropTime = 0.15f; // time to drop
+    public float grabTime = 0.15f; // time to go from drop to grab
+    public float returnTime = 0.2f; // time to return to default
+
+    private Vector3 leftDefaultPos;
+    private Quaternion leftDefaultRot;
+    private bool isGrenadeGrabPlaying = false;
+
+
 
     //----------------------------
 
@@ -59,11 +73,21 @@ public class ArmMovementMegaScript : MonoBehaviour
     private Vector3 swayRotation;
 
     [HideInInspector] public Vector3 externalKickbackOffset = Vector3.zero;
+    private PlayerMovement pm;
+
 
     void Start()
     {
+
+        pm = FindFirstObjectByType<PlayerMovement>(); //fetch scipt 
+
         defaultLocalPosition = transform.localPosition;
         defaultLocalRotation = transform.localRotation.eulerAngles;   //local pos but for rotation
+
+        leftDefaultPos = leftArm.localPosition;   //for gernade throw -- find current positon so we can set default variable
+        leftDefaultRot = leftArm.localRotation;
+
+
     }
 
     void Update()  //LateUpdate()   -- i got rid of this bc idk
@@ -190,6 +214,14 @@ public class ArmMovementMegaScript : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, baseRot * Quaternion.Euler(swayRotation), Time.deltaTime * smoothSpeed);    //--------------------------------------------????
 
 
+        //gernade throw logic
+        if (!isGrenadeGrabPlaying && Input.GetKeyDown(KeyCode.G) && leftArm != null)
+        {
+            if (CanThrowGrenade())
+                StartCoroutine(ThrowGernadeAnimation());
+
+        }
+
     }
 
     public void ResetArmPosition()
@@ -214,5 +246,69 @@ public class ArmMovementMegaScript : MonoBehaviour
     {
         isReloading = state;               //if u look up where reloading is happening we actually start animation. ^^^
     }
+
+    public bool IsGrenadeAnimating => isGrenadeGrabPlaying;
+
+
+    bool CanThrowGrenade()      //make sure u cant run aim and all that when throwing gernade
+    {
+        // aiming?
+        if (Input.GetMouseButton(1)) return false;
+        if (Input.GetKeyDown(KeyCode.LeftShift)) return false;
+
+        // casting magic?
+        if (isCastingSpell) return false;
+
+        // reloading? (either this arm state or weapon’s own)
+        if (isReloading) return false;
+        var w = WeaponManager.ActiveWeapon;
+        if (w != null && w.IsReloading) return false;
+
+        bool sprintingNow =
+            (pm != null && pm.IsSprinting()) ||
+            (Input.GetKey(KeyCode.LeftShift) && controller != null && controller.velocity.magnitude > 0.1f);
+
+        if (sprintingNow) return false;
+
+        return true; // good to go
+    }
+
+    public IEnumerator ThrowGernadeAnimation()
+    {
+        isGrenadeGrabPlaying = true;
+
+        // 1. Drop down
+        Vector3 dropPos = leftDefaultPos + dropArmPos;   //This gives us the first target position where the arm dips down slightly before grabbing (vector on vector)
+        float t = 0f;               //start a timer from 0 
+        while (t < 1f)              //when its reaches over one
+        {
+            t += Time.deltaTime / dropTime;                                     //increases it over dropTime seconds.
+            leftArm.localPosition = Vector3.Lerp(leftDefaultPos, dropPos, t);   //how fast we want to get their by t using linear interpolation
+            yield return null;    //runs every frame
+        }
+
+        // 2. Move to grab spot
+        t = 0f;         //start at 0
+        while (t < 1f)   //when its reaches over one
+        {
+            t += Time.deltaTime / grabTime;  //increases it over grabtiem so how long are we gonna be holding onto before we lift our hands.
+            leftArm.localPosition = Vector3.Lerp(dropPos, grabLocalPos, t);  //we go to grab position adn the time
+            leftArm.localRotation = Quaternion.Slerp(leftDefaultRot, Quaternion.Euler(grabLocalEuler), t);  //and also the rotation which is whatever
+            yield return null;   //runs every frame
+        }
+
+        // 3. Return to default
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / returnTime;           //How long till you return to default
+            leftArm.localPosition = Vector3.Lerp(grabLocalPos, leftDefaultPos, t);      //we go from grab back to default based on return time we have set
+            leftArm.localRotation = Quaternion.Slerp(Quaternion.Euler(grabLocalEuler), leftDefaultRot, t);  //as well as the rotation
+            yield return null;  //play every frame
+        }
+
+        isGrenadeGrabPlaying = false;       //and trigger this off.
+    }
+
 }
 
