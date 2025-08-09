@@ -583,6 +583,13 @@ public class UI : MonoBehaviour
         CloseGrenadePanel();
     }
 
+    public void OnPickSulfuricNapalm()
+    {
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm) gm.SetType(GrenadeType.SulfuricNapalm);
+        CloseGrenadePanel();
+    }
+
     //-------------------------MAGIC functions
 
     public void ShowTemporaryMagicMessage(string message)

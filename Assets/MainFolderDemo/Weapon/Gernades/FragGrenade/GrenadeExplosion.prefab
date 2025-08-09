@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.6812067, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5126,7 +5126,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.24264705, g: 0.24264705, b: 0.24264705, a: 1}
+      maxColor: {r: 0, g: 0.78039217, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19681,7 +19681,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 1, g: 0.45566574, b: 0.21226418, a: 1}
+  m_Color: {r: 0, g: 0.93945074, b: 1, a: 1}
   m_Intensity: 5.54
   m_Range: 4.72
   m_SpotAngle: 30
@@ -19748,7 +19748,7 @@ GameObject:
   - component: {fileID: 82748325553193224}
   - component: {fileID: 114439608940470374}
   m_Layer: 0
-  m_Name: FireballKillVFX
+  m_Name: GrenadeExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25022,7 +25022,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.74905896, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
