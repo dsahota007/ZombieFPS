@@ -5,10 +5,10 @@ public class SemtexGrenade : MonoBehaviour
 {
     [Header("Fuse & Explosion")]
     public float fuseTime = 5f;
-    public float explosionRadius = 4f;
-    public float explosionDamage = 120f;
-    public float explosionForce = 10f;
-    public float upwardModifier = 2f;
+    public float explosionRadius = 5f;
+    public float explosionDamage = 999999f;
+    public float explosionForce = 25f;
+    public float upwardModifier = 0.5f;
     public LayerMask enemyMask;
 
     [Header("VFX")]

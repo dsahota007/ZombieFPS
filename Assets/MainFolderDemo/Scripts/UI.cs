@@ -576,6 +576,13 @@ public class UI : MonoBehaviour
         CloseGrenadePanel();
     }
 
+    public void OnPickBio()
+    {
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm) gm.SetType(GrenadeType.Bio);
+        CloseGrenadePanel();
+    }
+
     //-------------------------MAGIC functions
 
     public void ShowTemporaryMagicMessage(string message)
