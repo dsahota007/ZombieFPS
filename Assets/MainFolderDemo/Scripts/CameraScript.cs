@@ -218,7 +218,7 @@ public class CameraScript : MonoBehaviour
 
         // Simple crosshair toggle
         if (crosshairImage != null)
-            crosshairImage.enabled = !isAiming;
+            crosshairImage.enabled = !isAiming && !isSprinting;
 
     }
 

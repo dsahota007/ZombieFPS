@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class UI : MonoBehaviour
 {
     public Transform player;            //we fetch player like this and not script in start like the magic manager.
+    private ArmMovementMegaScript arm;       // we’ll assign grenade prefab on this
+
 
     [Header("Weapon Info UI")]
     public Text WeaponAmmoText;
@@ -66,12 +68,8 @@ public class UI : MonoBehaviour
     public UnityEngine.UI.Text grenadePrompt; // "Press [E] to open"
     public GameObject grenadePanel;           // panel with 3 buttons
 
-    // Buttons call the public methods below
-
-
-
     private bool grenadePanelOpen = false;
-    private ArmMovementMegaScript arm;       // we’ll assign grenade prefab on this
+ 
 
     void Start()
     {
