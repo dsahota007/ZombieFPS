@@ -597,6 +597,14 @@ public class UI : MonoBehaviour
         CloseGrenadePanel();
     }
 
+    public void OnPickBastion()
+    {
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm) gm.SetType(GrenadeType.Bastion);
+        CloseGrenadePanel();
+    }
+
+
     //-------------------------MAGIC functions
 
     public void ShowTemporaryMagicMessage(string message)

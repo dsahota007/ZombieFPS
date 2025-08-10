@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum GrenadeType { None, Frag, Impact, Semtex, Bio, SulfuricNapalm, CrystalCluster }  //enumeration fo all the gernades we can have
+public enum GrenadeType { None, Frag, Impact, Semtex, Bio, SulfuricNapalm, CrystalCluster, Bastion }  //enumeration fo all the gernades we can have
 
 public class GrenadeManager : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class GrenadeManager : MonoBehaviour
     public GameObject bioPrefab;
     public GameObject sulfuricNapalmPrefab;
     public GameObject crystalClusterPrefab;
+    public GameObject BastionPrefab;
 
     [Header("State")]
     public GrenadeType currentType = GrenadeType.Frag;     //Default is Frag when the script starts
@@ -27,7 +28,8 @@ public class GrenadeManager : MonoBehaviour
             { GrenadeType.Semtex, semtexPrefab },
             { GrenadeType.Bio, bioPrefab },
             { GrenadeType.SulfuricNapalm, sulfuricNapalmPrefab },
-            { GrenadeType.CrystalCluster, crystalClusterPrefab }
+            { GrenadeType.CrystalCluster, crystalClusterPrefab },
+            { GrenadeType.Bastion, BastionPrefab }
         };
     }
 
