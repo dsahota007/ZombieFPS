@@ -60,6 +60,7 @@ public class Weapon : MonoBehaviour
     private Vector3 currentKickbackOffset = Vector3.zero;
     private Vector3 targetKickbackOffset = Vector3.zero;
     private ArmMovementMegaScript armMover;
+    private UI ui;
 
     private float nextFireTime = 0f; //controls delay for single fire ---
 
@@ -79,6 +80,7 @@ public class Weapon : MonoBehaviour
 
         cam = Camera.main.transform;          // Grab camera
         armMover = FindFirstObjectByType<ArmMovementMegaScript>();    // we gonna use this for kickback 
+        ui = FindFirstObjectByType<UI>();   //fetch to not shoot while in grenade menu
     }
 
     void Update()
@@ -124,12 +126,12 @@ public class Weapon : MonoBehaviour
          currentKickbackOffset = Vector3.Lerp(currentKickbackOffset, targetKickbackOffset, Time.deltaTime * kickbackReturnSpeed);
          if (armMover != null)
          armMover.externalKickbackOffset = currentKickbackOffset;
-        
 
     }
 
     public void Shoot()
     {
+        if (ui.IsGrenadePanelOpen) return;      //we cant shoot if ur selecting your grenade.
         if (isWeaponBeingShowcased || !CanShoot() ||isReloading || IsSprinting()) return; //leave func if u cant
 
         currentAmmo--;

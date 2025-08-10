@@ -641,6 +641,7 @@ public class UI : MonoBehaviour
         grenadeMsgCo = null;
     }
 
+    public bool IsGrenadePanelOpen => grenadePanelOpen;   //this is for in weapon so we can not shoot when panel is open  -- getter
 
     //-------------------------MAGIC functions
 
