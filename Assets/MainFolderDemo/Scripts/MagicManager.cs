@@ -5,7 +5,7 @@ public enum MagicType
 {
     None,
     Normal,
-    Sulfuric,
+    Crystal,
     Void,
     Ice,
     Venom,
@@ -26,7 +26,7 @@ public class MagicManager : MonoBehaviour
 {
     [Header("Magic Types")]
     public MagicData normalMagic;
-    public MagicData sulfuricMagic;
+    public MagicData crystalcMagic;
     public MagicData VoidMagic;
     public MagicData IceMagic;
     public MagicData VenomMagic;
@@ -164,7 +164,7 @@ public class MagicManager : MonoBehaviour
             switch (currentMagicType)
             {
                 case MagicType.Normal: cooldown = 6f; break;
-                case MagicType.Sulfuric: cooldown = 8f; break;
+                case MagicType.Crystal: cooldown = 8f; break;
                 case MagicType.Ice: cooldown = 10f; break;
                 case MagicType.Void: cooldown = 55f; break;
                 case MagicType.Venom: cooldown = 9f; break;
@@ -181,7 +181,7 @@ public class MagicManager : MonoBehaviour
     public MagicData GetCurrentMagicData()
     {
         if (currentMagicType == MagicType.Normal) return normalMagic;
-        if (currentMagicType == MagicType.Sulfuric) return sulfuricMagic;
+        if (currentMagicType == MagicType.Crystal) return crystalcMagic;
         if (currentMagicType == MagicType.Void) return VoidMagic;
         if (currentMagicType == MagicType.Ice) return IceMagic;
         if (currentMagicType == MagicType.Venom) return VenomMagic;

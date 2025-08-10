@@ -39,7 +39,7 @@ public class UI : MonoBehaviour
 
     [Header("Magic Station UI")]
     public Text fireMagicText;                   
-    public Text sulfuricFireMagicText;
+    public Text crystalMagicText;
     public Text VoidMagicText;
     public Text IceMagicText;
     public Text VenomMagicText;
@@ -47,8 +47,8 @@ public class UI : MonoBehaviour
     public Text WindMagicText;
     public Text MeteorMagicText;
     public Text CrimsonMagicText;
-    public MagicStation fireStation;      
-    public MagicStation sulfuricStation;  
+    public MagicStation fireStation;
+    public MagicStation crystalStation;  
     public MagicStation VoidMagicStation;
     public MagicStation IceMagicStation;
     public MagicStation VenomMagicStation;
@@ -200,35 +200,35 @@ public class UI : MonoBehaviour
         }
 
         // Handle Sulfuric Fire Station
-        if (sulfuricStation != null && sulfuricFireMagicText != null)
+        if (crystalStation != null && crystalMagicText != null)
         {
-            float distanceToSulfuricStation = Vector3.Distance(player.position, sulfuricStation.transform.position);
+            float distanceToCrystalStation = Vector3.Distance(player.position, crystalStation.transform.position);
 
-            if (distanceToSulfuricStation <= sulfuricStation.interactionRange)
+            if (distanceToCrystalStation <= crystalStation.interactionRange)
             {
                 if (magicManager != null)  // Using direct reference instead of Instance
                 {
                     MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Sulfuric)
+                    if (currentMagic == MagicType.Crystal)
                     {
-                        sulfuricFireMagicText.text = "Sulfuric Fireball Equipped";
+                        crystalMagicText.text = "Crystal Magic Equipped";
                     }
                     else
                     {
-                        sulfuricFireMagicText.text = "Press [E] to Equip Sulfuric Fireball";
+                        crystalMagicText.text = "Press [E] to Equip Crystal Magic";
                     }
 
-                    sulfuricFireMagicText.gameObject.SetActive(true);
+                    crystalMagicText.gameObject.SetActive(true);
                 }
                 else
                 {
-                    sulfuricFireMagicText.gameObject.SetActive(false);
+                    crystalMagicText.gameObject.SetActive(false);
                 }
             }
             else
             {
-                sulfuricFireMagicText.gameObject.SetActive(false);
+                crystalMagicText.gameObject.SetActive(false);
             }
         }
 
@@ -587,6 +587,13 @@ public class UI : MonoBehaviour
     {
         var gm = FindFirstObjectByType<GrenadeManager>();
         if (gm) gm.SetType(GrenadeType.SulfuricNapalm);
+        CloseGrenadePanel();
+    }
+
+    public void OnPickCrystalCluster()
+    {
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm) gm.SetType(GrenadeType.CrystalCluster);
         CloseGrenadePanel();
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum GrenadeType { None, Frag, Impact, Semtex, Bio, SulfuricNapalm }  //enumeration fo all the gernades we can have
+public enum GrenadeType { None, Frag, Impact, Semtex, Bio, SulfuricNapalm, CrystalCluster }  //enumeration fo all the gernades we can have
 
 public class GrenadeManager : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class GrenadeManager : MonoBehaviour
     public GameObject semtexPrefab;
     public GameObject bioPrefab;
     public GameObject sulfuricNapalmPrefab;
+    public GameObject crystalClusterPrefab;
 
     [Header("State")]
     public GrenadeType currentType = GrenadeType.Frag;     //Default is Frag when the script starts
@@ -25,7 +26,8 @@ public class GrenadeManager : MonoBehaviour
             { GrenadeType.Impact, impactPrefab },         //key:value ---python dictioary pretty much
             { GrenadeType.Semtex, semtexPrefab },
             { GrenadeType.Bio, bioPrefab },
-            { GrenadeType.SulfuricNapalm, sulfuricNapalmPrefab }
+            { GrenadeType.SulfuricNapalm, sulfuricNapalmPrefab },
+            { GrenadeType.CrystalCluster, crystalClusterPrefab }
         };
     }
 
