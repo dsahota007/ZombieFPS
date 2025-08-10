@@ -14821,7 +14821,7 @@ MonoBehaviour:
     type: 3}
   EnemyImpactVFX2: {fileID: 8793510976239746625, guid: aeb9f4f7f33e60942ae68b9ead1bdbbe,
     type: 3}
-  GroundEntitySlamVFX: {fileID: 1427962332153456, guid: 301583a5af63a494298d60cd9f296909,
+  GroundEntitySlamVFX: {fileID: 1427962332153456, guid: 9a0d3892a95e8474a98b126200e1addf,
     type: 3}
 --- !u!54 &3140035660169670401
 Rigidbody:

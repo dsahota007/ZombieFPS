@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class CrimsonMagic : MonoBehaviour
 {
     [Header("Projectile Settings")]
@@ -10,7 +10,8 @@ public class CrimsonMagic : MonoBehaviour
 
     [Header("Life Steal")]
     public float healPerEnemy = 10f;  // Heal per zombie hit
-
+    //public int maxHealVFX = 3;                 // optional cap
+    private static int activeHealVFXCount = 0; // optional cap
     [Header("VFX")]
     public GameObject EnemyImpactVFX;
     public GameObject PlayerHealVFX;  
@@ -45,6 +46,8 @@ public class CrimsonMagic : MonoBehaviour
 
         if (other.CompareTag("Ground") || other.CompareTag("Wall") || other.CompareTag("Enemy"))
             TriggerCrimson();
+
+ 
     }
 
     void OnCollisionEnter(Collision collision)
@@ -56,43 +59,47 @@ public class CrimsonMagic : MonoBehaviour
     void TriggerCrimson()
     {
         hasImpacted = true;
-        Vector3 impactPoint = transform.position;               //find point center of radius
+        Vector3 impactPoint = transform.position;
 
-        // Siphon from enemies
+        // damage & heal logic
         Collider[] hits = Physics.OverlapSphere(impactPoint, siphonRadius, enemyMask);
-
-        foreach (Collider col in hits)
+        foreach (var col in hits)
         {
-            EnemyHealthRagdoll enemy = col.GetComponentInParent<EnemyHealthRagdoll>();
-            if (enemy != null && !enemy.IsDead())
+            var enemy = col.GetComponentInParent<EnemyHealthRagdoll>();
+            if (enemy == null || enemy.IsDead()) continue;
+
+            Vector3 dir = (enemy.transform.position - impactPoint).normalized;
+            enemy.TakeDamage(999999f, dir);
+
+            if (player != null)
+                player.Heal(healPerEnemy);
+
+            if (EnemyImpactVFX != null)
             {
-                // Damage enemy
-                Vector3 dir = (enemy.transform.position - impactPoint).normalized;
-                enemy.TakeDamage(999999f, dir);
-
-                // Heal player
-                if (player != null)
-                {
-                    player.Heal(healPerEnemy);
-
-                    // Spawn heal VFX at player
-                    if (PlayerHealVFX != null)
-                    {
-                        GameObject healFx = Instantiate(PlayerHealVFX, player.transform.position + Vector3.up * 1f, Quaternion.identity);
-                        healFx.transform.SetParent(player.transform); // Follow the player
-                        Destroy(healFx, 4f);
-                    }
-                }
-
-                // Enemy hit VFX
-                if (EnemyImpactVFX != null)
-                {
-                    GameObject fx = Instantiate(EnemyImpactVFX, enemy.transform.position, Quaternion.identity);
-                    Destroy(fx, 2f);
-                }
+                var fx = Instantiate(EnemyImpactVFX, enemy.transform.position, Quaternion.identity);
+                Destroy(fx, 2f);
             }
         }
 
+        // ? Spawn heal VFX exactly ONCE per projectile impact (optional cap)
+        if (player != null && PlayerHealVFX != null)
+        {
+            //if (activeHealVFXCount < 999999)           // remove this if you don't want a cap
+            //{
+                var healFx = Instantiate( PlayerHealVFX, player.transform.position + Vector3.up * 2.85f, Quaternion.Euler(180f, 0f, 0f));
+                healFx.transform.SetParent(player.transform, true);
+                activeHealVFXCount++;
+                Destroy(healFx, 4f);
+                StartCoroutine(DecHealFxAfter(4f));
+            
+        }
+
         Destroy(gameObject);
+    }
+
+    IEnumerator DecHealFxAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        activeHealVFXCount = Mathf.Max(0, activeHealVFXCount - 1);
     }
 }
