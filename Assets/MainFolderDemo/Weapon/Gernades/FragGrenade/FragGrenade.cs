@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Grenade : MonoBehaviour
+public class FragGrenade : MonoBehaviour
 {
     [Header("Fuse & Explosion")]
     public float fuseTime = 5f;

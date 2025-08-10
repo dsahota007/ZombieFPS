@@ -655,8 +655,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -311.82465, y: 103.72097}
-  m_SizeDelta: {x: 167.7691, y: 232.2645}
+  m_AnchoredPosition: {x: -323.9788, y: 86.753}
+  m_SizeDelta: {x: 143.4608, y: 266.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &35703241
 MonoBehaviour:
@@ -692,15 +692,15 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "This is another demo showcase for an indie project.\nIt\u2019s built on
-    top of the FPS build, but this version is more focused on showing off the magic
-    abilities. Everything here is still work-in-progress\u2014VFX, zombie animations,
+    top of the FPS build, but this version is more focused on showing off the Grenade
+    Machine. Everything here is still work-in-progress\u2014VFX, zombie animations,
     and gameplay elements are not final. This is just a demo build for testing and
     feedback.\n\nControls:\n\nWASD \u2013 Move\n\nShift \u2013 Sprint\n\nLeft Click
     \u2013 Shoot\n\nRight Click \u2013 Aim\n\n1 \u2013 Switch guns\n\nR \u2013 Reload\n\nC
     \u2013 Slide (jump into a slide to activate Kinetic Jump, and from Kinetic Jump
     you can slam back down by clicking SPACE)\n\nE \u2013 Interact\n\nAt a Magic
     Station, press E to pick a magic ability, then press Q to summon it. (Magic cooldowns
-    are temporary and not final.)\n\nQ \u2013 Summon Magic"
+    are temporary and not final.)\n\nQ \u2013 Summon Magic\n\nG - Throw Grenade"
 --- !u!222 &35703242
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -926,8 +926,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.54
-  m_fontSizeBase: 8.54
+  m_fontSize: 19.93
+  m_fontSizeBase: 19.93
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1315,6 +1315,8 @@ RectTransform:
   - {fileID: 1711087073}
   - {fileID: 1935008571}
   - {fileID: 429056150}
+  - {fileID: 486131193}
+  - {fileID: 584999891}
   - {fileID: 1156089616}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1371,6 +1373,8 @@ MonoBehaviour:
   grenadeChest: {fileID: 1649048623}
   grenadePrompt: {fileID: 429056151}
   grenadePanel: {fileID: 1156089615}
+  grenadeAmountText: {fileID: 486131191}
+  grenadeStatusText: {fileID: 584999889}
 --- !u!1 &97643583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,8 +1461,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.54
-  m_fontSizeBase: 8.54
+  m_fontSize: 19.73
+  m_fontSizeBase: 19.73
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4096,6 +4100,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 480843714}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &486131190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 486131193}
+  - component: {fileID: 486131192}
+  - component: {fileID: 486131191}
+  m_Layer: 5
+  m_Name: GrenadeAmountText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &486131191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486131190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 13
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: GrenadeAmount
+--- !u!222 &486131192
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486131190}
+  m_CullTransparentMesh: 1
+--- !u!224 &486131193
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486131190}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 89101273}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 184, y: -199}
+  m_SizeDelta: {x: 455.4779, y: 305.3063}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &492741723
 GameObject:
   m_ObjectHideFlags: 0
@@ -4834,6 +4917,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583518659}
   m_CullTransparentMesh: 1
+--- !u!1 &584999888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584999891}
+  - component: {fileID: 584999890}
+  - component: {fileID: 584999889}
+  m_Layer: 5
+  m_Name: GrenadeStatusText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &584999889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584999888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 13
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: No Grenades Left
+--- !u!222 &584999890
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584999888}
+  m_CullTransparentMesh: 1
+--- !u!224 &584999891
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584999888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 89101273}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -3, y: -58}
+  m_SizeDelta: {x: 455.4779, y: 305.3063}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &592929375
 GameObject:
   m_ObjectHideFlags: 0
@@ -7665,8 +7827,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.54
-  m_fontSizeBase: 8.54
+  m_fontSize: 23.23
+  m_fontSizeBase: 23.23
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8672,7 +8834,7 @@ Transform:
   m_GameObject: {fileID: 1084240684}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -193.55179, y: 94.46968, z: -473.67053}
+  m_LocalPosition: {x: -192.38, y: 94.46968, z: -473.67053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13586,7 +13748,15 @@ MonoBehaviour:
     type: 3}
   RagnarokPrefab: {fileID: 8177116219481987225, guid: a16d7230bd7e82342aeea0e7b0b132b1,
     type: 3}
-  currentType: 8
+  fragCap: 7
+  impactCap: 6
+  semtexCap: 6
+  bioCap: 4
+  sulfuricNapalmCap: 5
+  crystalClusterCap: 3
+  bastionCap: 3
+  ragnarokCap: 3
+  currentType: 1
 --- !u!1 &1738937479
 GameObject:
   m_ObjectHideFlags: 0

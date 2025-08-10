@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1035826600056507812}
   - component: {fileID: 2432462665831098567}
   - component: {fileID: 3140035660169670401}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5106443292354123445}
   - component: {fileID: 2629059750585786035}
   - component: {fileID: 4998728646708297496}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5196,7 +5196,7 @@ GameObject:
   - component: {fileID: 6421850543780722904}
   - component: {fileID: 6421850543780722907}
   - component: {fileID: 6421850543780722906}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: FX_Fire_03_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10044,7 +10044,7 @@ GameObject:
   - component: {fileID: 6421850544380041411}
   - component: {fileID: 6421850544380041409}
   - component: {fileID: 6421850544380041408}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: fire2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14877,7 +14877,7 @@ GameObject:
   - component: {fileID: 6421850544666689207}
   - component: {fileID: 6421850544666689205}
   - component: {fileID: 6421850544666689204}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: pati1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19719,7 +19719,7 @@ GameObject:
   - component: {fileID: 6421850545297252929}
   - component: {fileID: 6421850545297252935}
   - component: {fileID: 6421850545297252934}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: fire1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24552,7 +24552,7 @@ GameObject:
   - component: {fileID: 6421850545363136484}
   - component: {fileID: 6421850545363136506}
   - component: {fileID: 6421850545363136485}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: FX_Smoke_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29385,7 +29385,7 @@ GameObject:
   - component: {fileID: 8097173758614158048}
   - component: {fileID: 8097173758614158050}
   - component: {fileID: 8097173758614158049}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: fire1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

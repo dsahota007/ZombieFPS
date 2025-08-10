@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//IGNORE THIS FILE FOR NOW.
+//IGNORE THIS FILE FOR NOW.-----------------------------
 
 public class RemoveForearmsOnly : MonoBehaviour
 {

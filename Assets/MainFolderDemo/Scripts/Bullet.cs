@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Bullet : MonoBehaviour
 {
@@ -9,11 +10,19 @@ public class Bullet : MonoBehaviour
     
     public GameObject[] bloodEffects;
     public GameObject groundHitEffect;
+    public LayerMask layersToIgnore;
 
+    Rigidbody rb;
+    Collider myCol;
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        myCol = GetComponent<Collider>();
+    }
     void Start()
     {
-        GetComponent<Rigidbody>().linearVelocity = transform.forward * speed;
+        rb.linearVelocity = transform.forward * speed;
 
         Destroy(gameObject, lifeTime);
 
@@ -32,40 +41,38 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Bullet hit: " + other.name);
+        {
+            if ((layersToIgnore.value & (1 << other.gameObject.layer)) != 0)
+                return;
+        }
 
+        // Ground hit
         if (other.CompareTag("Ground"))
         {
-            if (groundHitEffect != null)
-            {
-                Vector3 hitPoint = transform.position;
-                Instantiate(groundHitEffect, hitPoint, Quaternion.identity);
-            }
+            if (groundHitEffect)
+                Instantiate(groundHitEffect, transform.position, Quaternion.identity);
 
             Destroy(gameObject);
             return;
         }
-        if (other.CompareTag("Enemy"))
-            PointManager.Instance.AddPoints(5);
 
-            if (bloodEffects != null && bloodEffects.Length > 0)  
+        // Only do blood + damage if we actually hit an enemy
+        var enemy = other.GetComponentInParent<EnemyHealthRagdoll>();  // safer than tag
+        if (enemy != null)
+        {
+            if (PointManager.Instance != null)
+                PointManager.Instance.AddPoints(5);
+
+            if (bloodEffects != null && bloodEffects.Length > 0)
             {
-                int index = Random.Range(0, bloodEffects.Length);   
-                Vector3 BulletHitPoint = transform.position;
-
-                GameObject bloodInstance = Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);
-                bloodInstance.transform.SetParent(other.transform, true);   //true kesp the world position at the moment of instantiation so it follows the zombie now
-
-                //Instantiate(bloodEffects[index], BulletHitPoint, Quaternion.identity);   //Instantiate(whatToSpawn, whereToSpawn, whichRotation);    --- Quaternion.identity --- This is Unity's way of saying: �No rotation at all.�
-
-                EnemyHealthRagdoll enemy = other.GetComponent<EnemyHealthRagdoll>();
-                if (enemy != null)
-                {
-                    Vector3 bulletDirection = transform.forward;   //the direction the zombie will go after shot.
-                    enemy.TakeDamage(damage, bulletDirection);    //from EnemyHealthScript
-                }
-
+                int index = Random.Range(0, bloodEffects.Length);
+                var blood = Instantiate(bloodEffects[index], transform.position, Quaternion.identity);
+                blood.transform.SetParent(enemy.transform, true);
             }
+
+            Vector3 dir = transform.forward;
+            enemy.TakeDamage(damage, dir);
+        }
 
         Destroy(gameObject);
     }

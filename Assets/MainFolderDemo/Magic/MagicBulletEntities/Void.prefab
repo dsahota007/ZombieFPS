@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6830506218617836919}
   - component: {fileID: 2676409996404204853}
   - component: {fileID: 1278274626232472859}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Spinning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4847,7 +4847,7 @@ GameObject:
   - component: {fileID: 1035826600056507812}
   - component: {fileID: 5831712825830054277}
   - component: {fileID: 3140035660169670401}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Void
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5008,7 +5008,7 @@ GameObject:
   - component: {fileID: 2647195940851580181}
   - component: {fileID: 4770289011325176694}
   - component: {fileID: 1691186745215546436}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: vfx_Shield_01 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9845,7 +9845,7 @@ GameObject:
   - component: {fileID: 270781290393217614}
   - component: {fileID: 6413973640108877909}
   - component: {fileID: 1308376420464158397}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14864,7 +14864,7 @@ GameObject:
   - component: {fileID: 4775296094564270760}
   - component: {fileID: 1255116143835181050}
   - component: {fileID: 8373861951675490353}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: BlackBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19697,7 +19697,7 @@ GameObject:
   - component: {fileID: 6421850543780722904}
   - component: {fileID: 6421850543780722907}
   - component: {fileID: 6421850543780722906}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: FX_Fire_03_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24546,7 +24546,7 @@ GameObject:
   - component: {fileID: 6421850544380041411}
   - component: {fileID: 6421850544380041409}
   - component: {fileID: 6421850544380041408}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: fire2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29379,7 +29379,7 @@ GameObject:
   - component: {fileID: 6421850544666689207}
   - component: {fileID: 6421850544666689205}
   - component: {fileID: 6421850544666689204}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: pati1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34221,7 +34221,7 @@ GameObject:
   - component: {fileID: 6421850545297252929}
   - component: {fileID: 6421850545297252935}
   - component: {fileID: 6421850545297252934}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: fire1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39054,7 +39054,7 @@ GameObject:
   - component: {fileID: 6421850545363136484}
   - component: {fileID: 6421850545363136506}
   - component: {fileID: 6421850545363136485}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: FX_Smoke_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43887,7 +43887,7 @@ GameObject:
   - component: {fileID: 1342976399239842981}
   - component: {fileID: 2543636643585090193}
   - component: {fileID: 4946471133740992213}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48720,7 +48720,7 @@ GameObject:
   - component: {fileID: 8097173758614158048}
   - component: {fileID: 8097173758614158050}
   - component: {fileID: 8097173758614158049}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: fire1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

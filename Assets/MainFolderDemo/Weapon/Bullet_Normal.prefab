@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2810153201846854135}
   - component: {fileID: 7844299034088412405}
   - component: {fileID: 4824676573003828925}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Bullet_Normal
-  m_TagString: Untagged
+  m_TagString: Bullets
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,3 +163,6 @@ MonoBehaviour:
   - {fileID: 1067471869909948, guid: 1442485869df22244a5ef111d5c69075, type: 3}
   groundHitEffect: {fileID: 1067471869909948, guid: f70beae9db4534140b6d54697cfbfa53,
     type: 3}
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 262144

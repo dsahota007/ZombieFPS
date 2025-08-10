@@ -24,6 +24,7 @@ TagManager:
   - Ground
   - Enemy
   - Asteroid
+  - Bullets
   layers:
   - Default
   - TransparentFX
@@ -42,7 +43,7 @@ TagManager:
   - Invisible Wall
   - Projectile
   - Meteor
-  - 
+  - Bullets
   - 
   - 
   - 
