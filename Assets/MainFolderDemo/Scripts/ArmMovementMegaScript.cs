@@ -222,8 +222,18 @@ public class ArmMovementMegaScript : MonoBehaviour
         if (!isGrenadeGrabPlaying && Input.GetKeyDown(KeyCode.G) && leftArm != null)
         {
             if (CanThrowGrenade())
-                StartCoroutine(ThrowGernadeAnimation());
-
+            {
+                var gm = FindFirstObjectByType<GrenadeManager>();
+                if (gm && gm.CanThrowCurrent())         //checks if we also have a grenade to throw
+                {
+                    StartCoroutine(ThrowGernadeAnimation());
+                }
+                else
+                {
+                    var ui = FindFirstObjectByType<UI>();           
+                    if (ui) ui.ShowTemporaryMagicMessage("No Grenades Left");
+                }
+            }
         }
 
     }
@@ -320,6 +330,16 @@ public class ArmMovementMegaScript : MonoBehaviour
     {
         var gm = FindFirstObjectByType<GrenadeManager>();
         if (gm == null || grenadeSpawn == null) return;
+
+
+        if (!gm.CanThrowCurrent())
+        {
+            // optional: play "no grenade" SFX or flash UI here
+            return;
+        }
+
+        gm.ConsumeOneCurrent();
+
 
         GameObject prefab = gm.GetCurrentPrefab();
         if (prefab == null) return;

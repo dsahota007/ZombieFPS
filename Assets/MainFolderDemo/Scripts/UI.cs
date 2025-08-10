@@ -9,6 +9,8 @@ public class UI : MonoBehaviour
 {
     public Transform player;            //we fetch player like this and not script in start like the magic manager.
     private ArmMovementMegaScript arm;       // we’ll assign grenade prefab on this
+    private MagicManager magicManager;      // Direct reference instead of Instance
+    private GrenadeManager grenadeManager;
 
 
     [Header("Weapon Info UI")]
@@ -57,7 +59,7 @@ public class UI : MonoBehaviour
     public MagicStation MeteorMagicStation;
     public MagicStation CrimsonMagicStation;
 
-    private MagicManager magicManager;   // Direct reference instead of Instance
+     
 
     [Header("Magic Cooldown UI")]
     public Slider magicCooldownSlider;
@@ -67,15 +69,17 @@ public class UI : MonoBehaviour
  
     public GrenadeChest grenadeChest;   
     public Text grenadePrompt;     // "Press [E] to open"
-    public GameObject grenadePanel;           
-
+    public GameObject grenadePanel;
+    public Text grenadeAmountText;
+    public Text grenadeStatusText;
+    private Coroutine grenadeMsgCo;
     private bool grenadePanelOpen = false;
  
 
     void Start()
     {
         magicManager = FindFirstObjectByType<MagicManager>();  // Find it once at start
-
+        grenadeManager = FindFirstObjectByType<GrenadeManager>();  
         arm = FindFirstObjectByType<ArmMovementMegaScript>();
 
         if (grenadePanel) grenadePanel.SetActive(false); //set panel to false off rip
@@ -500,6 +504,16 @@ public class UI : MonoBehaviour
         //------grenade logic
 
         HandleGrenadeChestUI();
+
+        if (grenadeManager != null && grenadeAmountText != null)
+        {
+            var t = grenadeManager.currentType;
+            int have = grenadeManager.GetCount(t);
+            int cap = grenadeManager.GetCap(t);
+            grenadeAmountText.text = have + " / " + cap;   // e.g. "4 / 6"
+        }
+
+
     }
 
 
@@ -610,6 +624,23 @@ public class UI : MonoBehaviour
         if (gm) gm.SetType(GrenadeType.Ragnarok);
         CloseGrenadePanel();
     }
+
+    public void ShowTemporaryGrenadeMessage(string message)
+    {
+        if (grenadeStatusText == null) return;              //if you alerady have the text GTFO this code
+        if (grenadeMsgCo != null) StopCoroutine(grenadeMsgCo);      
+        grenadeMsgCo = StartCoroutine(GrenadeMsgRoutine(message));  //start the message for a quick sec
+    }
+
+    private IEnumerator GrenadeMsgRoutine(string message)
+    {
+        grenadeStatusText.text = message;           //we pu rmessage into string of what we want to say 
+        grenadeStatusText.gameObject.SetActive(true);       //set it true
+        yield return new WaitForSeconds(1.2f);              //show for only this many seconds
+        grenadeStatusText.gameObject.SetActive(false);          //turn it off
+        grenadeMsgCo = null;
+    }
+
 
     //-------------------------MAGIC functions
 
