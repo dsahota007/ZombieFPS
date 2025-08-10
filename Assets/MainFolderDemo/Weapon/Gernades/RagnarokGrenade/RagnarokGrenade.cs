@@ -1,34 +1,25 @@
 using UnityEngine;
 using System.Collections;
-
-//[RequireComponent(typeof(Rigidbody), typeof(Collider))]
-public class CrystalMagic : MonoBehaviour
+public class RagnarokGrenade : MonoBehaviour
 {
     [Header("Fuse & Explosion")]
     public float fuseTime = 5f;
     public float explosionRadius = 5f;
     public float explosionDamage = 999999f;
-    public float explosionForce = 45f;
+    public float explosionForce = 25f;
     public float upwardModifier = 0.5f;
     public LayerMask enemyMask;
 
     [Header("VFX")]
     public GameObject explosionVFX;
+    public float vfxLifetime = 5f;
+    public GameObject EnemyImpactVFX;
 
-    //[Header("Physics")]
-    //public float spinTorque = 5f;  // small spin for style
+    [Header("Physics")]
+    public float spinTorque = 5f;  // small spin for style
 
     private Rigidbody rb;
     private bool exploded = false;
-
-    [Header("Cluster")]
-    public bool spawnChildren = true;          // parent spawns children; children won't
-    public int clusterCount = 3;               // how many to spawn
-    public float childFuseTime = 1.25f;        // quick fuse on the minis
-    public float childLaunchSpeed = 8f;        // outward kick
-    public float inheritVelocityFactor = 0.35f;// inherit some of parent speed
-    public GameObject grenadePrefab;           // assign this same Grenade prefab in Inspector
-
 
     void Awake()       //Awake(): A Unity lifecycle method that runs before Start(),
     {
@@ -43,8 +34,8 @@ public class CrystalMagic : MonoBehaviour
     void Start()
     {
         // Add a little spin so it rolls naturally
-        //if (spinTorque > 0f)
-        //    rb.AddTorque(Random.onUnitSphere * spinTorque, ForceMode.Impulse);    //spin logic
+        if (spinTorque > 0f)
+            rb.AddTorque(Random.onUnitSphere * spinTorque, ForceMode.Impulse);    //spin logic
 
         StartCoroutine(FuseRoutine());
     }
@@ -63,8 +54,7 @@ public class CrystalMagic : MonoBehaviour
         Vector3 pos = transform.position;       //we get the positoinf of explosion for vfx
 
         if (explosionVFX != null)          // Spawn explosion VFX
-            Destroy(Instantiate(explosionVFX, pos, Quaternion.identity), 5f);
-
+            Destroy(Instantiate(explosionVFX, pos, Quaternion.identity), vfxLifetime);
 
         Collider[] hits = Physics.OverlapSphere(pos, explosionRadius, enemyMask);    //get the point of explosion, teh radius of whoever needs to be in enemyMask
         foreach (var hit in hits)
@@ -82,46 +72,19 @@ public class CrystalMagic : MonoBehaviour
                         part.AddExplosionForce(explosionForce, pos, explosionRadius, upwardModifier, ForceMode.Impulse);
                 }
             }
-        }
-        SpawnChildren(pos);
-        Destroy(gameObject); // remove the original grenade
-    }
-
-
-
-    void SpawnChildren(Vector3 pos)
-    {
-        if (!spawnChildren || !grenadePrefab) return;
-
-        Vector3 parentVel = rb ? rb.linearVelocity : Vector3.zero;  //the grenade’s current velocity; minis will inherit some
-
-        // pick a random flat (horizontal) direction to start from
-        Vector3 baseDir = Random.insideUnitSphere; baseDir.y = 0f;
-        if (baseDir.sqrMagnitude < 0.001f) baseDir = Vector3.forward;
-        baseDir.Normalize();   //direction
-
-        float step = 360f / Mathf.Max(1, clusterCount);
-
-        for (int i = 0; i < clusterCount; i++)   //loop thru spawn 
-        {
-            Vector3 dir = Quaternion.Euler(0f, step * i, 0f) * baseDir;
-            Vector3 vel = dir * childLaunchSpeed + Vector3.up * 2f + parentVel * inheritVelocityFactor;
-            Vector3 spawnPos = pos + dir * 1.4f + Vector3.up * 0.2f;
-
-            GameObject child = Instantiate(grenadePrefab, spawnPos, Quaternion.identity);
-            var g = child.GetComponent<CrystalMagic>();
-
-            if (g)
+            if (EnemyImpactVFX != null)
             {
-                g.spawnChildren = false;
-                g.fuseTime = childFuseTime;
-                g.ApplyThrow(vel);   //automatically throws in teh direction of our calc
+                GameObject vfx = Instantiate(EnemyImpactVFX, hit.transform.position + Vector3.up * 13.0f, Quaternion.Euler(0f, 0f, 0f));
+                Destroy(vfx, 10f);
             }
         }
-    }
 
+        Destroy(gameObject);
+    }
     public void ApplyThrow(Vector3 velocity)
     {
         if (rb != null) rb.linearVelocity = velocity;
     }
 }
+
+

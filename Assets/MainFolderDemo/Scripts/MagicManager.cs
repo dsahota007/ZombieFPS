@@ -166,11 +166,11 @@ public class MagicManager : MonoBehaviour
                 case MagicType.Normal: cooldown = 6f; break;
                 case MagicType.Crystal: cooldown = 8f; break;
                 case MagicType.Ice: cooldown = 10f; break;
-                case MagicType.Void: cooldown = 55f; break;
+                case MagicType.Void: cooldown = 5f; break;
                 case MagicType.Venom: cooldown = 9f; break;
                 case MagicType.Lightning: cooldown = 5f; break;
                 case MagicType.Wind: cooldown = 6f; break;
-                case MagicType.Meteor: cooldown = 32f; break;
+                case MagicType.Meteor: cooldown = 2f; break;
                 case MagicType.Crimson: cooldown = 8f; break;
             }
 

@@ -604,6 +604,12 @@ public class UI : MonoBehaviour
         CloseGrenadePanel();
     }
 
+    public void OnPickRagnarok()
+    {
+        var gm = FindFirstObjectByType<GrenadeManager>();
+        if (gm) gm.SetType(GrenadeType.Ragnarok);
+        CloseGrenadePanel();
+    }
 
     //-------------------------MAGIC functions
 

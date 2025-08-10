@@ -3193,7 +3193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608ce190d6a4f7944a19a4574e4a1bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 20
+  Health: 100
   ragdollRoot: {fileID: 3378192420155651505}
   ragdollForce: 80
   BoxRootCollider: {fileID: 8483888106436366175}

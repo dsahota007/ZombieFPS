@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.AI;   //we need this to channel NavMesh 
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
