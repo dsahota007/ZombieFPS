@@ -7820,19 +7820,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 561119877}
   interactDistance: 2.2
-  useKey: 101
-  cameraTransform: {fileID: 0}
   flaskPrefab: {fileID: 1681726694830842825, guid: 6460036222d21d1459c55c4214ed64d3,
     type: 3}
   flaskStartLocalPos: {x: -0.09, y: -1.1, z: 0.42}
   flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.16}
   flaskStartLocalEuler: {x: 0, y: 0, z: 0}
   flaskSipLocalEuler: {x: -65, y: 0, z: 0}
-  flaskLocalScale: {x: 1, y: 1, z: 1}
   moveInTime: 0.5
   sipTime: 1
   moveOutTime: 0.25
-  destroyDelay: 0.05
 --- !u!1 &913009171
 GameObject:
   m_ObjectHideFlags: 0
@@ -12997,7 +12993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1595701417
 MonoBehaviour:
   m_ObjectHideFlags: 0
