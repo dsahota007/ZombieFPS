@@ -4,9 +4,8 @@ using System.Collections;
 public class MoreHealthPerkk : MonoBehaviour
 {
     [Header("Interact")]
-    public Transform player;                 // optional; auto-finds if left empty
+    public Transform player;                 
     public float interactDistance = 2.2f;
-    public KeyCode useKey = KeyCode.E;
 
     [Header("Flask (optional)")]
     public GameObject flaskPrefab;           // leave null if you only want the arm anim
@@ -23,85 +22,84 @@ public class MoreHealthPerkk : MonoBehaviour
     public float moveOutTime = 0.18f;
 
     Transform cam;   // Camera.main
-    bool busy;
+
 
     void Awake()
     {
-        cam = Camera.main ? Camera.main.transform : null;
-
-        if (player == null)
-        {
-            var ptag = GameObject.FindGameObjectWithTag("Player");
-            if (ptag) player = ptag.transform;
-            if (player == null)
-            {
-                var cc = FindFirstObjectByType<CharacterController>();
-                if (cc) player = cc.transform;
-            }
-        }
+        cam = (Camera.main != null) ? Camera.main.transform : null;
     }
 
     void Update()
     {
-        if (busy || player == null) return;
-
         bool inRange = Vector3.Distance(player.position, transform.position) <= interactDistance;
-        if (inRange && Input.GetKeyDown(useKey))
+        if (inRange && Input.GetKeyDown(KeyCode.E))
         {
-            var arms = FindFirstObjectByType<ArmMovementMegaScript>();
+            ArmMovementMegaScript arms = FindFirstObjectByType<ArmMovementMegaScript>();   //arm script
             if (arms == null || arms.IsGrenadeAnimating || arms.IsPerkAnimating) return;
 
-            StartCoroutine(DoPerkDrink(arms));
+            StartCoroutine(DoPerkDrink(arms));  //drink if in range
         }
     }
 
     IEnumerator DoPerkDrink(ArmMovementMegaScript arms)
     {
-        busy = true;
-
         // arm animation
-        arms.StartCoroutine(arms.PerkDrinkDropOnly());
+        arms.StartCoroutine(arms.PerkDrinkDropOnly());    // Play the left-arm drop/drink animation
 
         // flask (optional)
         if (cam != null && flaskPrefab != null)
         {
-            var flask = Instantiate(flaskPrefab, cam, false);   // parent directly to camera
-            var tf = flask.transform;
+            GameObject flask = Instantiate(flaskPrefab, cam, false);   // parent directly to camera
+            Transform tf = flask.transform;        //we get the point into tf
 
-            tf.localPosition = flaskStartLocalPos;
-            tf.localRotation = Quaternion.Euler(flaskStartLocalEuler);
+            tf.localPosition = flaskStartLocalPos;      //start offset
+            tf.localRotation = Quaternion.Euler(flaskStartLocalEuler);      //start rot
 
-            if (flask.TryGetComponent<Rigidbody>(out var rb))
-            { rb.isKinematic = true; rb.useGravity = false; rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; }
-            if (flask.TryGetComponent<Collider>(out var col)) col.enabled = false;
+            //Rigidbody rb;
+            //if (flask.TryGetComponent<Rigidbody>(out rb))
+            //{
+            //    rb.isKinematic = true;
+            //    rb.useGravity = false;
+            //    rb.linearVelocity = Vector3.zero;
+            //    rb.angularVelocity = Vector3.zero;
+            //}
+
+            //Collider col;
+            //if (flask.TryGetComponent<Collider>(out col))
+            //{
+            //    col.enabled = false;
+            //}
 
             // in
-            yield return LerpLocal(tf,
+            yield return LerpLocal(
+                tf,
                 flaskStartLocalPos, flaskMouthLocalPos,
                 Quaternion.Euler(flaskStartLocalEuler), Quaternion.Euler(flaskSipLocalEuler),
-                moveInTime);
+                moveInTime
+            );
 
             // sip
             yield return new WaitForSeconds(sipTime);
 
             // out
-            yield return LerpLocal(tf,
+            yield return LerpLocal(         //this func is combign lerp and slerp so we can do rotation and movment 
+                tf,
                 flaskMouthLocalPos, flaskStartLocalPos,
                 Quaternion.Euler(flaskSipLocalEuler), Quaternion.Euler(flaskStartLocalEuler),
-                moveOutTime);
+                moveOutTime
+            );
 
             Destroy(flask);
         }
         else
         {
             // no prefab/cam → just wait roughly same total time so arms look synced
-            yield return new WaitForSeconds(moveInTime + sipTime + moveOutTime);
+            //yield return new WaitForSeconds(moveInTime + sipTime + moveOutTime);
         }
 
         // wait for arm anim to fully finish
         while (arms != null && arms.IsPerkAnimating) yield return null;
 
-        busy = false;
     }
 
     IEnumerator LerpLocal(Transform t, Vector3 p0, Vector3 p1, Quaternion r0, Quaternion r1, float dur)

@@ -1,5 +1,6 @@
 ﻿//using Unity.Burst.Intrinsics;
 //using Unity.VisualScripting;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 //using static UnityEditor.Experimental.GraphView.GraphView;
 //using static UnityEditorInternal.ReorderableList;
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     //--------------------------------------------
 
     private CharacterController controller;
+    private ArmMovementMegaScript armMover;
     private Vector3 velocity;
     private bool isGrounded;
     private Vector3 lastMoveDirection;  //stores last movement direction
@@ -60,10 +62,13 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        armMover = GetComponent<ArmMovementMegaScript>();
+        if (armMover == null) armMover = FindFirstObjectByType<ArmMovementMegaScript>();  //For some reason this allows to nto slide when drinking. 
 
         // Store normal controller dimensions so we can like reset
         normalControllerHeight = controller.height;
         normalControllerCenter = controller.center;
+ 
     }
 
     void Update()
@@ -232,6 +237,12 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleSlideInput()
     {
+        if (armMover != null && armMover.DrinkingPerk)  
+        {
+            if (isSliding) EndSlide();
+            return;
+        }
+
         bool canSlide = Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.C) && isGrounded && !isSliding;
 
         if (canSlide)
@@ -246,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
 
     void StartSlide()
     {
+
         isSliding = true;
         slideTimer = 0f;   //Resets the slide timer to start counting from zero
 
