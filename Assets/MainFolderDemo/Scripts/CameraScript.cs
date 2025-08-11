@@ -7,6 +7,7 @@ public class CameraScript : MonoBehaviour
 
     private CharacterController controller;
     private PlayerMovement playerMovement;
+    private ArmMovementMegaScript armMover;
 
 
     [Header("Vertical Clamp")]
@@ -73,8 +74,7 @@ public class CameraScript : MonoBehaviour
     public float hitmarkerScaleLerp = 12f; // how fast it returns to normal
     public Vector3 hitmarkerDefaultScale;
     public Vector3 hitmarkerTargetScale;
-
-
+ 
 
     // We’ll add this so our hit effects stack after your normal camera effects
     private Vector3 externalPosOffset = Vector3.zero;
@@ -92,6 +92,7 @@ public class CameraScript : MonoBehaviour
         }
 
         playerMovement = FindObjectOfType<PlayerMovement>(); //ref to script for turning off bobbing midair 
+        armMover = FindFirstObjectByType<ArmMovementMegaScript>();  
 
         sprintFOV = defaultFOV + 25f;
         defaultCamPos = cam.localPosition;   //we capture og spot of cam
@@ -265,6 +266,8 @@ public class CameraScript : MonoBehaviour
 
     void HandleCameraEffects()
     {
+
+ 
         if (cameraLocked) return;  //for menu system when u open grenade menu or PAP
         if (!playerMovement.IsGrounded()) //not on ground than reset and GTFO
         {

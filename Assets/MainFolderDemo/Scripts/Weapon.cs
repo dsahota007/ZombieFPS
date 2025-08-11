@@ -131,6 +131,8 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
+        if (armMover.DrinkingPerk) return;
+
         if (ui.IsGrenadePanelOpen) return;      //we cant shoot if ur selecting your grenade.
         if (isWeaponBeingShowcased || !CanShoot() ||isReloading || IsSprinting()) return; //leave func if u cant
 
@@ -202,7 +204,9 @@ public class Weapon : MonoBehaviour
 
     public void StartReload()
     {
-        if (isReloading || currentAmmo == clipSize || ammoReserve <= 0) return;
+        if (isReloading || currentAmmo == clipSize || ammoReserve <= 0 || (armMover != null && armMover.IsPerkAnimating))
+            return;
+
 
         // NEW: block reload while grenade throw anim is playing
         var arms = FindFirstObjectByType<ArmMovementMegaScript>();
@@ -229,7 +233,7 @@ public class Weapon : MonoBehaviour
     IEnumerator PlayReload()
     {
         isReloading = true;
-
+ 
         ArmMovementMegaScript armMover = FindFirstObjectByType<ArmMovementMegaScript>();
         if (armMover) armMover.ReloadOffset(true);                           //play reload arm animation
 

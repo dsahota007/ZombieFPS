@@ -67,8 +67,24 @@ public class ArmMovementMegaScript : MonoBehaviour
 
 
     //----------------------------
+    [Header("Perk Drink (drop-only)")]
+    public Vector3 perkDropOffset = new Vector3(-1f, 0f, 0f);  // how far the left hand dips
+    public float perkDropTime = 0.15f;
+    public float perkHoldTime = 0.70f;
+    public float perkReturnTime = 0.20f;
 
-    private bool isCastingSpell = false;
+    public Vector3 perkMidLocalPos = new Vector3(-0.25f, -0.10f, 0.10f); // the “specific point” you want to pass through
+    public Vector3 perkMidLocalEuler = new Vector3(0f, 0f, 0f);            // leave 0s if you don’t want extra rotation
+
+    public float perkToMidTime = 0.18f;  // drop → mid travel time
+    public float perkMidHoldTime = 0.35f;  // hold at mid before returning
+
+    public bool lockBobbingDuringPerk = true;
+    private bool isPerkAnimPlaying = false;
+    public bool IsPerkAnimating => isPerkAnimPlaying;
+
+
+    private bool isCastingSpell = false;    //--magic
 
     private Vector3 defaultLocalPosition;
     private Vector3 defaultLocalRotation;
@@ -96,11 +112,15 @@ public class ArmMovementMegaScript : MonoBehaviour
 
     void Update()  //LateUpdate()   -- i got rid of this bc idk
     {
+
         bool hasMovementInput = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
-        bool isAiming = Input.GetMouseButton(1);
-        
+        bool isAiming = !isPerkAnimPlaying && Input.GetMouseButton(1);
+
+        bool freezeForPerk = lockBobbingDuringPerk && isPerkAnimPlaying;
+
+
         bool isSliding = FindFirstObjectByType<PlayerMovement>().IsSliding();                                     //this is for slide hipFire offset. 
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming && !isSliding && !isCastingSpell;        //we added hasMovementInput so i dont sprint in idle
+        bool isSprinting = !isPerkAnimPlaying && Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming && !isSliding && !isCastingSpell;        //we added hasMovementInput so i dont sprint in idle
 
         bool isGrounded = controller.isGrounded;    //we got ref to char controller so we know when grounded
         bool isWalking = !isSprinting && hasMovementInput && isGrounded;    
@@ -166,12 +186,12 @@ public class ArmMovementMegaScript : MonoBehaviour
         float verticalBob = 0f;
         float sideBob = 0f;
 
-        if (isGrounded && !isAiming && !isSliding)
+        if (!freezeForPerk && isGrounded && !isAiming && !isSliding)
         {
             if (isSprinting)
             {
-                bobTimer += Time.deltaTime * sprintBobSpeed;          
-                sideBob = Mathf.Sin(bobTimer * 0.5f) * sprintSideBobAmount;             //makes wave pattern and than how much side to side (the 0.5 slows down for smoother)
+                bobTimer += Time.deltaTime * sprintBobSpeed;
+                sideBob = Mathf.Sin(bobTimer * 0.5f) * sprintSideBobAmount;
             }
             else if (isWalking)
             {
@@ -186,11 +206,15 @@ public class ArmMovementMegaScript : MonoBehaviour
         }
         else
         {
-            bobTimer = 0f;    //no bob if ur airborne
+            // freeze bobbing while drinking or airborne
+            bobTimer = 0f;
+            verticalBob = 0f;
+            sideBob = 0f;
         }
 
+
         // Input sway (disabled when aiming) --- for the gun to turn slighlty 
-        if (!isAiming)
+        if (!isAiming && !freezeForPerk)
         {
             float horizontal = Input.GetAxis("Horizontal");
             float targetZTilt = -horizontal * swayAmount;    //the more the amount the more the tilt
@@ -270,8 +294,8 @@ public class ArmMovementMegaScript : MonoBehaviour
         if (Input.GetMouseButton(1)) return false;
         if (Input.GetKeyDown(KeyCode.LeftShift)) return false;
 
-        // casting magic?
-        if (isCastingSpell) return false;
+        if (isCastingSpell) return false;        // casting magic?
+        if (isPerkAnimPlaying) return false;
 
         // reloading? (either this arm state or weapon’s own)
         if (isReloading) return false;
@@ -352,6 +376,65 @@ public class ArmMovementMegaScript : MonoBehaviour
             rb.linearVelocity = dir.normalized * throwForce;
         }
     }
+
+    public IEnumerator PerkDrinkDropOnly()
+    {
+        if (isPerkAnimPlaying || isGrenadeGrabPlaying || leftArm == null) yield break; //leave if any of these are true
+
+        isPerkAnimPlaying = true;   
+
+        // cache defaults captured in Start()
+        Vector3 startPos = leftDefaultPos;      //grab start 
+        Quaternion startRot = leftDefaultRot;
+
+        Vector3 dropPos = leftDefaultPos + perkDropOffset;   //add new position
+        Quaternion dropRot = leftDefaultRot;
+
+        Vector3 midPos = perkMidLocalPos;           //add mid stop for drinking
+        Quaternion midRot = Quaternion.Euler(perkMidLocalEuler);
+
+        // 1) Start → Drop
+        float t = 0f, dur = Mathf.Max(0.01f, perkDropTime);   //start progress time so if 0 start 1 is done
+        while (t < 1f) //when time is less than 1 
+        {
+            t += Time.deltaTime / dur;      //If you’re around 60 FPS, Time.deltaTime ≈ 1/60 ≈ 0.0167.
+            leftArm.localPosition = Vector3.Lerp(startPos, dropPos, t); // t is time yk so this is LERP 
+            leftArm.localRotation = Quaternion.Slerp(startRot, dropRot, t);
+            yield return null;
+        }
+
+        // 2) Hold at Drop
+        if (perkHoldTime > 0f) // if its more than 0 seconds hold that shit
+            yield return new WaitForSeconds(perkHoldTime);
+
+        // 3) Drop → Mid (the “specific point”)
+        t = 0f; dur = Mathf.Max(0.01f, perkToMidTime);
+        while (t < 1f)
+        {
+            t += Time.deltaTime / dur;
+            leftArm.localPosition = Vector3.Lerp(dropPos, midPos, t);
+            leftArm.localRotation = Quaternion.Slerp(dropRot, midRot, t);
+            yield return null;
+        }
+
+        // 4) Hold at Mid
+        if (perkMidHoldTime > 0f)
+            yield return new WaitForSeconds(perkMidHoldTime);
+
+        // 5) Mid → Start (return to OG)
+        t = 0f; dur = Mathf.Max(0.01f, perkReturnTime);
+        while (t < 1f)
+        {
+            t += Time.deltaTime / dur;
+            leftArm.localPosition = Vector3.Lerp(midPos, startPos, t);
+            leftArm.localRotation = Quaternion.Slerp(midRot, startRot, t);
+            yield return null;
+        }
+
+        isPerkAnimPlaying = false;
+    }
+    public bool DrinkingPerk => isPerkAnimPlaying;
+
 
 }
 
