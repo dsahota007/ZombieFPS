@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MoreHealthPerkk : MonoBehaviour
+public class MoreHealthPerk : MonoBehaviour
 {
     [Header("Interact")]
     public Transform player;                 
@@ -43,6 +43,9 @@ public class MoreHealthPerkk : MonoBehaviour
 
     IEnumerator DoPerkDrink(ArmMovementMegaScript arms)
     {
+        player?.GetComponent<PlayerAttributes>()?.IncreaseHealthFromMoreHealthPerk(80f);
+
+
         // arm animation
         arms.StartCoroutine(arms.PerkDrinkDropOnly());    // Play the left-arm drop/drink animation
 
@@ -55,22 +58,6 @@ public class MoreHealthPerkk : MonoBehaviour
             tf.localPosition = flaskStartLocalPos;      //start offset
             tf.localRotation = Quaternion.Euler(flaskStartLocalEuler);      //start rot
 
-            //Rigidbody rb;
-            //if (flask.TryGetComponent<Rigidbody>(out rb))
-            //{
-            //    rb.isKinematic = true;
-            //    rb.useGravity = false;
-            //    rb.linearVelocity = Vector3.zero;
-            //    rb.angularVelocity = Vector3.zero;
-            //}
-
-            //Collider col;
-            //if (flask.TryGetComponent<Collider>(out col))
-            //{
-            //    col.enabled = false;
-            //}
-
-            // in
             yield return LerpLocal(
                 tf,
                 flaskStartLocalPos, flaskMouthLocalPos,
@@ -91,11 +78,11 @@ public class MoreHealthPerkk : MonoBehaviour
 
             Destroy(flask);
         }
-        else
-        {
-            // no prefab/cam → just wait roughly same total time so arms look synced
-            //yield return new WaitForSeconds(moveInTime + sipTime + moveOutTime);
-        }
+        //else
+        //{
+        //    no prefab/cam → just wait roughly same total time so arms look synced
+        //    yield return new WaitForSeconds(moveInTime + sipTime + moveOutTime);
+        //}
 
         // wait for arm anim to fully finish
         while (arms != null && arms.IsPerkAnimating) yield return null;

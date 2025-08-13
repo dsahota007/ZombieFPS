@@ -297,7 +297,6 @@ MonoBehaviour:
   recoilAngle: 6
   recoilSnappiness: 6
   recoilReturnSpeed: 6
-  adsYawPerShot: 10
   kickbackAmount: 0.05
   kickbackReturnSpeed: 12
   muzzleFlashPrefab: {fileID: 6980259576133684760, guid: 3d09da8d2bc7d4c4f82428ac9d5e55d1,
@@ -305,7 +304,14 @@ MonoBehaviour:
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}
   controller: {fileID: 0}
+  targetKickbackOffset: {x: 0.03, y: -0.12, z: 0}
   isWeaponBeingShowcased: 0
+  overrideHoldPose: 1
+  rightLocalOffset: {x: -0.058, y: 0.195, z: -0.373}
+  rightLocalEuler: {x: -51.385, y: -133.7, z: -22.39}
+  leftLocalOffset: {x: -0.256, y: -0.225, z: -0.263}
+  leftLocalEuler: {x: -24.52, y: 199.83, z: -50.62}
+  leftHandGrip: {fileID: 0}
 --- !u!1 &8570951725881853728
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAttributes : MonoBehaviour
 {
     [Header("Health Settings")]
-    public float maxStartingHealth = 100f;
+    public float maxStartingHealth = 40f;
     private float currentHealth;
 
     [Header("Regen Settings")]
@@ -72,6 +72,12 @@ public class PlayerAttributes : MonoBehaviour
         UI ui = FindObjectOfType<UI>();
         if (ui != null)
             ui.UpdateHealthBar(currentHealth / maxStartingHealth);      // -->  gives a value between 0 and 1  (100 / 100 = 1 → full bar)  (50 / 100 = 0.5 → half bar) (0 / 100 = 0 → empty bar)
+    }
+
+    public void IncreaseHealthFromMoreHealthPerk(float amount)  //MORE HEALTH PERK
+    {
+        maxStartingHealth = amount;
+
     }
 
     // PlayerAttributes.cs

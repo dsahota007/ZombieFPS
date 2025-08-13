@@ -113,7 +113,7 @@ MonoBehaviour:
   firePoint: {fileID: 2902328080267144550}
   bulletPrefab: {fileID: 6410560179999154620, guid: fdcae1bd4cb08e341ad2dcfa0e7cb465,
     type: 3}
-  weaponName: M4A1
+  weaponName: MP7
   fireType: 2
   fireRate: 0.12
   burstDelay: 0.02
@@ -132,6 +132,7 @@ MonoBehaviour:
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}
   controller: {fileID: 0}
+  targetKickbackOffset: {x: 0.03, y: -0.12, z: 0}
   isWeaponBeingShowcased: 0
 --- !u!1001 &169690828745014815
 PrefabInstance:

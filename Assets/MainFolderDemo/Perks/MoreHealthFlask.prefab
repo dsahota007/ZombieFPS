@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 888983690980393500}
   - component: {fileID: 8671690097367997682}
   m_Layer: 0
-  m_Name: PerkFlash
+  m_Name: MoreHealthFlask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

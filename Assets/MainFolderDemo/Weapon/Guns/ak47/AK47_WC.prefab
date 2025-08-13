@@ -5885,6 +5885,20 @@ MonoBehaviour:
   controller: {fileID: 0}
   targetKickbackOffset: {x: 0.03, y: 0, z: 0}
   isWeaponBeingShowcased: 0
+  poseLibrary: {fileID: 0}
+  poseKey: 0
+  useCustomPose: 0
+  customPose:
+    hipOffset: {x: 0, y: 0, z: 0}
+    hipRotation: {x: 0, y: 0, z: 0}
+    adsOffset: {x: 0, y: 0, z: 0}
+    adsRotation: {x: 0, y: 0, z: 0}
+    sprintOffset: {x: 0, y: 0, z: 0}
+    sprintRotation: {x: 0, y: 0, z: 0}
+    sprintBackOffset: {x: 0, y: 0, z: 0}
+    sprintBackRotation: {x: 0, y: 0, z: 0}
+    reloadOffset: {x: 0, y: 0, z: 0}
+    reloadRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &8027666018750598299
 GameObject:
   m_ObjectHideFlags: 0

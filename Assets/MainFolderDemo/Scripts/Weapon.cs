@@ -33,12 +33,12 @@ public class Weapon : MonoBehaviour
     public float recoilReturnSpeed = 6f;
 
     [Header("Kickback")]
-    public float kickbackAmount = 0.05f;     
+    public float kickbackAmount = 0.05f;
     public float kickbackReturnSpeed = 12f;
 
     [Header("VFX")]
-    public GameObject muzzleFlashPrefab;   
-    public float muzzleFlashLifetime = 0.05f;  
+    public GameObject muzzleFlashPrefab;
+    public float muzzleFlashLifetime = 0.05f;
 
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
@@ -77,9 +77,9 @@ public class Weapon : MonoBehaviour
         currentAmmo = clipSize;   //we spawn inital ammo
         ammoReserve = maxReserve;
 
-        if (leftArm != null) 
+        if (leftArm != null)
             initialLeftArmPos = leftArm.localPosition;     //so initialLeftArmPos stores OG position bc of .localPositon
-        if (magazine != null) 
+        if (magazine != null)
             initialMagPos = magazine.localPosition;
 
         cam = Camera.main.transform;          // Grab camera
@@ -126,10 +126,10 @@ public class Weapon : MonoBehaviour
         }
 
         // ---- Kickback logic (additive only) ----
- 
-         currentKickbackOffset = Vector3.Lerp(currentKickbackOffset, targetKickbackOffset, Time.deltaTime * kickbackReturnSpeed);
-         if (armMover != null)
-         armMover.externalKickbackOffset = currentKickbackOffset;
+
+        currentKickbackOffset = Vector3.Lerp(currentKickbackOffset, targetKickbackOffset, Time.deltaTime * kickbackReturnSpeed);
+        if (armMover != null)
+            armMover.externalKickbackOffset = currentKickbackOffset;
 
     }
 
@@ -138,7 +138,7 @@ public class Weapon : MonoBehaviour
         if (armMover.DrinkingPerk) return;
 
         if (ui.IsGrenadePanelOpen) return;      //we cant shoot if ur selecting your grenade.
-        if (isWeaponBeingShowcased || !CanShoot() ||isReloading || IsSprinting()) return; //leave func if u cant
+        if (isWeaponBeingShowcased || !CanShoot() || isReloading || IsSprinting()) return; //leave func if u cant
 
         currentAmmo--;
 
@@ -180,9 +180,9 @@ public class Weapon : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)                             //we want to loop till 3
         {
-            if (!CanShoot() || IsSprinting()) 
+            if (!CanShoot() || IsSprinting())
                 break;
-            Shoot();    
+            Shoot();
             yield return new WaitForSeconds(burstDelay);            //parameter to wait HOW LONG
         }
         fireRoutine = null;
@@ -238,7 +238,7 @@ public class Weapon : MonoBehaviour
     IEnumerator PlayReload()
     {
         isReloading = true;
- 
+
         ArmMovementMegaScript armMover = FindFirstObjectByType<ArmMovementMegaScript>();
         if (armMover) armMover.ReloadOffset(true);                           //play reload arm animation
 
@@ -246,7 +246,7 @@ public class Weapon : MonoBehaviour
         Vector3 armStart = leftArm.localPosition;
         Vector3 magDown = magStart + Vector3.down * reloadMoveAmount;
         Vector3 armDown = armStart + Vector3.down * reloadMoveAmount;
-        
+
         //move mag down ----
 
         float time = 0f;                        //this is like a progress bar
@@ -261,10 +261,10 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);   //Wait until the reload action is visually done (like the mag swap)
 
         int needed = clipSize - currentAmmo;
-        int toReload = Mathf.Min(needed, ammoReserve);  
+        int toReload = Mathf.Min(needed, ammoReserve);
         currentAmmo += toReload;            //take bullet from reserve put into clip    
         ammoReserve -= toReload;               //take bullets out of your reserve
-        
+
         //move mag back up ----
 
         time = 0f;
@@ -292,7 +292,7 @@ public class Weapon : MonoBehaviour
         if (magazine != null) magazine.localPosition = initialMagPos;
 
         ArmMovementMegaScript armMover = FindFirstObjectByType<ArmMovementMegaScript>();
-        if (armMover) armMover.ReloadOffset(false);                         
+        if (armMover) armMover.ReloadOffset(false);
     }
 
     private bool IsSprinting()
@@ -313,8 +313,3 @@ public class Weapon : MonoBehaviour
     public int GetAmmoReserve() => ammoReserve;
 
 }
-
-
-
-
-
