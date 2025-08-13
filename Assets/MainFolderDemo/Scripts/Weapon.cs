@@ -155,6 +155,7 @@ public class Weapon : MonoBehaviour
 
 
         ApplyRecoil();
+        ApplyRecoil();
         ApplyKickback();
     }
 

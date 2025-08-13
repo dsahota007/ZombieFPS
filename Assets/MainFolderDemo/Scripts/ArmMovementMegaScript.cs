@@ -93,6 +93,7 @@ public class ArmMovementMegaScript : MonoBehaviour
     private Vector3 swayRotation;
 
     [HideInInspector] public Vector3 externalKickbackOffset = Vector3.zero;
+    //[HideInInspector] public Vector3 externalHipfireKickbackOffset = Vector3.zero;   -- we could add somethign like this -- open dc to look at the !isAiming code
     private PlayerMovement pm;
 
 
@@ -232,11 +233,10 @@ public class ArmMovementMegaScript : MonoBehaviour
                            cameraTransform.right * sideBob;
 
         //kickback
-        //if (!isAiming) // optional: keep recoil out of ADS
-        //{
-            // if you only use Z as "push back", this keeps it that way but in camera space
-            finalPos += cameraTransform.TransformVector(new Vector3(0f, 0f, externalKickbackOffset.z));
-        //}
+        //finalPos += transform.forward * externalKickbackOffset.z;     --- old code causing weird aim to the left
+        finalPos += cameraTransform.TransformVector(new Vector3(0f, 0f, externalKickbackOffset.z));
+
+
         transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);   //this is for gun to return
 
 

@@ -321,7 +321,7 @@ MonoBehaviour:
     type: 3}
   weaponName: Desert Eagle
   fireType: 0
-  fireRate: 0.2
+  fireRate: 0.07
   burstDelay: 0.02
   reloadMoveAmount: 1.5
   reloadDuration: 0.5
@@ -331,11 +331,12 @@ MonoBehaviour:
   recoilAngle: 12
   recoilSnappiness: 12
   recoilReturnSpeed: 6
-  kickbackAmount: 1.5
+  kickbackAmount: 0.15
   kickbackReturnSpeed: 12
   muzzleFlashPrefab: {fileID: 6980259576133684760, guid: 3d09da8d2bc7d4c4f82428ac9d5e55d1,
     type: 3}
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}
   controller: {fileID: 0}
+  targetKickbackOffset: {x: 0.03, y: -0.12, z: 0}
   isWeaponBeingShowcased: 0
