@@ -77,7 +77,12 @@ public class PlayerAttributes : MonoBehaviour
     public void IncreaseHealthFromMoreHealthPerk(float amount)  //MORE HEALTH PERK
     {
         maxStartingHealth = amount;
+    }
 
+    public void IncreaseRegenFromMoreRevivePerk(float timeToRegen, float regenRatePerSecondIncrease)  //MORE REVIVE PERK
+    {
+        regenDelay = timeToRegen;  //how long till i can regen
+        regenRatePerSecond = regenRatePerSecondIncrease; // health per second
     }
 
     // PlayerAttributes.cs

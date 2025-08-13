@@ -1932,6 +1932,7 @@ MonoBehaviour:
   moveInTime: 0.5
   sipTime: 1
   moveOutTime: 0.25
+  newHealth: 80
 --- !u!65 &157872184
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2669,8 +2670,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 896859240}
-  - {fileID: 157872182}
   - {fileID: 564565132}
+  - {fileID: 157872182}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &217153077
@@ -5195,7 +5196,7 @@ GameObject:
   - component: {fileID: 564565136}
   - component: {fileID: 564565135}
   - component: {fileID: 564565134}
-  - component: {fileID: 564565133}
+  - component: {fileID: 564565137}
   m_Layer: 0
   m_Name: MoreRevivePerk
   m_TagString: Untagged
@@ -5219,29 +5220,6 @@ Transform:
   - {fileID: 389644225}
   m_Father: {fileID: 213364774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &564565133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 564565131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf4d9bbebe655e419ef1f03735b6445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 561119877}
-  interactDistance: 2.2
-  flaskPrefab: {fileID: 1681726694830842825, guid: deda649b2b172c3479da13044b329acb,
-    type: 3}
-  flaskStartLocalPos: {x: -0.09, y: -1.1, z: 0.42}
-  flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.16}
-  flaskStartLocalEuler: {x: 0, y: 0, z: 0}
-  flaskSipLocalEuler: {x: -65, y: 0, z: 0}
-  moveInTime: 0.5
-  sipTime: 1
-  moveOutTime: 0.25
 --- !u!65 &564565134
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5316,6 +5294,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564565131}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &564565137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564565131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9524a31b8b41d314b925ae7ff17ed71e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 561119877}
+  interactDistance: 2.2
+  flaskPrefab: {fileID: 1681726694830842825, guid: deda649b2b172c3479da13044b329acb,
+    type: 3}
+  flaskStartLocalPos: {x: -0.09, y: -1.1, z: 0.42}
+  flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.16}
+  flaskStartLocalEuler: {x: 0, y: 0, z: 0}
+  flaskSipLocalEuler: {x: -65, y: 0, z: 0}
+  moveInTime: 0.5
+  sipTime: 1
+  moveOutTime: 0.25
+  timeToRegen: 3
+  regenRatePerSecondIncrease: 10
 --- !u!1 &583518659
 GameObject:
   m_ObjectHideFlags: 0
@@ -8275,6 +8278,7 @@ MonoBehaviour:
   moveInTime: 0.5
   sipTime: 1
   moveOutTime: 0.25
+  newHealth: 80
 --- !u!1 &913009171
 GameObject:
   m_ObjectHideFlags: 0

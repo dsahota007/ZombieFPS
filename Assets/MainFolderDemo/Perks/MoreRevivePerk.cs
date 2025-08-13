@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MoreHealthPerk : MonoBehaviour
+
+public class MoreRevivePerk : MonoBehaviour
 {
     [Header("Interact")]
-    public Transform player;                 
+    public Transform player;
     public float interactDistance = 2.2f;
 
     [Header("Flask (optional)")]
@@ -22,7 +23,8 @@ public class MoreHealthPerk : MonoBehaviour
     public float moveOutTime = 0.18f;
 
     [Header("Perk Upgrade")]
-    public float newHealth = 80f;
+    public float timeToRegen = 3f;
+    public float regenRatePerSecondIncrease = 10f;
 
     Transform cam;   // Camera.main
 
@@ -46,7 +48,7 @@ public class MoreHealthPerk : MonoBehaviour
 
     IEnumerator DoPerkDrink(ArmMovementMegaScript arms)
     {
-        player?.GetComponent<PlayerAttributes>()?.IncreaseHealthFromMoreHealthPerk(newHealth);
+        player?.GetComponent<PlayerAttributes>()?.IncreaseRegenFromMoreRevivePerk(timeToRegen, regenRatePerSecondIncrease);
 
 
         // arm animation
