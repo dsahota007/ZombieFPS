@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI; // for Image
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
-
 
 public class UI : MonoBehaviour
 {
@@ -74,7 +74,19 @@ public class UI : MonoBehaviour
     public Text grenadeStatusText;
     private Coroutine grenadeMsgCo;
     private bool grenadePanelOpen = false;
- 
+
+
+    [Header("Perk Bar")]
+    public RectTransform perkBar;       // Empty UI object with HorizontalLayoutGroup
+    public Image perkIconPrefab;        // Simple Image prefab (no script)
+    public Sprite speedIcon;
+    public Sprite healthIcon;
+    public Sprite reviveIcon;
+
+    private readonly List<PerkType> _perkOrder = new List<PerkType>();
+    private readonly Dictionary<PerkType, Image> _activePerkIcons = new Dictionary<PerkType, Image>();
+
+
 
     void Start()
     {
@@ -84,6 +96,7 @@ public class UI : MonoBehaviour
 
         if (grenadePanel) grenadePanel.SetActive(false); //set panel to false off rip
         if (grenadePrompt) grenadePrompt.gameObject.SetActive(false);  //set text to false off rip
+
     }
 
     //bool chestPanelOpen = false;
@@ -665,4 +678,68 @@ public class UI : MonoBehaviour
     {
         playerHealthSlider.value = value;
     }
+
+    public void ShowPerkIcon(PerkType type)
+    {
+        if (perkBar == null || perkIconPrefab == null) return;          // not wired yet
+        if (_activePerkIcons.ContainsKey(type)) return;                 // already shown
+
+        Sprite s = GetPerkSprite(type);
+        if (s == null) return;
+
+        Image img = Instantiate(perkIconPrefab, perkBar);
+        img.sprite = s;
+        img.SetNativeSize();                                            // optional
+                                                                        // optional: clamp size
+        var rt = img.rectTransform;
+        rt.sizeDelta = new Vector2(48, 48);
+
+        // pop-in anim
+        StartCoroutine(PopIn(img));
+
+        _activePerkIcons[type] = img;
+        _perkOrder.Add(type);                                           // chronological order
+    }
+
+    public void RemovePerkIcon(PerkType type)
+    {
+        if (_activePerkIcons.TryGetValue(type, out var img) && img != null)
+        {
+            Destroy(img.gameObject);
+        }
+        _activePerkIcons.Remove(type);
+        _perkOrder.Remove(type);
+    }
+
+    private Sprite GetPerkSprite(PerkType type)
+    {
+        switch (type)
+        {
+            case PerkType.Speed: return speedIcon;
+            case PerkType.Health: return healthIcon;
+            case PerkType.Revive: return reviveIcon;
+            default: return null;
+        }
+    }
+
+    private IEnumerator PopIn(Image img)
+    {
+        if (img == null) yield break;
+        CanvasGroup cg = img.GetComponent<CanvasGroup>();
+        if (cg == null) cg = img.gameObject.AddComponent<CanvasGroup>();
+
+        float t = 0f, dur = 0.2f;
+        cg.alpha = 0f;
+        img.rectTransform.localScale = Vector3.one * 0.6f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / dur;
+            cg.alpha = Mathf.Lerp(0f, 1f, t);
+            float s = Mathf.Lerp(0.6f, 1f, t);
+            img.rectTransform.localScale = new Vector3(s, s, 1f);
+            yield return null;
+        }
+    }
+
 }

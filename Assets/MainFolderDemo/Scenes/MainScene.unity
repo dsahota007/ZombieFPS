@@ -1318,6 +1318,7 @@ RectTransform:
   - {fileID: 486131193}
   - {fileID: 584999891}
   - {fileID: 1156089616}
+  - {fileID: 1429916975}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1375,6 +1376,11 @@ MonoBehaviour:
   grenadePanel: {fileID: 1156089615}
   grenadeAmountText: {fileID: 486131191}
   grenadeStatusText: {fileID: 584999889}
+  perkBar: {fileID: 1429916975}
+  perkIconPrefab: {fileID: 2047333152}
+  speedIcon: {fileID: 21300000, guid: 3ef6745ca5cc0e34283b063a122382e5, type: 3}
+  healthIcon: {fileID: 21300000, guid: 2f31a50612ad78145af588c56f1d8b55, type: 3}
+  reviveIcon: {fileID: 21300000, guid: 1650919ea60c0da4a9f4f2b91876bdbd, type: 3}
 --- !u!1 &97643583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,7 +1891,7 @@ GameObject:
   - component: {fileID: 157872186}
   - component: {fileID: 157872185}
   - component: {fileID: 157872184}
-  - component: {fileID: 157872183}
+  - component: {fileID: 157872187}
   m_Layer: 0
   m_Name: MoreSpeedPerk
   m_TagString: Untagged
@@ -1909,30 +1915,6 @@ Transform:
   - {fileID: 1744574535}
   m_Father: {fileID: 213364774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &157872183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157872181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf4d9bbebe655e419ef1f03735b6445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 561119877}
-  interactDistance: 2.2
-  flaskPrefab: {fileID: 1681726694830842825, guid: 7a37e91bca1ad5b45a7c4a0383cd3c28,
-    type: 3}
-  flaskStartLocalPos: {x: -0.09, y: -1.1, z: 0.42}
-  flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.16}
-  flaskStartLocalEuler: {x: 0, y: 0, z: 0}
-  flaskSipLocalEuler: {x: -65, y: 0, z: 0}
-  moveInTime: 0.5
-  sipTime: 1
-  moveOutTime: 0.25
-  newHealth: 80
 --- !u!65 &157872184
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2007,6 +1989,34 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157872181}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &157872187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157872181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823e623cb9cf7aa4f93a14d8c045974a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 561119877}
+  interactDistance: 2.2
+  flaskPrefab: {fileID: 1681726694830842825, guid: 7a37e91bca1ad5b45a7c4a0383cd3c28,
+    type: 3}
+  flaskStartLocalPos: {x: -0.09, y: -1.1, z: 0.42}
+  flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.16}
+  flaskStartLocalEuler: {x: 0, y: 0, z: 0}
+  flaskSipLocalEuler: {x: -65, y: 0, z: 0}
+  moveInTime: 0.5
+  sipTime: 1
+  moveOutTime: 0.25
+  upgradedWalkSpeed: 10
+  upgradedSprintSpeed: 15
+  PlayerDrinkVFX: {fileID: 7155335147208632822, guid: 02f7c9cd744aa1f49897fb9a102abf37,
+    type: 3}
+  hasMoreSpeedPerk: 0
 --- !u!1 &158496146
 GameObject:
   m_ObjectHideFlags: 0
@@ -5319,6 +5329,9 @@ MonoBehaviour:
   moveOutTime: 0.25
   timeToRegen: 3
   regenRatePerSecondIncrease: 10
+  PlayerDrinkVFX: {fileID: 7155335147208632822, guid: 0d21dc344dcf1f54f9d3c4c70aa73ae2,
+    type: 3}
+  hasMoreRevivePerk: 0
 --- !u!1 &583518659
 GameObject:
   m_ObjectHideFlags: 0
@@ -8279,6 +8292,9 @@ MonoBehaviour:
   sipTime: 1
   moveOutTime: 0.25
   newHealth: 80
+  PlayerDrinkVFX: {fileID: 7155335147208632822, guid: 7e7e220f62a1ae84bb19e6ce85ebee80,
+    type: 3}
+  hasMoreHealthPerk: 0
 --- !u!1 &913009171
 GameObject:
   m_ObjectHideFlags: 0
@@ -12337,6 +12353,109 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1389579825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1429916974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429916975}
+  - component: {fileID: 1429916978}
+  - component: {fileID: 1429916977}
+  - component: {fileID: 1429916976}
+  m_Layer: 5
+  m_Name: PerkBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1429916975
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429916974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2047333154}
+  m_Father: {fileID: 89101273}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1429916976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429916974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &1429916977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429916974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1429916978
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429916974}
+  m_CullTransparentMesh: 1
 --- !u!1 &1434772912
 GameObject:
   m_ObjectHideFlags: 0
@@ -16528,6 +16647,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036629704}
   m_CullTransparentMesh: 1
+--- !u!1 &2047333151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047333154}
+  - component: {fileID: 2047333153}
+  - component: {fileID: 2047333152}
+  m_Layer: 5
+  m_Name: PerkIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2047333152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047333151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.59607846}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2047333153
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047333151}
+  m_CullTransparentMesh: 1
+--- !u!224 &2047333154
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047333151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1429916975}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 48, y: 48}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2062448611
 GameObject:
   m_ObjectHideFlags: 0

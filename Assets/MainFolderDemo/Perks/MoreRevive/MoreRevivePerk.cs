@@ -8,7 +8,7 @@ public class MoreRevivePerk : MonoBehaviour
     public Transform player;
     public float interactDistance = 2.2f;
 
-    [Header("Flask (optional)")]
+    [Header("Flask")]
     public GameObject flaskPrefab;           // leave null if you only want the arm anim
 
     [Header("Flask Offsets")]
@@ -18,13 +18,15 @@ public class MoreRevivePerk : MonoBehaviour
     public Vector3 flaskSipLocalEuler = new Vector3(-65f, 0f, 0f);
 
     [Header("Timing")]
-    public float moveInTime = 0.18f;
-    public float sipTime = 0.60f;
-    public float moveOutTime = 0.18f;
+    public float moveInTime = 0.5f;
+    public float sipTime = 1f;
+    public float moveOutTime = 0.25f;
 
     [Header("Perk Upgrade")]
     public float timeToRegen = 3f;
     public float regenRatePerSecondIncrease = 10f;
+    public GameObject PlayerDrinkVFX;
+    [HideInInspector] public bool hasMoreRevivePerk = false;
 
     Transform cam;   // Camera.main
 
@@ -37,7 +39,7 @@ public class MoreRevivePerk : MonoBehaviour
     void Update()
     {
         bool inRange = Vector3.Distance(player.position, transform.position) <= interactDistance;
-        if (inRange && Input.GetKeyDown(KeyCode.E))
+        if (inRange && Input.GetKeyDown(KeyCode.E) && !hasMoreRevivePerk)
         {
             ArmMovementMegaScript arms = FindFirstObjectByType<ArmMovementMegaScript>();   //arm script
             if (arms == null || arms.IsGrenadeAnimating || arms.IsPerkAnimating) return;
@@ -48,8 +50,19 @@ public class MoreRevivePerk : MonoBehaviour
 
     IEnumerator DoPerkDrink(ArmMovementMegaScript arms)
     {
+        hasMoreRevivePerk = true;
         player?.GetComponent<PlayerAttributes>()?.IncreaseRegenFromMoreRevivePerk(timeToRegen, regenRatePerSecondIncrease);
 
+        FindFirstObjectByType<UI>()?.ShowPerkIcon(PerkType.Revive);
+
+        if (player != null && PlayerDrinkVFX != null)
+        {
+            //GameObject PerkVFX = Instantiate(PlayerDrinkVFX, player.transform.position + Vector3.up * 2.85f, Quaternion.Euler(180f, 0f, 0f));  
+            GameObject PerkVFX = Instantiate(PlayerDrinkVFX, player.transform.position, Quaternion.identity);
+            PerkVFX.transform.SetParent(player.transform, true);
+            Destroy(PerkVFX, 4f);
+
+        }
 
         // arm animation
         arms.StartCoroutine(arms.PerkDrinkDropOnly());    // Play the left-arm drop/drink animation

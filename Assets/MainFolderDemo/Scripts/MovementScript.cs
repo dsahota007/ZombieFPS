@@ -298,6 +298,12 @@ public class PlayerMovement : MonoBehaviour
         controller.center = normalControllerCenter;
     }
 
+    public void IncreaseSpeedFromMoreSpeedPerk(float WalkSpeed, float SprintSpeed)
+    {
+        walkSpeed = WalkSpeed;
+        sprintSpeed = SprintSpeed;
+    }
+
     //----------------------- Getters
 
     public bool IsGrounded() => isGrounded;

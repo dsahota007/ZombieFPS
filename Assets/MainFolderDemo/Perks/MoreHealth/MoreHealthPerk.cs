@@ -7,7 +7,7 @@ public class MoreHealthPerk : MonoBehaviour
     public Transform player;                 
     public float interactDistance = 2.2f;
 
-    [Header("Flask (optional)")]
+    [Header("Flask")]
     public GameObject flaskPrefab;           // leave null if you only want the arm anim
 
     [Header("Flask Offsets")]
@@ -17,12 +17,15 @@ public class MoreHealthPerk : MonoBehaviour
     public Vector3 flaskSipLocalEuler = new Vector3(-65f, 0f, 0f);
 
     [Header("Timing")]
-    public float moveInTime = 0.18f;
-    public float sipTime = 0.60f;
-    public float moveOutTime = 0.18f;
+    public float moveInTime = 0.5f;
+    public float sipTime = 1f;
+    public float moveOutTime = 0.25f;
 
     [Header("Perk Upgrade")]
     public float newHealth = 80f;
+    public GameObject PlayerDrinkVFX;
+    [HideInInspector] public bool hasMoreHealthPerk = false;
+
 
     Transform cam;   // Camera.main
 
@@ -35,7 +38,7 @@ public class MoreHealthPerk : MonoBehaviour
     void Update()
     {
         bool inRange = Vector3.Distance(player.position, transform.position) <= interactDistance;
-        if (inRange && Input.GetKeyDown(KeyCode.E))
+        if (inRange && Input.GetKeyDown(KeyCode.E) && !hasMoreHealthPerk)
         {
             ArmMovementMegaScript arms = FindFirstObjectByType<ArmMovementMegaScript>();   //arm script
             if (arms == null || arms.IsGrenadeAnimating || arms.IsPerkAnimating) return;
@@ -46,7 +49,21 @@ public class MoreHealthPerk : MonoBehaviour
 
     IEnumerator DoPerkDrink(ArmMovementMegaScript arms)
     {
+        hasMoreHealthPerk = true;
         player?.GetComponent<PlayerAttributes>()?.IncreaseHealthFromMoreHealthPerk(newHealth);
+
+        FindFirstObjectByType<UI>()?.ShowPerkIcon(PerkType.Health);
+
+
+
+        if (player != null && PlayerDrinkVFX != null)
+        {
+            //GameObject PerkVFX = Instantiate(PlayerDrinkVFX, player.transform.position + Vector3.up * 2.85f, Quaternion.Euler(180f, 0f, 0f));  
+            GameObject PerkVFX = Instantiate(PlayerDrinkVFX, player.transform.position, Quaternion.identity);
+            PerkVFX.transform.SetParent(player.transform, true);
+            Destroy(PerkVFX, 4f);
+
+        }
 
 
         // arm animation
