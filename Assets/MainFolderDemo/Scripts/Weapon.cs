@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.Mathematics;
 
 public enum FireType { Single, Burst, Auto }
 
@@ -58,7 +59,10 @@ public class Weapon : MonoBehaviour
 
     // Kickback fields
     private Vector3 currentKickbackOffset = Vector3.zero;
-    private Vector3 targetKickbackOffset = Vector3.zero;
+
+    [Header("VFX")]
+    public Vector3 targetKickbackOffset = new Vector3(0.03f, -0.12f, 0f);
+
     private ArmMovementMegaScript armMover;
     private UI ui;
 
@@ -156,7 +160,7 @@ public class Weapon : MonoBehaviour
 
     private void ApplyRecoil()
     {
-        float recoilX = Random.Range(recoilAngle * 0.8f, recoilAngle * 1.2f);
+        float recoilX = UnityEngine.Random.Range(recoilAngle * 0.8f, recoilAngle * 1.2f);   //we have to put UnityEngine.Random bc of some vs bug try to get rid of it (DJ from the past)
         targetRecoil += recoilX; // Add more recoil upwards
     }
 

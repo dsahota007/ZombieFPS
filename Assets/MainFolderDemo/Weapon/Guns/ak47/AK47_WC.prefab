@@ -5883,6 +5883,7 @@ MonoBehaviour:
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}
   controller: {fileID: 0}
+  targetKickbackOffset: {x: 0.03, y: 0, z: 0}
   isWeaponBeingShowcased: 0
 --- !u!1 &8027666018750598299
 GameObject:

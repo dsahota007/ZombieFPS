@@ -11,7 +11,7 @@ public class ArmMovementMegaScript : MonoBehaviour
 
     public Vector3 adsOffset = new Vector3(0.03f, -0.12f, 0f);
     public Vector3 adsRotation = new Vector3(0f, 16.4f, 0f);
-    
+
     public Vector3 sprintOffset = new Vector3(0.25f, -0.4f, 0.4f);
     public Vector3 sprintRotation = new Vector3(20f, 0f, 8.14f);
     public Vector3 sprintBackOffset = new Vector3(0.2f, -0.3f, 0.39f);
@@ -20,16 +20,16 @@ public class ArmMovementMegaScript : MonoBehaviour
     [Header("Reload Offset")]
     public Vector3 reloadOffset = new Vector3(0f, -0.05f, -0.05f);
     public Vector3 reloadRotation = new Vector3(4f, 0f, 0f);
-    
+
     public bool isReloading = false;   //we change to public so we can access this in mysterybox logic
 
     [Header("Bobbing")]
     public float sprintBobSpeed = 26.26f;
     public float sprintSideBobAmount = 0.26f;
-    
+
     public float walkBobSpeed = 6f;
     public float walkBobAmount = 0.015f;
-    
+
     public float idleBobSpeed = 2f;
     public float idleBobAmount = 0.005f;
 
@@ -113,7 +113,7 @@ public class ArmMovementMegaScript : MonoBehaviour
     void Update()  //LateUpdate()   -- i got rid of this bc idk
     {
 
-        bool hasMovementInput = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+        bool hasMovementInput = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
         bool isAiming = !isPerkAnimPlaying && Input.GetMouseButton(1);
 
         bool freezeForPerk = lockBobbingDuringPerk && isPerkAnimPlaying;
@@ -123,11 +123,11 @@ public class ArmMovementMegaScript : MonoBehaviour
         bool isSprinting = !isPerkAnimPlaying && Input.GetKey(KeyCode.LeftShift) && hasMovementInput && !isAiming && !isSliding && !isCastingSpell;        //we added hasMovementInput so i dont sprint in idle
 
         bool isGrounded = controller.isGrounded;    //we got ref to char controller so we know when grounded
-        bool isWalking = !isSprinting && hasMovementInput && isGrounded;    
+        bool isWalking = !isSprinting && hasMovementInput && isGrounded;
 
         Vector3 targetOffset;
         Vector3 targetRotation;
-         
+
 
 
         if (isReloading)
@@ -135,7 +135,7 @@ public class ArmMovementMegaScript : MonoBehaviour
             targetOffset = hipOffset + reloadOffset;
             targetRotation = hipRotation + reloadRotation;
         }
-        
+
         //----
         else if (isSliding)
         {
@@ -232,8 +232,11 @@ public class ArmMovementMegaScript : MonoBehaviour
                            cameraTransform.right * sideBob;
 
         //kickback
-        finalPos += transform.forward * externalKickbackOffset.z;    //how much we pish back this is in weapon.cs
-
+        //if (!isAiming) // optional: keep recoil out of ADS
+        //{
+            // if you only use Z as "push back", this keeps it that way but in camera space
+            finalPos += cameraTransform.TransformVector(new Vector3(0f, 0f, externalKickbackOffset.z));
+        //}
         transform.position = Vector3.Lerp(transform.position, finalPos, Time.deltaTime * smoothSpeed);   //this is for gun to return
 
 
@@ -254,7 +257,7 @@ public class ArmMovementMegaScript : MonoBehaviour
                 }
                 else
                 {
-                    var ui = FindFirstObjectByType<UI>();           
+                    var ui = FindFirstObjectByType<UI>();
                     if (ui) ui.ShowTemporaryMagicMessage("No Grenades Left");
                 }
             }
@@ -381,7 +384,7 @@ public class ArmMovementMegaScript : MonoBehaviour
     {
         if (isPerkAnimPlaying || isGrenadeGrabPlaying || leftArm == null) yield break; //leave if any of these are true
 
-        isPerkAnimPlaying = true;   
+        isPerkAnimPlaying = true;
 
         // cache defaults captured in Start()
         Vector3 startPos = leftDefaultPos;      //grab start 
@@ -437,4 +440,3 @@ public class ArmMovementMegaScript : MonoBehaviour
 
 
 }
-
