@@ -1382,6 +1382,7 @@ MonoBehaviour:
   speedIcon: {fileID: 21300000, guid: 3ef6745ca5cc0e34283b063a122382e5, type: 3}
   healthIcon: {fileID: 21300000, guid: 2f31a50612ad78145af588c56f1d8b55, type: 3}
   reviveIcon: {fileID: 21300000, guid: 1650919ea60c0da4a9f4f2b91876bdbd, type: 3}
+  fireRateIcon: {fileID: 21300000, guid: 62f77d4a88a1fc24db6c61e04e9f66e7, type: 3}
 --- !u!1 &97643583
 GameObject:
   m_ObjectHideFlags: 0
@@ -15133,7 +15134,7 @@ GameObject:
   - component: {fileID: 1828641362}
   - component: {fileID: 1828641361}
   - component: {fileID: 1828641360}
-  - component: {fileID: 1828641359}
+  - component: {fileID: 1828641363}
   m_Layer: 0
   m_Name: MoreFireRatePerk
   m_TagString: Untagged
@@ -15157,34 +15158,6 @@ Transform:
   - {fileID: 359599612}
   m_Father: {fileID: 213364774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1828641359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1828641357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 823e623cb9cf7aa4f93a14d8c045974a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 561119877}
-  interactDistance: 2.2
-  flaskPrefab: {fileID: 1681726694830842825, guid: 7a37e91bca1ad5b45a7c4a0383cd3c28,
-    type: 3}
-  flaskStartLocalPos: {x: -0.09, y: -1.1, z: 0.42}
-  flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.16}
-  flaskStartLocalEuler: {x: 0, y: 0, z: 0}
-  flaskSipLocalEuler: {x: -65, y: 0, z: 0}
-  moveInTime: 0.5
-  sipTime: 1
-  moveOutTime: 0.25
-  upgradedWalkSpeed: 10
-  upgradedSprintSpeed: 15
-  PlayerDrinkVFX: {fileID: 7155335147208632822, guid: 02f7c9cd744aa1f49897fb9a102abf37,
-    type: 3}
-  hasMoreSpeedPerk: 0
 --- !u!65 &1828641360
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15259,6 +15232,34 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828641357}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1828641363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828641357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c426308fde725b34985b460ca7e8f33d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 561119877}
+  interactDistance: 2.2
+  flaskPrefab: {fileID: 1681726694830842825, guid: 16eed10c370796243af12753f7be43af,
+    type: 3}
+  flaskStartLocalPos: {x: -0.09, y: -1.1, z: 0.42}
+  flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.16}
+  flaskStartLocalEuler: {x: 0, y: 0, z: 0}
+  flaskSipLocalEuler: {x: -65, y: 0, z: 0}
+  moveInTime: 0.5
+  sipTime: 1
+  moveOutTime: 0.25
+  upgradedWalkSpeed: 10
+  upgradedSprintSpeed: 15
+  PlayerDrinkVFX: {fileID: 7155335147208632822, guid: e08f8ddd58518c647bbb623107be1419,
+    type: 3}
+  hasMoreFireRatePerk: 0
 --- !u!1 &1853039006
 GameObject:
   m_ObjectHideFlags: 0

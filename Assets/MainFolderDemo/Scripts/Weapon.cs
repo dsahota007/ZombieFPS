@@ -71,6 +71,10 @@ public class Weapon : MonoBehaviour
     public bool isWeaponBeingShowcased = false; // for script deleting for UI -- so the gun does not shoot when being displayed. 
 
     public bool IsReloading => isReloading;          //could delete -------------------------------------
+    public static float GlobalFireRateMult = 1f;   //new multiplier for double tap concept
+    private float ShotDelay => Mathf.Max(0.02f, fireRate / Mathf.Max(0.01f, GlobalFireRateMult));
+    private float BurstDelayM => Mathf.Max(0.02f, burstDelay / Mathf.Max(0.01f, GlobalFireRateMult));
+
 
     void Start()
     {
@@ -101,7 +105,7 @@ public class Weapon : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
                 {
                     Shoot();
-                    nextFireTime = Time.time + fireRate;  // current time + next time u can shoot 
+                    nextFireTime = Time.time + ShotDelay; //fireRate;  // current time + next time u can shoot 
                 }
                 break;
 
@@ -183,7 +187,7 @@ public class Weapon : MonoBehaviour
             if (!CanShoot() || IsSprinting())
                 break;
             Shoot();
-            yield return new WaitForSeconds(burstDelay);            //parameter to wait HOW LONG
+            yield return new WaitForSeconds(BurstDelayM);            //parameter to wait HOW LONG
         }
         fireRoutine = null;
     }
@@ -193,7 +197,7 @@ public class Weapon : MonoBehaviour
         while (Input.GetMouseButton(0) && CanShoot() && !IsSprinting())
         {
             Shoot();
-            yield return new WaitForSeconds(fireRate);
+            yield return new WaitForSeconds(ShotDelay);  //fireRate
         }
         fireRoutine = null;
     }

@@ -82,6 +82,7 @@ public class UI : MonoBehaviour
     public Sprite speedIcon;
     public Sprite healthIcon;
     public Sprite reviveIcon;
+    public Sprite fireRateIcon;
 
     private readonly List<PerkType> _perkOrder = new List<PerkType>();
     private readonly Dictionary<PerkType, Image> _activePerkIcons = new Dictionary<PerkType, Image>();
@@ -679,6 +680,7 @@ public class UI : MonoBehaviour
         playerHealthSlider.value = value;
     }
 
+    //-------------------------- perk ICON logic
     public void ShowPerkIcon(PerkType type)
     {
         if (perkBar == null || perkIconPrefab == null) return;          // not wired yet
@@ -718,6 +720,8 @@ public class UI : MonoBehaviour
             case PerkType.Speed: return speedIcon;
             case PerkType.Health: return healthIcon;
             case PerkType.Revive: return reviveIcon;
+            case PerkType.FireRate: return fireRateIcon;
+
             default: return null;
         }
     }
