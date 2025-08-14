@@ -6,6 +6,8 @@ public class MoreRevivePerk : MonoBehaviour
 {
     [Header("Interact")]
     public Transform player;
+    public PerkType type = PerkType.Revive;
+    public int cost = 3000;
     public float interactDistance = 2.2f;
 
     [Header("Flask")]
@@ -34,6 +36,9 @@ public class MoreRevivePerk : MonoBehaviour
     void Awake()
     {
         cam = (Camera.main != null) ? Camera.main.transform : null;
+
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     void Update()

@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
 public class MoreHealthPerk : MonoBehaviour
 {
     [Header("Interact")]
-    public Transform player;                 
+    public Transform player;
+    public PerkType type = PerkType.Health;
+    public int cost = 3000;
     public float interactDistance = 2.2f;
 
     [Header("Flask")]
@@ -28,11 +32,14 @@ public class MoreHealthPerk : MonoBehaviour
 
 
     Transform cam;   // Camera.main
-
+ 
 
     void Awake()
     {
         cam = (Camera.main != null) ? Camera.main.transform : null;
+
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     void Update()

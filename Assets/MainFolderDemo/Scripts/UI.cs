@@ -75,19 +75,29 @@ public class UI : MonoBehaviour
     private Coroutine grenadeMsgCo;
     private bool grenadePanelOpen = false;
 
+    //-------------------------
 
     [Header("Perk Bar")]
     public RectTransform perkBar;       // Empty UI object with HorizontalLayoutGroup
-    public Image perkIconPrefab;        // Simple Image prefab (no script)
+
+    public Image perkIconPrefab;        // Simple Image prefab (no script) a tiny prefab whose root is an Image (no scripts needed). This is what gets cloned for each icon.
     public Sprite speedIcon;
     public Sprite healthIcon;
     public Sprite reviveIcon;
     public Sprite fireRateIcon;
 
-    private readonly List<PerkType> _perkOrder = new List<PerkType>();
-    private readonly Dictionary<PerkType, Image> _activePerkIcons = new Dictionary<PerkType, Image>();
+    private readonly List<PerkType> _perkOrder = new List<PerkType>();  //a list that remembers which perks were added and in what order (first → last). Useful if you ever need to read them back in order.
+    private readonly Dictionary<PerkType, Image> _activePerkIcons = new Dictionary<PerkType, Image>();  //map/dict so we can perkkType --> img assign to that perk. 
+    
+    public Text fireRatePerkText;
 
+    public Text speedPerkText;
 
+    public Text healthPerkText;
+
+    public Text revivePerkText;
+
+    //--------------------------
 
     void Start()
     {
@@ -526,7 +536,16 @@ public class UI : MonoBehaviour
             int cap = grenadeManager.GetCap(t);
             grenadeAmountText.text = have + " / " + cap;   // e.g. "4 / 6"
         }
+        // Example for 4 perks:
+        var pFire = FindFirstObjectByType<MoreFireRatePerk>();
+        var pSpeed = FindFirstObjectByType<MoreSpeedPerk>();
+        var pHealth = FindFirstObjectByType<MoreHealthPerk>();
+        var pRevive = FindFirstObjectByType<MoreRevivePerk>();
 
+        HandlePerkStationUI(pFire, fireRatePerkText, "Fire Rate", pFire?.hasMoreFireRatePerk ?? false, pFire?.cost ?? 0);
+        HandlePerkStationUI(pSpeed, speedPerkText, "Speed", pSpeed?.hasMoreSpeedPerk ?? false, pSpeed?.cost ?? 0);
+        HandlePerkStationUI(pHealth, healthPerkText, "Health", pHealth?.hasMoreHealthPerk ?? false, pHealth?.cost ?? 0);
+        HandlePerkStationUI(pRevive, revivePerkText, "Quick Revive", pRevive?.hasMoreRevivePerk ?? false, pRevive?.cost ?? 0);
 
     }
 
@@ -684,7 +703,7 @@ public class UI : MonoBehaviour
     public void ShowPerkIcon(PerkType type)
     {
         if (perkBar == null || perkIconPrefab == null) return;          // not wired yet
-        if (_activePerkIcons.ContainsKey(type)) return;                 // already shown
+        if (_activePerkIcons.ContainsKey(type)) return;                 // if you already have 
 
         Sprite s = GetPerkSprite(type);
         if (s == null) return;
@@ -743,6 +762,35 @@ public class UI : MonoBehaviour
             float s = Mathf.Lerp(0.6f, 1f, t);
             img.rectTransform.localScale = new Vector3(s, s, 1f);
             yield return null;
+        }
+    }
+
+    //----- Perk UI
+    // --- Perk UI (super simple, fixed 3f range) ---
+    void HandlePerkStationUI(MonoBehaviour perkObj, Text uiText, string perkName, bool hasPerk, int cost)
+    {
+        if (uiText == null) return;
+
+        // hide if station not in scene or we don't know the player
+        if (perkObj == null || player == null)
+        {
+            uiText.gameObject.SetActive(false);
+            return;
+        }
+
+        const float PERK_DIST = 3f; // <- your fixed distance for ALL perks
+
+        float dist = Vector3.Distance(player.position, perkObj.transform.position);
+        if (dist <= PERK_DIST)
+        {
+            uiText.text = hasPerk
+                ? $"{perkName} Purchased"
+                : $"Press [E] to buy {perkName} ({cost} pts)";
+            uiText.gameObject.SetActive(true);
+        }
+        else
+        {
+            uiText.gameObject.SetActive(false);
         }
     }
 

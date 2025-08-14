@@ -6,12 +6,14 @@ public class MoreSpeedPerk : MonoBehaviour
 {
     [Header("Interact")]
     public Transform player;
+    public PerkType type = PerkType.Speed;
+    public int cost = 3000;
     public float interactDistance = 2.2f;
     
     [Header("Flask")]
     public GameObject flaskPrefab;           // leave null if you only want the arm anim
 
-    [Header("Flask")]
+    [Header("Flask Offsets")]
     public Vector3 flaskStartLocalPos = new Vector3(-0.09f, -1.1f, 0.42f);
     public Vector3 flaskMouthLocalPos = new Vector3(-0.01f, -0.12f, 0.16f);
     public Vector3 flaskStartLocalEuler = Vector3.zero;
@@ -34,6 +36,9 @@ public class MoreSpeedPerk : MonoBehaviour
     void Awake()
     {
         cam = (Camera.main != null) ? Camera.main.transform : null;
+
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     void Update()
