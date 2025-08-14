@@ -5885,20 +5885,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   targetKickbackOffset: {x: 0.03, y: 0, z: 0}
   isWeaponBeingShowcased: 0
-  poseLibrary: {fileID: 0}
-  poseKey: 0
-  useCustomPose: 0
-  customPose:
-    hipOffset: {x: 0, y: 0, z: 0}
-    hipRotation: {x: 0, y: 0, z: 0}
-    adsOffset: {x: 0, y: 0, z: 0}
-    adsRotation: {x: 0, y: 0, z: 0}
-    sprintOffset: {x: 0, y: 0, z: 0}
-    sprintRotation: {x: 0, y: 0, z: 0}
-    sprintBackOffset: {x: 0, y: 0, z: 0}
-    sprintBackRotation: {x: 0, y: 0, z: 0}
-    reloadOffset: {x: 0, y: 0, z: 0}
-    reloadRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &8027666018750598299
 GameObject:
   m_ObjectHideFlags: 0
@@ -6755,12 +6741,12 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 753b913456e054241a8ec3286d076aa4, type: 2}
+      objectReference: {fileID: 2100000, guid: 2b11b2f00105e9241ba902eab28e69ef, type: 2}
     - target: {fileID: 9014246836563504593, guid: fb91d283ad0d8b04491a8829dd08f77e,
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: a910ba1c92ada1549ab0b7d821e0473f, type: 2}
+      objectReference: {fileID: 2100000, guid: bcd5789a7d53acc42aeaf8d0a410fab4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

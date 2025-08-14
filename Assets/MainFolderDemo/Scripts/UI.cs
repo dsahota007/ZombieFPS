@@ -2,8 +2,8 @@
 using UnityEngine.UI; // for Image
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using Unity.VisualScripting;
+//using UnityEngine.EventSystems;
+//using Unity.VisualScripting;
 
 public class UI : MonoBehaviour
 {
@@ -127,7 +127,7 @@ public class UI : MonoBehaviour
 
         if (PlayerIsCloseCanOpenBox)
         {
-            MysteryBoxText.text = "Press [E] to Open Mystery Box for 950 Points";
+            MysteryBoxText.text = "Press [E] to Open Weapon Box";
             MysteryBoxText.gameObject.SetActive(true);
         }
         else if (PlayerIsCloseCanGrabWeapon && mysteryBox.GetCurrentPreview() != null)

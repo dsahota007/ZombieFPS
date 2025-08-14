@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Unity.Mathematics;
+//using Unity.Mathematics;
 
 public enum FireType { Single, Burst, Auto }
 

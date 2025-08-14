@@ -95,8 +95,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70e30215175ca364d832dc9f3f357af4, type: 2}
-  - {fileID: 2100000, guid: 1033958d982e1a4489a7ec5df1b24f0a, type: 2}
+  - {fileID: 2100000, guid: 115198df24d335f4d95b90f062e6fdba, type: 2}
+  - {fileID: 2100000, guid: 18a1cceafa4648b4493e1f3063b970da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -182,7 +182,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1033958d982e1a4489a7ec5df1b24f0a, type: 2}
+  - {fileID: 2100000, guid: d3f11feab933d7945867279bcc8a9933, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -339,4 +339,5 @@ MonoBehaviour:
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}
   controller: {fileID: 0}
+  targetKickbackOffset: {x: 0.03, y: -0.12, z: 0}
   isWeaponBeingShowcased: 0
