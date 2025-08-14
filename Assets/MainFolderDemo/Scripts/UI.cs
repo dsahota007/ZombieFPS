@@ -5,6 +5,16 @@ using System.Collections.Generic;
 //using UnityEngine.EventSystems;
 //using Unity.VisualScripting;
 
+[System.Serializable]
+public class MagicStationUI
+{
+    public MagicStation station; // the scene object
+    public Text text;            // the UI Text to show
+    public MagicType type;       // which magic this station equips
+    public string label;         // nice name, e.g. "Crystal"
+}
+
+
 public class UI : MonoBehaviour
 {
     public Transform player;            //we fetch player like this and not script in start like the magic manager.
@@ -39,27 +49,29 @@ public class UI : MonoBehaviour
     public Text ammoBoxText;
     public AmmoBox ammoBox; // reference to your ammo box object/script
 
-    [Header("Magic Station UI")]
-    public Text fireMagicText;                   
-    public Text crystalMagicText;
-    public Text VoidMagicText;
-    public Text IceMagicText;
-    public Text VenomMagicText;
-    public Text LightningMagicText;
-    public Text WindMagicText;
-    public Text MeteorMagicText;
-    public Text CrimsonMagicText;
-    public MagicStation fireStation;
-    public MagicStation crystalStation;  
-    public MagicStation VoidMagicStation;
-    public MagicStation IceMagicStation;
-    public MagicStation VenomMagicStation;
-    public MagicStation LightningMagicStation;
-    public MagicStation WindMagicStation;
-    public MagicStation MeteorMagicStation;
-    public MagicStation CrimsonMagicStation;
+    //[Header("Magic Station UI")]
+    //public Text fireMagicText;                   
+    //public Text crystalMagicText;
+    //public Text VoidMagicText;
+    //public Text IceMagicText;
+    //public Text VenomMagicText;
+    //public Text LightningMagicText;
+    //public Text WindMagicText;
+    //public Text MeteorMagicText;
+    //public Text CrimsonMagicText;
+    //public MagicStation fireStation;
+    //public MagicStation crystalStation;  
+    //public MagicStation VoidMagicStation;
+    //public MagicStation IceMagicStation;
+    //public MagicStation VenomMagicStation;
+    //public MagicStation LightningMagicStation;
+    //public MagicStation WindMagicStation;
+    //public MagicStation MeteorMagicStation;
+    //public MagicStation CrimsonMagicStation;
 
-     
+    public MagicStationUI[] magicStations;
+
+
 
     [Header("Magic Cooldown UI")]
     public Slider magicCooldownSlider;
@@ -90,11 +102,8 @@ public class UI : MonoBehaviour
     private readonly Dictionary<PerkType, Image> _activePerkIcons = new Dictionary<PerkType, Image>();  //map/dict so we can perkkType --> img assign to that perk. 
     
     public Text fireRatePerkText;
-
     public Text speedPerkText;
-
     public Text healthPerkText;
-
     public Text revivePerkText;
 
     //--------------------------
@@ -194,302 +203,305 @@ public class UI : MonoBehaviour
 
         // ------------------------------------------------------------------ Magic Station UI
 
-        // Handle Normal Fire Station
-        if (fireStation != null && fireMagicText != null)
-        {
-            float distanceToFireStation = Vector3.Distance(player.position, fireStation.transform.position);   //calc how close the player adn station
+        //// Handle Normal Fire Station
+        //if (fireStation != null && fireMagicText != null)
+        //{
+        //    float distanceToFireStation = Vector3.Distance(player.position, fireStation.transform.position);   //calc how close the player adn station
 
-            if (distanceToFireStation <= fireStation.interactionRange)    //is it less than or equal the distanec ( we in range ?) 
-            {
-                if (magicManager != null)  // Using direct reference instead of Instance
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToFireStation <= fireStation.interactionRange)    //is it less than or equal the distanec ( we in range ?) 
+        //    {
+        //        if (magicManager != null)  // Using direct reference instead of Instance
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Normal)
-                    {
-                        fireMagicText.text = "Normal Fireball Equipped";
-                    }
-                    else
-                    {
-                        fireMagicText.text = "Press [E] to Equip Normal Fireball";
-                    }
+        //            if (currentMagic == MagicType.Normal)
+        //            {
+        //                fireMagicText.text = "Normal Fireball Equipped";
+        //            }
+        //            else
+        //            {
+        //                fireMagicText.text = "Press [E] to Equip Normal Fireball";
+        //            }
 
-                    fireMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    fireMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                fireMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            fireMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            fireMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        fireMagicText.gameObject.SetActive(false);
+        //    }
+        //}
 
-        // Handle Sulfuric Fire Station
-        if (crystalStation != null && crystalMagicText != null)
-        {
-            float distanceToCrystalStation = Vector3.Distance(player.position, crystalStation.transform.position);
+        //// Handle Sulfuric Fire Station
+        //if (crystalStation != null && crystalMagicText != null)
+        //{
+        //    float distanceToCrystalStation = Vector3.Distance(player.position, crystalStation.transform.position);
 
-            if (distanceToCrystalStation <= crystalStation.interactionRange)
-            {
-                if (magicManager != null)  // Using direct reference instead of Instance
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToCrystalStation <= crystalStation.interactionRange)
+        //    {
+        //        if (magicManager != null)  // Using direct reference instead of Instance
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Crystal)
-                    {
-                        crystalMagicText.text = "Crystal Magic Equipped";
-                    }
-                    else
-                    {
-                        crystalMagicText.text = "Press [E] to Equip Crystal Magic";
-                    }
+        //            if (currentMagic == MagicType.Crystal)
+        //            {
+        //                crystalMagicText.text = "Crystal Magic Equipped";
+        //            }
+        //            else
+        //            {
+        //                crystalMagicText.text = "Press [E] to Equip Crystal Magic";
+        //            }
 
-                    crystalMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    crystalMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                crystalMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            crystalMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            crystalMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        crystalMagicText.gameObject.SetActive(false);
+        //    }
+        //}
 
-        // Handle void magic
-        if (VoidMagicStation != null && VoidMagicText != null)
-        {
-            float distanceToVoidMagicStation = Vector3.Distance(player.position, VoidMagicStation.transform.position);
+        //// Handle void magic
+        //if (VoidMagicStation != null && VoidMagicText != null)
+        //{
+        //    float distanceToVoidMagicStation = Vector3.Distance(player.position, VoidMagicStation.transform.position);
 
-            if (distanceToVoidMagicStation <= VoidMagicStation.interactionRange)
-            {
-                if (magicManager != null)
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToVoidMagicStation <= VoidMagicStation.interactionRange)
+        //    {
+        //        if (magicManager != null)
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Void)
-                    {
-                        VoidMagicText.text = "Void Magic Equipped";
-                    }
-                    else
-                    {
-                        VoidMagicText.text = "Press [E] to Equip Void Magic";
-                    }
+        //            if (currentMagic == MagicType.Void)
+        //            {
+        //                VoidMagicText.text = "Void Magic Equipped";
+        //            }
+        //            else
+        //            {
+        //                VoidMagicText.text = "Press [E] to Equip Void Magic";
+        //            }
 
-                    VoidMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    VoidMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                VoidMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            VoidMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            VoidMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        VoidMagicText.gameObject.SetActive(false);
+        //    }
+        //}
 
-        // Handle ice magic
-        if (IceMagicStation != null && IceMagicText != null)
-        {
-            float distanceToIceMagicStation = Vector3.Distance(player.position, IceMagicStation.transform.position);
+        //// Handle ice magic
+        //if (IceMagicStation != null && IceMagicText != null)
+        //{
+        //    float distanceToIceMagicStation = Vector3.Distance(player.position, IceMagicStation.transform.position);
 
-            if (distanceToIceMagicStation <= IceMagicStation.interactionRange)
-            {
-                if (magicManager != null)
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToIceMagicStation <= IceMagicStation.interactionRange)
+        //    {
+        //        if (magicManager != null)
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Ice)
-                    {
-                        IceMagicText.text = "Ice Magic Equipped";
-                    }
-                    else
-                    {
-                        IceMagicText.text = "Press [E] to Equip Ice Magic";
-                    }
+        //            if (currentMagic == MagicType.Ice)
+        //            {
+        //                IceMagicText.text = "Ice Magic Equipped";
+        //            }
+        //            else
+        //            {
+        //                IceMagicText.text = "Press [E] to Equip Ice Magic";
+        //            }
 
-                    IceMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    IceMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                IceMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            IceMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            IceMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        IceMagicText.gameObject.SetActive(false);
+        //    }
+        //}
 
-        // Handle Venom magic
-        if (VenomMagicStation != null && VenomMagicText != null)
-        {
-            float distanceToVenomMagicStation = Vector3.Distance(player.position, VenomMagicStation.transform.position);
+        //// Handle Venom magic
+        //if (VenomMagicStation != null && VenomMagicText != null)
+        //{
+        //    float distanceToVenomMagicStation = Vector3.Distance(player.position, VenomMagicStation.transform.position);
 
-            if (distanceToVenomMagicStation <= VenomMagicStation.interactionRange)
-            {
-                if (magicManager != null)
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToVenomMagicStation <= VenomMagicStation.interactionRange)
+        //    {
+        //        if (magicManager != null)
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Venom)
-                    {
-                        VenomMagicText.text = "Venom Magic Equipped";
-                    }
-                    else
-                    {
-                        VenomMagicText.text = "Press [E] to Equip Venom Magic";
-                    }
+        //            if (currentMagic == MagicType.Venom)
+        //            {
+        //                VenomMagicText.text = "Venom Magic Equipped";
+        //            }
+        //            else
+        //            {
+        //                VenomMagicText.text = "Press [E] to Equip Venom Magic";
+        //            }
 
-                    VenomMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    VenomMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                VenomMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            VenomMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            VenomMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        VenomMagicText.gameObject.SetActive(false);
+        //    }
+        //}
 
-        // Handle Lightining magic
-        if (LightningMagicStation != null && LightningMagicText != null)
-        {
-            float distanceToLightningMagicStation = Vector3.Distance(player.position, LightningMagicStation.transform.position);
+        //// Handle Lightining magic
+        //if (LightningMagicStation != null && LightningMagicText != null)
+        //{
+        //    float distanceToLightningMagicStation = Vector3.Distance(player.position, LightningMagicStation.transform.position);
 
-            if (distanceToLightningMagicStation <= LightningMagicStation.interactionRange)
-            {
-                if (magicManager != null)
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToLightningMagicStation <= LightningMagicStation.interactionRange)
+        //    {
+        //        if (magicManager != null)
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Lightning)
-                    {
-                        LightningMagicText.text = "Lightning Magic Equipped";
-                    }
-                    else
-                    {
-                        LightningMagicText.text = "Press [E] to Equip Lightning Magic";
-                    }
+        //            if (currentMagic == MagicType.Lightning)
+        //            {
+        //                LightningMagicText.text = "Lightning Magic Equipped";
+        //            }
+        //            else
+        //            {
+        //                LightningMagicText.text = "Press [E] to Equip Lightning Magic";
+        //            }
 
-                    LightningMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    LightningMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                LightningMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            LightningMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            LightningMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        LightningMagicText.gameObject.SetActive(false);
+        //    }
+        //}
 
-        // Handle Wind magic
-        if (WindMagicStation != null && WindMagicText != null)
-        {
-            float distanceToWindMagicStation = Vector3.Distance(player.position, WindMagicStation.transform.position);
+        //// Handle Wind magic
+        //if (WindMagicStation != null && WindMagicText != null)
+        //{
+        //    float distanceToWindMagicStation = Vector3.Distance(player.position, WindMagicStation.transform.position);
 
-            if (distanceToWindMagicStation <= WindMagicStation.interactionRange)
-            {
-                if (magicManager != null)
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToWindMagicStation <= WindMagicStation.interactionRange)
+        //    {
+        //        if (magicManager != null)
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Wind)
-                    {
-                        WindMagicText.text = "Wind Magic Equipped";
-                    }
-                    else
-                    {
-                        WindMagicText.text = "Press [E] to Equip Wind Magic";
-                    }
+        //            if (currentMagic == MagicType.Wind)
+        //            {
+        //                WindMagicText.text = "Wind Magic Equipped";
+        //            }
+        //            else
+        //            {
+        //                WindMagicText.text = "Press [E] to Equip Wind Magic";
+        //            }
 
-                    WindMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    WindMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                WindMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            WindMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            WindMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        WindMagicText.gameObject.SetActive(false);
+        //    }
+        //}
 
-        // Handle Meteor magic
-        if (MeteorMagicStation != null && MeteorMagicText != null)
-        {
-            float distanceToMeteorMagicStation = Vector3.Distance(player.position, MeteorMagicStation.transform.position);
+        //// Handle Meteor magic
+        //if (MeteorMagicStation != null && MeteorMagicText != null)
+        //{
+        //    float distanceToMeteorMagicStation = Vector3.Distance(player.position, MeteorMagicStation.transform.position);
 
-            if (distanceToMeteorMagicStation <= MeteorMagicStation.interactionRange)
-            {
-                if (magicManager != null)
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToMeteorMagicStation <= MeteorMagicStation.interactionRange)
+        //    {
+        //        if (magicManager != null)
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Meteor)
-                    {
-                        MeteorMagicText.text = "Meteor Magic Equipped";
-                    }
-                    else
-                    {
-                        MeteorMagicText.text = "Press [E] to Equip Meteor Magic";
-                    }
+        //            if (currentMagic == MagicType.Meteor)
+        //            {
+        //                MeteorMagicText.text = "Meteor Magic Equipped";
+        //            }
+        //            else
+        //            {
+        //                MeteorMagicText.text = "Press [E] to Equip Meteor Magic";
+        //            }
 
-                    MeteorMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    MeteorMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                MeteorMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            MeteorMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            MeteorMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MeteorMagicText.gameObject.SetActive(false);
+        //    }
+        //}
 
-        // Handle Crimson magic
-        if (CrimsonMagicStation != null && CrimsonMagicText != null)
-        {
-            float distanceToCrimsonMagicStation = Vector3.Distance(player.position, CrimsonMagicStation.transform.position);
+        //// Handle Crimson magic
+        //if (CrimsonMagicStation != null && CrimsonMagicText != null)
+        //{
+        //    float distanceToCrimsonMagicStation = Vector3.Distance(player.position, CrimsonMagicStation.transform.position);
 
-            if (distanceToCrimsonMagicStation <= CrimsonMagicStation.interactionRange)
-            {
-                if (magicManager != null)
-                {
-                    MagicType currentMagic = magicManager.GetCurrentMagicType();
+        //    if (distanceToCrimsonMagicStation <= CrimsonMagicStation.interactionRange)
+        //    {
+        //        if (magicManager != null)
+        //        {
+        //            MagicType currentMagic = magicManager.GetCurrentMagicType();
 
-                    if (currentMagic == MagicType.Crimson)
-                    {
-                        CrimsonMagicText.text = "Crimson Magic Equipped";
-                    }
-                    else
-                    {
-                        CrimsonMagicText.text = "Press [E] to Equip Crimson Magic";
-                    }
+        //            if (currentMagic == MagicType.Crimson)
+        //            {
+        //                CrimsonMagicText.text = "Crimson Magic Equipped";
+        //            }
+        //            else
+        //            {
+        //                CrimsonMagicText.text = "Press [E] to Equip Crimson Magic";
+        //            }
 
-                    CrimsonMagicText.gameObject.SetActive(true);
-                }
-                else
-                {
-                    CrimsonMagicText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                CrimsonMagicText.gameObject.SetActive(false);
-            }
-        }
+        //            CrimsonMagicText.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            CrimsonMagicText.gameObject.SetActive(false);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        CrimsonMagicText.gameObject.SetActive(false);
+        //    }
+        //}
+
+        UpdateMagicPrompts();
+
 
         //--------------------------------------------------Magic Cooldown
 
@@ -549,6 +561,30 @@ public class UI : MonoBehaviour
 
     }
 
+    void UpdateMagicPrompts()
+    {
+        if (magicStations == null || player == null || magicManager == null) return;
+
+        foreach (var e in magicStations)
+        {
+            if (e == null || e.station == null || e.text == null) continue;
+
+            float dist = Vector3.Distance(player.position, e.station.transform.position);
+            bool inRange = dist <= e.station.interactionRange;
+
+            if (!inRange)
+            {
+                e.text.gameObject.SetActive(false);
+                continue;
+            }
+
+            bool equipped = (magicManager.GetCurrentMagicType() == e.type);
+            e.text.text = equipped ? $"{e.label} Magic Equipped"
+                                   : $"Press [E] to Equip {e.label} Magic";
+
+            e.text.gameObject.SetActive(true);
+        }
+    }
 
     //------------------------------------ grenade logic
     void HandleGrenadeChestUI()
@@ -766,7 +802,6 @@ public class UI : MonoBehaviour
     }
 
     //----- Perk UI
-    // --- Perk UI (super simple, fixed 3f range) ---
     void HandlePerkStationUI(MonoBehaviour perkObj, Text uiText, string perkName, bool hasPerk, int cost)
     {
         if (uiText == null) return;

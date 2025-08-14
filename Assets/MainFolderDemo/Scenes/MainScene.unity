@@ -1355,24 +1355,43 @@ MonoBehaviour:
   pointsText: {fileID: 1939826365}
   ammoBoxText: {fileID: 1293110349}
   ammoBox: {fileID: 1302736054}
-  fireMagicText: {fileID: 955338821}
-  crystalMagicText: {fileID: 1960803887}
-  VoidMagicText: {fileID: 419769947}
-  IceMagicText: {fileID: 1434772913}
-  VenomMagicText: {fileID: 1955233130}
-  LightningMagicText: {fileID: 1004784608}
-  WindMagicText: {fileID: 857577984}
-  MeteorMagicText: {fileID: 1219517368}
-  CrimsonMagicText: {fileID: 1118701481}
-  fireStation: {fileID: 790823088}
-  crystalStation: {fileID: 1367364241}
-  VoidMagicStation: {fileID: 1853039008}
-  IceMagicStation: {fileID: 952542654}
-  VenomMagicStation: {fileID: 6799509}
-  LightningMagicStation: {fileID: 457638460}
-  WindMagicStation: {fileID: 1620839232}
-  MeteorMagicStation: {fileID: 1249465587}
-  CrimsonMagicStation: {fileID: 1630881980}
+  magicStations:
+  - station: {fileID: 790823088}
+    text: {fileID: 955338821}
+    type: 1
+    label: Fire
+  - station: {fileID: 1367364241}
+    text: {fileID: 1960803887}
+    type: 2
+    label: Crystal
+  - station: {fileID: 1853039008}
+    text: {fileID: 419769947}
+    type: 3
+    label: Void
+  - station: {fileID: 952542654}
+    text: {fileID: 1434772913}
+    type: 4
+    label: Ice
+  - station: {fileID: 6799509}
+    text: {fileID: 1955233130}
+    type: 5
+    label: Venom
+  - station: {fileID: 457638460}
+    text: {fileID: 1004784608}
+    type: 6
+    label: Lightning
+  - station: {fileID: 1620839232}
+    text: {fileID: 857577984}
+    type: 7
+    label: Wind
+  - station: {fileID: 1249465587}
+    text: {fileID: 1219517368}
+    type: 8
+    label: Meteor
+  - station: {fileID: 1630881980}
+    text: {fileID: 1118701481}
+    type: 9
+    label: Crimson
   magicCooldownSlider: {fileID: 1711087072}
   magicStatusText: {fileID: 913009173}
   grenadeChest: {fileID: 1649048623}
