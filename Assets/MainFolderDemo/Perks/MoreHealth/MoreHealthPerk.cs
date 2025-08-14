@@ -5,6 +5,7 @@ using System.Collections;
 
 public class MoreHealthPerk : MonoBehaviour
 {
+    public PointManager points;
     [Header("Interact")]
     public Transform player;
     public PerkType type = PerkType.Health;
@@ -40,6 +41,10 @@ public class MoreHealthPerk : MonoBehaviour
 
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+
+        if (points == null)      // <-- ADD
+            points = FindFirstObjectByType<PointManager>();
     }
 
     void Update()
@@ -47,6 +52,15 @@ public class MoreHealthPerk : MonoBehaviour
         bool inRange = Vector3.Distance(player.position, transform.position) <= interactDistance;
         if (inRange && Input.GetKeyDown(KeyCode.E) && !hasMoreHealthPerk)
         {
+            UI ui = FindFirstObjectByType<UI>();
+
+            // **PAY OR BLOCK**
+            if (!points.TrySpend(cost))   // <-- ADD
+            {
+                if (ui != null) ui.ShowTemporaryPerkMessage("Not enough points");
+                return;
+            }
+
             ArmMovementMegaScript arms = FindFirstObjectByType<ArmMovementMegaScript>();   //arm script
             if (arms == null || arms.IsGrenadeAnimating || arms.IsPerkAnimating) return;
 

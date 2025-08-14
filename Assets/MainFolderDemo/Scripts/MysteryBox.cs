@@ -19,12 +19,13 @@ public class MysteryBox : MonoBehaviour
 
 
     private ArmMovementMegaScript armMovementMegaScript;
-
+ 
 
     void Start()
     {
         weaponManager = FindObjectOfType<WeaponManager>();
         armMovementMegaScript = FindFirstObjectByType<ArmMovementMegaScript>();
+ 
 
     }
 
@@ -35,7 +36,15 @@ public class MysteryBox : MonoBehaviour
             float distanceToPlayer = Vector3.Distance(player.position, transform.position);   // write transform.position bc it is attached to the box the script so we know its the box
             if (distanceToPlayer <= minimumDistanceToOpen)
             {
-                OpenBoxAndShowRandomWeapon();
+                const int BOX_COST = 950;
+                var pm = PointManager.Instance;
+                if (pm == null) return;
+
+                // block if not enough, otherwise charge and open
+                if (pm.GetPoints() < BOX_COST) return;
+
+                pm.SubtractPoints(BOX_COST);               // take points HERE (authoritative)
+                OpenBoxAndShowRandomWeapon();              // now spawn preview
             }
             //else
             //{

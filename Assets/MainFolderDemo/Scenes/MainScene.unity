@@ -232,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 5
   interactionRange: 3
+  cost: 3000
 --- !u!65 &6799510
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1392,6 +1393,7 @@ MonoBehaviour:
     text: {fileID: 1118701481}
     type: 9
     label: Crimson
+  NoMoneyStatusText: {fileID: 0}
   magicCooldownSlider: {fileID: 1711087072}
   magicStatusText: {fileID: 913009173}
   grenadeChest: {fileID: 1649048623}
@@ -2109,6 +2111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823e623cb9cf7aa4f93a14d8c045974a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: {fileID: 1577369121}
   player: {fileID: 561119877}
   type: 0
   cost: 2000
@@ -4547,6 +4550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 6
   interactionRange: 3
+  cost: 2500
 --- !u!65 &457638461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5684,6 +5688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9524a31b8b41d314b925ae7ff17ed71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: {fileID: 1577369121}
   player: {fileID: 561119877}
   type: 2
   cost: 4000
@@ -7090,6 +7095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 1
   interactionRange: 3
+  cost: 50
 --- !u!1 &806374427
 GameObject:
   m_ObjectHideFlags: 0
@@ -8650,6 +8656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf4d9bbebe655e419ef1f03735b6445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: {fileID: 1577369121}
   player: {fileID: 561119877}
   type: 1
   cost: 2500
@@ -9070,6 +9077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 4
   interactionRange: 3
+  cost: 2500
 --- !u!65 &952542655
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11352,6 +11360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 8
   interactionRange: 3
+  cost: 10000
 --- !u!65 &1249465588
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12396,6 +12405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 2
   interactionRange: 3
+  cost: 3000
 --- !u!1 &1389579824
 GameObject:
   m_ObjectHideFlags: 0
@@ -13887,7 +13897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b54553486bb21d4ea9b2596bc0cadef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 500
+  points: 100500
 --- !u!1 &1583344107
 GameObject:
   m_ObjectHideFlags: 0
@@ -14013,7 +14023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1595701417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14326,6 +14336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 7
   interactionRange: 3
+  cost: 3000
 --- !u!1 &1630881978
 GameObject:
   m_ObjectHideFlags: 0
@@ -14376,6 +14387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 9
   interactionRange: 3
+  cost: 9500
 --- !u!65 &1630881981
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15514,6 +15526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c426308fde725b34985b460ca7e8f33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: {fileID: 1577369121}
   player: {fileID: 561119877}
   type: 3
   cost: 2000
@@ -15582,6 +15595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicType: 3
   interactionRange: 3
+  cost: 3000
 --- !u!65 &1853039009
 BoxCollider:
   m_ObjectHideFlags: 0

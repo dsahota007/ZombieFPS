@@ -29,4 +29,17 @@ public class PointManager : MonoBehaviour
     {
         return points;
     }
+
+    public bool CanAfford(int cost)
+    {
+        return points >= cost;
+    }
+
+    public bool TrySpend(int cost)
+    {
+        if (points < cost) return false;
+        points -= cost;
+        return true;
+    }
+
 }
