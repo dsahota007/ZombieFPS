@@ -307,6 +307,15 @@ public class Weapon : MonoBehaviour
         if (armMover) armMover.ReloadOffset(false);
     }
 
+    public void RefillFull()
+    {
+        // fills mag + reserve fully
+        // (fields are private, but we're inside Weapon so it's allowed)
+        // you already have: currentAmmo, ammoReserve, clipSize, maxReserve
+        currentAmmo = clipSize;
+        ammoReserve = maxReserve;
+    }
+
     private bool IsSprinting()
     {
         var movement = FindFirstObjectByType<PlayerMovement>();             //fetch script

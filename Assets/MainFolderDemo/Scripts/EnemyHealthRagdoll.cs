@@ -29,6 +29,14 @@ public class EnemyHealthRagdoll : MonoBehaviour
 
     public void RegisterHit(Vector3 hitDirection)
     {
+        var dm = FindFirstObjectByType<DropManager>();
+        if (dm != null && dm.IsInstaKill)
+        {
+            Die(hitDirection);
+            return;
+        }
+
+
         if (isDead) return;   //leave func if already deaad
 
         currentHealth++;
@@ -38,6 +46,7 @@ public class EnemyHealthRagdoll : MonoBehaviour
         {
             if (cam) cam.ShowHitmarker(true);
             Die(hitDirection);
+ 
         }
         else
         {
@@ -47,6 +56,14 @@ public class EnemyHealthRagdoll : MonoBehaviour
     }
     public void TakeDamage(float damage, Vector3 hitDirection)
     {
+        var dm = FindFirstObjectByType<DropManager>();
+        if (dm != null && dm.IsInstaKill)
+        {
+            Die(hitDirection);
+            return;
+        }
+
+
         if (isDead) return;   //exit func if dead
 
         currentHealth -= damage;    //decrement the damage from health
@@ -73,6 +90,9 @@ public class EnemyHealthRagdoll : MonoBehaviour
         if (animator) animator.enabled = false;         //turn all that shit off animations, navmesh and the boxCollider so we dont run into it 
         if (agent) agent.enabled = false;
         if (BoxRootCollider) BoxRootCollider.enabled = false;
+
+        var ds = FindFirstObjectByType<DropSpawner>();
+        if (ds) ds.TrySpawnDrop(transform.position + Vector3.up * 0.5f);
 
         // Disable other attack/AI scripts if any----------------------------- idk waht this block does 
         //MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();

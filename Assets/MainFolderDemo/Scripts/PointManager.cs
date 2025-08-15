@@ -6,6 +6,7 @@ public class PointManager : MonoBehaviour
     public static PointManager Instance;
 
     public int points = 500;            //starting point for points
+    public static float GlobalPointsMult = 1f;
 
     void Awake()  //Runs before Start(). Used to initialize things early. 
     {
@@ -15,11 +16,10 @@ public class PointManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void AddPoints(int ZombPoints)
+    public void AddPoints(int ZombPoints)      // CHANGE THIS
     {
-        points += ZombPoints;
+        points += Mathf.RoundToInt(ZombPoints * GlobalPointsMult);
     }
-
     public void SubtractPoints(int cost)
     {
         points -= cost;

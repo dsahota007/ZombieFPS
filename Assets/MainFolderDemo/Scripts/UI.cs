@@ -113,6 +113,16 @@ public class UI : MonoBehaviour
 
     //--------------------------
 
+    // timed power-up UI
+    private Coroutine powerupTimerCo;
+    public RectTransform statusStackRoot;
+    public Text statusRowPrefab;
+
+    private readonly System.Collections.Generic.Dictionary<string, UnityEngine.UI.Text> _timedRows =
+    new System.Collections.Generic.Dictionary<string, UnityEngine.UI.Text>();
+    private readonly System.Collections.Generic.Dictionary<string, Coroutine> _timedCoroutines =
+        new System.Collections.Generic.Dictionary<string, Coroutine>();
+
     void Start()
     {
         magicManager = FindFirstObjectByType<MagicManager>();  // Find it once at start
@@ -689,6 +699,8 @@ public class UI : MonoBehaviour
 
         var cam = FindFirstObjectByType<CameraScript>();  //fethc cam script
         if (cam) cam.cameraLocked = true;    //were disablign movment by setting this varibale as true so we can move around in teh menu -- look at cam script we put this eveyrwhere
+
+        if (statusStackRoot) statusStackRoot.gameObject.SetActive(false);   //so you dont see drops when your in the menu
     }
 
     void CloseGrenadePanel()
@@ -702,6 +714,9 @@ public class UI : MonoBehaviour
 
         var cam = FindFirstObjectByType<CameraScript>();        //fethc cam script
         if (cam) cam.cameraLocked = false;   //were enable cam movment by setting this varibale as false so we can move around in game with camera -- look at cam script we put this eveyrwhere
+
+        if (statusStackRoot) statusStackRoot.gameObject.SetActive(true);  //so you can see drops if active
+
     }
 
     //--- Grenade type Dictionary setting
@@ -925,5 +940,68 @@ public class UI : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         t.gameObject.SetActive(false);
     }
+
+    // ---------------- Drops text
+    public void ShowToast(string message, float seconds = 1.5f)
+    {
+        // fallback to your old single text if stack not wired yet
+        if (statusStackRoot == null || statusRowPrefab == null)
+        {
+            ShowTemporaryMagicMessage(message);
+            return;
+        }
+
+        var row = Instantiate(statusRowPrefab, statusStackRoot);
+        row.text = message;
+        StartCoroutine(DestroyRowAfter(row, seconds));
+    }
+
+    private System.Collections.IEnumerator DestroyRowAfter(UnityEngine.UI.Text row, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        if (row != null) Destroy(row.gameObject);
+    }
+
+    // Timed badge that updates every frame (e.g., "INSTA-KILL (25s)"), one row per key.
+    // If you call again with same key, it refreshes the same row instead of adding a duplicate.
+    public void ShowTimedPowerup(string key, string label, float durationSeconds)
+    {
+        if (statusStackRoot == null || statusRowPrefab == null)
+        {
+            ShowTemporaryMagicMessage(label);
+            return;
+        }
+
+        if (_timedCoroutines.TryGetValue(key, out var co) && co != null)
+            StopCoroutine(co);
+
+        if (!_timedRows.TryGetValue(key, out var row) || row == null)
+        {
+            row = Instantiate(statusRowPrefab, statusStackRoot);
+            _timedRows[key] = row;
+        }
+
+        _timedCoroutines[key] = StartCoroutine(TimedPowerupRoutine(key, row, label, durationSeconds));
+    }
+
+    private System.Collections.IEnumerator TimedPowerupRoutine(string key, UnityEngine.UI.Text row, string label, float durationSeconds)
+    {
+        float end = Time.time + Mathf.Max(0f, durationSeconds);
+        row.gameObject.SetActive(true);
+
+        while (Time.time < end)
+        {
+            int secs = Mathf.CeilToInt(end - Time.time);
+            row.text = $"{label} ({secs}s)";
+            yield return null;
+        }
+
+        // cleanup
+        if (_timedCoroutines.ContainsKey(key)) _timedCoroutines.Remove(key);
+        if (_timedRows.ContainsKey(key)) _timedRows.Remove(key);
+        if (row != null) Destroy(row.gameObject);
+    }
+
+
 
 }
