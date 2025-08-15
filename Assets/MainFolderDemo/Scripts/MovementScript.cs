@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 2f;
     public float aimSpeed = 3.5f;
 
+    private float _baseWalkSpeed;
+    private float _baseSprintSpeed;
+
 
     [Header("Slide Settings")]
     public float slideSpeed = 12f;
@@ -68,7 +71,10 @@ public class PlayerMovement : MonoBehaviour
         // Store normal controller dimensions so we can like reset
         normalControllerHeight = controller.height;
         normalControllerCenter = controller.center;
- 
+
+        _baseWalkSpeed = walkSpeed;             //-- for perk resetting
+        _baseSprintSpeed = sprintSpeed;
+
     }
 
     void Update()
@@ -305,6 +311,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //----------------------- Getters
+
+    public void ResetSpeedsToBase()   //after death for speed perk
+    {
+        walkSpeed = _baseWalkSpeed;
+        sprintSpeed = _baseSprintSpeed;
+    }
+
 
     public bool IsGrounded() => isGrounded;
     public bool IsSliding()  // for Cam script so i can reset it 

@@ -71,6 +71,10 @@ public class Weapon : MonoBehaviour
     public bool isWeaponBeingShowcased = false; // for script deleting for UI -- so the gun does not shoot when being displayed. 
 
     public bool IsReloading => isReloading;          //could delete -------------------------------------
+
+
+    [Header("Global Weapon/Perk Variables")]
+    public static float GlobalReloadSpeedMult = 1f;
     public static float GlobalFireRateMult = 1f;   //new multiplier for double tap concept
     private float ShotDelay => Mathf.Max(0.02f, fireRate / Mathf.Max(0.01f, GlobalFireRateMult));
     private float BurstDelayM => Mathf.Max(0.02f, burstDelay / Mathf.Max(0.01f, GlobalFireRateMult));
@@ -243,6 +247,10 @@ public class Weapon : MonoBehaviour
     {
         isReloading = true;
 
+        float reloadDur = reloadDuration / Mathf.Max(0.01f, GlobalReloadSpeedMult); // lerp duration
+        float waitReload = reloadTime / Mathf.Max(0.01f, GlobalReloadSpeedMult); // mid “swap” wait
+
+
         ArmMovementMegaScript armMover = FindFirstObjectByType<ArmMovementMegaScript>();
         if (armMover) armMover.ReloadOffset(true);                           //play reload arm animation
 
@@ -256,13 +264,13 @@ public class Weapon : MonoBehaviour
         float time = 0f;                        //this is like a progress bar
         while (time < 1f)
         {
-            time += Time.deltaTime / reloadDuration;       // we have time than divide by how long you want to finish
+            time += Time.deltaTime / reloadDur;       // we have time than divide by how long you want to finish
             magazine.localPosition = Vector3.Lerp(magStart, magDown, time);     //(a,b,t)
             leftArm.localPosition = Vector3.Lerp(armStart, armDown, time);
             yield return null;      //means “wait for the next frame” before continuing the coroutine ???
         }
 
-        yield return new WaitForSeconds(reloadTime);   //Wait until the reload action is visually done (like the mag swap)
+        yield return new WaitForSeconds(waitReload);   //Wait until the reload action is visually done (like the mag swap)
 
         int needed = clipSize - currentAmmo;
         int toReload = Mathf.Min(needed, ammoReserve);
@@ -274,7 +282,7 @@ public class Weapon : MonoBehaviour
         time = 0f;
         while (time < 1f)
         {
-            time += Time.deltaTime / reloadDuration;
+            time += Time.deltaTime / reloadDur;
             magazine.localPosition = Vector3.Lerp(magDown, magStart, time);
             leftArm.localPosition = Vector3.Lerp(armDown, armStart, time);
             yield return null;

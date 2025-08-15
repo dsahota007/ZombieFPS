@@ -16,13 +16,23 @@ public class PlayerAttributes : MonoBehaviour
     private float lastDamageTime;
     private bool isRegenerating = false;
 
+    //---- perk reset setting
+    private float _baseMaxHealth;
+    private float _baseRegenDelay;
+    private float _baseRegenRate;
+
     void Start()
     {
         currentHealth = maxStartingHealth;
         lastDamageTime = -regenDelay;  // Allows regen to start immediately if untouched  --  so if we we have not taken damage in 5 seconds this we are able to than regen i think.?
-                                            //        Time.time >= lastDamageTime + regenDelay
-                                            //→ 0 >= -5 + 5
-                                            //→ 0 >= 0 true
+                                       //        Time.time >= lastDamageTime + regenDelay
+                                       //→ 0 >= -5 + 5
+                                       //→ 0 >= 0 true
+
+        _baseMaxHealth = maxStartingHealth;
+        _baseRegenDelay = regenDelay;
+        _baseRegenRate = regenRatePerSecond;
+
     }
 
     void Update()
@@ -67,6 +77,7 @@ public class PlayerAttributes : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Player is DEAD!");
+            ResetAllPerksOnDeath();
         }
 
         UI ui = FindObjectOfType<UI>();
@@ -100,6 +111,43 @@ public class PlayerAttributes : MonoBehaviour
     {
         return currentHealth / maxStartingHealth;
     }
+
+    // wipe all perks + UI + stats (call this when you die)
+    public void ResetAllPerksOnDeath()
+    {
+        // 1) global weapon modifiers back to normal
+        Weapon.GlobalFireRateMult = 1f;
+        Weapon.GlobalReloadSpeedMult = 1f;
+
+        // 2) player stats back to base
+        maxStartingHealth = _baseMaxHealth;
+        regenDelay = _baseRegenDelay;
+        regenRatePerSecond = _baseRegenRate;
+        currentHealth = Mathf.Min(currentHealth, maxStartingHealth);
+
+        // 3) speeds back to base (if speed perk changed them)
+        var pm = FindFirstObjectByType<PlayerMovement>();
+        if (pm != null) pm.ResetSpeedsToBase();   // add tiny method below in PlayerMovement
+
+        // 4) clear perk “owned” flags so you can buy again
+        var fire = FindFirstObjectByType<MoreFireRatePerk>(); if (fire) fire.hasMoreFireRatePerk = false;
+        var speed = FindFirstObjectByType<MoreSpeedPerk>(); if (speed) speed.hasMoreSpeedPerk = false;
+        var health = FindFirstObjectByType<MoreHealthPerk>(); if (health) health.hasMoreHealthPerk = false;
+        var revive = FindFirstObjectByType<MoreRevivePerk>(); if (revive) revive.hasMoreRevivePerk = false;
+        var fasthands = FindFirstObjectByType<FastHandsPerk>(); if (fasthands) fasthands.hasFastHandsPerk = false;
+
+        // 5) remove perk icons from the bar
+        var ui = FindFirstObjectByType<UI>();
+        if (ui != null)
+        {
+            ui.RemovePerkIcon(PerkType.FireRate);
+            ui.RemovePerkIcon(PerkType.Speed);
+            ui.RemovePerkIcon(PerkType.Health);
+            ui.RemovePerkIcon(PerkType.Revive);
+            ui.RemovePerkIcon(PerkType.FastHands);
+        }
+    }
+
 
 
 }

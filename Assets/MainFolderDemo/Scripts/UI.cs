@@ -98,6 +98,7 @@ public class UI : MonoBehaviour
     public Sprite healthIcon;
     public Sprite reviveIcon;
     public Sprite fireRateIcon;
+    public Sprite fastHandsIcon;
 
     private readonly List<PerkType> _perkOrder = new List<PerkType>();  //a list that remembers which perks were added and in what order (first → last). Useful if you ever need to read them back in order.
     private readonly Dictionary<PerkType, Image> _activePerkIcons = new Dictionary<PerkType, Image>();  //map/dict so we can perkkType --> img assign to that perk. 
@@ -106,6 +107,7 @@ public class UI : MonoBehaviour
     public Text speedPerkText;
     public Text healthPerkText;
     public Text revivePerkText;
+    public Text fastHandsPerkText;
 
     //--------------------------
 
@@ -804,7 +806,7 @@ public class UI : MonoBehaviour
         img.SetNativeSize();                                            // optional
                                                                         // optional: clamp size
         var rt = img.rectTransform;
-        rt.sizeDelta = new Vector2(48, 48);
+        rt.sizeDelta = new Vector2(24, 24);
 
         // pop-in anim
         StartCoroutine(PopIn(img));
@@ -831,6 +833,7 @@ public class UI : MonoBehaviour
             case PerkType.Health: return healthIcon;
             case PerkType.Revive: return reviveIcon;
             case PerkType.FireRate: return fireRateIcon;
+            case PerkType.FastHands: return fastHandsIcon;
 
             default: return null;
         }

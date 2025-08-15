@@ -324,8 +324,8 @@ MonoBehaviour:
   fireRate: 0.12
   burstDelay: 0.02
   reloadMoveAmount: 1.5
-  reloadDuration: 0.5
-  reloadTime: 1
+  reloadDuration: 0.25
+  reloadTime: 0.5
   clipSize: 30
   maxReserve: 1000
   recoilAngle: 6
@@ -338,4 +338,5 @@ MonoBehaviour:
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}
   controller: {fileID: 0}
+  targetKickbackOffset: {x: 0.03, y: -0.12, z: 0}
   isWeaponBeingShowcased: 0
