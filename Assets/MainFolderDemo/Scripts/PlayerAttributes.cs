@@ -118,6 +118,8 @@ public class PlayerAttributes : MonoBehaviour
         // 1) global weapon modifiers back to normal
         Weapon.GlobalFireRateMult = 1f;
         Weapon.GlobalReloadSpeedMult = 1f;
+        MagicManager.GlobalCooldownMult = 1f;     // back to normal cooldown
+
 
         // 2) player stats back to base
         maxStartingHealth = _baseMaxHealth;
@@ -135,6 +137,7 @@ public class PlayerAttributes : MonoBehaviour
         var health = FindFirstObjectByType<MoreHealthPerk>(); if (health) health.hasMoreHealthPerk = false;
         var revive = FindFirstObjectByType<MoreRevivePerk>(); if (revive) revive.hasMoreRevivePerk = false;
         var fasthands = FindFirstObjectByType<FastHandsPerk>(); if (fasthands) fasthands.hasFastHandsPerk = false;
+        var magicCooldonw = FindFirstObjectByType<MagicCooldownPerk>(); if (magicCooldonw) magicCooldonw.hasMagicCooldownPerk = false;
 
         // 5) remove perk icons from the bar
         var ui = FindFirstObjectByType<UI>();
@@ -145,6 +148,7 @@ public class PlayerAttributes : MonoBehaviour
             ui.RemovePerkIcon(PerkType.Health);
             ui.RemovePerkIcon(PerkType.Revive);
             ui.RemovePerkIcon(PerkType.FastHands);
+            ui.RemovePerkIcon(PerkType.MagicCooldown);
         }
     }
 

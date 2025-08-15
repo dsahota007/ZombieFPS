@@ -1,4 +1,4 @@
 using UnityEngine;
 
-public enum PerkType { Speed, Health, Revive, FireRate, FastHands }
+public enum PerkType { Speed, Health, Revive, FireRate, FastHands, MagicCooldown }
 

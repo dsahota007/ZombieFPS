@@ -99,6 +99,7 @@ public class UI : MonoBehaviour
     public Sprite reviveIcon;
     public Sprite fireRateIcon;
     public Sprite fastHandsIcon;
+    public Sprite magicCooldownIcon;
 
     private readonly List<PerkType> _perkOrder = new List<PerkType>();  //a list that remembers which perks were added and in what order (first → last). Useful if you ever need to read them back in order.
     private readonly Dictionary<PerkType, Image> _activePerkIcons = new Dictionary<PerkType, Image>();  //map/dict so we can perkkType --> img assign to that perk. 
@@ -108,6 +109,7 @@ public class UI : MonoBehaviour
     public Text healthPerkText;
     public Text revivePerkText;
     public Text fastHandsPerkText;
+    public Text magicCooldownPerkText;
 
     //--------------------------
 
@@ -572,7 +574,7 @@ public class UI : MonoBehaviour
         HandlePerkStationUI(
             FindFirstObjectByType<MoreFireRatePerk>(),
             fireRatePerkText,
-            "Fire Rate",
+            "Faster Fire Rate",
             FindFirstObjectByType<MoreFireRatePerk>() != null && FindFirstObjectByType<MoreFireRatePerk>().hasMoreFireRatePerk,
             FindFirstObjectByType<MoreFireRatePerk>() != null ? FindFirstObjectByType<MoreFireRatePerk>().cost : 0
         );
@@ -580,7 +582,7 @@ public class UI : MonoBehaviour
         HandlePerkStationUI(
             FindFirstObjectByType<MoreSpeedPerk>(),
             speedPerkText,
-            "Speed",
+            "More Running Speed",
             FindFirstObjectByType<MoreSpeedPerk>() != null && FindFirstObjectByType<MoreSpeedPerk>().hasMoreSpeedPerk,
             FindFirstObjectByType<MoreSpeedPerk>() != null ? FindFirstObjectByType<MoreSpeedPerk>().cost : 0
         );
@@ -588,7 +590,7 @@ public class UI : MonoBehaviour
         HandlePerkStationUI(
             FindFirstObjectByType<MoreHealthPerk>(),
             healthPerkText,
-            "Health",
+            "More Health",
             FindFirstObjectByType<MoreHealthPerk>() != null && FindFirstObjectByType<MoreHealthPerk>().hasMoreHealthPerk,
             FindFirstObjectByType<MoreHealthPerk>() != null ? FindFirstObjectByType<MoreHealthPerk>().cost : 0
         );
@@ -596,10 +598,18 @@ public class UI : MonoBehaviour
         HandlePerkStationUI(
             FindFirstObjectByType<MoreRevivePerk>(),
             revivePerkText,
-            "Quick Revive",
+            "Fast Revive",
             FindFirstObjectByType<MoreRevivePerk>() != null && FindFirstObjectByType<MoreRevivePerk>().hasMoreRevivePerk,
             FindFirstObjectByType<MoreRevivePerk>() != null ? FindFirstObjectByType<MoreRevivePerk>().cost : 0
         );
+        HandlePerkStationUI(
+            FindFirstObjectByType<MagicCooldownPerk>(),
+            magicCooldownPerkText,
+            "Faster Magic Cooldown",
+            FindFirstObjectByType<MagicCooldownPerk>()?.hasMagicCooldownPerk ?? false,
+            FindFirstObjectByType<MagicCooldownPerk>()?.cost ?? 0
+);
+
 
 
     }
@@ -834,6 +844,8 @@ public class UI : MonoBehaviour
             case PerkType.Revive: return reviveIcon;
             case PerkType.FireRate: return fireRateIcon;
             case PerkType.FastHands: return fastHandsIcon;
+            case PerkType.MagicCooldown: return magicCooldownIcon;
+
 
             default: return null;
         }

@@ -42,13 +42,16 @@ public class MagicManager : MonoBehaviour
     public float cooldown = 8f;     // seconds until next cast
     private float lastCastTime;     // when we last started a cast
 
-    public bool IsReady() => Time.time >= lastCastTime + cooldown;  //calc till ur cooldown ready
+    public bool IsReady() => Time.time >= lastCastTime + EffectiveCooldown;  //+ cooldown;  //calc till ur cooldown ready
+    public static float GlobalCooldownMult = 1f;
+    private float EffectiveCooldown => cooldown / Mathf.Max(0.01f, GlobalCooldownMult);
+
+
     public float GetCooldownProgress01()
     {
         float since = Time.time - lastCastTime;
-        return Mathf.Clamp01(since / Mathf.Max(0.0001f, cooldown));
+        return Mathf.Clamp01(since / Mathf.Max(0.0001f, EffectiveCooldown));
     }
-
 
     //public static MagicManager Instance { get; private set; }
 
@@ -69,7 +72,7 @@ public class MagicManager : MonoBehaviour
         armMagicSpell = FindFirstObjectByType<ArmMagicSpell>();    // Find your casting script
         UpdateMagicType();
 
-        lastCastTime = -cooldown; // start off as "ready"
+        lastCastTime = EffectiveCooldown;   //-cooldown; // start off as "ready"
 
     }
 
