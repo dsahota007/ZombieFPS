@@ -46,6 +46,11 @@ public class MagicManager : MonoBehaviour
     public static float GlobalCooldownMult = 1f;
     private float EffectiveCooldown => cooldown / Mathf.Max(0.01f, GlobalCooldownMult);
 
+    public void RestoreCooldownNow()
+    {
+        // pretend we casted long enough ago that we're ready *now*
+        lastCastTime = Time.time - EffectiveCooldown;  // uses your GlobalCooldownMult-safe value
+    }
 
     public float GetCooldownProgress01()
     {

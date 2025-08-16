@@ -33,6 +33,27 @@ public class GrenadeManager : MonoBehaviour
     private Dictionary<GrenadeType, GameObject> map;    //dictinary mapping for gernadetype KEY
     private Dictionary<GrenadeType, int> count;          // live counts for grenade amounts
 
+    public void SetCount(GrenadeType t, int value)
+    {
+        // clamp to that type’s cap
+        value = Mathf.Clamp(value, 0, GetCap(t));
+
+        // write into your 'count' dictionary (not _counts)
+        if (count.ContainsKey(t)) count[t] = value;
+        else count.Add(t, value);
+    }
+    public void RefillAllToCap()
+    {
+        foreach (GrenadeType gt in System.Enum.GetValues(typeof(GrenadeType)))
+        {
+            if (gt == GrenadeType.None) continue;
+            SetCount(gt, GetCap(gt));
+        }
+    }
+
+
+
+
     void Awake()   //Awake(): A Unity lifecycle method that runs before Start(),
     {
         map = new Dictionary<GrenadeType, GameObject>

@@ -9,6 +9,7 @@ public class DropManager : MonoBehaviour
     private float doublePointsEnd = -999f;
     private float instaKillEnd = -999f;
 
+
     public bool IsDoublePoints => Time.time < doublePointsEnd;
     public bool IsInstaKill => Time.time < instaKillEnd;
 
@@ -30,6 +31,12 @@ public class DropManager : MonoBehaviour
                 FindFirstObjectByType<UI>()?.ShowTimedPowerup("double", "DOUBLE POINTS", doublePointsDuration);
                 break;
 
+            case DropType.TriplePoints:
+                doublePointsEnd = Time.time + 20f;
+                PointManager.GlobalPointsMult = 3f;
+                FindFirstObjectByType<UI>()?.ShowTimedPowerup("triple", "TRIPLE POINTS", 20f);
+                break;
+
             case DropType.InstaKill:
                 instaKillEnd = Time.time + instaKillDuration;
                 FindFirstObjectByType<UI>()?.ShowTimedPowerup("insta", "INSTA-KILL", instaKillDuration);
@@ -44,6 +51,17 @@ public class DropManager : MonoBehaviour
                 DoMaxAmmo();
                 FindFirstObjectByType<UI>()?.ShowToast("MAX AMMO!", 1.5f);
                 break;
+
+            case DropType.BonusPoints:
+                PointManager.Instance.AddPoints(500);
+                FindFirstObjectByType<UI>()?.ShowToast("BONUS POINTS", 1.5f);
+                break;
+ 
+            case DropType.FullMagic:
+                var mm = FindFirstObjectByType<MagicManager>();
+                if (mm != null) mm.RestoreCooldownNow();   
+                FindFirstObjectByType<UI>()?.ShowToast("MAGIC RESTORED", 1.5f);
+                break;
         }
 
         void DoMaxAmmo()
@@ -52,7 +70,7 @@ public class DropManager : MonoBehaviour
             var player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                foreach (var w in player.GetComponentsInChildren<Weapon>(true)) // true = include inactive (holstered)
+                foreach (var w in player.GetComponentsInChildren<Weapon>(true)) // include inactive
                 {
                     if (w != null && !w.isWeaponBeingShowcased) // skip box preview
                         w.RefillFull();
@@ -63,6 +81,10 @@ public class DropManager : MonoBehaviour
             var active = WeaponManager.ActiveWeapon;
             if (active != null && !active.isWeaponBeingShowcased)
                 active.RefillFull();
+
+            // If you also want grenades refilled:
+            var gm = FindFirstObjectByType<GrenadeManager>();
+            if (gm != null) gm.RefillAllToCap();
         }
 
 
