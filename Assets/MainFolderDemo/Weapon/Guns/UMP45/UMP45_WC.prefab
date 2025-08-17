@@ -306,12 +306,10 @@ MonoBehaviour:
   controller: {fileID: 0}
   targetKickbackOffset: {x: 0.03, y: -0.12, z: 0}
   isWeaponBeingShowcased: 0
-  overrideHoldPose: 1
-  rightLocalOffset: {x: -0.058, y: 0.195, z: -0.373}
-  rightLocalEuler: {x: -51.385, y: -133.7, z: -22.39}
-  leftLocalOffset: {x: -0.256, y: -0.225, z: -0.263}
-  leftLocalEuler: {x: -24.52, y: 199.83, z: -50.62}
-  leftHandGrip: {fileID: 0}
+  leftHoldPos: {x: -0.26, y: -0.225, z: -0.14}
+  leftHoldRotEuler: {x: -24.22, y: 199.835, z: -50.626}
+  rightHoldPos: {x: -0.05, y: 0.12, z: -0.38}
+  rightHoldRotEuler: {x: -51.388, y: -133.7, z: -22.396}
 --- !u!1 &8570951725881853728
 GameObject:
   m_ObjectHideFlags: 0

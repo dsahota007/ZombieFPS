@@ -9923,7 +9923,7 @@ GameObject:
   - component: {fileID: 5709827444404199806}
   - component: {fileID: 7980029976762078213}
   m_Layer: 0
-  m_Name: vfx_MuzzleFlash_01 1
+  m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

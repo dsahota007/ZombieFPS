@@ -96,7 +96,7 @@ public class ArmMovementMegaScript : MonoBehaviour
     //[HideInInspector] public Vector3 externalHipfireKickbackOffset = Vector3.zero;   -- we could add somethign like this -- open dc to look at the !isAiming code
     private PlayerMovement pm;
 
-
+    public Transform rightArm;
     void Start()
     {
 
@@ -243,6 +243,27 @@ public class ArmMovementMegaScript : MonoBehaviour
         //IDK This is only confusing part is it kickback idk -----------------------------------------------------------------------------
         Quaternion baseRot = cameraTransform.rotation * Quaternion.Euler(targetRotation);                                                     //--------------------------------------------????
         transform.rotation = Quaternion.Slerp(transform.rotation, baseRot * Quaternion.Euler(swayRotation), Time.deltaTime * smoothSpeed);    //--------------------------------------------????
+
+        // --- Per-gun arm placement (only while holding a gun) ---
+        var held = WeaponManager.ActiveWeapon;
+        if (held != null && !isReloading && !isGrenadeGrabPlaying && !IsPerkAnimating && !isCastingSpell)
+
+        {
+            // we only touch the arm bones; all your root offsets/bob/sway stay the same
+            float s = smoothSpeed;
+
+            if (leftArm != null)
+            {
+                leftArm.localPosition = Vector3.Lerp(leftArm.localPosition, held.leftHoldPos, Time.deltaTime * s);
+                leftArm.localRotation = Quaternion.Slerp(leftArm.localRotation, Quaternion.Euler(held.leftHoldRotEuler), Time.deltaTime * s);
+            }
+            if (rightArm != null)
+            {
+                rightArm.localPosition = Vector3.Lerp(rightArm.localPosition, held.rightHoldPos, Time.deltaTime * s);
+                rightArm.localRotation = Quaternion.Slerp(rightArm.localRotation, Quaternion.Euler(held.rightHoldRotEuler), Time.deltaTime * s);
+            }
+        }
+        // --- end per-gun arm placement ---
 
 
         //gernade throw logic
@@ -437,6 +458,7 @@ public class ArmMovementMegaScript : MonoBehaviour
         isPerkAnimPlaying = false;
     }
     public bool DrinkingPerk => isPerkAnimPlaying;
+
 
 
 }

@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     public Transform magazine;
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public float bulletDamage = 10f;
     public string weaponName;
 
     [Header("Fire Settings")]
@@ -72,6 +73,11 @@ public class Weapon : MonoBehaviour
 
     public bool IsReloading => isReloading;          //could delete -------------------------------------
 
+    [Header("Arm Placement")]
+    public Vector3 leftHoldPos;
+    public Vector3 leftHoldRotEuler;
+    public Vector3 rightHoldPos;
+    public Vector3 rightHoldRotEuler;
 
     [Header("Global Weapon/Perk Variables")]
     public static float GlobalReloadSpeedMult = 1f;
@@ -150,8 +156,16 @@ public class Weapon : MonoBehaviour
 
         currentAmmo--;
 
-        if (bulletPrefab && firePoint)                           //Instantiate(whatToSpawn, whereToSpawn, whichRotation);
-            Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);
+        if (bulletPrefab && firePoint)      
+        {                    
+            GameObject b = Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);     //Instantiate(whatToSpawn, whereToSpawn, whichRotation);
+            Bullet bullet = b.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                bullet.damage = bulletDamage;   // <-- weapon-specific damage
+            }
+        }
+
 
         //// --- Spawn muzzle flash ---
         if (muzzleFlashPrefab != null && firePoint != null)

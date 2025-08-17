@@ -340,3 +340,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   targetKickbackOffset: {x: 0.03, y: -0.12, z: 0}
   isWeaponBeingShowcased: 0
+  leftHoldPos: {x: -0.16, y: -0.19, z: -0.26}
+  leftHoldRotEuler: {x: -24.22, y: 199.385, z: -68.4}
+  rightHoldPos: {x: -0.05, y: 0.18, z: -0.37}
+  rightHoldRotEuler: {x: -51.385, y: -133.7, z: -22.396}

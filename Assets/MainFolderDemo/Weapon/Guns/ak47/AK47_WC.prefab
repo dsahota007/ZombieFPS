@@ -6091,6 +6091,10 @@ MonoBehaviour:
   controller: {fileID: 0}
   targetKickbackOffset: {x: 0.03, y: 0, z: 0}
   isWeaponBeingShowcased: 0
+  leftHoldPos: {x: -0.26, y: -0.2255, z: -0.17}
+  leftHoldRotEuler: {x: -24.22, y: 199.835, z: -50.626}
+  rightHoldPos: {x: -0.05, y: 0.12, z: -0.32}
+  rightHoldRotEuler: {x: -51.385, y: -133.7, z: -22.396}
 --- !u!1 &8027666018750598299
 GameObject:
   m_ObjectHideFlags: 0
