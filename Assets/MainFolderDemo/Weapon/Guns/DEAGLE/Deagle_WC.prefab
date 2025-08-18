@@ -334,11 +334,6 @@ MonoBehaviour:
   Tier2maxReserve: 150
   Tier3clipSize: 60
   Tier3maxReserve: 180
-  packVFXPrefab: {fileID: 0}
-  packVFXOffset: {x: 0, y: 0, z: 0}
-  packVFXRotation: {x: 0, y: 0, z: 0}
-  packVFXScale: {x: 1, y: 1, z: 1}
-  hasPackVFX: 0
   recoilAngle: 12
   recoilSnappiness: 12
   recoilReturnSpeed: 6
@@ -358,3 +353,7 @@ MonoBehaviour:
   bulletDamage: 50
   upgradeLevel: 0
   maxUpgradeLevel: 3
+  gunRenderer: {fileID: 6999209397487191708}
+  magazineRenderer: {fileID: 3242041813685131336}
+  papGunMaterial: {fileID: 2100000, guid: d8914ca7ee76ece4f85355986991bf5d, type: 2}
+  papMagMaterial: {fileID: 2100000, guid: bcf7dd96eab747d48b23918e5985c6c1, type: 2}

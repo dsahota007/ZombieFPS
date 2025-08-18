@@ -115,6 +115,25 @@ public class PackAPunch : MonoBehaviour
         foreach (var comp in showcasedWeapon.GetComponentsInChildren<MonoBehaviour>())
             Destroy(comp);
 
+
+        Weapon realWeapon = weaponManager.GetWeaponScriptAtIndex(storedIndex);
+
+        Renderer[] renderers = showcasedWeapon.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer r in renderers)
+        {
+            if (realWeapon.gunRenderer != null && r.name == realWeapon.gunRenderer.name && realWeapon.papGunMaterial != null)
+            {
+                r.material = realWeapon.papGunMaterial;
+            }
+
+            if (realWeapon.magazineRenderer != null && r.name == realWeapon.magazineRenderer.name && realWeapon.papMagMaterial != null)
+            {
+                r.material = realWeapon.papMagMaterial;
+            }
+        }
+
+
         // disable player's active weapon
         WeaponManager.ActiveWeapon.DisableWeapon();
 
@@ -165,15 +184,17 @@ public class PackAPunch : MonoBehaviour
             }
 
             w.RefillFull(); // refill mag + reserve
+            w.ApplyPackAPunchSkin();
 
-            if (!w.hasPackVFX && w.packVFXPrefab != null)
-            {
-                GameObject vfx = Instantiate(w.packVFXPrefab, w.transform);
-                vfx.transform.localPosition = w.packVFXOffset;
-                vfx.transform.localEulerAngles = w.packVFXRotation;
-                vfx.transform.localScale = w.packVFXScale;
-                w.hasPackVFX = true;
-            }
+
+            //if (!w.hasPackVFX && w.packVFXPrefab != null)
+            //{
+            //    GameObject vfx = Instantiate(w.packVFXPrefab, w.transform);
+            //    vfx.transform.localPosition = w.packVFXOffset;
+            //    vfx.transform.localEulerAngles = w.packVFXRotation;
+            //    vfx.transform.localScale = w.packVFXScale;
+            //    w.hasPackVFX = true;
+            //}
 
             // switch back to upgraded slot
             StartCoroutine(weaponManager.SwitchWeaponWithDrop(storedIndex));

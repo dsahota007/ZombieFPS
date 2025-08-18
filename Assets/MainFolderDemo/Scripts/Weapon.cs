@@ -39,12 +39,12 @@ public class Weapon : MonoBehaviour
     public int Tier3clipSize = 60;
     public int Tier3maxReserve = 180;
 
-    [Header("Pack-A-Punch VFX")]
-    public GameObject packVFXPrefab;
-    public Vector3 packVFXOffset = Vector3.zero;
-    public Vector3 packVFXRotation = Vector3.zero;
-    public Vector3 packVFXScale = Vector3.one;
-    [HideInInspector] public bool hasPackVFX = false;
+    //[Header("Pack-A-Punch VFX")]
+    //public GameObject packVFXPrefab;
+    //public Vector3 packVFXOffset = Vector3.zero;
+    //public Vector3 packVFXRotation = Vector3.zero;
+    //public Vector3 packVFXScale = Vector3.one;
+    //[HideInInspector] public bool hasPackVFX = false;
 
 
     [Header("Recoil Settings")]
@@ -108,6 +108,31 @@ public class Weapon : MonoBehaviour
     public float bulletDamage = 10f;
     public int upgradeLevel = 0;    
     public int maxUpgradeLevel = 3;
+
+    [Header("Pack-A-Punch Skins")]
+    public Renderer gunRenderer;
+    public Renderer magazineRenderer;
+    public Material papGunMaterial;
+    public Material papMagMaterial;
+    private bool isSkinned = false;
+
+    public void ApplyPackAPunchSkin()
+    {
+        if (isSkinned) return;
+
+        if (gunRenderer != null && papGunMaterial != null)
+        {
+            gunRenderer.material = papGunMaterial;
+        }
+
+        if (magazineRenderer != null && papMagMaterial != null)
+        {
+            magazineRenderer.material = papMagMaterial;
+        }
+
+        isSkinned = true;
+    }
+
 
     void Start()
     {
@@ -342,7 +367,7 @@ public class Weapon : MonoBehaviour
 
         ArmMovementMegaScript armMover = FindFirstObjectByType<ArmMovementMegaScript>();
         if (armMover) armMover.ReloadOffset(false);
-    }
+    } 
 
     public void RefillFull()
     {
