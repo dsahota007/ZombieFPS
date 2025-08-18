@@ -1136,35 +1136,39 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void InfuseWithFire()
+    public void OnClickInfuseFire()
+    {
+        InfuseWith(InfusionType.Fire);
+    }
+
+    public void OnClickInfuseIce()
+    {
+        InfuseWith(InfusionType.Ice);
+    }
+
+    public void OnClickInfuseCrystal()
+    {
+        InfuseWith(InfusionType.Crystal);
+    }
+
+    public void InfuseWith(InfusionType type)
     {
         if (currentWeapon != null)
         {
-            currentWeapon.SetInfusedElement("Fire");
-            infuseStatusText.text = "Fire Magic Infused!";
+            // Set both the enum and string for consistency
+            currentWeapon.SetInfusion(type);
+            currentWeapon.SetInfusedElement(type.ToString());
+
+            if (infuseStatusText != null)
+                infuseStatusText.text = $"{type} Magic Infused!";
         }
         else
         {
             Debug.LogWarning("No current weapon found to infuse.");
         }
-
         CloseInfusePanel();
     }
 
-    public void InfuseWithCrystal()
-    {
-        if (currentWeapon != null)
-        {
-            currentWeapon.SetInfusedElement("Crystal");
-            infuseStatusText.text = "Crystal Magic Infused!";
-        }
-        else
-        {
-            Debug.LogWarning("No current weapon found to infuse.");
-        }
-
-        CloseInfusePanel();
-    }
 }
 
 

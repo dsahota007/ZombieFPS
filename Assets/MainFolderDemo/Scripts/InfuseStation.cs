@@ -6,7 +6,6 @@ public class InfuseStation : MonoBehaviour
 
     public void OnInfusePressed()
     {
-        Debug.Log($"Opened Infuse Chest.");
-        // Later: Add logic to modify weapon properties based on this.elementName
+        Debug.Log("Opened Infuse Chest.");
     }
 }

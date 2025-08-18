@@ -3,6 +3,7 @@ using System.Collections;
 //using Unity.Mathematics;
 
 public enum FireType { Single, Burst, Auto }
+public enum InfusionType { None, Fire, Ice, Crystal }
 
 public class Weapon : MonoBehaviour
 {
@@ -108,7 +109,7 @@ public class Weapon : MonoBehaviour
 
     [Header("PAP Upgrades")]
     public float bulletDamage = 10f;
-    public int upgradeLevel = 0;    
+    public int upgradeLevel = 0;
     public int maxUpgradeLevel = 3;
 
     [Header("Pack-A-Punch Skins")]
@@ -117,6 +118,11 @@ public class Weapon : MonoBehaviour
     public Material papGunMaterial;
     public Material papMagMaterial;
     private bool isSkinned = false;
+
+    [Header("Infusion State")]
+    public InfusionType infusion = InfusionType.None;
+
+
 
 
     public void ApplyPackAPunchSkin()
@@ -208,8 +214,8 @@ public class Weapon : MonoBehaviour
 
         currentAmmo--;
 
-        if (bulletPrefab && firePoint)      
-        {                    
+        if (bulletPrefab && firePoint)
+        {
             GameObject b = Instantiate(bulletPrefab, firePoint.position + firePoint.forward * 0.2f, firePoint.rotation);     //Instantiate(whatToSpawn, whereToSpawn, whichRotation);
             Bullet bullet = b.GetComponent<Bullet>();
             if (bullet != null)
@@ -375,7 +381,7 @@ public class Weapon : MonoBehaviour
 
         ArmMovementMegaScript armMover = FindFirstObjectByType<ArmMovementMegaScript>();
         if (armMover) armMover.ReloadOffset(false);
-    } 
+    }
 
     public void RefillFull()
     {
@@ -416,8 +422,14 @@ public class Weapon : MonoBehaviour
         infusedElement = element;
         Debug.Log($"[Weapon] Infused with {element} magic.");
     }
+    //--
 
-
+    public void SetInfusion(InfusionType type)
+    {
+        infusion = type;
+        Debug.Log($"[Weapon] Infused with {type}");
+        // later: add VFX, damage multipliers, etc
+    }
 
 
     //for ui -- getter methods

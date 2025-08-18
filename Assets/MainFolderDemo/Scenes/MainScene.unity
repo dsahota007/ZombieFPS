@@ -5732,7 +5732,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 89101274}
         m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: InfuseWithCrystal
+        m_MethodName: OnClickInfuseCrystal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19915,7 +19915,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 89101274}
         m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: InfuseWithFire
+        m_MethodName: OnClickInfuseFire
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
