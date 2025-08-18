@@ -23,7 +23,7 @@ public class WeaponManager : MonoBehaviour
 
     private bool IsReloading = false;   //deleted line below this is yapping i think
     //public bool IsReloading => ActiveWeapon != null && ActiveWeapon.IsReloading;
-
+    private UI ui;
     public bool disableSwitching = false;
 
     public Weapon GetWeaponScriptAtIndex(int index)
@@ -36,6 +36,7 @@ public class WeaponManager : MonoBehaviour
     void Start()
     {
         controller = FindFirstObjectByType<CharacterController>();    // for some reason this allows us to reload when sprinting. 
+        ui = FindFirstObjectByType<UI>();
 
         weaponHolderOriginalPos = weaponHolder.localPosition;
         leftArmOriginalPos = leftArm.localPosition;
@@ -125,6 +126,14 @@ public class WeaponManager : MonoBehaviour
                                             leftArm, leftDown, leftArmOriginalPos,
                                             rightArm, rightDown, rightArmOriginalPos, 0.2f));
 
+        //imbue
+        ActiveWeapon = weaponScripts[index];
+        ActiveWeapon.CancelReload();
+
+        if (ui != null)
+            ui.SetCurrentWeapon(ActiveWeapon);
+
+
         isSwitching = false;
     }
 
@@ -155,6 +164,13 @@ public class WeaponManager : MonoBehaviour
         ActiveWeapon = weaponScripts[index];
 
         FindObjectOfType<ArmMovementMegaScript>().PlayEquipAnimation();
+
+        //-- imbue
+        ActiveWeapon = weaponScripts[index];
+
+        if (ui != null)
+            ui.SetCurrentWeapon(ActiveWeapon);
+
 
     }
 

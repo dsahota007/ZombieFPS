@@ -126,6 +126,14 @@ public class UI : MonoBehaviour
     private readonly System.Collections.Generic.Dictionary<string, Coroutine> _timedCoroutines =
         new System.Collections.Generic.Dictionary<string, Coroutine>();
 
+    [Header("Infusion UI")]
+    public GameObject infusePanel;
+    public Text infusePromptText;
+    public InfuseStation currentInfuseStation;
+    private bool infusePanelOpen = false;
+    public Text infuseStatusText;
+    [HideInInspector] Weapon currentWeapon;  //we need for cur weapon.
+
     void Start()
     {
         magicManager = FindFirstObjectByType<MagicManager>();  // Find it once at start
@@ -134,6 +142,12 @@ public class UI : MonoBehaviour
 
         if (grenadePanel) grenadePanel.SetActive(false); //set panel to false off rip
         if (grenadePrompt) grenadePrompt.gameObject.SetActive(false);  //set text to false off rip
+
+        if (infusePanel) infusePanel.SetActive(false);
+        if (infusePromptText) infusePromptText.gameObject.SetActive(false);
+
+        if (infuseStatusText) infuseStatusText.text = "";   //start empty
+
 
     }
 
@@ -662,6 +676,9 @@ public class UI : MonoBehaviour
             }
         }
 
+        HandleInfuseStationUI();
+
+
 
 
     }
@@ -746,6 +763,8 @@ public class UI : MonoBehaviour
 
         if (statusStackRoot) statusStackRoot.gameObject.SetActive(false);   //so you dont see drops when your in the menu
     }
+
+    public bool IsGrenadePanelOpen => grenadePanelOpen;   //this is for in weapon so we can not shoot when panel is open  -- getter
 
     void CloseGrenadePanel()
     {
@@ -835,8 +854,6 @@ public class UI : MonoBehaviour
         grenadeStatusText.gameObject.SetActive(false);          //turn it off
         grenadeMsgCo = null;
     }
-
-    public bool IsGrenadePanelOpen => grenadePanelOpen;   //this is for in weapon so we can not shoot when panel is open  -- getter
 
     //-------------------------MAGIC functions
 
@@ -1047,5 +1064,108 @@ public class UI : MonoBehaviour
     }
 
 
+    //---------------------------------INFUSING --------------------------- 
+    void HandleInfuseStationUI()
+    {
+        if (infusePanelOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E))
+                CloseInfusePanel();
+            return;
+        }
 
+        InfuseStation[] allStations = FindObjectsOfType<InfuseStation>();
+        foreach (var station in allStations)
+        {
+            float dist = Vector3.Distance(player.position, station.transform.position);
+            if (dist <= station.interactDistance)
+            {
+                currentInfuseStation = station;
+                infusePromptText.text = $"Press [E] to OPEN Infuse Station";
+                infusePromptText.gameObject.SetActive(true);
+
+                if (Input.GetKeyDown(KeyCode.E))
+                    OpenInfusePanel();
+                return;
+            }
+        }
+
+        // Not near any
+        infusePromptText.gameObject.SetActive(false);
+        currentInfuseStation = null;
+    }
+    void OpenInfusePanel()
+    {
+        infusePanelOpen = true;
+        infusePanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        var cam = FindFirstObjectByType<CameraScript>();
+        if (cam) cam.cameraLocked = true;
+
+        if (statusStackRoot) statusStackRoot.gameObject.SetActive(false);
+    }
+
+    public bool IsInfusePanelOpen => infusePanelOpen;
+
+
+    void CloseInfusePanel()
+    {
+        infusePanelOpen = false;
+        infusePanel.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        var cam = FindFirstObjectByType<CameraScript>();
+        if (cam) cam.cameraLocked = false;
+
+        if (statusStackRoot) statusStackRoot.gameObject.SetActive(true);
+    }
+
+    public void SetCurrentWeapon(Weapon weapon)
+    {
+        currentWeapon = weapon;
+
+        if (infuseStatusText != null)
+        {
+            if (!string.IsNullOrEmpty(weapon.infusedElement))
+                infuseStatusText.text = $"{weapon.infusedElement} Magic Infused!";
+            else
+                infuseStatusText.text = "";
+        }
+    }
+
+    public void InfuseWithFire()
+    {
+        if (currentWeapon != null)
+        {
+            currentWeapon.SetInfusedElement("Fire");
+            infuseStatusText.text = "Fire Magic Infused!";
+        }
+        else
+        {
+            Debug.LogWarning("No current weapon found to infuse.");
+        }
+
+        CloseInfusePanel();
+    }
+
+    public void InfuseWithCrystal()
+    {
+        if (currentWeapon != null)
+        {
+            currentWeapon.SetInfusedElement("Crystal");
+            infuseStatusText.text = "Crystal Magic Infused!";
+        }
+        else
+        {
+            Debug.LogWarning("No current weapon found to infuse.");
+        }
+
+        CloseInfusePanel();
+    }
 }
+
+
+

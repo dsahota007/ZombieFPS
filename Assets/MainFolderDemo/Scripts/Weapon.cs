@@ -118,6 +118,7 @@ public class Weapon : MonoBehaviour
     public Material papMagMaterial;
     private bool isSkinned = false;
 
+
     public void ApplyPackAPunchSkin()
     {
         if (isSkinned) return;
@@ -202,6 +203,7 @@ public class Weapon : MonoBehaviour
         if (armMover.DrinkingPerk) return;
 
         if (ui.IsGrenadePanelOpen) return;      //we cant shoot if ur selecting your grenade.
+        if (ui.IsInfusePanelOpen) return;
         if (isWeaponBeingShowcased || !CanShoot() || isReloading || IsSprinting()) return; //leave func if u cant
 
         currentAmmo--;
@@ -404,6 +406,18 @@ public class Weapon : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    //-- infusing
+
+    public string infusedElement = "";
+
+    public void SetInfusedElement(string element)
+    {
+        infusedElement = element;
+        Debug.Log($"[Weapon] Infused with {element} magic.");
+    }
+
+
 
 
     //for ui -- getter methods
