@@ -43,7 +43,7 @@ public class PackAPunch : MonoBehaviour
             }
             else if (isReady)
             {
-                RetrieveWeapon();
+                RetrieveAndUpgradeWeapon();
             }
         }
     }
@@ -131,7 +131,7 @@ public class PackAPunch : MonoBehaviour
         isReady = true;
     }
 
-    void RetrieveWeapon()
+    void RetrieveAndUpgradeWeapon()
     {
         if (!isReady || storedIndex < 0) return;
 
@@ -144,18 +144,46 @@ public class PackAPunch : MonoBehaviour
         // upgrade damage (only if not maxed)
         if (w.upgradeLevel < w.maxUpgradeLevel)
         {
-            w.bulletDamage *= 2f;   // double damage each upgrade
+            w.bulletDamage *= 3f;
             w.upgradeLevel++;
+
+            // ammo size upgrade
+            switch (w.upgradeLevel)
+            {
+                case 1:
+                    w.clipSize = w.Tier1clipSize;
+                    w.maxReserve = w.Tier1maxReserve;
+                    break;
+                case 2:
+                    w.clipSize = w.Tier2clipSize;
+                    w.maxReserve = w.Tier2maxReserve;
+                    break;
+                case 3:
+                    w.clipSize = w.Tier3clipSize;
+                    w.maxReserve = w.Tier3maxReserve;
+                    break;
+            }
+
+            w.RefillFull(); // refill mag + reserve
+
+            if (!w.hasPackVFX && w.packVFXPrefab != null)
+            {
+                GameObject vfx = Instantiate(w.packVFXPrefab, w.transform);
+                vfx.transform.localPosition = w.packVFXOffset;
+                vfx.transform.localEulerAngles = w.packVFXRotation;
+                vfx.transform.localScale = w.packVFXScale;
+                w.hasPackVFX = true;
+            }
+
+            // switch back to upgraded slot
+            StartCoroutine(weaponManager.SwitchWeaponWithDrop(storedIndex));
+
+            isReady = false;
+            storedIndex = -1;
+
+            // 🔓 allow switching again
+            weaponManager.disableSwitching = false;
         }
-
-        // switch back to upgraded slot
-        StartCoroutine(weaponManager.SwitchWeaponWithDrop(storedIndex));
-
-        isReady = false;
-        storedIndex = -1;
-
-        // 🔓 allow switching again
-        weaponManager.disableSwitching = false;
     }
 
     // Method that UI can call to get the prompt text

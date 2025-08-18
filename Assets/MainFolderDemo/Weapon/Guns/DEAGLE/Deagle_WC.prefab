@@ -246,7 +246,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c1aa071747224ac40ac4ed823e6b5795, type: 2}
+  - {fileID: 2100000, guid: 215af896372d18746ae7648ffd42eef9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -328,6 +328,17 @@ MonoBehaviour:
   reloadTime: 1
   clipSize: 10
   maxReserve: 30
+  Tier1clipSize: 40
+  Tier1maxReserve: 120
+  Tier2clipSize: 50
+  Tier2maxReserve: 150
+  Tier3clipSize: 60
+  Tier3maxReserve: 180
+  packVFXPrefab: {fileID: 0}
+  packVFXOffset: {x: 0, y: 0, z: 0}
+  packVFXRotation: {x: 0, y: 0, z: 0}
+  packVFXScale: {x: 1, y: 1, z: 1}
+  hasPackVFX: 0
   recoilAngle: 12
   recoilSnappiness: 12
   recoilReturnSpeed: 6

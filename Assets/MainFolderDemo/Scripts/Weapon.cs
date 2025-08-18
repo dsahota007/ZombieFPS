@@ -27,6 +27,26 @@ public class Weapon : MonoBehaviour
     public int clipSize = 30;
     public int maxReserve = 90;
 
+    [Header("Tier 1 Upgrade")]
+    public int Tier1clipSize = 40;
+    public int Tier1maxReserve = 120;
+
+    [Header("Tier 2 Upgrade")]
+    public int Tier2clipSize = 50;
+    public int Tier2maxReserve = 150;
+
+    [Header("Tier 3 Upgrade")]
+    public int Tier3clipSize = 60;
+    public int Tier3maxReserve = 180;
+
+    [Header("Pack-A-Punch VFX")]
+    public GameObject packVFXPrefab;
+    public Vector3 packVFXOffset = Vector3.zero;
+    public Vector3 packVFXRotation = Vector3.zero;
+    public Vector3 packVFXScale = Vector3.one;
+    [HideInInspector] public bool hasPackVFX = false;
+
+
     [Header("Recoil Settings")]
     public float recoilAngle = 4f;
     public float recoilSnappiness = 12f;
