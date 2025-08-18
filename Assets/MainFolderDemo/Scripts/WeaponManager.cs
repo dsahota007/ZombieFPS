@@ -19,11 +19,12 @@ public class WeaponManager : MonoBehaviour
     private Vector3 weaponHolderOriginalPos;
     private Vector3 leftArmOriginalPos;
     private Vector3 rightArmOriginalPos;
-
     public static Weapon ActiveWeapon;
 
     private bool IsReloading = false;   //deleted line below this is yapping i think
     //public bool IsReloading => ActiveWeapon != null && ActiveWeapon.IsReloading;
+
+    public bool disableSwitching = false;
 
 
     void Start()
@@ -47,10 +48,10 @@ public class WeaponManager : MonoBehaviour
             ActiveWeapon.StartReload();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !isSwitching)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !isSwitching && !disableSwitching)
         {
-            int nextIndex = (currentWeaponIndex == 0) ? 1 : 0;              //toggle between weapon 0 and 1 
-            StartCoroutine(SwitchWeaponWithDrop(nextIndex));                
+            int nextIndex = (currentWeaponIndex == 0) ? 1 : 0;
+            StartCoroutine(SwitchWeaponWithDrop(nextIndex));
         }
     }
 
@@ -86,7 +87,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    IEnumerator SwitchWeaponWithDrop(int index)
+    public IEnumerator SwitchWeaponWithDrop(int index)
     {
         if (index < 0 || index >= weapons.Length || index == currentWeaponIndex)   //If the weapon index is invalid OR you're already holding that weapon, stop here
             yield break;
@@ -121,7 +122,7 @@ public class WeaponManager : MonoBehaviour
         isSwitching = false;
     }
 
-    IEnumerator MoveAll(Transform w, Vector3 fromW, Vector3 toW,    //weapon      
+    public IEnumerator MoveAll(Transform w, Vector3 fromW, Vector3 toW,    //weapon      
                         Transform l, Vector3 fromL, Vector3 toL,    //left arm
                         Transform r, Vector3 fromR, Vector3 toR,    //right arm
                         float duration)                             //time to finish
@@ -137,7 +138,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    void EquipWeaponNow(int index)
+    public void EquipWeaponNow(int index)
     {
         for (int i = 0; i < weapons.Length; i++)
         {
@@ -188,8 +189,9 @@ public class WeaponManager : MonoBehaviour
         EquipWeaponNow(slotToReplace);
     }
 
- 
- 
+    public int CurrentWeaponIndex => currentWeaponIndex;
+
+
 
 
 }

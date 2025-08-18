@@ -11,7 +11,6 @@ public class Weapon : MonoBehaviour
     public Transform magazine;
     public Transform firePoint;
     public GameObject bulletPrefab;
-    public float bulletDamage = 10f;
     public string weaponName;
 
     [Header("Fire Settings")]
@@ -85,6 +84,10 @@ public class Weapon : MonoBehaviour
     private float ShotDelay => Mathf.Max(0.02f, fireRate / Mathf.Max(0.01f, GlobalFireRateMult));
     private float BurstDelayM => Mathf.Max(0.02f, burstDelay / Mathf.Max(0.01f, GlobalFireRateMult));
 
+    [Header("PAP Upgrades")]
+    public float bulletDamage = 10f;
+    public int upgradeLevel = 0;    
+    public int maxUpgradeLevel = 2;
 
     void Start()
     {

@@ -1423,9 +1423,6 @@ MonoBehaviour:
   statusStackRoot: {fileID: 2142661633}
   statusRowPrefab: {fileID: 279084759906856047, guid: 08e49ad429f3a0047931529178211dae,
     type: 3}
-  packMachine: {fileID: 0}
-  packText: {fileID: 907004784}
-  maxTier: 3
 --- !u!1 &97643583
 GameObject:
   m_ObjectHideFlags: 0
@@ -5600,6 +5597,7 @@ GameObject:
   - component: {fileID: 510396132}
   - component: {fileID: 510396131}
   - component: {fileID: 510396130}
+  - component: {fileID: 510396133}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -5696,6 +5694,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510396128}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &510396133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510396128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c67810354af034ebcdba3b882020aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showcasePoint: {fileID: 116431442}
+  interactRange: 3
+  cookTime: 3
 --- !u!1 &515911957
 GameObject:
   m_ObjectHideFlags: 0
@@ -14400,6 +14413,7 @@ MonoBehaviour:
   - {fileID: 7896929993975101864, guid: a7a21d926f9e7ea409911539319bf24b, type: 3}
   - {fileID: 7896929993975101864, guid: 786a7cdbc902d1044b0da9f008da0a67, type: 3}
   - {fileID: 7896929993975101864, guid: 3cf51b44393fa4043a20003c20e3e5b4, type: 3}
+  disableSwitching: 0
 --- !u!1 &1539081777
 GameObject:
   m_ObjectHideFlags: 0
@@ -14778,7 +14792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1595701417
 MonoBehaviour:
   m_ObjectHideFlags: 0
