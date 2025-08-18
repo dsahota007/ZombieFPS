@@ -3,9 +3,11 @@ using System.Collections;
 
 public class PackAPunch : MonoBehaviour
 {
+    [Header("Pack-A-Punch Settings")]
     public Transform showcasePoint;
     public float interactRange = 3f;
     public float cookTime = 3f;
+    public int baseCost = 5000; // Base cost for first upgrade
 
     private GameObject showcasedWeapon;
     private WeaponManager weaponManager;
@@ -29,7 +31,15 @@ public class PackAPunch : MonoBehaviour
         {
             if (!isCooking && !isReady)
             {
-                StartCoroutine(SendWeaponToShowcase());
+                // Only allow upgrade if weapon can be upgraded
+                Weapon currentWeapon = WeaponManager.ActiveWeapon;
+                if (currentWeapon != null && currentWeapon.upgradeLevel < currentWeapon.maxUpgradeLevel)
+                {
+                    if (CanUpgradeWeapon())
+                    {
+                        StartCoroutine(SendWeaponToShowcase());
+                    }
+                }
             }
             else if (isReady)
             {
@@ -38,17 +48,52 @@ public class PackAPunch : MonoBehaviour
         }
     }
 
+    private int GetUpgradeCost(int currentLevel)
+    {
+        // Incremental pricing: 5000, 15000, 30000
+        switch (currentLevel)
+        {
+            case 0: return baseCost;        // 5000 for first upgrade
+            case 1: return baseCost * 3;    // 15000 for second upgrade  
+            case 2: return baseCost * 6;    // 30000 for third upgrade
+            default: return baseCost * 6;   // Max cost if somehow higher
+        }
+    }
+
+    private bool CanUpgradeWeapon()
+    {
+        if (WeaponManager.ActiveWeapon == null) return false;
+
+        Weapon currentWeapon = WeaponManager.ActiveWeapon;
+        int currentPoints = (PointManager.Instance != null) ? PointManager.Instance.GetPoints() : 0;
+        int upgradeCost = GetUpgradeCost(currentWeapon.upgradeLevel);
+
+        // Check if weapon is already fully upgraded
+        if (currentWeapon.upgradeLevel >= currentWeapon.maxUpgradeLevel)
+        {
+            return false;
+        }
+
+        // Check if player has enough points
+        if (currentPoints < upgradeCost)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     IEnumerator SendWeaponToShowcase()
     {
         if (weaponManager == null || WeaponManager.ActiveWeapon == null) yield break;
 
         Weapon currentWeapon = weaponManager.GetWeaponScriptAtIndex(weaponManager.CurrentWeaponIndex);
+        int upgradeCost = GetUpgradeCost(currentWeapon.upgradeLevel);
 
-        // 🚫 Stop if already fully upgraded
-        if (currentWeapon.upgradeLevel >= currentWeapon.maxUpgradeLevel)
+        // Deduct points for upgrade
+        if (PointManager.Instance != null)
         {
-            Debug.Log("This weapon is already fully upgraded! Cannot pack again.");
-            yield break;
+            PointManager.Instance.SubtractPoints(upgradeCost);
         }
 
         isCooking = true;
@@ -66,6 +111,7 @@ public class PackAPunch : MonoBehaviour
         // clone prefab for showcase (just for visuals)
         GameObject prefab = weaponManager.weaponPrefabs[storedIndex];
         showcasedWeapon = Instantiate(prefab, showcasePoint.position, showcasePoint.rotation, showcasePoint);
+
         foreach (var comp in showcasedWeapon.GetComponentsInChildren<MonoBehaviour>())
             Destroy(comp);
 
@@ -100,11 +146,6 @@ public class PackAPunch : MonoBehaviour
         {
             w.bulletDamage *= 2f;   // double damage each upgrade
             w.upgradeLevel++;
-            Debug.Log($"Weapon upgraded! New damage: {w.bulletDamage}, upgrade level: {w.upgradeLevel}");
-        }
-        else
-        {
-            Debug.Log("Weapon is already max upgraded! Cannot upgrade further.");
         }
 
         // switch back to upgraded slot
@@ -115,5 +156,46 @@ public class PackAPunch : MonoBehaviour
 
         // 🔓 allow switching again
         weaponManager.disableSwitching = false;
+    }
+
+    // Method that UI can call to get the prompt text
+    public string GetPromptText()
+    {
+        if (weaponManager == null) return "";
+
+        Transform player = weaponManager.transform;
+        float dist = Vector3.Distance(player.position, transform.position);
+
+        if (dist > interactRange) return "";
+
+        if (isCooking)
+        {
+            return "Upgrading weapon...";
+        }
+        else if (isReady)
+        {
+            return "Press [E] to retrieve upgraded weapon";
+        }
+        else
+        {
+            if (WeaponManager.ActiveWeapon == null) return "";
+
+            Weapon currentWeapon = WeaponManager.ActiveWeapon;
+            int currentPoints = (PointManager.Instance != null) ? PointManager.Instance.GetPoints() : 0;
+            int upgradeCost = GetUpgradeCost(currentWeapon.upgradeLevel);
+
+            if (currentWeapon.upgradeLevel >= currentWeapon.maxUpgradeLevel)
+            {
+                return "Weapon is already fully upgraded";
+            }
+            else if (currentPoints < upgradeCost)
+            {
+                return $"Need {upgradeCost} points to upgrade weapon";
+            }
+            else
+            {
+                return $"Press [E] to upgrade {currentWeapon.weaponName} ({upgradeCost} points)";
+            }
+        }
     }
 }

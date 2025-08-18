@@ -112,6 +112,9 @@ public class UI : MonoBehaviour
     public Text magicCooldownPerkText;
 
     //--------------------------
+    [Header("Pack A Punch")]
+    public Text packAPunchText;           // Text to show Pack-A-Punch prompts
+    public PackAPunch packAPunchMachine;
 
     // timed power-up UI
     private Coroutine powerupTimerCo;
@@ -136,6 +139,30 @@ public class UI : MonoBehaviour
 
     //bool chestPanelOpen = false;
 
+    private string GetWeaponDisplayName(Weapon weapon)
+    {
+        if (weapon.upgradeLevel <= 0)
+        {
+            return weapon.weaponName; // Normal weapon name
+        }
+        else
+        {
+            string tierName = GetTierSuffix(weapon.upgradeLevel);
+            return $"{weapon.weaponName} {tierName}";
+        }
+    }
+
+    private string GetTierSuffix(int level)
+    {
+        switch (level)
+        {
+            case 1: return "Tier I";
+            case 2: return "Tier II";
+            case 3: return "Tier III";
+            default: return "Max Tier";
+        }
+    }
+
     void Update()
     {
         Weapon currentWeapon = WeaponManager.ActiveWeapon;
@@ -145,7 +172,7 @@ public class UI : MonoBehaviour
         if (currentWeapon != null)
         {
             WeaponAmmoText.text = currentWeapon.GetCurrentAmmo() + " / " + currentWeapon.GetAmmoReserve();
-            WeaponNameText.text = currentWeapon.weaponName;
+            WeaponNameText.text = GetWeaponDisplayName(currentWeapon);
         }
         else
         {
@@ -618,7 +645,22 @@ public class UI : MonoBehaviour
             "Faster Magic Cooldown",
             FindFirstObjectByType<MagicCooldownPerk>()?.hasMagicCooldownPerk ?? false,
             FindFirstObjectByType<MagicCooldownPerk>()?.cost ?? 0
-);
+        );
+
+        if (packAPunchMachine != null && packAPunchText != null)
+        {
+            string promptText = packAPunchMachine.GetPromptText();
+
+            if (string.IsNullOrEmpty(promptText))
+            {
+                packAPunchText.gameObject.SetActive(false);
+            }
+            else
+            {
+                packAPunchText.text = promptText;
+                packAPunchText.gameObject.SetActive(true);
+            }
+        }
 
 
 
@@ -660,6 +702,8 @@ public class UI : MonoBehaviour
             }
 
         }
+
+ 
     }
 
 
