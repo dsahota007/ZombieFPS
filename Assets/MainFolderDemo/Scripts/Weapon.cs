@@ -87,7 +87,7 @@ public class Weapon : MonoBehaviour
     [Header("PAP Upgrades")]
     public float bulletDamage = 10f;
     public int upgradeLevel = 0;    
-    public int maxUpgradeLevel = 2;
+    public int maxUpgradeLevel = 3;
 
     void Start()
     {

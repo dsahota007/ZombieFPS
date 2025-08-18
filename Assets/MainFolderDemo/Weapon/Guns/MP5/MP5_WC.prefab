@@ -319,7 +319,6 @@ MonoBehaviour:
   firePoint: {fileID: 2902328080267144550}
   bulletPrefab: {fileID: 6410560179999154620, guid: fdcae1bd4cb08e341ad2dcfa0e7cb465,
     type: 3}
-  bulletDamage: 1
   weaponName: MP5
   fireType: 2
   fireRate: 0.12
@@ -345,3 +344,6 @@ MonoBehaviour:
   leftHoldRotEuler: {x: -24.22, y: 199.835, z: -50.626}
   rightHoldPos: {x: -0.058, y: 0.15, z: -0.32}
   rightHoldRotEuler: {x: -51.385, y: -133.7, z: -22.396}
+  bulletDamage: 10
+  upgradeLevel: 0
+  maxUpgradeLevel: 3

@@ -42,6 +42,15 @@ public class PackAPunch : MonoBehaviour
     {
         if (weaponManager == null || WeaponManager.ActiveWeapon == null) yield break;
 
+        Weapon currentWeapon = weaponManager.GetWeaponScriptAtIndex(weaponManager.CurrentWeaponIndex);
+
+        // 🚫 Stop if already fully upgraded
+        if (currentWeapon.upgradeLevel >= currentWeapon.maxUpgradeLevel)
+        {
+            Debug.Log("This weapon is already fully upgraded! Cannot pack again.");
+            yield break;
+        }
+
         isCooking = true;
         isReady = false;
 
@@ -54,7 +63,7 @@ public class PackAPunch : MonoBehaviour
         if (showcasedWeapon != null)
             Destroy(showcasedWeapon);
 
-        // clone prefab for showcase
+        // clone prefab for showcase (just for visuals)
         GameObject prefab = weaponManager.weaponPrefabs[storedIndex];
         showcasedWeapon = Instantiate(prefab, showcasePoint.position, showcasePoint.rotation, showcasePoint);
         foreach (var comp in showcasedWeapon.GetComponentsInChildren<MonoBehaviour>())
@@ -83,16 +92,28 @@ public class PackAPunch : MonoBehaviour
         if (showcasedWeapon != null)
             Destroy(showcasedWeapon);
 
-        // re-enable weapon
-        WeaponManager.ActiveWeapon.EnableWeapon();
+        // get the REAL weapon script at stored slot
+        Weapon w = weaponManager.GetWeaponScriptAtIndex(storedIndex);
+
+        // upgrade damage (only if not maxed)
+        if (w.upgradeLevel < w.maxUpgradeLevel)
+        {
+            w.bulletDamage *= 2f;   // double damage each upgrade
+            w.upgradeLevel++;
+            Debug.Log($"Weapon upgraded! New damage: {w.bulletDamage}, upgrade level: {w.upgradeLevel}");
+        }
+        else
+        {
+            Debug.Log("Weapon is already max upgraded! Cannot upgrade further.");
+        }
 
         // switch back to upgraded slot
-        weaponManager.StartCoroutine(weaponManager.SwitchWeaponWithDrop(storedIndex));
-
-        // 🔓 re-enable switching now that upgrade is done
-        weaponManager.disableSwitching = false;
+        StartCoroutine(weaponManager.SwitchWeaponWithDrop(storedIndex));
 
         isReady = false;
         storedIndex = -1;
+
+        // 🔓 allow switching again
+        weaponManager.disableSwitching = false;
     }
 }

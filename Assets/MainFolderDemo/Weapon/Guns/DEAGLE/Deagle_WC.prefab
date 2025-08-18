@@ -344,6 +344,6 @@ MonoBehaviour:
   leftHoldRotEuler: {x: -24.22, y: 199.835, z: -50.6226}
   rightHoldPos: {x: -0.065, y: 0.2, z: -0.33}
   rightHoldRotEuler: {x: -51.385, y: -133.7, z: -22.396}
-  bulletDamage: 100
+  bulletDamage: 50
   upgradeLevel: 0
-  maxUpgradeLevel: 2
+  maxUpgradeLevel: 3

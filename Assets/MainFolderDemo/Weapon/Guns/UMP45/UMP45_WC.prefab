@@ -310,6 +310,9 @@ MonoBehaviour:
   leftHoldRotEuler: {x: -24.22, y: 199.835, z: -50.626}
   rightHoldPos: {x: -0.05, y: 0.12, z: -0.38}
   rightHoldRotEuler: {x: -51.388, y: -133.7, z: -22.396}
+  bulletDamage: 10
+  upgradeLevel: 0
+  maxUpgradeLevel: 3
 --- !u!1 &8570951725881853728
 GameObject:
   m_ObjectHideFlags: 0

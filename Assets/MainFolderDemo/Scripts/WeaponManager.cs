@@ -26,6 +26,12 @@ public class WeaponManager : MonoBehaviour
 
     public bool disableSwitching = false;
 
+    public Weapon GetWeaponScriptAtIndex(int index)
+    {
+        if (index < 0 || index >= weaponScripts.Length) return null;
+        return weaponScripts[index];
+    }
+
 
     void Start()
     {
