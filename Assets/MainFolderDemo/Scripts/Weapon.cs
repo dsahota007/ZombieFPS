@@ -56,9 +56,11 @@ public class Weapon : MonoBehaviour
     public float kickbackAmount = 0.05f;
     public float kickbackReturnSpeed = 12f;
 
-    [Header("VFX")]
-    public GameObject muzzleFlashPrefab;
+    [Header("Muzzle Flash")]
+    public GameObject defaultMuzzleFlash;
+    public GameObject papMuzzleFlash;
     public float muzzleFlashLifetime = 0.05f;
+
 
     [HideInInspector] public Transform leftArm;
     [HideInInspector] public CharacterController controller;
@@ -216,12 +218,16 @@ public class Weapon : MonoBehaviour
 
 
         //// --- Spawn muzzle flash ---
-        if (muzzleFlashPrefab != null && firePoint != null)
+        GameObject muzzlePrefab = (upgradeLevel >= 1 && papMuzzleFlash != null) ? papMuzzleFlash : defaultMuzzleFlash;
+
+        if (muzzlePrefab != null && firePoint != null)
         {
-            GameObject flash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
-            flash.transform.SetParent(firePoint); // so it moves with the gun for that frame
-            Destroy(flash, muzzleFlashLifetime);  // clean up automatically
+            GameObject flash = Instantiate(muzzlePrefab, firePoint.position, firePoint.rotation);
+            flash.transform.SetParent(firePoint);
+            Destroy(flash, muzzleFlashLifetime);
         }
+
+
 
 
         ApplyRecoil();

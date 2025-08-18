@@ -294,12 +294,20 @@ MonoBehaviour:
   reloadTime: 1
   clipSize: 30
   maxReserve: 1000
+  Tier1clipSize: 40
+  Tier1maxReserve: 120
+  Tier2clipSize: 50
+  Tier2maxReserve: 150
+  Tier3clipSize: 60
+  Tier3maxReserve: 180
   recoilAngle: 6
   recoilSnappiness: 6
   recoilReturnSpeed: 6
   kickbackAmount: 0.05
   kickbackReturnSpeed: 12
-  muzzleFlashPrefab: {fileID: 6980259576133684760, guid: 3d09da8d2bc7d4c4f82428ac9d5e55d1,
+  defaultMuzzleFlash: {fileID: 6980259576133684760, guid: 3d09da8d2bc7d4c4f82428ac9d5e55d1,
+    type: 3}
+  papMuzzleFlash: {fileID: 6980259576133684760, guid: b20f7526ce1c99c4c8cc79f7033ca994,
     type: 3}
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}
@@ -313,6 +321,10 @@ MonoBehaviour:
   bulletDamage: 10
   upgradeLevel: 0
   maxUpgradeLevel: 3
+  gunRenderer: {fileID: 4928846403919886424}
+  magazineRenderer: {fileID: 4410246744319589500}
+  papGunMaterial: {fileID: 2100000, guid: 8c6b9396b10ca1043958f91e19dab2e3, type: 2}
+  papMagMaterial: {fileID: 2100000, guid: 80e01e647f78ff24393be957c87a7a12, type: 2}
 --- !u!1 &8570951725881853728
 GameObject:
   m_ObjectHideFlags: 0

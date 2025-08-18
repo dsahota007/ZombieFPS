@@ -109,14 +109,17 @@ public class PackAPunch : MonoBehaviour
             Destroy(showcasedWeapon);
 
         // clone prefab for showcase (just for visuals)
-        GameObject prefab = weaponManager.weaponPrefabs[storedIndex];
-        showcasedWeapon = Instantiate(prefab, showcasePoint.position, showcasePoint.rotation, showcasePoint);
+        GameObject currentWeaponGO = weaponManager.GetWeaponObjectAtIndex(weaponManager.CurrentWeaponIndex);
+        if (currentWeaponGO == null) yield break;
 
+        showcasedWeapon = Instantiate(currentWeaponGO, showcasePoint.position, showcasePoint.rotation, showcasePoint.transform);
+
+        // Remove MonoBehaviours so it's purely visual
         foreach (var comp in showcasedWeapon.GetComponentsInChildren<MonoBehaviour>())
             Destroy(comp);
 
+        Weapon realWeapon = currentWeaponGO.GetComponent<Weapon>();
 
-        Weapon realWeapon = weaponManager.GetWeaponScriptAtIndex(storedIndex);
 
         Renderer[] renderers = showcasedWeapon.GetComponentsInChildren<Renderer>();
 

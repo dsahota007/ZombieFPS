@@ -6085,18 +6085,14 @@ MonoBehaviour:
   Tier2maxReserve: 150
   Tier3clipSize: 60
   Tier3maxReserve: 180
-  packVFXPrefab: {fileID: 6112500879855133090, guid: 7cd1504d167e4724eb33f762e81ccb5a,
-    type: 3}
-  packVFXOffset: {x: -0.15, y: 0.12, z: 0}
-  packVFXRotation: {x: 0, y: 0, z: 0}
-  packVFXScale: {x: 0.02, y: 0.02, z: 0.02}
-  hasPackVFX: 0
   recoilAngle: 6
   recoilSnappiness: 6
   recoilReturnSpeed: 6
   kickbackAmount: 0.15
   kickbackReturnSpeed: 12
-  muzzleFlashPrefab: {fileID: 6980259576133684760, guid: 3d09da8d2bc7d4c4f82428ac9d5e55d1,
+  defaultMuzzleFlash: {fileID: 6980259576133684760, guid: 3d09da8d2bc7d4c4f82428ac9d5e55d1,
+    type: 3}
+  papMuzzleFlash: {fileID: 6980259576133684760, guid: b20f7526ce1c99c4c8cc79f7033ca994,
     type: 3}
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}

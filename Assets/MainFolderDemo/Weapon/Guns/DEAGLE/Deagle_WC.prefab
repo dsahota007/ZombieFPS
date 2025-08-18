@@ -339,7 +339,9 @@ MonoBehaviour:
   recoilReturnSpeed: 6
   kickbackAmount: 0.15
   kickbackReturnSpeed: 12
-  muzzleFlashPrefab: {fileID: 6980259576133684760, guid: 3d09da8d2bc7d4c4f82428ac9d5e55d1,
+  defaultMuzzleFlash: {fileID: 6980259576133684760, guid: 3d09da8d2bc7d4c4f82428ac9d5e55d1,
+    type: 3}
+  papMuzzleFlash: {fileID: 6980259576133684760, guid: b20f7526ce1c99c4c8cc79f7033ca994,
     type: 3}
   muzzleFlashLifetime: 0.05
   leftArm: {fileID: 0}

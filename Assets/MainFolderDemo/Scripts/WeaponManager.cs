@@ -195,6 +195,12 @@ public class WeaponManager : MonoBehaviour
         EquipWeaponNow(slotToReplace);
     }
 
+    public GameObject GetWeaponObjectAtIndex(int index)
+    {
+        return (index >= 0 && index < weapons.Length) ? weapons[index] : null;
+    }
+
+
     public int CurrentWeaponIndex => currentWeaponIndex;
 
 
