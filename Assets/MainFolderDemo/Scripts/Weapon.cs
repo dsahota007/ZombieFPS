@@ -341,6 +341,15 @@ public class Weapon : MonoBehaviour
     {
         return currentAmmo > 0;   //we return false 
     }
+    public void EnableWeapon()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void DisableWeapon()
+    {
+        gameObject.SetActive(false);
+    }
 
 
     //for ui -- getter methods

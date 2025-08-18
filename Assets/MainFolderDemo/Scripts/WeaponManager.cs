@@ -25,6 +25,7 @@ public class WeaponManager : MonoBehaviour
     private bool IsReloading = false;   //deleted line below this is yapping i think
     //public bool IsReloading => ActiveWeapon != null && ActiveWeapon.IsReloading;
 
+
     void Start()
     {
         controller = FindFirstObjectByType<CharacterController>();    // for some reason this allows us to reload when sprinting. 
@@ -186,5 +187,9 @@ public class WeaponManager : MonoBehaviour
         // Equip immediately
         EquipWeaponNow(slotToReplace);
     }
+
+ 
+ 
+
 
 }
