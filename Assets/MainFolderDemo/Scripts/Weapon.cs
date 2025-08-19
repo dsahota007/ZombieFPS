@@ -319,8 +319,37 @@ public class Weapon : MonoBehaviour
             case InfusionType.Fire:
                 if (fireMuzzleFlash != null) return fireMuzzleFlash;
                 break;
+
             case InfusionType.Crystal:
                 if (crystalMuzzleFlash != null) return crystalMuzzleFlash;
+                break;
+
+            case InfusionType.Void:
+                if (voidMuzzleFlash != null) return voidMuzzleFlash;
+                break;
+
+            case InfusionType.Ice:
+                if (iceMuzzleFlash != null) return iceMuzzleFlash;
+                break;
+
+            case InfusionType.Venom:
+                if (venomMuzzleFlash != null) return venomMuzzleFlash;
+                break;
+
+            case InfusionType.Lightning:
+                if (lightningMuzzleFlash != null) return lightningMuzzleFlash;
+                break;
+
+            case InfusionType.Wind:
+                if (windMuzzleFlash != null) return windMuzzleFlash;
+                break;
+
+            case InfusionType.Meteor:
+                if (meteorMuzzleFlash != null) return meteorMuzzleFlash;
+                break;
+
+            case InfusionType.Crimson:
+                if (crimsonMuzzleFlash != null) return crimsonMuzzleFlash;
                 break;
         }
 
@@ -331,6 +360,7 @@ public class Weapon : MonoBehaviour
         // Fallback to default (lowest priority)
         return defaultMuzzleFlash;
     }
+
 
 
     public void Shoot()
@@ -571,15 +601,46 @@ public class Weapon : MonoBehaviour
             case InfusionType.Fire:
                 ApplyFireInfusion();
                 break;
+
             case InfusionType.Crystal:
                 ApplyCrystalInfusion();
                 break;
+
+            case InfusionType.Void:
+                ApplyVoidInfusion();
+                break;
+
+            case InfusionType.Ice:
+                ApplyIceInfusion();
+                break;
+
+            case InfusionType.Venom:
+                ApplyVenomInfusion();
+                break;
+
+            case InfusionType.Lightning:
+                ApplyLightningInfusion();
+                break;
+
+            case InfusionType.Wind:
+                ApplyWindInfusion();
+                break;
+
+            case InfusionType.Meteor:
+                ApplyMeteorInfusion();
+                break;
+
+            case InfusionType.Crimson:
+                ApplyCrimsonInfusion();
+                break;
+
             case InfusionType.None:
                 // Already removed above, might need to restore PAP skin
                 RestorePAPSkinIfNeeded();
                 break;
         }
     }
+
 
     private void ApplyFireInfusion()
     {
@@ -636,6 +697,203 @@ public class Weapon : MonoBehaviour
 
         Debug.Log("[Weapon] Crystal infusion effects applied!");
     }
+
+    private void ApplyVoidInfusion()
+    {
+        // Apply Void VFX
+        if (voidInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(voidInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = voidVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(voidVFXRotation);
+            currentInfusionVFX.transform.localScale = voidVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Void Materials
+        if (gunRenderer != null && voidGunMaterial != null)
+        {
+            gunRenderer.material = voidGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && voidMagMaterial != null)
+        {
+            magazineRenderer.material = voidMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Void infusion effects applied!");
+    }
+
+    private void ApplyIceInfusion()
+    {
+        // Apply Ice VFX
+        if (iceInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(iceInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = iceVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(iceVFXRotation);
+            currentInfusionVFX.transform.localScale = iceVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Ice Materials
+        if (gunRenderer != null && iceGunMaterial != null)
+        {
+            gunRenderer.material = iceGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && iceMagMaterial != null)
+        {
+            magazineRenderer.material = iceMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Ice infusion effects applied!");
+    }
+
+    private void ApplyVenomInfusion()
+    {
+        // Apply Venom VFX
+        if (venomInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(venomInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = venomVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(venomVFXRotation);
+            currentInfusionVFX.transform.localScale = venomVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Venom Materials
+        if (gunRenderer != null && venomGunMaterial != null)
+        {
+            gunRenderer.material = venomGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && venomMagMaterial != null)
+        {
+            magazineRenderer.material = venomMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Venom infusion effects applied!");
+    }
+
+    private void ApplyLightningInfusion()
+    {
+        // Apply Lightning VFX
+        if (lightningInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(lightningInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = lightningVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(lightningVFXRotation);
+            currentInfusionVFX.transform.localScale = lightningVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Lightning Materials
+        if (gunRenderer != null && lightningGunMaterial != null)
+        {
+            gunRenderer.material = lightningGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && lightningMagMaterial != null)
+        {
+            magazineRenderer.material = lightningMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Lightning infusion effects applied!");
+    }
+
+    private void ApplyWindInfusion()
+    {
+        // Apply Wind VFX
+        if (windInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(windInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = windVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(windVFXRotation);
+            currentInfusionVFX.transform.localScale = windVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Wind Materials
+        if (gunRenderer != null && windGunMaterial != null)
+        {
+            gunRenderer.material = windGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && windMagMaterial != null)
+        {
+            magazineRenderer.material = windMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Wind infusion effects applied!");
+    }
+
+    private void ApplyMeteorInfusion()
+    {
+        // Apply Meteor VFX
+        if (meteorInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(meteorInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = meteorVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(meteorVFXRotation);
+            currentInfusionVFX.transform.localScale = meteorVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Meteor Materials
+        if (gunRenderer != null && meteorGunMaterial != null)
+        {
+            gunRenderer.material = meteorGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && meteorMagMaterial != null)
+        {
+            magazineRenderer.material = meteorMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Meteor infusion effects applied!");
+    }
+
+    private void ApplyCrimsonInfusion()
+    {
+        // Apply Crimson VFX
+        if (crimsonInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(crimsonInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = crimsonVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(crimsonVFXRotation);
+            currentInfusionVFX.transform.localScale = crimsonVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Crimson Materials
+        if (gunRenderer != null && crimsonGunMaterial != null)
+        {
+            gunRenderer.material = crimsonGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && crimsonMagMaterial != null)
+        {
+            magazineRenderer.material = crimsonMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Crimson infusion effects applied!");
+    }
+
 
     private void RemoveInfusionEffects()
     {
