@@ -359,3 +359,19 @@ MonoBehaviour:
   magazineRenderer: {fileID: 3242041813685131336}
   papGunMaterial: {fileID: 2100000, guid: d8914ca7ee76ece4f85355986991bf5d, type: 2}
   papMagMaterial: {fileID: 2100000, guid: bcf7dd96eab747d48b23918e5985c6c1, type: 2}
+  infusion: 0
+  fireInfusionVFXPrefab: {fileID: 0}
+  fireVFXOffset: {x: 0, y: 0, z: 0}
+  fireVFXRotation: {x: 0, y: 0, z: 0}
+  fireVFXScale: {x: 1, y: 1, z: 1}
+  fireGunMaterial: {fileID: 2100000, guid: 8c6b9396b10ca1043958f91e19dab2e3, type: 2}
+  fireMagMaterial: {fileID: 2100000, guid: 80e01e647f78ff24393be957c87a7a12, type: 2}
+  crystalInfusionVFXPrefab: {fileID: 0}
+  crystalVFXOffset: {x: 0, y: 0, z: 0}
+  crystalVFXRotation: {x: 0, y: 0, z: 0}
+  crystalVFXScale: {x: 1, y: 1, z: 1}
+  crystalGunMaterial: {fileID: 2100000, guid: ae3d608839e5d0e4e8a34a51c490c364, type: 2}
+  crystalMagMaterial: {fileID: 2100000, guid: ced28cf9acbc37348baadff177c27359, type: 2}
+  hasInfusionVFX: 0
+  hasInfusionSkin: 0
+  infusedElement: 

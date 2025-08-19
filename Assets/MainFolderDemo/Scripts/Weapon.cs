@@ -122,21 +122,48 @@ public class Weapon : MonoBehaviour
     [Header("Infusion State")]
     public InfusionType infusion = InfusionType.None;
 
+    //----------------------------------------- IMBUING SYSTTEM ------------------------
 
+    [Header("Infusion VFX & Materials")]
+    [Header("Fire Infusion")]
+    public GameObject fireInfusionVFXPrefab;
+    public Vector3 fireVFXOffset = Vector3.zero;
+    public Vector3 fireVFXRotation = Vector3.zero;
+    public Vector3 fireVFXScale = Vector3.one;
+    public Material fireGunMaterial;
+    public Material fireMagMaterial;
+
+    [Header("Crystal Infusion")]
+    public GameObject crystalInfusionVFXPrefab;
+    public Vector3 crystalVFXOffset = Vector3.zero;
+    public Vector3 crystalVFXRotation = Vector3.zero;
+    public Vector3 crystalVFXScale = Vector3.one;
+    public Material crystalGunMaterial;
+    public Material crystalMagMaterial;
+
+
+    //----------- Infusion tracking variables
+    [HideInInspector] public bool hasInfusionVFX = false;
+    [HideInInspector] public bool hasInfusionSkin = false;
+    private GameObject currentInfusionVFX;
+    [HideInInspector] public string infusedElement = "";
 
 
     public void ApplyPackAPunchSkin()
     {
         if (isSkinned) return;
 
-        if (gunRenderer != null && papGunMaterial != null)
+        if (!hasInfusionSkin)   // Only apply PAP skin if no infusion skin is active (infusion has priority)
         {
-            gunRenderer.material = papGunMaterial;
-        }
+            if (gunRenderer != null && papGunMaterial != null)
+            {
+                gunRenderer.material = papGunMaterial;
+            }
 
-        if (magazineRenderer != null && papMagMaterial != null)
-        {
-            magazineRenderer.material = papMagMaterial;
+            if (magazineRenderer != null && papMagMaterial != null)
+            {
+                magazineRenderer.material = papMagMaterial;
+            }
         }
 
         isSkinned = true;
@@ -413,23 +440,129 @@ public class Weapon : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    //-- infusing
-
-    public string infusedElement = "";
+    //----------------------------------------- IMBUING SYSTTEM ------------------------
 
     public void SetInfusedElement(string element)
     {
         infusedElement = element;
         Debug.Log($"[Weapon] Infused with {element} magic.");
     }
-    //--
+
+    //----------
 
     public void SetInfusion(InfusionType type)
     {
         infusion = type;
+        ApplyInfusionEffects(type); // Apply VFX and materials immediately
         Debug.Log($"[Weapon] Infused with {type}");
-        // later: add VFX, damage multipliers, etc
     }
+
+
+    public void ApplyInfusionEffects(InfusionType type)
+    {
+        // Remove old infusion effects first
+        RemoveInfusionEffects();
+
+        switch (type)
+        {
+            case InfusionType.Fire:
+                ApplyFireInfusion();
+                break;
+            case InfusionType.Crystal:
+                ApplyCrystalInfusion();
+                break;
+            case InfusionType.None:
+                // Already removed above, might need to restore PAP skin
+                RestorePAPSkinIfNeeded();
+                break;
+        }
+    }
+
+    private void ApplyFireInfusion()
+    {
+        // Apply Fire VFX
+        if (fireInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(fireInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = fireVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(fireVFXRotation);
+            currentInfusionVFX.transform.localScale = fireVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Fire Materials (overrides PAP materials)
+        if (gunRenderer != null && fireGunMaterial != null)
+        {
+            gunRenderer.material = fireGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && fireMagMaterial != null)
+        {
+            magazineRenderer.material = fireMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Fire infusion effects applied!");
+    }
+
+    private void ApplyCrystalInfusion()
+    {
+        // Apply Crystal VFX
+        if (crystalInfusionVFXPrefab != null)
+        {
+            currentInfusionVFX = Instantiate(crystalInfusionVFXPrefab, transform);
+            currentInfusionVFX.transform.localPosition = crystalVFXOffset;
+            currentInfusionVFX.transform.localRotation = Quaternion.Euler(crystalVFXRotation);
+            currentInfusionVFX.transform.localScale = crystalVFXScale;
+            hasInfusionVFX = true;
+        }
+
+        // Apply Crystal Materials (overrides PAP materials)
+        if (gunRenderer != null && crystalGunMaterial != null)
+        {
+            gunRenderer.material = crystalGunMaterial;
+            hasInfusionSkin = true;
+        }
+
+        if (magazineRenderer != null && crystalMagMaterial != null)
+        {
+            magazineRenderer.material = crystalMagMaterial;
+            hasInfusionSkin = true;
+        }
+
+        Debug.Log("[Weapon] Crystal infusion effects applied!");
+    }
+
+    private void RemoveInfusionEffects()
+    {
+        // Remove VFX
+        if (currentInfusionVFX != null)
+        {
+            Destroy(currentInfusionVFX);
+            currentInfusionVFX = null;
+        }
+        hasInfusionVFX = false;
+        hasInfusionSkin = false;
+    }
+
+    private void RestorePAPSkinIfNeeded()
+    {
+        // If we had PAP but removed infusion, restore PAP materials
+        if (isSkinned)
+        {
+            if (gunRenderer != null && papGunMaterial != null)
+            {
+                gunRenderer.material = papGunMaterial;
+            }
+
+            if (magazineRenderer != null && papMagMaterial != null)
+            {
+                magazineRenderer.material = papMagMaterial;
+            }
+        }
+    }
+
 
 
     //for ui -- getter methods

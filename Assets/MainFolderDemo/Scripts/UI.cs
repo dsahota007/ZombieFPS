@@ -1126,13 +1126,22 @@ public class UI : MonoBehaviour
     public void SetCurrentWeapon(Weapon weapon)
     {
         currentWeapon = weapon;
-
         if (infuseStatusText != null)
         {
-            if (!string.IsNullOrEmpty(weapon.infusedElement))
+            // Check the actual InfusionType enum instead of the string
+            if (weapon.infusion != InfusionType.None)
+            {
+                infuseStatusText.text = $"{weapon.infusion} Magic Infused!";
+            }
+            else if (!string.IsNullOrEmpty(weapon.infusedElement))
+            {
+                // Fallback to string version if enum is None but string exists
                 infuseStatusText.text = $"{weapon.infusedElement} Magic Infused!";
+            }
             else
+            {
                 infuseStatusText.text = "";
+            }
         }
     }
 
@@ -1168,7 +1177,6 @@ public class UI : MonoBehaviour
         }
         CloseInfusePanel();
     }
-
 }
 
 
