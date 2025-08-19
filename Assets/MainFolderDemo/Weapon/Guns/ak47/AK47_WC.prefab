@@ -6127,6 +6127,56 @@ MonoBehaviour:
   crystalMagMaterial: {fileID: 2100000, guid: e891676b20afb984b963fb756f9b0317, type: 2}
   crystalMuzzleFlash: {fileID: 6980259576133684760, guid: 50b5d431d3a96cb459866b43b1b37d65,
     type: 3}
+  voidInfusionVFXPrefab: {fileID: 0}
+  voidVFXOffset: {x: 0, y: 0, z: 0}
+  voidVFXRotation: {x: 0, y: 0, z: 0}
+  voidVFXScale: {x: 1, y: 1, z: 1}
+  voidGunMaterial: {fileID: 2100000, guid: 36d877f3fda966b41b70df6201e9c288, type: 2}
+  voidMagMaterial: {fileID: 2100000, guid: acb124cbdd2317a4e9a6775fd6961c10, type: 2}
+  voidMuzzleFlash: {fileID: 6980259576133684760, guid: 21e3e0a8553ff584b9b4457c6aa7e351,
+    type: 3}
+  iceInfusionVFXPrefab: {fileID: 0}
+  iceVFXOffset: {x: 0, y: 0, z: 0}
+  iceVFXRotation: {x: 0, y: 0, z: 0}
+  iceVFXScale: {x: 1, y: 1, z: 1}
+  iceGunMaterial: {fileID: 0}
+  iceMagMaterial: {fileID: 0}
+  iceMuzzleFlash: {fileID: 0}
+  venomInfusionVFXPrefab: {fileID: 0}
+  venomVFXOffset: {x: 0, y: 0, z: 0}
+  venomVFXRotation: {x: 0, y: 0, z: 0}
+  venomVFXScale: {x: 1, y: 1, z: 1}
+  venomGunMaterial: {fileID: 0}
+  venomMagMaterial: {fileID: 0}
+  venomMuzzleFlash: {fileID: 0}
+  lightningInfusionVFXPrefab: {fileID: 0}
+  lightningVFXOffset: {x: 0, y: 0, z: 0}
+  lightningVFXRotation: {x: 0, y: 0, z: 0}
+  lightningVFXScale: {x: 1, y: 1, z: 1}
+  lightningGunMaterial: {fileID: 0}
+  lightningMagMaterial: {fileID: 0}
+  lightningMuzzleFlash: {fileID: 0}
+  windInfusionVFXPrefab: {fileID: 0}
+  windVFXOffset: {x: 0, y: 0, z: 0}
+  windVFXRotation: {x: 0, y: 0, z: 0}
+  windVFXScale: {x: 1, y: 1, z: 1}
+  windGunMaterial: {fileID: 0}
+  windMagMaterial: {fileID: 0}
+  windMuzzleFlash: {fileID: 0}
+  meteorInfusionVFXPrefab: {fileID: 0}
+  meteorVFXOffset: {x: 0, y: 0, z: 0}
+  meteorVFXRotation: {x: 0, y: 0, z: 0}
+  meteorVFXScale: {x: 1, y: 1, z: 1}
+  meteorGunMaterial: {fileID: 0}
+  meteorMagMaterial: {fileID: 0}
+  meteorMuzzleFlash: {fileID: 0}
+  crimsonInfusionVFXPrefab: {fileID: 0}
+  crimsonVFXOffset: {x: 0, y: 0, z: 0}
+  crimsonVFXRotation: {x: 0, y: 0, z: 0}
+  crimsonVFXScale: {x: 1, y: 1, z: 1}
+  crimsonGunMaterial: {fileID: 0}
+  crimsonMagMaterial: {fileID: 0}
+  crimsonMuzzleFlash: {fileID: 0}
   hasInfusionVFX: 0
   hasInfusionSkin: 0
   infusedElement: 
