@@ -1155,6 +1155,36 @@ public class UI : MonoBehaviour
         InfuseWith(InfusionType.Ice);
     }
 
+    public void OnClickInfuseVenom()
+    {
+        InfuseWith(InfusionType.Venom);
+    }
+
+    public void OnClickInfuseLightning()
+    {
+        InfuseWith(InfusionType.Lightning);
+    }
+
+    public void OnClickInfuseWind()
+    {
+        InfuseWith(InfusionType.Wind);
+    }
+
+    public void OnClickInfuseMeteor()
+    {
+        InfuseWith(InfusionType.Meteor);
+    }
+
+    public void OnClickInfuseCrimson()
+    {
+        InfuseWith(InfusionType.Crimson);
+    }
+
+    public void OnClickInfuseVoid()
+    {
+        InfuseWith(InfusionType.Void);
+    }
+
     public void OnClickInfuseCrystal()
     {
         InfuseWith(InfusionType.Crystal);

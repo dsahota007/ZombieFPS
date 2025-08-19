@@ -3,7 +3,19 @@ using System.Collections;
 //using Unity.Mathematics;
 
 public enum FireType { Single, Burst, Auto }
-public enum InfusionType { None, Fire, Ice, Crystal }
+public enum InfusionType
+{
+    None,
+    Fire,
+    Crystal,
+    Void,
+    Ice,
+    Venom,
+    Lightning,
+    Wind,
+    Meteor,
+    Crimson,
+}
 
 public class Weapon : MonoBehaviour
 {
@@ -132,6 +144,7 @@ public class Weapon : MonoBehaviour
     public Vector3 fireVFXScale = Vector3.one;
     public Material fireGunMaterial;
     public Material fireMagMaterial;
+    public GameObject fireMuzzleFlash;
 
     [Header("Crystal Infusion")]
     public GameObject crystalInfusionVFXPrefab;
@@ -140,6 +153,71 @@ public class Weapon : MonoBehaviour
     public Vector3 crystalVFXScale = Vector3.one;
     public Material crystalGunMaterial;
     public Material crystalMagMaterial;
+    public GameObject crystalMuzzleFlash;
+
+    [Header("Void Infusion")]
+    public GameObject voidInfusionVFXPrefab;
+    public Vector3 voidVFXOffset = Vector3.zero;
+    public Vector3 voidVFXRotation = Vector3.zero;
+    public Vector3 voidVFXScale = Vector3.one;
+    public Material voidGunMaterial;
+    public Material voidMagMaterial;
+    public GameObject voidMuzzleFlash;
+
+    [Header("Ice Infusion")]
+    public GameObject iceInfusionVFXPrefab;
+    public Vector3 iceVFXOffset = Vector3.zero;
+    public Vector3 iceVFXRotation = Vector3.zero;
+    public Vector3 iceVFXScale = Vector3.one;
+    public Material iceGunMaterial;
+    public Material iceMagMaterial;
+    public GameObject iceMuzzleFlash;
+
+    [Header("Venom Infusion")]
+    public GameObject venomInfusionVFXPrefab;
+    public Vector3 venomVFXOffset = Vector3.zero;
+    public Vector3 venomVFXRotation = Vector3.zero;
+    public Vector3 venomVFXScale = Vector3.one;
+    public Material venomGunMaterial;
+    public Material venomMagMaterial;
+    public GameObject venomMuzzleFlash;
+
+    [Header("Lightning Infusion")]
+    public GameObject lightningInfusionVFXPrefab;
+    public Vector3 lightningVFXOffset = Vector3.zero;
+    public Vector3 lightningVFXRotation = Vector3.zero;
+    public Vector3 lightningVFXScale = Vector3.one;
+    public Material lightningGunMaterial;
+    public Material lightningMagMaterial;
+    public GameObject lightningMuzzleFlash;
+
+    [Header("Wind Infusion")]
+    public GameObject windInfusionVFXPrefab;
+    public Vector3 windVFXOffset = Vector3.zero;
+    public Vector3 windVFXRotation = Vector3.zero;
+    public Vector3 windVFXScale = Vector3.one;
+    public Material windGunMaterial;
+    public Material windMagMaterial;
+    public GameObject windMuzzleFlash;
+
+    [Header("Meteor Infusion")]
+    public GameObject meteorInfusionVFXPrefab;
+    public Vector3 meteorVFXOffset = Vector3.zero;
+    public Vector3 meteorVFXRotation = Vector3.zero;
+    public Vector3 meteorVFXScale = Vector3.one;
+    public Material meteorGunMaterial;
+    public Material meteorMagMaterial;
+    public GameObject meteorMuzzleFlash;
+
+    [Header("Crimson Infusion")]
+    public GameObject crimsonInfusionVFXPrefab;
+    public Vector3 crimsonVFXOffset = Vector3.zero;
+    public Vector3 crimsonVFXRotation = Vector3.zero;
+    public Vector3 crimsonVFXScale = Vector3.one;
+    public Material crimsonGunMaterial;
+    public Material crimsonMagMaterial;
+    public GameObject crimsonMuzzleFlash;
+
 
 
     //----------- Infusion tracking variables
@@ -231,6 +309,30 @@ public class Weapon : MonoBehaviour
 
     }
 
+    private GameObject GetMuzzleFlashPrefab()
+    {
+        // Priority: Infusion > PAP > Default
+
+        // Check for infusion muzzle flash first (highest priority)
+        switch (infusion)
+        {
+            case InfusionType.Fire:
+                if (fireMuzzleFlash != null) return fireMuzzleFlash;
+                break;
+            case InfusionType.Crystal:
+                if (crystalMuzzleFlash != null) return crystalMuzzleFlash;
+                break;
+        }
+
+        // If no infusion muzzle flash, check PAP (medium priority)
+        if (upgradeLevel >= 1 && papMuzzleFlash != null)
+            return papMuzzleFlash;
+
+        // Fallback to default (lowest priority)
+        return defaultMuzzleFlash;
+    }
+
+
     public void Shoot()
     {
         if (armMover.DrinkingPerk) return;
@@ -253,7 +355,7 @@ public class Weapon : MonoBehaviour
 
 
         //// --- Spawn muzzle flash ---
-        GameObject muzzlePrefab = (upgradeLevel >= 1 && papMuzzleFlash != null) ? papMuzzleFlash : defaultMuzzleFlash;
+        GameObject muzzlePrefab = GetMuzzleFlashPrefab();
 
         if (muzzlePrefab != null && firePoint != null)
         {
@@ -261,6 +363,7 @@ public class Weapon : MonoBehaviour
             flash.transform.SetParent(firePoint);
             Destroy(flash, muzzleFlashLifetime);
         }
+
 
 
 

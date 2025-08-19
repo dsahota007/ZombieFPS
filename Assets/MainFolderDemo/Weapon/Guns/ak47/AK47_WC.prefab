@@ -6110,6 +6110,26 @@ MonoBehaviour:
   magazineRenderer: {fileID: 4103139483029031942}
   papGunMaterial: {fileID: 2100000, guid: 7ddc8d91e3e3cc743890ec2673be481b, type: 2}
   papMagMaterial: {fileID: 2100000, guid: 5f3c4f12884deb741ae0cae5f869abfe, type: 2}
+  infusion: 0
+  fireInfusionVFXPrefab: {fileID: 0}
+  fireVFXOffset: {x: 0, y: 0, z: 0}
+  fireVFXRotation: {x: 0, y: 0, z: 0}
+  fireVFXScale: {x: 1, y: 1, z: 1}
+  fireGunMaterial: {fileID: 2100000, guid: 20310512289445c48b43048a560c9d50, type: 2}
+  fireMagMaterial: {fileID: 2100000, guid: 98ef1f45c8b46464f9ce941997914a39, type: 2}
+  fireMuzzleFlash: {fileID: 6980259576133684760, guid: 1e67b0699f460434ca9431dc7a17f91c,
+    type: 3}
+  crystalInfusionVFXPrefab: {fileID: 0}
+  crystalVFXOffset: {x: 0, y: 0, z: 0}
+  crystalVFXRotation: {x: 0, y: 0, z: 0}
+  crystalVFXScale: {x: 1, y: 1, z: 1}
+  crystalGunMaterial: {fileID: 2100000, guid: 248611287bb5bfe4da4036521bcd3da5, type: 2}
+  crystalMagMaterial: {fileID: 2100000, guid: e891676b20afb984b963fb756f9b0317, type: 2}
+  crystalMuzzleFlash: {fileID: 6980259576133684760, guid: 50b5d431d3a96cb459866b43b1b37d65,
+    type: 3}
+  hasInfusionVFX: 0
+  hasInfusionSkin: 0
+  infusedElement: 
 --- !u!1 &8027666018750598299
 GameObject:
   m_ObjectHideFlags: 0
