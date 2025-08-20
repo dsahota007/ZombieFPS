@@ -6109,7 +6109,7 @@ MonoBehaviour:
   gunRenderer: {fileID: 1849216918402026802}
   magazineRenderer: {fileID: 4103139483029031942}
   papGunMaterial: {fileID: 2100000, guid: 7ddc8d91e3e3cc743890ec2673be481b, type: 2}
-  papMagMaterial: {fileID: 2100000, guid: 5f3c4f12884deb741ae0cae5f869abfe, type: 2}
+  papMagMaterial: {fileID: 2100000, guid: 8867023f86d0a4e408c73aac2acc8af4, type: 2}
   infusion: 0
   fireInfusionVFXPrefab: {fileID: 3473529909581181512, guid: 05030faaf97464749b7c2dbbc4956660,
     type: 3}
@@ -6176,13 +6176,15 @@ MonoBehaviour:
   windMagMaterial: {fileID: 2100000, guid: bf38857305455164c8bb5ccfb7d22707, type: 2}
   windMuzzleFlash: {fileID: 6980259576133684760, guid: 4f1f2fb0da66fa94686f6b7e705ccc55,
     type: 3}
-  meteorInfusionVFXPrefab: {fileID: 0}
+  meteorInfusionVFXPrefab: {fileID: 3473529909581181512, guid: eb947049086a3874d836f17356764397,
+    type: 3}
   meteorVFXOffset: {x: -0.055, y: -0.03, z: 0.15}
   meteorVFXRotation: {x: 180, y: 0, z: 180}
   meteorVFXScale: {x: 1, y: 1, z: 1}
-  meteorGunMaterial: {fileID: 0}
-  meteorMagMaterial: {fileID: 0}
-  meteorMuzzleFlash: {fileID: 0}
+  meteorGunMaterial: {fileID: 2100000, guid: dffd67f6441e8a0419b7907dc4a9e2f2, type: 2}
+  meteorMagMaterial: {fileID: 2100000, guid: 8ab9709391dd3df4bb7ba5145f585784, type: 2}
+  meteorMuzzleFlash: {fileID: 6980259576133684760, guid: 3b3a4b4fe7975dd49a836b9b117dc63c,
+    type: 3}
   crimsonInfusionVFXPrefab: {fileID: 3473529909581181512, guid: 54d21353537485247b19e6a485854e80,
     type: 3}
   crimsonVFXOffset: {x: -0.055, y: -0.03, z: 0.15}

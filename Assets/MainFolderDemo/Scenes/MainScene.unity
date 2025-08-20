@@ -10316,7 +10316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02d475b85354eb43947ff9daa895714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropChance: 0.673
+  dropChance: 0.05
   pickupPrefabs:
   - {fileID: 4943829022777390022, guid: 2bef4749036d684448815405d878c249, type: 3}
   - {fileID: 4943829022777390022, guid: fbffac4892099554c9213caea41fb0cc, type: 3}
