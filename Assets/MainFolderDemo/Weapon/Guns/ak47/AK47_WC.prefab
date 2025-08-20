@@ -6167,13 +6167,15 @@ MonoBehaviour:
     type: 2}
   lightningMuzzleFlash: {fileID: 6980259576133684760, guid: 37271b4bd1a6f4640a1d155d24815753,
     type: 3}
-  windInfusionVFXPrefab: {fileID: 0}
+  windInfusionVFXPrefab: {fileID: 3473529909581181512, guid: 0592a987c78adb741bb98d9e092122e3,
+    type: 3}
   windVFXOffset: {x: -0.055, y: -0.03, z: 0.15}
   windVFXRotation: {x: 180, y: 0, z: 180}
   windVFXScale: {x: 1, y: 1, z: 1}
-  windGunMaterial: {fileID: 0}
-  windMagMaterial: {fileID: 0}
-  windMuzzleFlash: {fileID: 0}
+  windGunMaterial: {fileID: 2100000, guid: a0439961d4c20f8429c848e3e9b316b5, type: 2}
+  windMagMaterial: {fileID: 2100000, guid: bf38857305455164c8bb5ccfb7d22707, type: 2}
+  windMuzzleFlash: {fileID: 6980259576133684760, guid: 4f1f2fb0da66fa94686f6b7e705ccc55,
+    type: 3}
   meteorInfusionVFXPrefab: {fileID: 0}
   meteorVFXOffset: {x: -0.055, y: -0.03, z: 0.15}
   meteorVFXRotation: {x: 180, y: 0, z: 180}
@@ -6181,13 +6183,15 @@ MonoBehaviour:
   meteorGunMaterial: {fileID: 0}
   meteorMagMaterial: {fileID: 0}
   meteorMuzzleFlash: {fileID: 0}
-  crimsonInfusionVFXPrefab: {fileID: 0}
+  crimsonInfusionVFXPrefab: {fileID: 3473529909581181512, guid: 54d21353537485247b19e6a485854e80,
+    type: 3}
   crimsonVFXOffset: {x: -0.055, y: -0.03, z: 0.15}
   crimsonVFXRotation: {x: 180, y: 0, z: 180}
   crimsonVFXScale: {x: 1, y: 1, z: 1}
-  crimsonGunMaterial: {fileID: 0}
-  crimsonMagMaterial: {fileID: 0}
-  crimsonMuzzleFlash: {fileID: 0}
+  crimsonGunMaterial: {fileID: 2100000, guid: 7e91c43b825cccf44907a88afbc760f8, type: 2}
+  crimsonMagMaterial: {fileID: 2100000, guid: 5f3c4f12884deb741ae0cae5f869abfe, type: 2}
+  crimsonMuzzleFlash: {fileID: 6980259576133684760, guid: a65a22363909a334f9053fd5f102ba2a,
+    type: 3}
   hasInfusionVFX: 0
   hasInfusionSkin: 0
   infusedElement: 
