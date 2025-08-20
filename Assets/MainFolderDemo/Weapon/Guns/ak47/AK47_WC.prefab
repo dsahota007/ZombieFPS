@@ -6111,10 +6111,10 @@ MonoBehaviour:
   papGunMaterial: {fileID: 2100000, guid: 7ddc8d91e3e3cc743890ec2673be481b, type: 2}
   papMagMaterial: {fileID: 2100000, guid: 5f3c4f12884deb741ae0cae5f869abfe, type: 2}
   infusion: 0
-  fireInfusionVFXPrefab: {fileID: 1193953125369175018, guid: e1684a71814f49a458e21004faa94eb6,
+  fireInfusionVFXPrefab: {fileID: 3473529909581181512, guid: 05030faaf97464749b7c2dbbc4956660,
     type: 3}
-  fireVFXOffset: {x: 0, y: 0, z: 0}
-  fireVFXRotation: {x: 0, y: 0, z: 0}
+  fireVFXOffset: {x: -0.055, y: -0.03, z: 0.15}
+  fireVFXRotation: {x: 180, y: 0, z: 180}
   fireVFXScale: {x: 1, y: 1, z: 1}
   fireGunMaterial: {fileID: 2100000, guid: 20310512289445c48b43048a560c9d50, type: 2}
   fireMagMaterial: {fileID: 2100000, guid: 98ef1f45c8b46464f9ce941997914a39, type: 2}
@@ -6129,8 +6129,7 @@ MonoBehaviour:
   crystalMagMaterial: {fileID: 2100000, guid: e891676b20afb984b963fb756f9b0317, type: 2}
   crystalMuzzleFlash: {fileID: 6980259576133684760, guid: 50b5d431d3a96cb459866b43b1b37d65,
     type: 3}
-  voidInfusionVFXPrefab: {fileID: 6441873369525384307, guid: 33dc405bab51e204f92cf960bd8be89a,
-    type: 3}
+  voidInfusionVFXPrefab: {fileID: 0}
   voidVFXOffset: {x: -0.06, y: 0, z: 0}
   voidVFXRotation: {x: 0, y: 0, z: 0}
   voidVFXScale: {x: 0.125, y: 0.04, z: 4}
@@ -6152,13 +6151,17 @@ MonoBehaviour:
   venomGunMaterial: {fileID: 0}
   venomMagMaterial: {fileID: 0}
   venomMuzzleFlash: {fileID: 0}
-  lightningInfusionVFXPrefab: {fileID: 0}
-  lightningVFXOffset: {x: 0, y: 0, z: 0}
-  lightningVFXRotation: {x: 0, y: 0, z: 0}
+  lightningInfusionVFXPrefab: {fileID: 3473529909581181512, guid: 436fa7f02cba8114290b05a680ff7caa,
+    type: 3}
+  lightningVFXOffset: {x: -0.1, y: -0.05, z: 0}
+  lightningVFXRotation: {x: 180, y: 0, z: 180}
   lightningVFXScale: {x: 1, y: 1, z: 1}
-  lightningGunMaterial: {fileID: 0}
-  lightningMagMaterial: {fileID: 0}
-  lightningMuzzleFlash: {fileID: 0}
+  lightningGunMaterial: {fileID: 2100000, guid: 248611287bb5bfe4da4036521bcd3da5,
+    type: 2}
+  lightningMagMaterial: {fileID: 2100000, guid: e891676b20afb984b963fb756f9b0317,
+    type: 2}
+  lightningMuzzleFlash: {fileID: 6980259576133684760, guid: 50b5d431d3a96cb459866b43b1b37d65,
+    type: 3}
   windInfusionVFXPrefab: {fileID: 0}
   windVFXOffset: {x: 0, y: 0, z: 0}
   windVFXRotation: {x: 0, y: 0, z: 0}
