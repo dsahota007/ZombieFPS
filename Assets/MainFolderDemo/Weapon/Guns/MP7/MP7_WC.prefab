@@ -380,7 +380,7 @@ MonoBehaviour:
     type: 3}
   voidInfusionVFXPrefab: {fileID: 3473529909581181512, guid: c6ca369f3ec77fb4aaa9285b749b5d3c,
     type: 3}
-  voidVFXOffset: {x: -0.1, y: 0.03, z: 0.15}
+  voidVFXOffset: {x: -0.1, y: 0.03, z: 0.1}
   voidVFXRotation: {x: 180, y: 0, z: 180}
   voidVFXScale: {x: 1, y: 1, z: 1}
   voidGunMaterial: {fileID: 2100000, guid: e71fca7c8101cad4dbe3a71c36239885, type: 2}
