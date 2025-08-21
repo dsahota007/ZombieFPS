@@ -14,6 +14,10 @@ public class EnemyHealthRagdoll : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
 
+    //--
+    private PlayerMovement _player;         //THIS IS ALL FOR STEPPING ON HEJAD WE CAN DO BETTER
+    private CharacterController _playerCC;  //THIS IS ALL FOR STEPPING ON HEJAD WE CAN DO BETTER
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -24,8 +28,21 @@ public class EnemyHealthRagdoll : MonoBehaviour
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerBody"), LayerMask.NameToLayer("DeadBody"));   // Ignore collisions between PlayerBody and DeadBody layers
         
         currentHealth = Health;
-
+        _player = FindFirstObjectByType<PlayerMovement>();
+        if (_player != null) _playerCC = _player.GetComponent<CharacterController>();
     }
+ 
+    
+    
+    void Update()
+    { 
+        if (!isDead && _player != null && _playerCC != null && BoxRootCollider != null)   //THIS IS ALL FOR STEPPING ON HEJAD WE CAN DO BETTER
+        {
+            bool airborne = !_player.IsGrounded();
+            Physics.IgnoreCollision(BoxRootCollider, _playerCC, airborne);
+        }
+    }
+
 
     public void RegisterHit(Vector3 hitDirection)
     {

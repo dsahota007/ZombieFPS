@@ -407,7 +407,7 @@ MonoBehaviour:
     type: 3}
   lightningInfusionVFXPrefab: {fileID: 3473529909581181512, guid: 875680cb3e4fbdd47a2701153a18bb7c,
     type: 3}
-  lightningVFXOffset: {x: -0.15, y: 0, z: 0.15}
+  lightningVFXOffset: {x: -0.1, y: 0, z: 0.15}
   lightningVFXRotation: {x: 180, y: 0, z: 180}
   lightningVFXScale: {x: 1, y: 1, z: 1}
   lightningGunMaterial: {fileID: 2100000, guid: ae3d608839e5d0e4e8a34a51c490c364,

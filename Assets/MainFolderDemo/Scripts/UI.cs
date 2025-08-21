@@ -881,8 +881,8 @@ public class UI : MonoBehaviour
     //-------------------------- perk ICON logic
     public void ShowPerkIcon(PerkType type)
     {
-        if (perkBar == null || perkIconPrefab == null) return;          // not wired yet
-        if (_activePerkIcons.ContainsKey(type)) return;                 // if you already have 
+        if (perkBar == null || perkIconPrefab == null) return;          
+        if (_activePerkIcons.ContainsKey(type)) return;                 
 
         Sprite s = GetPerkSprite(type);
         if (s == null) return;
