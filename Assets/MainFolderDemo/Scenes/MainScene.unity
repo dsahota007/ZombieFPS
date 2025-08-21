@@ -6758,7 +6758,7 @@ Transform:
   m_GameObject: {fileID: 561119872}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.98, y: 0.579, z: -4.556}
+  m_LocalPosition: {x: -45.28, y: 0.579, z: -4.556}
   m_LocalScale: {x: 1, y: 1.0899999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10182,9 +10182,9 @@ MonoBehaviour:
   flaskPrefab: {fileID: 1681726694830842825, guid: 6460036222d21d1459c55c4214ed64d3,
     type: 3}
   flaskStartLocalPos: {x: -0.09, y: -1.1, z: 0.42}
-  flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.16}
+  flaskMouthLocalPos: {x: -0.01, y: -0.12, z: 0.25}
   flaskStartLocalEuler: {x: 0, y: 0, z: 0}
-  flaskSipLocalEuler: {x: -65, y: 0, z: 0}
+  flaskSipLocalEuler: {x: -55, y: 0, z: 0}
   moveInTime: 0.5
   sipTime: 1
   moveOutTime: 0.25
@@ -16724,7 +16724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1595701417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22964,11 +22964,11 @@ MonoBehaviour:
     type: 3}
   grenadeSpawn: {fileID: 1405541171}
   throwForce: 14
-  perkDropOffset: {x: -0.5, y: -0.6, z: 0}
+  perkDropOffset: {x: -0.5, y: -0.6, z: 0.18}
   perkDropTime: 0.2
   perkHoldTime: 0.15
   perkReturnTime: 0.2
-  perkMidLocalPos: {x: -0.36, y: -0.08, z: -0.68}
+  perkMidLocalPos: {x: -0.4, y: -0.11, z: -0.6}
   perkMidLocalEuler: {x: 0, y: -207.5, z: 0}
   perkToMidTime: 0.18
   perkMidHoldTime: 0.95
