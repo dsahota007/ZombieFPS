@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DeaglePAPGun 1
+  m_Name: DeagleWindMag
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -27,7 +27,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: c3ab5b74e9fbbbc48a42a1900e8ca551, type: 3}
+        m_Texture: {fileID: 2800000, guid: fbbb638571922044194adebaf4feb68c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -43,15 +43,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 97f61c4b527275047b154ea859de83ea, type: 3}
+        m_Texture: {fileID: 2800000, guid: a21c2c26a535dce499656042645ec617, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8471be6ee15028f4fb2c6c4148fd4310, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0496358749164f7428be13c6bf394342, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 7ce94ae4ed89425478c1fd52fb4d6454, type: 3}
+        m_Texture: {fileID: 2800000, guid: 29fc5815e2aeaee4c91521d6b22fd322, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -81,7 +81,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
-    - _EmissionColor: {r: 1, g: 0, b: 0.9708805, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0.54509807, g: 0.57254905, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

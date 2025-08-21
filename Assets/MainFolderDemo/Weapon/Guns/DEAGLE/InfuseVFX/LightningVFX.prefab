@@ -29386,7 +29386,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.16
+      scalar: 0.06
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -30021,7 +30021,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.95
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -39115,7 +39115,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: -0.2753668, y: 0.09909649, z: 0.05014612, w: -0.23240481}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
