@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyHealthRagdoll : MonoBehaviour
@@ -27,6 +28,18 @@ public class EnemyHealthRagdoll : MonoBehaviour
 
     private Transform lookCam; // reference to player's camera
 
+    [Header("Health Bar Visibility")]
+    public float showMaxDistance = 25f;           // only within this distance
+    [Range(0f, 1f)] public float centerDotThreshold = 0.85f; // ~31° cone (cos θ)
+    public bool requireLineOfSight = true;        // raycast check
+    public LayerMask occlusionMask = ~0;          // what can block view (walls, props)
+    public float fadeSpeed = 10f;                 // canvas alpha lerp
+    public Vector3 lookAtOffset = new Vector3(0, 1.6f, 0); // aim at head height
+
+    private CanvasGroup _cg; //alpha fade
+    private Renderer _nameTagRenderer;   // <— add
+
+
 
 
     void Start()
@@ -41,8 +54,8 @@ public class EnemyHealthRagdoll : MonoBehaviour
         currentHealth = Health;
         _player = FindFirstObjectByType<PlayerMovement>();
         if (_player != null) _playerCC = _player.GetComponent<CharacterController>();
-         
-        var camScript = FindFirstObjectByType<CameraScript>();   //fetch sciprt for cam
+
+        var camScript = FindFirstObjectByType<CameraScript>();
         lookCam = camScript != null ? camScript.cam : Camera.main?.transform;
 
         // init slider
@@ -53,16 +66,41 @@ public class EnemyHealthRagdoll : MonoBehaviour
             healthBar.value = 1f; // full health
         }
 
-        SetHealthUIVisible(true);
+        // GET/ADD CanvasGroup ON THE HEALTH CANVAS ROOT
+        _nameTagRenderer = nameTagGO ? nameTagGO.GetComponent<Renderer>() : null;
 
+        // CanvasGroup init should NOT be inside the healthBar check:
+        if (healthCanvas != null)
+        {
+            _cg = healthCanvas.GetComponent<CanvasGroup>();  //we get entire canvas
+            if (_cg == null) _cg = healthCanvas.gameObject.AddComponent<CanvasGroup>();  //we get if we dont find
+            _cg.alpha = 0f;              // start hidden
+            _cg.blocksRaycasts = false;        
+            //_cg.interactable = false;
+            healthCanvas.enabled = true;
+        }
+
+        // IMPORTANT: remove the force-show
+        // SetHealthUIVisible(true);  <-- delete this line
+
+
+        //SetHealthUIVisible(true);
     }
+
     private void SetHealthUIVisible(bool visible)
     {
-        if (healthCanvas) healthCanvas.enabled = visible;  // hides all children under the canvas
-        if (nameTagGO) nameTagGO.SetActive(visible);    // explicit toggle in case Tag is not under that canvas
+        if (_cg != null)
+        {
+            _cg.alpha = visible ? 1f : 0f;      // instantly show/hide
+            _cg.blocksRaycasts = visible;       // optional
+            _cg.interactable = visible;         // optional
+        }
+        else
+        {
+            if (healthCanvas) healthCanvas.enabled = visible;
+            if (nameTagGO) nameTagGO.SetActive(visible);
+        }
     }
-
-
 
     void Update()
     { 
@@ -84,8 +122,49 @@ public class EnemyHealthRagdoll : MonoBehaviour
                     healthCanvas.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             }
         }
+        if (!isDead && _cg != null)
+        {
+            float target = ShouldShowBar() ? 1f : 0f;    //we want fully shown or hidden
+            _cg.alpha = Mathf.MoveTowards(_cg.alpha, target, fadeSpeed * Time.deltaTime);    //MoveTowards(current, target, max change)  -- fade logic 
+
+            bool visibleNow = _cg.alpha > 0.01f;   //If the alpha is greater than ~0.01 (almost invisible), treat it as visible
+            //_cg.blocksRaycasts = visibleNow;
+            //_cg.interactable = visibleNow;
+
+            // If the tag is 3D TMP (has a MeshRenderer), toggle it here:
+            if (_nameTagRenderer != null)
+                _nameTagRenderer.enabled = visibleNow;
+        }
+
 
     }
+
+    bool ShouldShowBar()
+    {
+        if (lookCam == null) return false;   //gtfo we dont have cam
+
+        Vector3 focusPos = transform.position + lookAtOffset;   //focus point which is going to be head of the enemy 
+        float dist = Vector3.Distance(lookCam.position, focusPos);   //get dist of camera to focus point
+        if (dist > showMaxDistance) return false;           //if were outta range Gtfo this code
+
+        // how centered? (1 = dead center, -1 = behind)
+        Vector3 toEnemy = (focusPos - lookCam.position).normalized;  //direction 
+        float dot = Vector3.Dot(lookCam.forward, toEnemy);            //Uses the dot product to check if you’re looking at the enemy.
+        if (dot < centerDotThreshold) return false;
+
+        if (requireLineOfSight)
+        {
+            // if something blocks the view, hide
+            if (Physics.Raycast(lookCam.position, toEnemy, out RaycastHit hit, dist, occlusionMask))
+            {
+                // allow the enemy itself
+                if (hit.transform != transform && !hit.transform.IsChildOf(transform))
+                    return false;
+            }
+        }
+        return true;
+    }
+
 
 
     public void RegisterHit(Vector3 hitDirection)
