@@ -17,6 +17,17 @@ public class EnemyHealthRagdoll : MonoBehaviour
     //--
     private PlayerMovement _player;         //THIS IS ALL FOR STEPPING ON HEJAD WE CAN DO BETTER
     private CharacterController _playerCC;  //THIS IS ALL FOR STEPPING ON HEJAD WE CAN DO BETTER
+    public float HealthPercent => Mathf.Clamp01(currentHealth / Mathf.Max(1f, (float)Health)); //this is for healt bar for enemy 
+
+    [Header("Health Bar UI")]
+    public Canvas healthCanvas;       // World Space Canvas prefab
+    public UnityEngine.UI.Slider healthBar; // Slider on that canvas
+    public GameObject nameTagGO;
+    public Vector3 healthBarOffset = new Vector3(0, 2, 0); // bar height above enemy
+
+    private Transform lookCam; // reference to player's camera
+
+
 
     void Start()
     {
@@ -30,10 +41,29 @@ public class EnemyHealthRagdoll : MonoBehaviour
         currentHealth = Health;
         _player = FindFirstObjectByType<PlayerMovement>();
         if (_player != null) _playerCC = _player.GetComponent<CharacterController>();
+         
+        var camScript = FindFirstObjectByType<CameraScript>();   //fetch sciprt for cam
+        lookCam = camScript != null ? camScript.cam : Camera.main?.transform;
+
+        // init slider
+        if (healthBar != null)
+        {
+            healthBar.minValue = 0f;
+            healthBar.maxValue = 1f;
+            healthBar.value = 1f; // full health
+        }
+
+        SetHealthUIVisible(true);
+
     }
- 
-    
-    
+    private void SetHealthUIVisible(bool visible)
+    {
+        if (healthCanvas) healthCanvas.enabled = visible;  // hides all children under the canvas
+        if (nameTagGO) nameTagGO.SetActive(visible);    // explicit toggle in case Tag is not under that canvas
+    }
+
+
+
     void Update()
     { 
         if (!isDead && _player != null && _playerCC != null && BoxRootCollider != null)   //THIS IS ALL FOR STEPPING ON HEJAD WE CAN DO BETTER
@@ -41,6 +71,20 @@ public class EnemyHealthRagdoll : MonoBehaviour
             bool airborne = !_player.IsGrounded();
             Physics.IgnoreCollision(BoxRootCollider, _playerCC, airborne);
         }
+
+        if (!isDead && healthCanvas != null)
+        {
+            healthCanvas.transform.position = transform.position + healthBarOffset;
+
+            if (lookCam != null)
+            {
+                Vector3 dir = healthCanvas.transform.position - lookCam.position; 
+                dir.y = 0f;                 // keep upright
+                if (dir.sqrMagnitude > 0.0001f)
+                    healthCanvas.transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            }
+        }
+
     }
 
 
@@ -97,6 +141,10 @@ public class EnemyHealthRagdoll : MonoBehaviour
         {
             if (cam) cam.ShowHitmarker(false);  // regular hitmarker
         }
+
+        if (healthBar != null)
+            healthBar.value = Mathf.Clamp01(currentHealth / (float)Health);  //After changing HP, convert to 0..1 and assign slider value so it shrinks/grows correctly
+
     }
 
     void Die(Vector3 hitDirection)
@@ -140,6 +188,9 @@ public class EnemyHealthRagdoll : MonoBehaviour
         }
         FindObjectOfType<ZombieSpawner>().OnZombieKilled();    //decrement amount of zombies for the spawner
         Destroy(gameObject, 30f);    //make bodies dissapear. 
+
+        SetHealthUIVisible(false);
+
     }
 
 
