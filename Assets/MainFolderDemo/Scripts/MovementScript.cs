@@ -61,11 +61,6 @@ public class PlayerMovement : MonoBehaviour
     private float normalControllerHeight;
     private Vector3 normalControllerCenter;
 
-    // --- NEW: enemies can check this to know if player is airborne ---
-    public static bool PlayerIsAirborne;
-
-    [SerializeField] private float groundCheckDistance = 0.8f;
-    [SerializeField] private LayerMask groundMask;
 
     void Start()
     {
@@ -111,8 +106,6 @@ public class PlayerMovement : MonoBehaviour
 
                 }
             }
-
-
         }
 
 
@@ -190,20 +183,8 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        // extra airborne check (raycast vs ground layer)
-        bool nearGround = Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, groundCheckDistance, groundMask);
-        PlayerIsAirborne = !nearGround;
-
 
     }
-
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (PlayerMovement.PlayerIsAirborne) return; // ignore when player in air
-                                                     // normal collision logic...
-    }
-
 
     //------------------------------------------------------------ Kinetic Slam
     void StartKineticSlam()

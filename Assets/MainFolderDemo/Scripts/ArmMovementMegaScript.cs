@@ -439,7 +439,7 @@ public class ArmMovementMegaScript : MonoBehaviour
         while (t < 1f)
         {
             t += Time.deltaTime / dur;
-            leftArm.localPosition = Vector3.Lerp(dropPos, midPos, t);
+            leftArm.localPosition = Vector3.Lerp(dropPos, midPos, t);   
             leftArm.localRotation = Quaternion.Slerp(dropRot, midRot, t);
             yield return null;
         }

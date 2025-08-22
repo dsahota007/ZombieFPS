@@ -366,7 +366,6 @@ public class Weapon : MonoBehaviour
     public void Shoot()
     {
         if (armMover.DrinkingPerk) return;
-
         if (ui.IsGrenadePanelOpen) return;      //we cant shoot if ur selecting your grenade.
         if (ui.IsInfusePanelOpen) return;
         if (isWeaponBeingShowcased || !CanShoot() || isReloading || IsSprinting()) return; //leave func if u cant
@@ -393,10 +392,6 @@ public class Weapon : MonoBehaviour
             flash.transform.SetParent(firePoint);
             Destroy(flash, muzzleFlashLifetime);
         }
-
-
-
-
 
         ApplyRecoil();
         ApplyRecoil();

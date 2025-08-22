@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8909703238510871169}
   m_LocalEulerAnglesHint: {x: 0, y: -6.89, z: 0}
+--- !u!1 &2118754870021574459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8699503607383989508}
+  m_Layer: 6
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8699503607383989508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118754870021574459}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6851194, z: 0, w: -0.7284308}
+  m_LocalPosition: {x: 0.514, y: 0.223, z: -0.001}
+  m_LocalScale: {x: 250.00005, y: 250, z: 250.00005}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 570609271938844811}
+  m_LocalEulerAnglesHint: {x: 0, y: -273.51, z: 0}
 --- !u!1 &3436406895755593576
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,40 +93,8 @@ Transform:
   m_Children:
   - {fileID: 570609271938844811}
   - {fileID: 4179879174862775011}
-  - {fileID: 2902328080267144550}
   m_Father: {fileID: 8909703238510871169}
   m_LocalEulerAnglesHint: {x: 0, y: -99.39, z: 0}
---- !u!1 &4022974244671153971
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2902328080267144550}
-  m_Layer: 6
-  m_Name: FirePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2902328080267144550
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4022974244671153971}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.70153135, z: 0, w: -0.7126385}
-  m_LocalPosition: {x: 0.297, y: 0.1684, z: -0.014}
-  m_LocalScale: {x: 12.700001, y: 12.7, z: 12.700001}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2664795562393951698}
-  m_LocalEulerAnglesHint: {x: 0, y: -270.9, z: 0}
 --- !u!1 &4373406804633495988
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +125,8 @@ Transform:
   m_LocalPosition: {x: -0.19415279, y: -0.07758376, z: -2.8199664e-18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8699503607383989508}
   m_Father: {fileID: 2664795562393951698}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &593941086700479551
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponOffset: {fileID: 1264731600694966330}
   magazine: {fileID: 4179879174862775011}
-  firePoint: {fileID: 2902328080267144550}
+  firePoint: {fileID: 8699503607383989508}
   bulletPrefab: {fileID: 6410560179999154620, guid: fdcae1bd4cb08e341ad2dcfa0e7cb465,
     type: 3}
   weaponName: Desert Eagle
@@ -327,7 +327,7 @@ MonoBehaviour:
   reloadDuration: 0.5
   reloadTime: 1
   clipSize: 10
-  maxReserve: 30
+  maxReserve: 80
   Tier1clipSize: 40
   Tier1maxReserve: 120
   Tier2clipSize: 50

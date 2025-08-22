@@ -6667,10 +6667,6 @@ MonoBehaviour:
     type: 3}
   KineticUnderneathSlamImpactVFX5: {fileID: 8974203713140315807, guid: 0b5454bed045dda4a82682995df04371,
     type: 3}
-  groundCheckDistance: 0.8
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!143 &561119874
 CharacterController:
   m_ObjectHideFlags: 0
@@ -12771,13 +12767,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164617196}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.17005311, y: -0, z: -0, w: 0.98543495}
-  m_LocalPosition: {x: -1.31, y: 3.74, z: 6.8}
-  m_LocalScale: {x: 3.07, y: 3.3474917, z: 34.837498}
+  m_LocalRotation: {x: -0.11320323, y: 0, z: 0, w: 0.9935719}
+  m_LocalPosition: {x: -1.31, y: 3.7755, z: -0.7948}
+  m_LocalScale: {x: 3.07, y: 3.582322, z: 49.718773}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1127819399}
-  m_LocalEulerAnglesHint: {x: -19.582, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -13, y: 0, z: 0}
 --- !u!65 &1164617198
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16343,8 +16339,8 @@ MonoBehaviour:
   rightArm: {fileID: 7138732185366571710}
   weaponPrefabs:
   - {fileID: 7896929993975101864, guid: 8cfb9d92a596d79478b329debec6748f, type: 3}
-  - {fileID: 7896929993975101864, guid: 99da5065ae5197040bf7c77e9640a3a2, type: 3}
   - {fileID: 7896929993975101864, guid: 786a7cdbc902d1044b0da9f008da0a67, type: 3}
+  - {fileID: 7896929993975101864, guid: 99da5065ae5197040bf7c77e9640a3a2, type: 3}
   - {fileID: 7896929993975101864, guid: 3638afb2936fd064397e126682322ff6, type: 3}
   - {fileID: 7896929993975101864, guid: e06a9575b3827154f9894a58b08eae1a, type: 3}
   - {fileID: 7896929993975101864, guid: 3cf51b44393fa4043a20003c20e3e5b4, type: 3}
