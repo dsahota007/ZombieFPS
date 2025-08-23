@@ -51,6 +51,14 @@ public class EnemyHealthRagdoll : MonoBehaviour
     private float fireDotPctPerSec = 0f;          // e.g., 0.03f == 3%/sec
     private GameObject activeFireVFX;
 
+    // --- VENOM INFUSION state -------------------------------------
+    private bool venomDotActive = false;
+    private float venomDotPctPerSec = 0f;
+    private float venomDotEndTime = 0f;
+    private float venomNextTickTime = 0f;
+    private GameObject activeVenomVFX = null;
+
+
 
 
     void Start()
@@ -151,6 +159,25 @@ public class EnemyHealthRagdoll : MonoBehaviour
                 TakeDamage(tickDamage, Vector3.zero); // direction not important for DOT
             }
         }
+
+        // --- VENOM infusion DOT tick ---
+        if (venomDotActive)
+        {
+            if (Time.time >= venomDotEndTime || isDead)
+            {
+                venomDotActive = false;
+                if (activeVenomVFX != null) { Destroy(activeVenomVFX); activeVenomVFX = null; }
+            }
+            else if (Time.time >= venomNextTickTime)
+            {
+                venomNextTickTime += 1f; // next second
+
+                // % of MAX health per second (minimum 1 damage so it always hurts)
+                float tickDamage = Mathf.Max(1f, Health * venomDotPctPerSec);
+                TakeDamage(tickDamage, Vector3.zero);
+            }
+        }
+
     }
 
     //-------------------------------INFUSION ATTACK BULLET ------------
@@ -179,8 +206,29 @@ public class EnemyHealthRagdoll : MonoBehaviour
         //{
         //    // if already exists, you can refresh lifetime or leave it
         //}
+        }
     }
+    public void ApplyVenomInfusionEffect(float durationSeconds, float percentPerSec, GameObject onEnemyVFXPrefab, Vector3 vfxLocalPos, Vector3 vfxLocalEuler, Vector3 vfxLocalScale) 
+    { 
+        venomDotActive = true;
+        venomDotPctPerSec = Mathf.Max(0f, percentPerSec);
+        venomDotEndTime = Time.time + Mathf.Max(0f, durationSeconds);
+        venomNextTickTime = Time.time + 1f; // tick every 1s
+
+        if (onEnemyVFXPrefab != null)
+        {
+            if (activeVenomVFX == null)
+            {
+                activeVenomVFX = Instantiate(onEnemyVFXPrefab, transform);
+            }
+            // enforce a uniform transform every (re)apply
+            activeVenomVFX.transform.localPosition = vfxLocalPos;
+            activeVenomVFX.transform.localRotation = Quaternion.Euler(vfxLocalEuler);
+            activeVenomVFX.transform.localScale = vfxLocalScale;
+        }
     }
+
+
 
     // ---------------------------- HEALTH BAR ----------------------
 

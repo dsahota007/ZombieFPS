@@ -6194,6 +6194,9 @@ MonoBehaviour:
   crimsonMagMaterial: {fileID: 2100000, guid: 5f3c4f12884deb741ae0cae5f869abfe, type: 2}
   crimsonMuzzleFlash: {fileID: 6980259576133684760, guid: a65a22363909a334f9053fd5f102ba2a,
     type: 3}
+  hasInfusionVFX: 0
+  hasInfusionSkin: 0
+  infusedElement: 
   fireOnEnemyVFXPrefab: {fileID: 8793510976239746625, guid: a02d33c7dd2f7ae46845f298e33149df,
     type: 3}
   fireDotPercentPerSec: 0.05
@@ -6202,9 +6205,13 @@ MonoBehaviour:
   fireOnEnemyVFXOffset: {x: 0, y: 1.5, z: 0}
   fireOnEnemyVFXEuler: {x: 90, y: 90, z: 0}
   fireOnEnemyVFXScale: {x: 1, y: 1, z: 1}
-  hasInfusionVFX: 0
-  hasInfusionSkin: 0
-  infusedElement: 
+  venomOnEnemyVFXPrefab: {fileID: 8974203713140315807, guid: bb551d6d8bff8534489da6c181fe051d,
+    type: 3}
+  venomDotPercentPerSec: 0.03
+  venomDotDuration: 4
+  venomOnEnemyVFXOffset: {x: 0, y: 0, z: 0}
+  venomOnEnemyVFXEuler: {x: 0, y: 0, z: 0}
+  venomOnEnemyVFXScale: {x: 1, y: 1, z: 1}
 --- !u!1 &8027666018750598299
 GameObject:
   m_ObjectHideFlags: 0

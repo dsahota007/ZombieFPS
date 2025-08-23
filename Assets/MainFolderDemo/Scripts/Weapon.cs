@@ -218,6 +218,11 @@ public class Weapon : MonoBehaviour
     public Material crimsonMagMaterial;
     public GameObject crimsonMuzzleFlash;
 
+    //----------- Infusion tracking variables
+    [HideInInspector] public bool hasInfusionVFX = false;
+    [HideInInspector] public bool hasInfusionSkin = false;
+    private GameObject currentInfusionVFX;
+    [HideInInspector] public string infusedElement = "";
 
 
     [Header("Infusion Bullet Logic")]
@@ -230,16 +235,14 @@ public class Weapon : MonoBehaviour
     public Vector3 fireOnEnemyVFXEuler = Vector3.zero;
     public Vector3 fireOnEnemyVFXScale = Vector3.one;
 
+    [Header("Venom On-Enemy VFX")]
+    public GameObject venomOnEnemyVFXPrefab;
+    public float venomDotPercentPerSec = 0.03f;  
+    public float venomDotDuration = 4f;
+    public Vector3 venomOnEnemyVFXOffset = Vector3.zero;
+    public Vector3 venomOnEnemyVFXEuler = Vector3.zero;
+    public Vector3 venomOnEnemyVFXScale = Vector3.one;
 
-
-
-
-    //----------- Infusion tracking variables
-    [HideInInspector] public bool hasInfusionVFX = false;
-    [HideInInspector] public bool hasInfusionSkin = false;
-    private GameObject currentInfusionVFX;
-    [HideInInspector] public string infusedElement = "";
- 
 
     public void ApplyPackAPunchSkin()
     {

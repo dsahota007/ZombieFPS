@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 //using static UnityEditor.PlayerSettings;
 
 public class Bullet : MonoBehaviour
@@ -82,6 +82,15 @@ public class Bullet : MonoBehaviour
                     sourceWeapon.fireOnEnemyVFXOffset, sourceWeapon.fireOnEnemyVFXEuler, sourceWeapon.fireOnEnemyVFXScale
                 );
             }
+
+            // ☠️ Venom DOT + VFX
+            if (sourceWeapon != null && sourceWeapon.infusion == InfusionType.Venom)
+            {
+                enemy.ApplyVenomInfusionEffect( sourceWeapon.venomDotDuration, sourceWeapon.venomDotPercentPerSec, sourceWeapon.venomOnEnemyVFXPrefab,
+                                        sourceWeapon.venomOnEnemyVFXOffset, sourceWeapon.venomOnEnemyVFXEuler, sourceWeapon.venomOnEnemyVFXScale
+                );
+            }
+
         }
 
         Destroy(gameObject);
