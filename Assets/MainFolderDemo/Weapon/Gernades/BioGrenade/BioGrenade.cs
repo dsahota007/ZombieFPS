@@ -60,7 +60,7 @@ public class BioGrenade : MonoBehaviour
         if (hasImpacted) return;
         if (other.CompareTag("Ground") || other.CompareTag("Wall") || other.CompareTag("Enemy"))
         {
-            TriggerBioEffect();   // same as venom, just bio gas
+            TriggerBioEffect();   // same as venom, just bio gas 
         }
     }
 

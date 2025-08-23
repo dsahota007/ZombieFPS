@@ -181,8 +181,6 @@ public class MagicManager : MonoBehaviour
                 case MagicType.Meteor: cooldown = 2f; break;
                 case MagicType.Crimson: cooldown = 8f; break;
             }
-
-
         }
     }
 

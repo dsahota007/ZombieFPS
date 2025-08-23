@@ -18,8 +18,8 @@ public class EnemyHealthRagdoll : MonoBehaviour
 
     //------------------------------------------------------------------------
 
-    private PlayerMovement _player;         //THIS IS ALL FOR STEPPING ON HEJAD WE CAN DO BETTER
-    private CharacterController _playerCC;  //THIS IS ALL FOR STEPPING ON HEJAD WE CAN DO BETTER
+    private PlayerMovement _player;         //THIS IS ALL FOR STEPPING ON HEAD WE CAN DO BETTER
+    private CharacterController _playerCC;  //THIS IS ALL FOR STEPPING ON HEAD WE CAN DO BETTER
     public float HealthPercent => Mathf.Clamp01(currentHealth / Mathf.Max(1f, (float)Health)); //this is for healt bar for enemy 
 
     [Header("Health Bar UI")]
