@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
     public GameObject groundHitEffect;
     public LayerMask layersToIgnore;
 
+    public Weapon sourceWeapon;  // set by Weapon.Shoot()
+
     Rigidbody rb;
     Collider myCol;
 
@@ -72,6 +74,14 @@ public class Bullet : MonoBehaviour
 
             Vector3 dir = transform.forward;
             enemy.TakeDamage(damage, dir);
+
+            //Fire infusion DOT logic
+            if (sourceWeapon != null && sourceWeapon.infusion == InfusionType.Fire)
+            {
+                enemy.ApplyFireInfusionEffect( sourceWeapon.fireDotDuration, sourceWeapon.fireDotPercentPerSec, sourceWeapon.fireOnEnemyVFXPrefab, 
+                    sourceWeapon.fireOnEnemyVFXOffset, sourceWeapon.fireOnEnemyVFXEuler, sourceWeapon.fireOnEnemyVFXScale
+                );
+            }
         }
 
         Destroy(gameObject);

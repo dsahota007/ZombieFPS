@@ -220,12 +220,26 @@ public class Weapon : MonoBehaviour
 
 
 
+    [Header("Infusion Bullet Logic")]
+    [Header("Fire Infusion VFX")]
+    public GameObject fireOnEnemyVFXPrefab;   // VFX that sticks to enemies you burn
+    public float fireDotPercentPerSec = 0.03f; // 3% per second
+    public float fireDotDuration = 4f;         // seconds
+    [HideInInspector] public GameObject enemyInfusionVFX;   // make bullets know which VFX to stick on enemies for this infusion
+    public Vector3 fireOnEnemyVFXOffset = Vector3.zero;
+    public Vector3 fireOnEnemyVFXEuler = Vector3.zero;
+    public Vector3 fireOnEnemyVFXScale = Vector3.one;
+
+
+
+
+
     //----------- Infusion tracking variables
     [HideInInspector] public bool hasInfusionVFX = false;
     [HideInInspector] public bool hasInfusionSkin = false;
     private GameObject currentInfusionVFX;
     [HideInInspector] public string infusedElement = "";
-
+ 
 
     public void ApplyPackAPunchSkin()
     {
@@ -370,7 +384,9 @@ public class Weapon : MonoBehaviour
         if (ui.IsInfusePanelOpen) return;
         if (isWeaponBeingShowcased || !CanShoot() || isReloading || IsSprinting()) return; //leave func if u cant
 
-        currentAmmo--;
+        var dm = FindFirstObjectByType<DropManager>();  
+        if (dm == null || !dm.IsInfiniteAmmo)
+            currentAmmo--;      //only reduce ammo if not in infiteAmmo drop
 
         if (bulletPrefab && firePoint)
         {
@@ -379,8 +395,11 @@ public class Weapon : MonoBehaviour
             if (bullet != null)
             {
                 bullet.damage = bulletDamage;   // <-- weapon-specific damage
+                bullet.sourceWeapon = this;   // << add this so bullet knows infusion + VFX + DOT params
+
             }
         }
+
 
 
         //// --- Spawn muzzle flash ---
@@ -663,6 +682,9 @@ public class Weapon : MonoBehaviour
         }
 
         Debug.Log("[Weapon] Fire infusion effects applied!");
+
+        enemyInfusionVFX = fireOnEnemyVFXPrefab;
+
     }
 
     private void ApplyCrystalInfusion()

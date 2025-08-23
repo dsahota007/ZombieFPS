@@ -5,13 +5,15 @@ public class DropManager : MonoBehaviour
     [Header("Durations (seconds)")]
     public float doublePointsDuration = 30f;
     public float instaKillDuration = 25f;
+    public float infiniteAmmoDuration = 30f;
 
     private float doublePointsEnd = -999f;
     private float instaKillEnd = -999f;
-
+    private float infiniteAmmoEnd = -999f;
 
     public bool IsDoublePoints => Time.time < doublePointsEnd;
     public bool IsInstaKill => Time.time < instaKillEnd;
+    public bool IsInfiniteAmmo => Time.time < infiniteAmmoEnd;
 
     void Update()
     {
@@ -62,6 +64,13 @@ public class DropManager : MonoBehaviour
                 if (mm != null) mm.RestoreCooldownNow();   
                 FindFirstObjectByType<UI>()?.ShowToast("MAGIC RESTORED", 1.5f);
                 break;
+
+            case DropType.InfiniteAmmo:
+                infiniteAmmoEnd = Time.time + infiniteAmmoDuration;
+                FindFirstObjectByType<UI>()?.ShowTimedPowerup("infinite", "INFINITE AMMO", infiniteAmmoDuration);
+                break;
+
+
         }
 
         void DoMaxAmmo()

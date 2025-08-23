@@ -7,6 +7,7 @@ public enum DropType
     Nuke,
     BonusPoints,
     FullMagic,
-    TriplePoints
+    TriplePoints,
+    InfiniteAmmo
 }
 

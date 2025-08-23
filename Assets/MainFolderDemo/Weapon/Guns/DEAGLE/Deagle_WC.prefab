@@ -380,7 +380,7 @@ MonoBehaviour:
     type: 3}
   voidInfusionVFXPrefab: {fileID: 3473529909581181512, guid: e37572ac88e215b45bd8486bd766350a,
     type: 3}
-  voidVFXOffset: {x: -0.055, y: -0.01, z: 0.15}
+  voidVFXOffset: {x: -0.12, y: -0.01, z: 0.15}
   voidVFXRotation: {x: 180, y: 0, z: 180}
   voidVFXScale: {x: 1, y: 1, z: 1}
   voidGunMaterial: {fileID: 2100000, guid: e5c85356f91779d40800df3bb980c10b, type: 2}
@@ -418,7 +418,7 @@ MonoBehaviour:
     type: 3}
   windInfusionVFXPrefab: {fileID: 3473529909581181512, guid: b9113a4a764a4854fb90fd4768e5a5ac,
     type: 3}
-  windVFXOffset: {x: -0.1, y: -0.01, z: 0.02}
+  windVFXOffset: {x: -0.1, y: -0.01, z: -0.2}
   windVFXRotation: {x: 180, y: 0, z: 180}
   windVFXScale: {x: 1, y: 1, z: 1}
   windGunMaterial: {fileID: 2100000, guid: ea4a47c0f480a8c48a80f6f5a0d1cb1a, type: 2}

@@ -10325,6 +10325,7 @@ MonoBehaviour:
   - {fileID: 4943829022777390022, guid: 18eb19c93bbc7994d851638dce5d0f86, type: 3}
   - {fileID: 4943829022777390022, guid: 15acca11bafd483478eeefcfa38138d3, type: 3}
   - {fileID: 4943829022777390022, guid: 20f3f79146bb3ac4c9e9e412db6818a0, type: 3}
+  - {fileID: 4943829022777390022, guid: e7e8d90ed8bd8a343ac9d7963f7fbfca, type: 3}
 --- !u!114 &909147853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10339,6 +10340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doublePointsDuration: 30
   instaKillDuration: 25
+  infiniteAmmoDuration: 30
 --- !u!1 &912176913
 GameObject:
   m_ObjectHideFlags: 0
@@ -16338,12 +16340,12 @@ MonoBehaviour:
   leftArm: {fileID: 7637772888687164386}
   rightArm: {fileID: 7138732185366571710}
   weaponPrefabs:
-  - {fileID: 7896929993975101864, guid: 8cfb9d92a596d79478b329debec6748f, type: 3}
-  - {fileID: 7896929993975101864, guid: 786a7cdbc902d1044b0da9f008da0a67, type: 3}
-  - {fileID: 7896929993975101864, guid: 99da5065ae5197040bf7c77e9640a3a2, type: 3}
-  - {fileID: 7896929993975101864, guid: 3638afb2936fd064397e126682322ff6, type: 3}
-  - {fileID: 7896929993975101864, guid: e06a9575b3827154f9894a58b08eae1a, type: 3}
   - {fileID: 7896929993975101864, guid: 3cf51b44393fa4043a20003c20e3e5b4, type: 3}
+  - {fileID: 7896929993975101864, guid: 3638afb2936fd064397e126682322ff6, type: 3}
+  - {fileID: 7896929993975101864, guid: 786a7cdbc902d1044b0da9f008da0a67, type: 3}
+  - {fileID: 7896929993975101864, guid: 8cfb9d92a596d79478b329debec6748f, type: 3}
+  - {fileID: 7896929993975101864, guid: 99da5065ae5197040bf7c77e9640a3a2, type: 3}
+  - {fileID: 7896929993975101864, guid: e06a9575b3827154f9894a58b08eae1a, type: 3}
   - {fileID: 7896929993975101864, guid: a7a21d926f9e7ea409911539319bf24b, type: 3}
   disableSwitching: 0
 --- !u!1 &1539081777
@@ -16741,14 +16743,13 @@ MonoBehaviour:
   - {fileID: 6149432723859890116, guid: e20a78585e15dfc47872c97297648c17, type: 3}
   - {fileID: 7224478408790448130, guid: cd1b764f06bfee844a726211ef5fee4c, type: 3}
   - {fileID: 7560827146355968688, guid: 89d43b2956839244988f109367c4f229, type: 3}
-  - {fileID: 7217697383087328957, guid: 1bb4d1d757d2f9840b251f80547560bf, type: 3}
   spawnPoints:
   - {fileID: 1408653337}
   - {fileID: 1920125453}
   - {fileID: 1632199129}
   - {fileID: 2098151089}
   - {fileID: 515911958}
-  startZombies: 6
+  startZombies: 3
   zombiesPerRound: 3
 --- !u!4 &1595701418
 Transform:

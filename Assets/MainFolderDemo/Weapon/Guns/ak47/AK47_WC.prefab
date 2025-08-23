@@ -6194,6 +6194,14 @@ MonoBehaviour:
   crimsonMagMaterial: {fileID: 2100000, guid: 5f3c4f12884deb741ae0cae5f869abfe, type: 2}
   crimsonMuzzleFlash: {fileID: 6980259576133684760, guid: a65a22363909a334f9053fd5f102ba2a,
     type: 3}
+  fireOnEnemyVFXPrefab: {fileID: 8793510976239746625, guid: a02d33c7dd2f7ae46845f298e33149df,
+    type: 3}
+  fireDotPercentPerSec: 0.05
+  fireDotDuration: 4
+  enemyInfusionVFX: {fileID: 0}
+  fireOnEnemyVFXOffset: {x: 0, y: 1.5, z: 0}
+  fireOnEnemyVFXEuler: {x: 90, y: 90, z: 0}
+  fireOnEnemyVFXScale: {x: 1, y: 1, z: 1}
   hasInfusionVFX: 0
   hasInfusionSkin: 0
   infusedElement: 
